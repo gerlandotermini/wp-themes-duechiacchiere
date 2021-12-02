@@ -1,0 +1,24 @@
+/* Tags */
+body{background:url(../img/may-body_bg.jpg) repeat fixed 0 0 #869a79}
+a,a:visited{color:#869a79}
+
+/* Structure */
+#content h2,.post-single h1,#content h2 a{color:#869a79}
+#content h2 a:focus,#content h2 a:active,
+ul.post-information a:hover,ul.post-information a:focus,ul.post-information a:active,
+#content a:hover,#content a:focus,#content a:active,
+.plain-list a:hover,.plain-list a:focus,.plain-list a:active,
+#pagination a:hover,#pagination a:focus,#pagination a:active{background-color:#869a79;color:#fff}
+#content .interview .first{background-color:#add1e3}
+#content .interview .second{background-color:#f5de9e}
+#sidebar h3{border-bottom:2px solid #8B8557;color:#8B8557}
+#sidebar li{border-bottom:1px solid #ddd}
+.side-list a:hover,.side-list a:focus,.side-list a:active{background-color:#869a79;color:#fff}
+#footer-navigation a:hover,#footer-navigation a:focus,#footer-navigation a:active{background-color:#869a79;color:#fff}
+
+/* Mobile */
+@media screen and (max-width:768px){
+body{background-image:none}
+#content li h2 a{background-color:#869a79;color:#fff}
+#content h2,.post-single h1,#content h2 a:hover,#content h2 a:focus,#content h2 a:active{color:#869a79}
+}

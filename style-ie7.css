@@ -1,0 +1,18 @@
+@media screen{
+#page-wrapper{background-image:url(img/ie7/bg-page-wrapper.png)}
+#top-navigation li ul{background-image:url(img/ie7/bg-dropdown.png)}
+.post-information li.comments{background-image:url(img/ie7/comments-bubble.png)}
+#content blockquote{background-image:url(img/ie7/quote.png)}
+#content a.external{background-image:url(img/ie7/external-link.gif)}
+#comment-form #author,#contact-form #contact_name{background-image:url(img/ie7/comment_author.gif)}
+#comment-form #email,#contact-form #contact_mail{background-image:url(img/ie7/comment_email.gif)}
+#comment-form #url{background-image:url(img/ie7/comment_url.gif)}
+#search-form #s{background-image:url(img/ie7/search-icon.png)}
+#footer-navigation{background-image:url(img/ie7/bg-footer-navigation.png)}
+input.button{background-image:url(img/ie7/background-button.png)}
+input.subscribe-form-button{background-image:url(img/ie7/background-button.png)}
+}
+@media print{
+#content blockquote{background-image:url(img/ie7/quote.png)}
+#content a.external{background-image:url(img/ie7/external-link.gif)}
+}
