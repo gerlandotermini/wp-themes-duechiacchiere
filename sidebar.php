@@ -1,4 +1,9 @@
-		<div id="sidebar">
+		<aside>
+			<h2>About section</h2>
+			<p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+		</aside>
+<?php /*
+<div id="sidebar">
 			<h3 class="hidden">cerca tra i miei articoli</h3>
 			<form action="/" method="get" id="search-form" onsubmit="if(this.s.value=='') return false">
 				<fieldset id="search-form-fieldset">
@@ -6,7 +11,7 @@
 					<input type="text" name="s" value="" size="13" class="text" id="s" />
 					<label class="hidden" for="search-button">avvia la ricerca</label>
 					<input type="submit" value="CERCA" id="search-button" class="button" />
-					<a class="icon rss" href="http://feeds.feedburner.com/duechiacchiere" title="tieniti aggiornato sulle ultime notizie dalla casa">RSS</a>
+					<a class="icon rss" href="https://feeds.feedburner.com/duechiacchiere" title="tieniti aggiornato sulle ultime notizie dalla casa">RSS</a>
 					<a class="icon contact" href="/contatto" title="mandami un messaggio tramite il blog">Contattami</a>
 				</fieldset>
 			</form>
@@ -60,3 +65,5 @@ foreach( $rand_posts as $post ): setup_postdata($post);
 			</ul>
 		</div>
 		<!-- END: #sidebar -->
+
+		*/

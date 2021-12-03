@@ -1,4 +1,23 @@
 <?php get_header() ?>
+	<div id="content-wrapper">
+		<main id="content">
+			<article>
+				<header>
+					<h1>Article title</h1>
+					<p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
+				</header>
+				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+			</article>
+		</main>
+
+<?php get_sidebar() ?>
+	</div>
+
+<?php get_footer() ?>
+
+
+
+<?php /* get_header() ?>
 		<div id="content" class="post-single"><?php the_post() ?>
 			<h1><?php echo $post_title = the_title('','',false) ?></h1>
 			<h2 class="hidden">Informazioni su questo articolo</h2>
@@ -74,7 +93,7 @@ if (!post_password_required()) comments_template(); ?>
 				<input type="hidden" name="url" value=""/>				
 <?php } ?>
 				<p><?php if (function_exists('subscribe_reloaded_show')) subscribe_reloaded_show(); ?></p>
-				<p><label for="comment-text" class="hidden">Commento</label> <textarea name="comment" id="comment-text" cols="60%" rows="10"></textarea></p>
+				<p><label for="comment-text" class="hidden">Commento</label> <textarea name="comment" id="comment-text" cols="60" rows="10"></textarea></p>
 				<p><input name="submit" type="submit" class="button" id="submit" value="Invia il tuo commento" /></p> 
 				<?php comment_id_fields(); ?>
 			</fieldset>
@@ -87,4 +106,4 @@ if (!post_password_required()) comments_template(); ?>
 	</div>
 	<!-- END: #container -->
 
-<?php get_footer() ?>
+<?php get_footer() ?> */

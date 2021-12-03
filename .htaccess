@@ -1,5 +1,0 @@
-ErrorDocument 403 https://www.duechiacchiere.it/errordocs/403.html
-<Files ~ "\.php$">
- Order Deny,Allow
- Deny from all
-</Files>
