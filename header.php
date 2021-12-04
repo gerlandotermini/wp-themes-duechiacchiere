@@ -44,25 +44,18 @@
 <?php endif; ?>
 	<!-- END: Editorial info -->
 
-	<!-- BEGIN: Styles and fonts -->
-	<link rel="stylesheet" href="<?= get_template_directory_uri() ?>/style.css" type="text/css" media="screen,print" />
+	<!-- BEGIN: Google fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&family=Outfit:wght@200;400&display=swap" rel="stylesheet">
-	<!-- END: Styles and fonts -->
+	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<!-- END: Google fonts -->
 
 	<!-- BEGIN: RSS feed -->
 	<link rel="alternate" type="application/rss+xml" title="Articoli del blog" href="https://feeds.feedburner.com/duechiacchiere" />
 	<!-- END: RSS feed -->
 
 	<!-- BEGIN: WP_Head -->
-	<?php 
-		ob_start();
-		wp_head();
-		$header = ob_get_contents();
-		ob_end_clean();
-		echo preg_replace("/\n</", "\n\t<", $header );
-		echo "\n"; ?>
+	<?php wp_head(); ?>
 	<!-- END: WP_Head -->
 </head>
 
@@ -70,17 +63,19 @@
 	<a class="skip" href="#content">Skip to content</a>
 
 	<header id="header-container">
-		<section>
-			<a id="logo" href="/" title="Torna alla pagina iniziale del sito"><img src="<?= get_template_directory_uri() ?>/img/boy/<?= $category_boy ?>.png" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" /></a>
-			<p id="site-name"><?= get_bloginfo( 'name' ) ?></p>
-		</section>
+		<div id="branding">
+			<img id="logo" src="<?= get_template_directory_uri() ?>/img/boy/<?= $category_boy ?>.png" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
+			<h2 id="name"><a href="/" title="Torna alla pagina iniziale del sito"><?= get_bloginfo( 'name' ) ?></a></h2>
+		</div>
 
-		<nav>
-			<ul>
-				<li><a href="#">Menu item</a></li>
-				<li><a href="#">Menu item</a></li>
-				<li><a href="#">Menu item</a></li>
-			</ul>
+		<nav aria-label="Navigazione primaria">
+			<?php
+				wp_nav_menu( array(
+					'theme_location' => 'primary',
+					'container' => '',
+					'depth' => 2
+				) );
+				?>
 		</nav>
 	</header>
 

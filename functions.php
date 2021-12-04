@@ -63,7 +63,36 @@ function duechiacchiere_remove_unnecessary_wp_headers() {
 	remove_action( 'wp_head', 'index_rel_link' );
 }
 
+add_filter( 'nav_menu_link_attributes', 'wcag_nav_menu_link_attributes', 10, 4 );
+function wcag_nav_menu_link_attributes( $atts, $item, $args, $depth ) {
 
+	// Add [aria-haspopup] and [aria-expanded] to menu items that have children
+	$item_has_children = in_array( 'menu-item-has-children', $item->classes );
+	if ( $item_has_children ) {
+			$atts['aria-haspopup'] = "true";
+			$atts['aria-expanded'] = "false";
+	}
+
+	return $atts;
+}
+
+add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts' );
+function wpdocs_theme_name_scripts() {
+	wp_enqueue_style( 'duechiacchiere', get_stylesheet_uri() );
+	wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/js/duechiacchiere.js', array(), null, true );
+}
+
+class duechiacchiere {
+	public static function init() {
+		// This theme uses wp_nav_menu() above and below the main page header
+		register_nav_menus( array(
+			'primary' => 'Primary Navigation'
+		) );
+	}
+}
+
+// Add the appropriate actions
+add_action( 'after_setup_theme', array( 'duechiacchiere', 'init' ), 20 );
 
 
 

@@ -2,6 +2,9 @@
 			<h2>About section</h2>
 			<p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
 		</aside>
+
+
+
 <?php /*
 <div id="sidebar">
 			<h3 class="hidden">cerca tra i miei articoli</h3>

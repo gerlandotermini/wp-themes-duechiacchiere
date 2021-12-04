@@ -1,4 +1,5 @@
-<?php get_header() ?>
+	<?php get_header() ?>
+
 	<div id="content-wrapper">
 		<main id="content">
 			<h1 class="sr-only">Page Description (benvenuti, ultimi articoli per ... categoria)</h1>
@@ -44,10 +45,10 @@
 			</article>
 		</main>
 
-<?php get_sidebar() ?>
+		<?php get_sidebar() ?>
 	</div>
 
-<?php get_footer() ?>
+	<?php get_footer() ?>
 
 <?php 
 

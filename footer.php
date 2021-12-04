@@ -2,6 +2,14 @@
 		<p>Copyright 2009 Your name</p>
 	</footer>
 
+	<!-- BEGIN: WP_Footer -->
+	<?php ob_start();
+		wp_footer();
+		$footer = ob_get_contents();
+		ob_end_clean();
+		$footer = str_replace( " type='text/javascript'", '', $footer );
+		echo str_replace( ' type="text/javascript"', '', $footer ); ?>
+	<!-- END: WP_Footer -->
 </body>
 </html>
 
@@ -49,14 +57,7 @@
 
 <div id="back-to-top"><a href="#header" onclick="if(typeof ss_track == 'function'){ss_track(event, 5, 'backtotop');}smooth_top(); return false;"><span class="hidden">torna in cima</span></a></div>
 
-<!-- BEGIN: WP_Footer -->
-<?php ob_start();
-		wp_footer();
-		$footer = ob_get_contents();
-		ob_end_clean();
-		$footer = str_replace( " type='text/javascript'", '', $footer );
-		echo str_replace( ' type="text/javascript"', '', $footer ); ?>
-<!-- END: WP_Footer -->
+
 
 </body>
 </html> */

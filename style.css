@@ -6,6 +6,18 @@
 3. HTML Tags
 4. Accessibility
 5. Monthly colors
+  5.1 January
+  5.2 February
+  5.3 March
+  5.4 April
+  5.5 May
+  5.6 June
+  5.7 July
+  5.8 August
+  5.9 September
+  5.10 October
+  5.11 November
+  5.12 December
 
 */
 
@@ -20,12 +32,13 @@ html {
 body {
   border-radius: 10px;
   box-shadow: 0px 0px 0px 12px rgb( 255 255 255 / 40% );
+  color: #222;
   font-family: 'Outfit', sans-serif;
   font-size: 1.1em;
   font-weight: 400;
   margin: 0 auto;
   max-width: 1200px;
-  width: 75%;
+  width: 90%;
 }
 #content-wrapper {
   background-color: rgba( 255 255 255 / 95% );
@@ -59,29 +72,69 @@ footer {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
-#header-container section {
+#header-container > div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   padding: 10px 10px 0;
   width: 100%;
 }
-#header-container section > * {
+#header-container > div > * {
   display: flex;
 }
-#header-container section #logo {
-  flex: 1;
-}
-#header-container section #site-name {
+#header-container #name {
   align-self: end;
-  color: #a00;
-  font-family: 'Fuzzy Bubbles', cursive;
-  font-size: 3em;
-  margin: 0 40px 0 0;
+  font-size: 3.5em;
+  margin: 0 40px 0 auto;
+}
+#header-container #name a {
+  text-decoration: none;
+}
+#header-container #name a:hover, #header-container #name a:focus {
+  filter: brightness( 45% );
 }
 #header-container nav {
-  border-top: 1px solid #000;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
 }
+ul#menu-primary-navigation {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0 10px;
+  position: relative;
+}
+ul#menu-primary-navigation > li {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+ul#menu-primary-navigation a {
+  color: #222;
+  text-decoration: none;
+}
+ul#menu-primary-navigation a:hover, ul#menu-primary-navigation a:focus {
+  font-weight: 700;
+}
+ul#menu-primary-navigation ul.sub-menu {
+  display: none;
+}
+ul#menu-primary-navigation li.menu-item-has-children:hover > ul.sub-menu,
+ul#menu-primary-navigation li.menu-item-has-children.focus > ul.sub-menu {
+  background-color: rgba( 245 245 245 / 0.95 );
+  border: 1px solid #ccc;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: block;
+  margin: 30px 0 0 -10px;
+  padding: 5px 10px;
+  position: absolute;
+}
+ul.sub-menu li {
+  list-style-type: none;
+  padding: 5px 0;
+}
+
 
 /* 3. HTML Tags */
 h2 {
@@ -90,6 +143,7 @@ h2 {
 
 /* 4. Accessibility */
 a.skip {
+  background-color: #fff;
   height: 1px;
   left: -10000px;
   overflow: hidden;
@@ -99,7 +153,6 @@ a.skip {
 }
  
 a.skip:focus {
-  background-color: #fff;
   font-size: 2em;
   font-weight: 100;
   height: auto;
@@ -112,42 +165,68 @@ a.skip:focus {
 }
 
 /* 5. Monthly colors */
+
+/* 5.1 January */
 body.january {
   background: url( "img/month/1.jpg" ) repeat-x fixed 0 0 #000;
 }
+
+/* 5.2 February */
 body.february {
   background: url( "img/month/2.jpg" ) repeat fixed center 0 #786960;
 }
+
+/* 5.3 March */
 body.march {
   background: url( "img/month/3.png" ) repeat fixed center 0 #000939;
 }
+
+/* 5.4 April */
 body.april {
   background: url( "img/month/4.jpg" ) repeat fixed center 0 #0d6f00;
 }
+
+/* 5.5 May */
 body.may {
   background: url( "img/month/5.jpg" ) repeat fixed center 0 #0d6f00;
 }
+
+/* 5.6 June */
 body.june {
   background: url( "img/month/6.jpg" ) repeat fixed center 0 #0d6f00;
   box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
 }
+
+/* 5.7 July */
 body.july {
   background: url( "img/month/7.jpg" ) no-repeat fixed center 0 #040001;
 }
+
+/* 5.8 August */
 body.august {
   background: url( "img/month/8.jpg" ) repeat fixed center 0 #fecc59;
   box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
 }
+
+/* 5.9 September */
 body.september {
   background: url( "img/month/9.png" ) repeat fixed center 0 #ac4900;
 }
+
+/* 5.10 October */
 body.october {
   background: url( "img/month/10.jpg" ) repeat fixed center 0 #ac4900;
 }
+
+/* 5.11 November */
 body.november {
   background: url( "img/month/11.jpg" ) repeat fixed center 0 #ac4900;
 }
+
+/* 5.12 December */
 body.december {
-  background: url( "img/month/12.jpg" ) repeat fixed center 0 #ac4900;
-  box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
+  background: url( "img/month/12.webp" ) repeat fixed center 0 #ac4900;
+}
+body.december #header-container #name a {
+  color: #a00;
 }
