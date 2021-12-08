@@ -3,46 +3,15 @@
 	<div id="content-wrapper">
 		<main id="content">
 			<h1 class="sr-only">Page Description (benvenuti, ultimi articoli per ... categoria)</h1>
-
+			<?php while ( have_posts() ): the_post(); ?>
 			<article>
 				<header>
-					<h2>Article title</h2>
+					<h2><a href="<?php the_permalink() ?>"><?php the_title( '', '' ) ?></a></h2>
 					<p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
 				</header>
-				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+				<?php the_content( '<span class="sr-only">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false ); ?>
 			</article>
-
-			<article>
-				<header>
-					<h2>Article title</h2>
-					<p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
-				</header>
-				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-			</article>
-
-			<article>
-				<header>
-					<h2>Article title</h2>
-					<p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
-				</header>
-				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-			</article>
-
-			<article>
-				<header>
-					<h2>Article title</h2>
-					<p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
-				</header>
-				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-			</article>
-
-			<article>
-				<header>
-					<h2>Article title</h2>
-					<p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
-				</header>
-				<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-			</article>
+			<?php endwhile; ?>
 		</main>
 
 		<?php get_sidebar() ?>
