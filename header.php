@@ -52,6 +52,9 @@
 
 		$category_boy = $category->slug;
 	}
+	else if ( is_404() ) {
+		$category_boy = '404';
+	}
 
 	$bg_month = strtolower( date( 'F' ) );
 	if ( $category_boy == 'ingresso' ) {
