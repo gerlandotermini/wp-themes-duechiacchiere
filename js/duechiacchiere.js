@@ -20,7 +20,7 @@ let getSiblings = function ( e ) {
   return siblings;
 }
 
-document.querySelectorAll( '#menu-primary-navigation > .menu-item a' ).forEach( link => {
+document.querySelectorAll( '#header-container ul.menu > .menu-item a' ).forEach( link => {
     // Add a 'focus' event handler to each top level link
     link.addEventListener( 'focus', function() {
       // Append a class 'focus' to the parent li

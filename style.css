@@ -1,4 +1,13 @@
-/* Table of Contents
+/* 
+Theme Name: duechiacchiere
+Author: camu
+Author URI: https://www.duechiacchiere.it
+Description: My personal blog's minimalistic theme. Highly optimized, accessible and easy to use.
+Version: 3.0
+License: This theme is distributed under the terms of the GNU GPL version 2
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Table of Contents
 
 1. Normalize
 2. Structure
@@ -18,7 +27,6 @@
   5.10 October
   5.11 November
   5.12 December
-
 */
 
 
@@ -35,7 +43,7 @@ body {
   color: #222;
   font-family: 'Outfit', sans-serif;
   font-size: 1.1em;
-  font-weight: 400;
+  font-weight: 300;
   margin: 0 auto;
   max-width: 1200px;
   width: 90%;
@@ -76,7 +84,7 @@ footer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 10px 10px 0;
+  padding: 10px 0 0 20px;
   width: 100%;
 }
 #header-container > div > * {
@@ -97,48 +105,55 @@ footer {
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
 }
-ul#menu-primary-navigation {
+#header-container ul.menu {
   display: flex;
   flex-direction: row;
   margin: 0;
-  padding: 0 10px;
+  padding: 0;
   position: relative;
 }
-ul#menu-primary-navigation > li {
+#header-container ul.menu > li {
   display: flex;
   flex-direction: column;
-  padding: 10px;
 }
-ul#menu-primary-navigation a {
-  color: #222;
+#header-container ul.menu a {
+  color: #111;
+  padding: 10px 13px;
   text-decoration: none;
 }
-ul#menu-primary-navigation a:hover, ul#menu-primary-navigation a:focus {
-  font-weight: 700;
+#header-container ul.menu a:hover, #header-container ul.menu a:focus,
+#header-container li.current-menu-item > a, #header-container li.current-menu-parent > a {
+  background-color: #ddd;
 }
-ul#menu-primary-navigation ul.sub-menu {
+#header-container ul.menu ul.sub-menu {
   display: none;
 }
-ul#menu-primary-navigation li.menu-item-has-children:hover > ul.sub-menu,
-ul#menu-primary-navigation li.menu-item-has-children.focus > ul.sub-menu {
-  background-color: rgba( 245 245 245 / 0.95 );
+#header-container ul.menu li.menu-item-has-children:hover > ul.sub-menu,
+#header-container ul.menu li.menu-item-has-children.focus > ul.sub-menu {
+  background-color: rgba( 245 245 245 / 0.97 );
   border: 1px solid #ccc;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   display: block;
-  margin: 30px 0 0 -10px;
-  padding: 5px 10px;
+  margin: 40px 0 0;
+  padding: 0;
   position: absolute;
 }
 ul.sub-menu li {
   list-style-type: none;
-  padding: 5px 0;
+}
+ul.sub-menu a {
+  display: block;
+  min-width: 100px;
 }
 
 
 /* 3. HTML Tags */
-h2 {
-  font-weight: 200;
+h1, h2 {
+  font-weight: 300;
+}
+h1 a, h2 a {
+  text-decoration: none;
 }
 
 /* 4. Accessibility */

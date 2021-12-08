@@ -10,7 +10,7 @@
 	<meta name="author" content="camu" />
 <?php
 	$category_boy = 'ingresso';
-	if ( is_single() ):
+	if ( is_single() ) {
 		if ( has_post_thumbnail( $GLOBALS[ 'post' ]->ID ) ) {
 			$page_image = wp_get_attachment_image_src( get_post_thumbnail_id( $GLOBALS[ 'post' ]->ID ), 'medium' );
 		}
@@ -33,7 +33,6 @@
 		if ( count( $current_categories ) > 0 ) {
 			$category_boy = $current_categories[ 0 ]->slug;
 		}
-		
 ?>
 	<meta property="og:title" content="<?php echo the_title(); ?>"/>
 	<meta property="og:description" content="<?php echo $page_description; ?>"/>
@@ -41,13 +40,43 @@
 	<meta property="og:url" content="<?php echo the_permalink(); ?>"/>
 	<meta property="og:site_name" content="<?php echo get_bloginfo(); ?>"/>
 	<meta property="og:image" content="<?php echo $page_image; ?>"/>
-<?php endif; ?>
+<?php }
+	else if ( is_archive() ) {
+		$category = get_queried_object();
+		$ancestors = get_ancestors( $category->term_id, 'category' );
+
+		// If this category has ancestors, use the topmost ancestor for the boy
+		if ( !empty( $ancestors ) ) {
+			$category = get_category( $ancestors[ count( $ancestors ) - 1 ] );
+		}
+
+		$category_boy = $category->slug;
+	}
+
+	$bg_month = strtolower( date( 'F' ) );
+	if ( $category_boy == 'ingresso' ) {
+		switch ( $bg_month ) {
+			case 'june':
+			case 'july':
+			case 'august':
+				$category_boy .= '-manichecorte';
+				break;
+
+			case 'december':
+				$category_boy .= '-natale';
+				break;
+
+			default:
+				break;
+		}
+	}
+?>
 	<!-- END: Editorial info -->
 
 	<!-- BEGIN: Google fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<!-- END: Google fonts -->
 
 	<!-- BEGIN: RSS feed -->
@@ -59,12 +88,12 @@
 	<!-- END: WP_Head -->
 </head>
 
-<body class="december">
+<body <?= body_class( $bg_month ) ?>">
 	<a class="skip" href="#content">Skip to content</a>
 
 	<header id="header-container">
 		<div id="branding">
-			<img id="logo" src="<?= get_template_directory_uri() ?>/img/boy/<?= $category_boy ?>.png" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
+			<img id="logo" src="<?= get_template_directory_uri() ?>/img/boy/<?= $category_boy ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
 			<h2 id="name"><a href="/" title="Torna alla pagina iniziale del sito"><?= get_bloginfo( 'name' ) ?></a></h2>
 		</div>
 
