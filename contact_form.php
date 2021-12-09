@@ -35,7 +35,7 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 		$data[ $a_key ] = duechiacchiere_scrub_header( $_POST[ $a_key ] );
 	}
 
-	if ( empty( $error_message ) ) {
+	if ( empty( $error_message ) && filter_var( $data [ 'email' ], FILTER_VALIDATE_EMAIL ) ) {
 		$recipient = get_bloginfo( 'admin_email' );
 		
 		$subject = 'Contatto - ' . get_bloginfo( 'name' );
@@ -78,7 +78,7 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 				if ( mail( $recipient, $subject, $full_message, $headers ) ) {
 					$content = '<p>Grazie per avermi contattato. Il tuo messaggio &egrave; stato inviato con successo, riceverai una mia risposta al pi&ugrave; presto.';
 					$content .= "</p><p><strong>Nome</strong>: {$data[ 'author' ]}<br>\n";
-					$content .= "<strong>Email</strong>: $recipient</p>\n";
+					$content .= "<strong>Email</strong>: {$data[ 'email' ]}</p>\n";
 					$content .= "<p><strong>Messaggio</strong>:<br> {$data[ 'message' ]}</p>\n";
 				}
 				else {
@@ -102,7 +102,7 @@ get_header() ?>
 			<?php if ( empty( $content ) ): ?>
 				<p>Usa il modulo qui di seguito se vuoi metterti in contatto con me. In genere rispondo in tempi brevi, ma se vedi che ci metto troppo, puoi lasciare un commento a qualche articolo. Chiss&agrave;, magari la mail &egrave; stata mangiata dal filtro antispam.</p>
 				<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" id="comment-form"
-					onsubmit="if ( ( this.comment.value == '' ) || ( this.author.value == '' ) || ( this.author.value == this.author.defaultValue ) ) { alert( 'Magari prova a metterci un pochino d\'impegno, che ne dici?' ); return false; }">
+					onsubmit='if ( ( this.message.value == "" ) || ( this.author.value == "" ) || !( /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( this.email.value ) ) ) { alert( "Magari prova ad impegnarti di pi&ugrave;, che dici?" ); return false; }'>
 					<fieldset>
 						<legend class="hidden">Modulo di contatto: nome, email, messaggio</legend>
 						<p><label for="author" class="hidden">Nome</label> <input type="text" class="text" name="author" id="author" size="22" maxlength="50" value="<?php echo isset($_COOKIE['comment_author_'.COOKIEHASH])?$_COOKIE['comment_author_'.COOKIEHASH]:''; ?>" /></p>
@@ -120,39 +120,3 @@ get_header() ?>
 </div>
 
 <?php get_footer() ?>
-
-<?php /*
-
-
-include('header.php'); ?>
-		<div id="content" class="post-single">
-			<h1><?php the_title() ?></h1>
-			<?php if (is_user_logged_in()) { echo '<p class="post-information">'; edit_post_link('modifica','',''); echo '</p>'; } ?>
-			<?php if (!empty($error)) echo "<p>Error: $error</p>"; 
-	if (!$myContactStage){ ?>
-			<p>Usa il modulo qui di seguito se vuoi metterti in contatto con me. In genere rispondo in tempi brevi, ma se vedi che ci metto troppo, puoi lasciare un commento a qualche articolo. Chiss&agrave;, magari la mail &egrave; stata mangiata dal filtro antispam.</p>
-			<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" id="comment-form"
-				onsubmit="if ( (this.comment.value == '')
-						(this.author.value == '') ||
-						(this.author.value == this.author.defaultValue) ) { alert('Magari prova a metterci un pochino d\'impegno, che ne dici?'); return false; }">
-				<fieldset>
-					<legend class="hidden">Modulo di contatto: nome, email, messaggio</legend>
-					<p><label for="author" class="hidden">Nome</label> <input type="text" class="text" name="myauthor" id="author" size="22" maxlength="50" value="<?php echo isset($_COOKIE['comment_author_'.COOKIEHASH])?$_COOKIE['comment_author_'.COOKIEHASH]:'nome'; ?>" /></p>
-					<p><label for="email" class="hidden">Email</label> <input type="text" class="text" name="myemail" id="email" size="22" maxlength="50" value="<?php echo isset($_COOKIE['comment_author_email_'.COOKIEHASH])?$_COOKIE['comment_author_email_'.COOKIEHASH]:'email'; ?>" /></p>
-					<p><label for="comment">Messaggio</label> <textarea class="tall" name="mycomment" id="comment" cols="65" rows="7"></textarea></p>
-					<p><input class="button" type="submit" name="Submit" value="Invia il messaggio" id="contact_submit" /></p>
-					<input type="hidden" name="mycontact_stage" value="process" />
-				</fieldset>
-			</form>
-<?php 
-	}
-	else
-		echo $myContent;
-?>
-		</div>
-		<!-- END: #content -->
-<?php include('sidebar.php') ?>	
-	</div>
-	<!-- END: #container -->
-	
-<?php get_footer() */ ?>
