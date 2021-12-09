@@ -4,7 +4,7 @@
 	<main id="content">
 		<article>
 			<header>
-			<h1><?php the_title( '', '' ) ?></h1>
+				<h1><?php the_title( '', '' ) ?></h1>
 				<p><span class="sr-only">Informazioni su questo articolo <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
 			</header>
 			<?php the_content(); ?>
