@@ -36,3 +36,34 @@ document.querySelectorAll( '#header-container ul.menu > .menu-item a' ).forEach(
       });
     });
 });
+
+// Hamburger Menu and Overlay
+document.querySelector( '#mobile-menu-trigger' ).addEventListener( 'click', function() {
+  this.classList.toggle( 'is-active');
+  document.querySelector( '#menu-primary-menu' ).classList.toggle( 'open' );
+  
+});
+
+// Media Queries
+var previousStatus = false;
+viewport = window.matchMedia( "(max-width: 992px)" );
+function adjustLayout( viewport ) {
+  if ( viewport.matches ) {
+    // Mobile layout
+    siteName = document.querySelector( '#branding #name' );
+    if ( typeof siteName != 'undefined' && siteName != null ) {
+      document.querySelector( '#primary-menu' ).prepend( document.querySelector( '#branding #name' ) );
+    }
+  }
+  else {
+    // Desktop Layout
+    siteName = document.querySelector( '#primary-menu #name' );
+    if ( typeof siteName != 'undefined' && siteName != null ) {
+      document.querySelector( '#branding' ).append( document.querySelector( '#primary-menu #name' ) );
+    }
+  }
+}
+
+// Check resolution on load and on resize
+adjustLayout( viewport );
+viewport.addEventListener( 'change', adjustLayout );

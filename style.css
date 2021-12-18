@@ -27,6 +27,9 @@ Table of Contents
   5.10 October
   5.11 November
   5.12 December
+6. Media Queries
+  6.1 Structure
+
 */
 
 
@@ -84,8 +87,7 @@ footer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 10px 0 0 20px;
-  width: 100%;
+  padding: 10px 15px 0;
 }
 #header-container > div > * {
   display: flex;
@@ -93,7 +95,7 @@ footer {
 #header-container #name {
   align-self: end;
   font-size: 3.5em;
-  margin: 0 50px 0 auto;
+  margin: 0 10px 0 auto;
 }
 #header-container #name a {
   text-decoration: none;
@@ -101,9 +103,13 @@ footer {
 #header-container #name a:hover, #header-container #name a:focus {
   filter: brightness( 45% );
 }
+#header-container #mobile-menu-trigger {
+  display: none;
+}
 #header-container nav {
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
+  position: relative;
 }
 #header-container ul.menu {
   display: flex;
@@ -242,6 +248,122 @@ body.november {
 body.december {
   background: url( "img/month/12.webp" ) repeat fixed center 0 #ac4900;
 }
-body.december #header-container #name a {
+body.december #header-container a {
   color: #a00;
+}
+
+/* 6. Media Queries */
+@media (max-width: 992px) {
+  /* 6.1 Structure */
+  #content-wrapper {
+    flex-direction: column;
+  }
+  aside {
+    padding: 20px;
+  }
+
+  /* 6.2 Header */
+  #header-container #name {
+    font-size: 2.5em;
+    margin: 0;
+    text-align: center;
+  }
+  #header-container #mobile-menu-trigger {
+    align-self: center;
+    display: flex;
+    margin: 0 30px 0 auto;
+  }
+  .hamburger {
+    padding: 15px 15px;
+    display: inline-block;
+    cursor: pointer;
+    transition-property: opacity, filter;
+    transition-duration: 0.15s;
+    transition-timing-function: linear;
+    font: inherit;
+    color: inherit;
+    text-transform: none;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    overflow: visible;
+  }
+  .hamburger:hover {
+    opacity: 0.7;
+  }
+  .hamburger.is-active:hover {
+    opacity: 0.7;
+  }
+  .hamburger.is-active .hamburger-inner,
+  .hamburger.is-active .hamburger-inner::before,
+  .hamburger.is-active .hamburger-inner::after {
+    background-color: #000;
+  }
+  
+  .hamburger-box {
+    width: 40px;
+    height: 24px;
+    display: inline-block;
+    position: relative; }
+  
+  .hamburger-inner {
+    display: block;
+    top: 50%;
+    margin-top: -2px; }
+    .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+      width: 40px;
+      height: 4px;
+      background-color: #000;
+      border-radius: 4px;
+      position: absolute;
+      transition-property: transform;
+      transition-duration: 0.15s;
+      transition-timing-function: ease; }
+    .hamburger-inner::before, .hamburger-inner::after {
+      content: "";
+      display: block; }
+    .hamburger-inner::before {
+      top: -10px; }
+    .hamburger-inner::after {
+      bottom: -10px; }
+      .hamburger--squeeze .hamburger-inner {
+        transition-duration: 0.075s;
+        transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+        .hamburger--squeeze .hamburger-inner::before {
+          transition: top 0.075s 0.12s ease, opacity 0.075s ease; }
+        .hamburger--squeeze .hamburger-inner::after {
+          transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+      
+      .hamburger--squeeze.is-active .hamburger-inner {
+        transform: rotate(45deg);
+        transition-delay: 0.12s;
+        transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+        .hamburger--squeeze.is-active .hamburger-inner::before {
+          top: 0;
+          opacity: 0;
+          transition: top 0.075s ease, opacity 0.075s 0.12s ease; }
+        .hamburger--squeeze.is-active .hamburger-inner::after {
+          bottom: 0;
+          transform: rotate(-90deg);
+          transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+
+  #header-container ul.menu {
+    flex-direction: column;
+    -webkit-transform: translateZ(0);
+    transition: max-height 1s ease-out;
+    padding: 0;
+    width: 100%;
+    font-size: 1.5em;
+    max-height: 0;
+    overflow: hidden;
+  }
+  #header-container ul.menu > li > a {
+    border-top: 1px solid #ccc;
+  }
+
+  #header-container ul.menu.open {
+    max-height: 800px;
+    
+  }
 }

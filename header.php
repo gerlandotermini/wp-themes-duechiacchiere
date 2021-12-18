@@ -98,9 +98,14 @@
 		<div id="branding">
 			<img id="logo" src="<?= get_template_directory_uri() ?>/img/boy/<?= $category_boy ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
 			<h2 id="name"><a href="/" title="Torna alla pagina iniziale del sito"><?= get_bloginfo( 'name' ) ?></a></h2>
+			<button class="hamburger hamburger--squeeze" type="button" id="mobile-menu-trigger" aria-expanded="false">
+				<span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				</span>
+			</button>
 		</div>
 
-		<nav aria-label="Navigazione primaria">
+		<nav aria-label="Navigazione primaria" id="primary-menu">
 			<?php
 				wp_nav_menu( array(
 					'theme_location' => 'primary',
