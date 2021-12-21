@@ -10,10 +10,16 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Table of Contents
 
 1. Normalize
+
 2. Structure
   2.1 Header
+  2.2 Main Content
+  2.3 Sidebar
+
 3. HTML Tags
+
 4. Accessibility
+
 5. Monthly colors
   5.1 January
   5.2 February
@@ -27,8 +33,12 @@ Table of Contents
   5.10 October
   5.11 November
   5.12 December
-6. Media Queries
-  6.1 Structure
+
+6. Specific Pages
+
+7. Media Queries
+  7.1 Structure
+  7.2 Header
 
 */
 
@@ -59,7 +69,7 @@ body {
 }
 main {
   display: flex;
-  flex: 2;
+  flex: 2.5;
   flex-direction: column;
   padding: 20px;
 }
@@ -93,7 +103,7 @@ footer {
   display: flex;
 }
 #header-container #name {
-  align-self: end;
+  align-items: flex-end;
   font-size: 3.5em;
   margin: 0 10px 0 auto;
 }
@@ -153,6 +163,48 @@ ul.sub-menu a {
   min-width: 100px;
 }
 
+/* 2.2 Main Content */
+ul.post-information {
+  display: flex;
+  padding: 0;
+}
+ul.post-information li {
+  list-style-type: none;
+  padding-right: 20px;
+}
+ul.post-information svg {
+  height: 0.85rem;
+  margin-right: 5px;
+}
+ul.post-information a {
+  text-decoration: none;
+}
+
+/* 2.3 Sidebar */
+#search-form {
+  display: flex;
+}
+#search-field {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 1;
+  font-weight: 300;
+  padding: 5px;
+  width: 100%;
+}
+#search-field::placeholder {
+  color: #555;
+}
+#search-button {
+  align-items: center;
+  background: none;
+  border: 0;
+  display: flex;
+  margin-left: -25px;
+  padding: 0;
+  width: 20px;
+  z-index: 10;
+}
 
 /* 3. HTML Tags */
 h1, h2 {
@@ -184,77 +236,92 @@ a.skip:focus {
   top: 20px;
   width: auto;
 }
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
 
 /* 5. Monthly colors */
 
 /* 5.1 January */
 body.january {
-  background: url( "img/month/1.jpg" ) repeat-x fixed 0 0 #000;
+  background: url( "img/months/1.webp" ) repeat-x fixed 0 0 #000;
 }
 
 /* 5.2 February */
 body.february {
-  background: url( "img/month/2.jpg" ) repeat fixed center 0 #786960;
+  background: url( "img/months/2.webp" ) repeat fixed center 0 #786960;
 }
 
 /* 5.3 March */
 body.march {
-  background: url( "img/month/3.png" ) repeat fixed center 0 #000939;
+  background: url( "img/months/3.webp" ) repeat fixed center 0 #000939;
 }
 
 /* 5.4 April */
 body.april {
-  background: url( "img/month/4.jpg" ) repeat fixed center 0 #0d6f00;
+  background: url( "img/months/4.webp" ) repeat fixed center 0 #0d6f00;
 }
 
 /* 5.5 May */
 body.may {
-  background: url( "img/month/5.jpg" ) repeat fixed center 0 #0d6f00;
+  background: url( "img/months/5.webp" ) repeat fixed center 0 #0d6f00;
 }
 
 /* 5.6 June */
 body.june {
-  background: url( "img/month/6.jpg" ) repeat fixed center 0 #0d6f00;
+  background: url( "img/months/6.webp" ) repeat fixed center 0 #0d6f00;
   box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
 }
 
 /* 5.7 July */
 body.july {
-  background: url( "img/month/7.jpg" ) no-repeat fixed center 0 #040001;
+  background: url( "img/months/7.webp" ) no-repeat fixed center 0 #040001;
 }
 
 /* 5.8 August */
 body.august {
-  background: url( "img/month/8.jpg" ) repeat fixed center 0 #fecc59;
+  background: url( "img/months/8.webp" ) repeat fixed center 0 #fecc59;
   box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
 }
 
 /* 5.9 September */
 body.september {
-  background: url( "img/month/9.png" ) repeat fixed center 0 #ac4900;
+  background: url( "img/months/9.webp" ) repeat fixed center 0 #ac4900;
 }
 
 /* 5.10 October */
 body.october {
-  background: url( "img/month/10.jpg" ) repeat fixed center 0 #ac4900;
+  background: url( "img/months/10.webp" ) repeat fixed center 0 #ac4900;
 }
 
 /* 5.11 November */
 body.november {
-  background: url( "img/month/11.jpg" ) repeat fixed center 0 #ac4900;
+  background: url( "img/months/11.webp" ) repeat fixed center 0 #ac4900;
 }
 
 /* 5.12 December */
 body.december {
-  background: url( "img/month/12.webp" ) repeat fixed center 0 #ac4900;
+  background: url( "img/months/12.webp" ) repeat fixed center 0 #711517;
 }
-body.december #header-container a {
-  color: #a00;
+body.december a, body.december a:visited, body.december a:active {
+  color: #c80000;
+}
+body.december #search-button svg {
+  fill: #c80000;
 }
 
-/* 6. Media Queries */
+/* 6. Specific Pages */
+
+
+/* 7. Media Queries */
 @media (max-width: 992px) {
-  /* 6.1 Structure */
+  /* 7.1 Structure */
   #content-wrapper {
     flex-direction: column;
   }
@@ -262,7 +329,7 @@ body.december #header-container a {
     padding: 20px;
   }
 
-  /* 6.2 Header */
+  /* 7.2 Header */
   #header-container #name {
     display: none;
   }
@@ -361,6 +428,10 @@ body.december #header-container a {
   #header-container ul.menu.open {
     max-height: 800px;
     
+  }
+
+  ul.post-information {
+    flex-direction: column;
   }
 }
 @media (max-width: 576px) {

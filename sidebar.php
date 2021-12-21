@@ -1,7 +1,17 @@
-		<aside>
-			<h2>About section</h2>
-			<p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-		</aside>
+<aside>
+	<h2 class="visually-hidden">Cerca nel sito</h2>
+	<form id="search-form" role="search" action="/" method="get">
+		<label for="search-field">
+			<span class="visually-hidden">Parole da cercare</span>
+		</label>
+
+		<input type="text" id="search-field" name="s" placeholder="Spulcia nell'archivio...">
+
+		<button type='submit' id="search-button" aria-label="Avvia la ricerca">
+			<svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 400"><path id="path0" d="M114.667 6.253 C -5.638 42.144,-40.098 197.362,53.130 283.428 C 104.533 330.882,185.952 339.126,246.000 302.958 L 261.333 293.722 261.333 302.224 C 261.333 315.475,346.446 400.000,359.789 400.000 C 373.078 400.000,400.000 373.040,400.000 359.731 C 400.000 346.396,315.424 261.333,302.166 261.333 L 293.722 261.333 302.958 246.000 C 378.996 119.759,256.595 -36.090,114.667 6.253 M207.177 75.993 C 253.957 99.112,273.813 155.954,251.568 203.070 C 206.652 298.202,65.229 267.621,65.362 162.805 C 65.458 88.145,139.749 42.667,207.177 75.993"></path></svg>
+		</button>
+	</form>
+</aside>
 
 
 

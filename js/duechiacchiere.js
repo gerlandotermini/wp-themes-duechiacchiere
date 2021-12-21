@@ -65,5 +65,5 @@ document.querySelector( '#mobile-menu-trigger' ).addEventListener( 'click', func
 // }
 
 // Check resolution on load and on resize
-adjustLayout( viewport );
-viewport.addEventListener( 'change', adjustLayout );
+// adjustLayout( viewport );
+// viewport.addEventListener( 'change', adjustLayout );

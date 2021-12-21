@@ -4,7 +4,7 @@
 	<main id="content">
 		<article>
 			<header>
-				<h1><?php the_title( '', '' ) ?></h1>
+				<h1>Pagina non trovata</h1>
 			</header>
 			<p>
 				C'era una volta una pagina, diranno subito i miei piccoli lettori. 
@@ -23,7 +23,8 @@
 				un'occhiata alla navigazione in alto, chiss&agrave; che non ci possa trovare qualche informazione
 				utile. Se proprio non riesci a trovare quello che stavi cercando, ti consiglio di
 				contattarmi, tramite l'<a href="/contatto" title="scrivimi un messaggio">apposito modulo da compilare</a>.
-				Nei limiti del possibile, cercher&ograve; di aiutarti a ritrovare la strada smarrita.</p>
+				Nei limiti del possibile, cercher&ograve; di aiutarti a ritrovare la strada smarrita.
+			</p>
 		</article>
 	</main>
 

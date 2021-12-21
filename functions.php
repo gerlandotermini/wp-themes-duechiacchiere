@@ -1,31 +1,11 @@
 <?php
-add_action( 'init', 'duechiacchiere_disable_wp_emojicons' );
-function duechiacchiere_disable_wp_emojicons() {
-  // All actions related to emojis
-  remove_action( 'admin_print_styles', 'print_emoji_styles' );
-  remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-  remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
-  remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
-	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-	remove_action( 'wp_head', 'wp_resource_hints', 2 );
-	remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
-	remove_action( 'wp_print_styles', 'print_emoji_styles' );
-
-  // Remove TinyMCE emojis
-  add_filter( 'tiny_mce_plugins', 'disable_emojicons_tinymce' );
-}
 
 add_filter( 'use_block_editor_for_post_type', 'duechiacchiere_disable_gutenberg_editor' );
 function duechiacchiere_disable_gutenberg_editor() {
 	return false;
 }
 
-add_action( 'wp_enqueue_scripts', 'duechiacchiere_remove_wp_block_library_css', 100 );
-function duechiacchiere_remove_wp_block_library_css() {
-	wp_dequeue_style( 'wp-block-library' );
-	wp_dequeue_style( 'wp-block-library-theme' );
-	wp_dequeue_style( 'wc-block-style' );
-}
+
 
 add_action( 'after_setup_theme', 'duechiacchiere_remove_unnecessary_wp_headers' );
 function duechiacchiere_remove_unnecessary_wp_headers() {
@@ -88,11 +68,21 @@ class duechiacchiere {
 		register_nav_menus( array(
 			'primary' => 'Primary Navigation'
 		) );
+
+		// All actions related to emojis
+		remove_action( 'admin_print_styles', 'print_emoji_styles' );
+		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+		remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
+		remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+		remove_action( 'wp_head', 'wp_resource_hints', 2 );
+		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 	}
 }
 
 // Add the appropriate actions
-add_action( 'after_setup_theme', array( 'duechiacchiere', 'init' ), 20 );
+add_action( 'init', array( 'duechiacchiere', 'init' ), 20 );
 
 
 
