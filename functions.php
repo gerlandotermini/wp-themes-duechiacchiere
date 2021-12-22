@@ -1,67 +1,5 @@
 <?php
 
-add_filter( 'use_block_editor_for_post_type', 'duechiacchiere_disable_gutenberg_editor' );
-function duechiacchiere_disable_gutenberg_editor() {
-	return false;
-}
-
-
-
-add_action( 'after_setup_theme', 'duechiacchiere_remove_unnecessary_wp_headers' );
-function duechiacchiere_remove_unnecessary_wp_headers() {
-	// Remove the REST API lines from the HTML Header
-	remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
-	remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
-
-	// Remove WLW Manifest and Generator
-	remove_action( 'wp_head', 'wlwmanifest_link' );
-	remove_action( 'wp_head', 'wp_generator' );
-	remove_action( 'wp_head', 'wp_shortlink_wp_head');
-
-	// Remove the REST API endpoint.
-	remove_action( 'rest_api_init', 'wp_oembed_register_route' );
-
-	// Turn off oEmbed auto discovery.
-	add_filter( 'embed_oembed_discover', '__return_false' );
-
-	// Don't filter oEmbed results.
-	remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
-
-	// Remove oEmbed discovery links.
-	remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
-
-	// Remove oEmbed-specific JavaScript from the front-end and back-end.
-	remove_action( 'wp_head', 'wp_oembed_add_host_js' );
-
-	// Enable title tag
- 	add_theme_support( 'title-tag' );
-
-	// Remove XML-RPC and feed links
-	remove_action( 'wp_head', 'rsd_link' );
-	remove_action( 'wp_head', 'feed_links_extra', 3 ); // Display the links to the extra feeds such as category feeds
-	remove_action( 'wp_head', 'feed_links', 2 );
-	remove_action( 'wp_head', 'index_rel_link' );
-}
-
-add_filter( 'nav_menu_link_attributes', 'wcag_nav_menu_link_attributes', 10, 4 );
-function wcag_nav_menu_link_attributes( $atts, $item, $args, $depth ) {
-
-	// Add [aria-haspopup] and [aria-expanded] to menu items that have children
-	$item_has_children = in_array( 'menu-item-has-children', $item->classes );
-	if ( $item_has_children ) {
-			$atts['aria-haspopup'] = "true";
-			$atts['aria-expanded'] = "false";
-	}
-
-	return $atts;
-}
-
-add_action( 'wp_enqueue_scripts', 'wpdocs_theme_name_scripts' );
-function wpdocs_theme_name_scripts() {
-	wp_enqueue_style( 'duechiacchiere', get_stylesheet_uri() );
-	wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/js/duechiacchiere.js', array(), null, true );
-}
-
 class duechiacchiere {
 	public static function init() {
 		// This theme uses wp_nav_menu() above and below the main page header
@@ -69,6 +7,51 @@ class duechiacchiere {
 			'primary' => 'Primary Navigation'
 		) );
 
+		// Redirect shortlinks (with post id) to the actual canonical URLs
+		add_filter( 'template_redirect', array( __CLASS__, 'redirect_post_id_to_canonical_url' ) );
+
+		// Sorry, no Gutenberg allowed
+		add_filter( 'use_block_editor_for_post_type', '__return_false' );
+
+		// Enqueue styles and scripts
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ) );
+
+		// Make the main menu more accessible
+		add_filter( 'nav_menu_link_attributes', array( __CLASS__, 'wcag_menu_link_attributes' ), 10, 4 );
+		
+		self::_remove_emoji_hooks();
+		self::_remove_wp_headers();
+	}
+
+	public static function redirect_post_id_to_canonical_url() {
+			if ( is_404() ) {
+				$request = str_replace( '/', '', $_SERVER[ 'REQUEST_URI' ] );
+				$canonical = get_permalink( intval( $request ) );
+
+				if ( !empty( $canonical ) ) {
+					wp_redirect( $canonical, 301 );
+					return;
+				}
+			}
+	}
+
+	public static function wp_enqueue_scripts() {
+		wp_enqueue_style( 'duechiacchiere', get_stylesheet_uri() );
+		wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/js/duechiacchiere.js', array(), null, true );
+	}
+	
+	public static function wcag_menu_link_attributes( $atts, $item, $args, $depth ) {
+		// Add [aria-haspopup] and [aria-expanded] to menu items that have children
+		$item_has_children = in_array( 'menu-item-has-children', $item->classes );
+		if ( $item_has_children ) {
+				$atts['aria-haspopup'] = "true";
+				$atts['aria-expanded'] = "false";
+		}
+	
+		return $atts;
+	}
+
+	private static function _remove_emoji_hooks() {
 		// All actions related to emojis
 		remove_action( 'admin_print_styles', 'print_emoji_styles' );
 		remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
@@ -79,9 +62,44 @@ class duechiacchiere {
 		remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
 		remove_action( 'wp_print_styles', 'print_emoji_styles' );
 	}
+
+	private static function _remove_wp_headers() {
+		// Remove the REST API lines from the HTML Header
+		remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+		remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
+	
+		// Remove WLW Manifest and Generator
+		remove_action( 'wp_head', 'wlwmanifest_link' );
+		remove_action( 'wp_head', 'wp_generator' );
+		remove_action( 'wp_head', 'wp_shortlink_wp_head');
+	
+		// Remove the REST API endpoint.
+		remove_action( 'rest_api_init', 'wp_oembed_register_route' );
+	
+		// Turn off oEmbed auto discovery.
+		add_filter( 'embed_oembed_discover', '__return_false' );
+	
+		// Don't filter oEmbed results.
+		remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
+	
+		// Remove oEmbed discovery links.
+		remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+	
+		// Remove oEmbed-specific JavaScript from the front-end and back-end.
+		remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+	
+		// Enable title tag
+		 add_theme_support( 'title-tag' );
+	
+		// Remove XML-RPC and feed links
+		remove_action( 'wp_head', 'rsd_link' );
+		remove_action( 'wp_head', 'feed_links_extra', 3 ); // Display the links to the extra feeds such as category feeds
+		remove_action( 'wp_head', 'feed_links', 2 );
+		remove_action( 'wp_head', 'index_rel_link' );
+	}
 }
 
-// Add the appropriate actions
+// Let's go, baby!
 add_action( 'init', array( 'duechiacchiere', 'init' ), 20 );
 
 

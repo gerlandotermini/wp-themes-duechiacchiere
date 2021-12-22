@@ -46,7 +46,7 @@
 	<meta property="og:site_name" content="<?php echo get_bloginfo(); ?>"/>
 	<meta property="og:image" content="<?php echo $page_image; ?>"/>
 <?php }
-	else if ( is_archive() ) {
+	else if ( is_category() ) {
 		$category = get_queried_object();
 		$ancestors = get_ancestors( $category->term_id, 'category' );
 
@@ -88,7 +88,7 @@
 	<!-- BEGIN: Google fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Outfit:wght@300;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<!-- END: Google fonts -->
 
 	<!-- BEGIN: RSS feed -->
@@ -105,9 +105,10 @@
 
 	<header id="header-container">
 		<div id="branding">
-			<img id="logo" src="<?= get_template_directory_uri() ?>/img/boys/<?= $category_boy ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
-			<h2 id="name"><a href="/" title="Torna alla pagina iniziale del sito"><?= get_bloginfo( 'name' ) ?></a></h2>
+			<a href="/" title="Torna alla pagina iniziale del sito"><img id="logo" src="<?= get_template_directory_uri() ?>/img/boys/<?= $category_boy ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
+			<h2 id="name"><?= get_bloginfo( 'name' ) ?></h2></a>
 			<button class="hamburger hamburger--squeeze" type="button" id="mobile-menu-trigger" aria-expanded="false">
+				<span class="visually-hidden">Pulsante per aprire e chiudere il menu del sito</span>
 				<span class="hamburger-box">
 					<span class="hamburger-inner"></span>
 				</span>
