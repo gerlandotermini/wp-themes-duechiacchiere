@@ -127,8 +127,7 @@
 						if ( $current_page <= 2 ) {
 							echo '
 								<li class="pagination-item previous-page">
-									<a class="disabled" href="#" aria-disabled="true">
-									</a>
+									<i></i>
 								</li>';
 							// array_shift( $pages );
 						}
@@ -154,7 +153,7 @@
 						if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
 							echo '
 								<li class="pagination-item next-page">
-									<a class="disabled" href="#" aria-disabled="true"></a>
+									<i></i>
 								</li>';
 							// array_shift( $pages );
 						}

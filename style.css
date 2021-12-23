@@ -230,6 +230,7 @@ article img {
   border-right-width: 1px;
 }
 .pagination-item a,
+.pagination-item i,
 .pagination-item span {
   display: block;
   height: 1em;
@@ -250,12 +251,16 @@ article img {
   border-bottom-right-radius: 5px;
 }
 .pagination-item.previous-page a,
-.pagination-item.next-page a {
+.pagination-item.previous-page i,
+.pagination-item.next-page a,
+.pagination-item.next-page i {
   position: relative;
-  width: 30px;
+  width: 25px;
 }
 .pagination-item.previous-page a::before,
-.pagination-item.next-page a::before {
+.pagination-item.previous-page i::before,
+.pagination-item.next-page a::before,
+.pagination-item.next-page i::before {
   border-bottom: 10px solid transparent;
   border-top: 10px solid transparent;
   border-right: 15px solid #464646;
@@ -265,15 +270,12 @@ article img {
   top: 15px;
   left: 20px;
 }
-.pagination-item.next-page a::before {
+.pagination-item.next-page a::before,
+.pagination-item.next-page i::before {
   transform: rotate(180deg);
 }
-.pagination-item.previous-page a.disabled,
-.pagination-item.next-page a.disabled {
-  pointer-events: none;
-}
-.pagination-item.previous-page a.disabled::before,
-.pagination-item.next-page a.disabled::before {
+.pagination-item.previous-page i:before,
+.pagination-item.next-page i::before {
   border-right-color: #ccc;
 }
 
