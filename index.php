@@ -64,7 +64,7 @@
 			</header>
 			<?php the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false ); ?>
 
-			<?php if ( is_single() ): ?>
+			<?php if ( is_single() && ( !defined( 'WP_LOCAL_DEV' ) || !WP_LOCAL_DEV ) ): ?>
 				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6022102240639727" crossorigin="anonymous"></script>
 				<ins class="adsbygoogle"
 						style="display:block; text-align:center;"
@@ -73,37 +73,10 @@
 						data-ad-client="ca-pub-6022102240639727"
 						data-ad-slot="6629110691"></ins>
 				<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-
-				<?php if ( !post_password_required() ) comments_template(); ?>
-
-				<form action="/wp-comments-post.php" method="post" id="comment-form" onsubmit="if (this.author.value=='nome') return false;
-					if (this.name.value=='nome') this.name.value = '';
-					if (this.email.value=='email') this.email.value = '';
-					if (this.url.value=='sito web') this.url.value = '';
-					if (this.name.value=='' || this.comment.value=='') {
-						alert('Beh, prova a metterci un pochino pi&ugrave; d\'impegno, no?');
-						return false;
-					}"> 
-			<fieldset>
-				<legend>Modulo per l'invio di un commento</legend>
-				<h2 id="respond" class="comments-header">Lascia un commento</h2>
-<?php if (!is_user_logged_in()){ ?>
-				<p><label for="author" class="hidden">Nome</label> <input type="text" class="text" name="author" id="author" value="<?php echo isset($_COOKIE['comment_author_'.COOKIEHASH])?$_COOKIE['comment_author_'.COOKIEHASH]:'nome'; ?>" size="22" /></p>
-				<p><label for="email" class="hidden">Indirizzo Email</label> <input type="text" class="text" name="email" id="email" value="<?php echo isset($_COOKIE['comment_author_email_'.COOKIEHASH])?$_COOKIE['comment_author_email_'.COOKIEHASH]:'email'; ?>" size="22"/></p>
-				<p><label for="url" class="hidden">Sito Web</label> <input type="text" class="text" name="url" id="url" value="<?php echo isset($_COOKIE['comment_author_url_'.COOKIEHASH])?$_COOKIE['comment_author_url_'.COOKIEHASH]:'sito web'; ?>" size="22" /></p>
-<?php } else { ?>
-				<input type="hidden" name="author" value="camu"/>
-				<input type="hidden" name="email" value="info@duechiacchiere.it"/>
-				<input type="hidden" name="url" value=""/>				
-<?php } ?>
-				<p><?php global $wp_subscribe_reloaded; if (isset($wp_subscribe_reloaded)){ echo $wp_subscribe_reloaded->stcr->subscribe_reloaded_show(); } ?></p>
-				<p><label for="comment-text" class="hidden">Commento</label> <textarea name="comment" id="comment-text" cols="60" rows="10"></textarea></p>
-				<p><input name="submit" type="submit" class="button" id="submit" value="Invia il tuo commento" /></p> 
-				<?php comment_id_fields(); ?>
-			</fieldset>
-			</form>
 			<?php endif ?>
-		</article>
+			</article>
+
+			<?php if ( !post_password_required() ) comments_template(); ?>
 		<?php endwhile; ?>
 
 		<?php if ( is_archive() || is_front_page() ): ?>
