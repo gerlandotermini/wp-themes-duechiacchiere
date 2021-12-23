@@ -1,7 +1,7 @@
 <?php include_once( 'header.php' ) ?>
 
 <div id="content-wrapper">
-	<main id="content">
+	<main id="contenuto">
 		<?php /* echo (($wp_query->found_posts==1)?'Trovato ':'Trovati ').$wp_query->found_posts.(($wp_query->found_posts==1)?' risultato':' risultati'); ?> per <strong><?php echo htmlspecialchars(stripslashes($_REQUEST['s'])) ?></strong> */ ?>
 		
 		<?php
@@ -13,11 +13,22 @@
 
 				if ( !is_single() ) {
 					$categories = get_the_category( $GLOBALS[ 'post' ]->ID );
+
+					// These categories might need to be sorted hierarchically
+					usort( $categories, function( $category1, $category2 ) {
+						foreach ( get_categories( array( "parent" => $category1->cat_ID ) ) AS $sub ) {
+							if ( $category2->cat_ID == $sub->cat_ID ) {
+								return -1;
+							}
+						}
+						
+						return 1;
+					});
 				}
 
 				$categories_html = array();
 				foreach ( $categories as $a_category ) {
-					$categories_html[] = '<a href="' . get_category_link( $a_category->term_id ). '">' . $a_category->name . '</a>';
+					$categories_html[] = '<a href="' . get_category_link( $a_category->term_id ). '" title="Vai all\'archivio degli articoli per la categoria ' . $a_category->name . '">' . $a_category->name . '</a>';
 				}
 				$categories_html = implode( ', ', $categories_html );
 
@@ -39,10 +50,13 @@
 				<<?= $title_tag ?>><a href="<?php the_permalink() ?>"><?php the_title( '', '' ) ?></a></<?= $title_tag ?>>
 				<?php if ( $GLOBALS[ 'post' ]->post_type == 'post' ): ?>
 				<p class="post-meta">
-					<span class="visually-hidden">Scritto il giorno </span><time datetime="<?= the_time( 'Y-m-d H:i:s' ) ?>"><?= the_time('j F Y'); ?></time>
+					<span class="visually-hidden">Scritto il giorno </span><time datetime="<?= the_time( 'Y-m-d H:i:s' ) ?>"><?= strtolower( the_time('j F Y') ); ?></time>
 					<?php
 						if ( !empty( $categories_html ) ) {
 							echo '<span class="visually-hidden">Archiviato </span>in ' . $categories_html;
+						}
+						if ( !empty( $comments_html ) ) {
+							echo ' &mdash; ' . $comments_html;
 						}
 					?>
 				</ul>
@@ -91,6 +105,82 @@
 			<?php endif ?>
 		</article>
 		<?php endwhile; ?>
+
+		<?php if ( is_archive() || is_front_page() ): ?>
+		<nav role="navigation" aria-label="Sfoglia le pagine del blog" id="pagination">
+			<ul>
+				<?php
+					$current_page = max( 1, get_query_var( 'paged' ) );
+
+					$pages = paginate_links( array(
+						'base' => str_replace( 99999, '%#%', esc_url( get_pagenum_link( 99999 ) ) ), 
+						'current' => $current_page,
+						'format' => '?paged=%#%',
+						'prev_text' => 'prev',
+						'next_text' => 'next',
+						'total' => $GLOBALS[ 'wp_query' ]->max_num_pages,
+						'type'  => 'array'
+					) );
+
+					if ( is_array( $pages ) ) {
+
+						if ( $current_page <= 2 ) {
+							echo '
+								<li class="pagination-item previous-page">
+									<a class="disabled" href="#" aria-disabled="true">
+										<span class="visually-hidden">
+											Prima pagina
+										</span>
+									</a>
+								</li>';
+							// array_shift( $pages );
+						}
+						else {
+							echo '
+								<li class="pagination-item previous-page">
+									<a href="/page/' . ( $current_page - 1 ) . '">
+										<span class="visually-hidden">
+											Prima pagina
+										</span>
+									</a>
+								</li>';
+						}
+
+						foreach ( $pages as $a_page_html ) {
+							$loop_page = trim( strip_tags( $a_page_html ) );
+							if ( $loop_page != 'prev' && $loop_page != 'next' ) {
+								$a_page_html = str_replace( 'href=', "title=\"Vai alla pagina $loop_page dell'archivio\" href=", $a_page_html );
+								echo "<li class=\"pagination-item\">$a_page_html</li>";
+							}
+						}
+
+						if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
+							echo '
+								<li class="pagination-item next-page">
+									<a class="disabled" href="#" aria-disabled="true">
+										<span class="visually-hidden">
+											Prima pagina
+										</span>
+									</a>
+								</li>';
+							// array_shift( $pages );
+						}
+						else {
+							echo '
+								<li class="pagination-item next-page">
+									<a href="/page/' . ( $current_page - 1 ) . '">
+										<span class="visually-hidden">
+											Prima pagina
+										</span>
+									</a>
+								</li>';
+						}
+					}
+				?>
+				
+			</ul>
+		</nav>
+		<?php endif ?>
 	</main>
 
 	<?php get_sidebar() ?>
