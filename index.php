@@ -110,7 +110,7 @@
 		<nav role="navigation" aria-label="Sfoglia le pagine del blog" id="pagination">
 			<ul>
 				<?php
-					$current_page = max( 1, get_query_var( 'paged' ) );
+					$current_page = max( 1, intval( get_query_var( 'paged' ) ) );
 
 					$pages = paginate_links( array(
 						'base' => str_replace( 99999, '%#%', esc_url( get_pagenum_link( 99999 ) ) ), 
@@ -128,9 +128,6 @@
 							echo '
 								<li class="pagination-item previous-page">
 									<a class="disabled" href="#" aria-disabled="true">
-										<span class="visually-hidden">
-											Prima pagina
-										</span>
 									</a>
 								</li>';
 							// array_shift( $pages );
@@ -140,7 +137,7 @@
 								<li class="pagination-item previous-page">
 									<a href="/page/' . ( $current_page - 1 ) . '">
 										<span class="visually-hidden">
-											Prima pagina
+											Vai alla pagina precedente dell\'archivio
 										</span>
 									</a>
 								</li>';
@@ -157,20 +154,16 @@
 						if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
 							echo '
 								<li class="pagination-item next-page">
-									<a class="disabled" href="#" aria-disabled="true">
-										<span class="visually-hidden">
-											Prima pagina
-										</span>
-									</a>
+									<a class="disabled" href="#" aria-disabled="true"></a>
 								</li>';
 							// array_shift( $pages );
 						}
 						else {
 							echo '
 								<li class="pagination-item next-page">
-									<a href="/page/' . ( $current_page - 1 ) . '">
+									<a href="/page/' . ( $current_page + 1 ) . '">
 										<span class="visually-hidden">
-											Prima pagina
+											Vai alla pagina successiva dell\'archivio
 										</span>
 									</a>
 								</li>';
