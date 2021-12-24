@@ -16,6 +16,7 @@ Table of Contents
   2.2 Main Content
   2.3 Sidebar
   2.4 Pagination
+  2.5 Footer
 
 3. HTML Tags
 
@@ -54,6 +55,7 @@ html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:b
 /* 2. Structure */
 html {
   padding: 40px 0;
+  scroll-behavior: smooth;
 }
 body {
   border-radius: 10px;
@@ -121,8 +123,8 @@ footer {
   font-size: 3.5em;
   margin: 0 10px 0 auto;
 }
-#header-container #name a:hover, #header-container #name a:focus {
-  filter: brightness( 45% );
+#header-container a:hover #name, #header-container a:focus #name {
+  filter: brightness( 50% );
 }
 #header-container #mobile-menu-trigger {
   display: none;
@@ -153,7 +155,10 @@ footer {
   text-shadow: 0 0 2px #222;
 }
 #header-container ul.menu ul.sub-menu {
-  display: none;
+  visibility: hidden;
+  position: absolute;
+  left: -99999px;
+  transition: all 0s;
 }
 #header-container ul.menu li.menu-item-has-children:hover > ul.sub-menu,
 #header-container ul.menu li.menu-item-has-children.focus > ul.sub-menu {
@@ -161,11 +166,12 @@ footer {
   border: 1px solid #ccc;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  display: block;
+  left: auto;
   margin: 40px 0 0;
   padding: 0;
-  position: absolute;
   z-index: 100;
+  transition-delay: 0.3s;
+  visibility: visible;
 }
 ul.sub-menu li {
   list-style-type: none;
@@ -292,13 +298,13 @@ article span.wp-caption-text {
 .pagination-item.previous-page i::before,
 .pagination-item.next-page a::before,
 .pagination-item.next-page i::before {
-  border-bottom: 10px solid transparent;
-  border-top: 10px solid transparent;
-  border-right: 15px solid #464646;
+  border-bottom: 8px solid transparent;
+  border-top: 8px solid transparent;
+  border-right: 16px solid #464646;
   content: '';
   display: block;
   position: absolute;
-  top: 10px;
+  top: 11px;
   left: 20px;
 }
 .pagination-item.next-page a::before,
@@ -310,6 +316,33 @@ article span.wp-caption-text {
   border-right-color: #aaa;
 }
 
+/* 2.5 Footer */
+#backtotop {
+  background-color: #fff;
+  border: 0;
+  border-radius: 5px;
+  bottom: 40px;
+  height: 45px;
+  left: auto;
+  opacity: 0;
+  position: fixed;
+  right: 50px;
+  top: auto;
+  transition: opacity 1s ease-in-out;
+  width: 45px;
+}
+#backtotop::before {
+  border-bottom: 10px solid transparent;
+  border-top: 10px solid transparent;
+  border-right: 15px solid #222;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 11px;
+  left: 15px;
+  transform: rotate(90deg);
+}
+
 
 /* 3. HTML Tags */
 header h1, header h2 {
@@ -318,6 +351,14 @@ header h1, header h2 {
 }
 h1 a, h2 a {
   text-decoration: none;
+}
+blockquote {
+  border-left: 5px solid #cccd;
+  padding-left: 15px;
+  margin-left: 10px;
+}
+cite {
+  font-style: normal;
 }
 
 /* 4. Accessibility */
@@ -343,7 +384,7 @@ a.skip:focus {
   width: auto;
 }
 .visually-hidden,
-#comments .says {
+#commenti .says {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
   height: 1px;
@@ -421,6 +462,11 @@ body.december a, body.december a:visited, body.december a:active {
 }
 body.december #search-button svg {
   fill: #c80000;
+}
+.pagination-item.previous-page a::before,
+.pagination-item.next-page a::before,
+body.december #backtotop::before {
+  border-right: 15px solid #c80000;
 }
 
 /* 6. Specific Pages */
@@ -549,13 +595,20 @@ body.december #search-button svg {
     max-height: 0;
     overflow: hidden;
   }
+  #header-container ul.menu > li {
+    text-align: center;
+  }
   #header-container ul.menu > li > a {
     border-top: 1px solid #ccc;
   }
 
   #header-container ul.menu.open {
     max-height: 800px;
-    
+  }
+
+  #header-container ul.menu li.menu-item-has-children:hover > ul.sub-menu,
+  #header-container ul.menu li.menu-item-has-children.focus > ul.sub-menu {
+    display: none;
   }
 
   /* 7.1.2.2 Main Content */

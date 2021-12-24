@@ -44,6 +44,21 @@ document.querySelector( '#mobile-menu-trigger' ).addEventListener( 'click', func
   
 });
 
+// Back to Top Button
+window.onscroll = function() {
+  if ( document.body.scrollTop > 300 || document.documentElement.scrollTop > 300 ) {
+    document.getElementById( 'backtotop' ).style.opacity = 1;
+  } else {
+    document.getElementById( 'backtotop' ).style.opacity = 0;
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+// function topFunction() {
+//   document.body.scrollTop = 0; // For Safari
+//   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+// }
+
 // Media Queries
 // var previousStatus = false;
 // viewport = window.matchMedia( "(max-width: 992px)" );

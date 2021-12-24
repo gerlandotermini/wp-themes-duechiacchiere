@@ -8,7 +8,10 @@
 		$footer = ob_get_contents();
 		ob_end_clean();
 		$footer = str_replace( " type='text/javascript'", '', $footer );
-		echo str_replace( ' type="text/javascript"', '', $footer ); ?>
+		echo str_replace( ' type="text/javascript"', '', $footer ); 
+	?>
+
+	<button id="backtotop" onclick="window.scrollTo(0, 0);"></button>
 	<!-- END: WP_Footer -->
 </body>
 </html>
