@@ -3,7 +3,7 @@
 Template Name: Contact Form
 */
 
-function duechiacchiere_scrub_header( $header ) {
+function duechiacchiere_scrub_field( $header ) {
 	$headers_to_remove = array(
 		'/to\:/i',
 		'/from\:/i',
@@ -32,7 +32,7 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 			break;
 		}
 
-		$data[ $a_key ] = duechiacchiere_scrub_header( $_POST[ $a_key ] );
+		$data[ $a_key ] = duechiacchiere_scrub_field( $_POST[ $a_key ] );
 	}
 
 	if ( empty( $error_message ) && filter_var( $data [ 'email' ], FILTER_VALIDATE_EMAIL ) ) {
@@ -57,8 +57,6 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 		$full_message .= "Indirizzo IP: " . $_SERVER[ 'REMOTE_ADDR' ] . "\n\n";
 
 		if ( class_exists( 'Akismet' ) ) {
-			// $Akismet = new Akismet( get_bloginfo( 'url' ),  );
-
 			$akismet_request = array(
 				'blog'                  => get_site_url(),
 				'user_ip'               => $_SERVER[ 'REMOTE_ADDR' ],
@@ -92,7 +90,7 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 get_header() ?>
 
 <div id="content-wrapper">
-	<main id="content">
+	<main id="contenuto">
 		<article>
 			<header>
 				<h1><?php the_title( '', '' ) ?></h1>
@@ -101,16 +99,14 @@ get_header() ?>
 
 			<?php if ( empty( $content ) ): ?>
 				<p>Usa il modulo qui di seguito se vuoi metterti in contatto con me. In genere rispondo in tempi brevi, ma se vedi che ci metto troppo, puoi lasciare un commento a qualche articolo. Chiss&agrave;, magari la mail &egrave; stata mangiata dal filtro antispam.</p>
-				<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" id="comment-form"
+				<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" id="commentform"
 					onsubmit='if ( ( this.message.value == "" ) || ( this.author.value == "" ) || !( /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( this.email.value ) ) ) { alert( "Magari prova ad impegnarti di pi&ugrave;, che dici?" ); return false; }'>
-					<fieldset>
-						<legend class="hidden">Modulo di contatto: nome, email, messaggio</legend>
-						<p><label for="author" class="hidden">Nome</label> <input type="text" class="text" name="author" id="author" size="22" maxlength="50" value="<?php echo isset($_COOKIE['comment_author_'.COOKIEHASH])?$_COOKIE['comment_author_'.COOKIEHASH]:''; ?>" /></p>
-						<p><label for="email" class="hidden">Email</label> <input type="text" class="text" name="email" id="email" size="22" maxlength="50" value="<?php echo isset($_COOKIE['comment_author_email_'.COOKIEHASH])?$_COOKIE['comment_author_email_'.COOKIEHASH]:''; ?>" /></p>
-						<p><label for="message">Messaggio</label> <textarea class="tall" name="message" id="message" cols="65" rows="7"></textarea></p>
-						<p><input class="button" type="submit" name="Submit" value="Invia il messaggio" id="contact_submit" /></p>
-						<input type="hidden" name="control" value="<?= md5( date( 'His' ) ) ?>" />
-					</fieldset>
+					<legend class="visually-hidden">Modulo di contatto: nome, email, messaggio</legend>
+					<p class="comment-form-author"><label for="author">Nome</label><input type="text" name="author" id="author" size="5" maxlength="250" value="<?php echo isset( $_COOKIE[ 'comment_author_' . COOKIEHASH ] ) ? $_COOKIE[ 'comment_author_' . COOKIEHASH ] : ''; ?>"></p>
+					<p class="comment-form-email"><label for="email">Email</label> <input type="text" name="email" id="email" size="5" maxlength="250" value="<?php echo isset($_COOKIE['comment_author_email_'.COOKIEHASH])?$_COOKIE['comment_author_email_'.COOKIEHASH]:''; ?>"></p>
+					<p class="comment-form-comment"><label for="message">Messaggio</label> <textarea name="message" id="message" cols="15" rows="7"></textarea></p>
+					<p><input class="button" type="submit" name="Submit" value="Invia il messaggio" id="contact_submit"></p>
+					<input type="hidden" name="control" value="<?= md5( date( 'His' ) ) ?>" />
 				</form>
 			<?php else: echo $content; endif; ?>
 		</article>

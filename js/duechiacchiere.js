@@ -20,7 +20,7 @@ let getSiblings = function ( e ) {
   return siblings;
 }
 
-document.querySelectorAll( '#header-container ul.menu > .menu-item a' ).forEach( link => {
+document.querySelectorAll( '#header-container ul.menu > .menu-item > a' ).forEach( link => {
     // Add a 'focus' event handler to each top level link
     link.addEventListener( 'focus', function() {
       // Append a class 'focus' to the parent li
@@ -48,8 +48,10 @@ document.querySelector( '#mobile-menu-trigger' ).addEventListener( 'click', func
 window.onscroll = function() {
   if ( document.body.scrollTop > 300 || document.documentElement.scrollTop > 300 ) {
     document.getElementById( 'backtotop' ).style.opacity = 1;
+    document.getElementById( 'backtotop' ).style.cursor = 'pointer';
   } else {
     document.getElementById( 'backtotop' ).style.opacity = 0;
+    document.getElementById( 'backtotop' ).style.cursor = 'initial';
   }
 }
 

@@ -8,6 +8,38 @@
 			if ( !is_single() ) {
 				echo $intro_title;
 			}
+		
+			if ( !have_posts() ): ?>
+				<article>
+					<header>
+						<h1>Hai trovato la stanza segreta</h1>
+					</header>
+					
+					<p>
+						E cos&igrave; ce l'hai fatta: dopo tante fatiche e tante prove, per bravura o per pura fortuna, hai finalmente accesso alla
+						stanza segreta della mia casetta virtuale. Un luogo da cui si pu&ograve; accedere ai meandri inesplorati di questo sito, per
+						cercare di capire cosa succede dietro le quinte, quando l'autore pensa di non essere osservato da nessuno.
+					</p>
+					<p>
+						<span class="wp-caption aligncenter">
+							<img src="<?= get_template_directory_uri() ?>'/img/mappa.jpg'" alt="una mappa planimetrica con tante scritte in inglese">
+							<span class="wp-caption-text">L'arcana mappa del sito &egrave; finalmente stata svelata</span>
+						</span>
+					</p>
+					<p>
+						Come uno sbarbato Indiana Jones in erba, ora hai il compito di scoprire il significato di quest'illustrazione per
+						concludere la tua missione impossibile, e risolvere il mistero che attanaglia tanti esploratori del web da decenni.
+						Coloro i quali sapranno trovare la soluzione, avranno accesso ad immense fortune e illimitati poteri sovrumani.
+					</p>
+					<p>
+						&mdash; Buona fortuna.
+					</p>
+
+			</article>
+			
+			<?php
+			endif;
+
 			while ( have_posts() ):
 				the_post();
 
@@ -41,9 +73,9 @@
 						$comments_html = "<span class=\"visually-hidden\">c'&egrave; </span><a href=\"" . get_permalink() . "#commenti\">1 commento</a>";
 						break;
 					default:
-						$comments_html = "<span class=\"visually-hidden\">ci sono </span><a href=\"" . get_permalink() . "#commenti\">{$comment_count} commenti";
+						$comments_html = "<span class=\"visually-hidden\">ci sono </span><a href=\"" . get_permalink() . "#commenti\">{$comment_count} commenti</a>";
 				}
-				$comments_html .= "<span class=\"visually-hidden\"> per {$GLOBALS[ 'post' ]->post_title}</span></a>";
+				$comments_html .= "<span class=\"visually-hidden\"> per {$GLOBALS[ 'post' ]->post_title}</span>";
 		?>
 		<article>
 			<header>
@@ -59,28 +91,29 @@
 							echo ' &mdash; ' . $comments_html;
 						}
 					?>
-				</ul>
+				</p>
 				<?php endif // is_single ?>
 			</header>
 			<?php the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false ); ?>
 
-			<?php if ( is_single() && ( !defined( 'WP_LOCAL_DEV' ) || !WP_LOCAL_DEV ) ): ?>
+			<?php /* if ( is_single() ): ?>
 				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6022102240639727" crossorigin="anonymous"></script>
 				<ins class="adsbygoogle"
 						style="display:block; text-align:center;"
 						data-ad-layout="in-article"
 						data-ad-format="fluid"
+						data-adtest="<?= ( defined( 'WP_LOCAL_DEV' ) && WP_LOCAL_DEV ) ? 'on' : 'off' ?>"
 						data-ad-client="ca-pub-6022102240639727"
 						data-ad-slot="6629110691"></ins>
 				<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-			<?php endif ?>
+			<?php endif */ ?>
 			</article>
 
 			<?php if ( !post_password_required() ) comments_template(); ?>
 		<?php endwhile; ?>
 
 		<?php if ( is_archive() || is_front_page() ): ?>
-		<nav role="navigation" aria-label="Sfoglia le pagine del blog" id="pagination">
+		<nav aria-label="Sfoglia le pagine del blog" id="pagination">
 			<ul>
 				<?php
 					$current_page = max( 1, intval( get_query_var( 'paged' ) ) );
@@ -102,7 +135,6 @@
 								<li class="pagination-item previous-page">
 									<i></i>
 								</li>';
-							// array_shift( $pages );
 						}
 						else {
 							echo '
@@ -128,7 +160,6 @@
 								<li class="pagination-item next-page">
 									<i></i>
 								</li>';
-							// array_shift( $pages );
 						}
 						else {
 							echo '

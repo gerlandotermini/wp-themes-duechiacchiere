@@ -1,7 +1,7 @@
 <?php get_header() ?>
 	
 <div id="content-wrapper">
-	<main id="content">
+	<main id="contenuto">
 		<article>
 			<header>
 				<h1>Pagina non trovata</h1>

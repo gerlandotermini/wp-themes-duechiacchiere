@@ -100,7 +100,7 @@
 	<!-- END: WP_Head -->
 </head>
 
-<body <?= body_class( $bg_month ) ?>">
+<body <?= body_class( $bg_month ) ?>>
 	<a class="skip" href="#contenuto">Salta al contenuto</a>
 
 	<header id="header-container">
