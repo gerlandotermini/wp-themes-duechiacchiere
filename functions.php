@@ -22,8 +22,14 @@ class duechiacchiere {
 		// Customize image HTML wrappers
 		add_shortcode( 'caption', array( __CLASS__, 'img_caption_html' ) );
 
-		// Tweak the YouTube oEmbed code
+		// Tweak the YouTube and Video oEmbed code
 		add_filter( 'embed_oembed_html', array( __CLASS__, 'responsive_youtube_embed' ), 10, 4 );
+		add_filter( 'wp_video_shortcode', array( __CLASS__, 'responsive_video_embed' ) );
+
+		// Customize the TinyMCE Editor
+		// Register our callback to the appropriate filter
+		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
+		add_filter( 'tiny_mce_before_init', array( __CLASS__, 'my_mce_before_init_insert_formats' ) );
 		
 		self::_remove_emoji_hooks();
 		self::_remove_wp_headers();
@@ -93,6 +99,46 @@ class duechiacchiere {
 	public static function responsive_youtube_embed( $html, $url, $attr, $post_ID ) {
 		return "<p class=\"video-container\">$html</p>";
 	}
+
+	public static function responsive_video_embed( $output ) {
+		$html = str_replace( "<video", "<video muted playsinline ", $output );
+		$html = str_replace( "controls=", "data-controls=", $html );
+		$html = preg_replace( '/\<[\/]{0,1}div[^\>]*\>/i', '', $output );
+
+		return $html;
+	}
+
+	// Add custom styles to TinyMCE
+	public static function my_mce_before_init_insert_formats( $init_array ) {
+		// Define the style_formats array
+		$style_formats = array(
+				// Each array child is a format with it's own settings
+				array(
+						'title' => 'External Link',
+						'selector' => 'a',
+						'classes' => 'external'
+				)
+		);
+
+		// Insert the array, JSON ENCODED, into 'style_formats'
+		$init_array[ 'style_formats' ] = json_encode( $style_formats );
+
+		return $init_array;
+	} 
+
+	// Callback function to insert 'styleselect' into the $buttons array
+	public static function mce_buttons( $buttons ) {
+		// Add the styles dropdown
+		array_unshift( $buttons, 'styleselect' );
+		
+		// No advanced buttons, please
+		if ( ( $key = array_search( 'wp_adv', $buttons ) ) !== false ) {
+			unset( $buttons[ $key ] );
+		}
+
+		return $buttons;
+	}
+
 
 	public static function get_substr_words( $string, $desired_length ) {
 		$parts = preg_split( '/([\s\n\r]+)/u', $string, null, PREG_SPLIT_DELIM_CAPTURE );

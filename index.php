@@ -140,7 +140,7 @@
 						else {
 							echo '
 								<li class="pagination-item previous-page">
-									<a href="/page/' . ( $current_page - 1 ) . '">
+									<a href="/page/' . ( $current_page - 1 ) . ( !empty( $_SERVER[ 'QUERY_STRING' ] ) ? '?' . $_SERVER[ 'QUERY_STRING' ] : '' ) . '">
 										<span class="visually-hidden">
 											Vai alla pagina precedente dell\'archivio
 										</span>
@@ -165,7 +165,7 @@
 						else {
 							echo '
 								<li class="pagination-item next-page">
-									<a href="/page/' . ( $current_page + 1 ) . '">
+								<a href="/page/' . ( $current_page + 1 ) . ( !empty( $_SERVER[ 'QUERY_STRING' ] ) ? '?' . $_SERVER[ 'QUERY_STRING' ] : '' ) . '">
 										<span class="visually-hidden">
 											Vai alla pagina successiva dell\'archivio
 										</span>
