@@ -16,9 +16,10 @@
 					</header>
 					
 					<p>
-						E cos&igrave; ce l'hai fatta: dopo tante fatiche e tante prove, per bravura o per pura fortuna, hai finalmente accesso alla
-						stanza segreta della mia casetta virtuale. Un luogo da cui si pu&ograve; accedere ai meandri inesplorati di questo sito, per
-						cercare di capire cosa succede dietro le quinte, quando l'autore pensa di non essere osservato da nessuno.
+						E cos&igrave; ce l'hai fatta: dopo tante fatiche e tante prove, per bravura o per pura fortuna, hai finalmente trovato la
+						stanza segreta nascosta nella mia casetta virtuale. Questo &egrave; il tuo punto di partenza da cui accedere ai meandri
+						inesplorati di questo sito, per sbirciare sul cosa succede dietro le quinte, quando l'autore pensa di non essere osservato
+						da nessuno.
 					</p>
 					<p>
 						<span class="wp-caption aligncenter">
@@ -112,7 +113,7 @@
 			<?php if ( !post_password_required() ) comments_template(); ?>
 		<?php endwhile; ?>
 
-		<?php if ( is_archive() || is_front_page() ): ?>
+		<?php if ( $GLOBALS[ 'wp_query' ]->max_num_pages > 0 ): ?>
 		<nav aria-label="Sfoglia le pagine del blog" id="pagination">
 			<ul>
 				<?php

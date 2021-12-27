@@ -64,6 +64,9 @@
 	else if ( is_front_page() ) {
 		$intro_title = "<h1 class=\"visually-hidden\">Articoli recenti</h1>";
 	}
+	else if ( is_page() ) {
+		$title_tag = 'h1';
+	}
 
 	$bg_month = strtolower( date( 'F' ) );
 	if ( $category_boy == 'ingresso' ) {
