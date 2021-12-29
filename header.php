@@ -109,7 +109,7 @@
 	<header id="header-container">
 		<div id="branding">
 			<a href="/" title="Torna alla pagina iniziale del sito"><img id="logo" src="<?= get_template_directory_uri() ?>/img/boys/<?= $category_boy ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
-			<h2 id="name"><?= get_bloginfo( 'name' ) ?></h2></a>
+			<h2 id="name">due chiacchiere</h2></a>
 			<button class="hamburger hamburger--squeeze" type="button" id="mobile-menu-trigger" aria-expanded="false">
 				<span class="visually-hidden">Pulsante per aprire e chiudere il menu del sito</span>
 				<span class="hamburger-box">

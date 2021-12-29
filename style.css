@@ -69,7 +69,7 @@ body {
   width: 90%;
 }
 #content-wrapper {
-  background-color: rgba( 255 255 255 / 95% );
+  background-color: rgba( 255 255 255 / 97% );
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -100,7 +100,7 @@ footer {
 
 /* 2.1 Header */
 #header-container {
-  background-color: rgba( 255 255 255 / 95% );
+  background-color: rgba( 255 255 255 / 97% );
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -133,6 +133,7 @@ footer {
 #header-container nav {
   border-bottom: 1px solid #ccc;
   border-top: 1px solid #ccc;
+  line-height: 1.25rem;
   position: relative;
 }
 #header-container ul.menu {
@@ -163,7 +164,7 @@ footer {
 }
 #header-container ul.menu li.menu-item-has-children:hover > ul.sub-menu,
 #header-container ul.menu li.menu-item-has-children.focus > ul.sub-menu {
-  background-color: rgba( 245 245 245 / 0.97 );
+  background-color: rgba( 245 245 245 / 0.98 );
   border: 1px solid #ccc;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -200,11 +201,12 @@ article figure{
   max-width: 100% !important;
 }
 article img {
+  box-sizing: border-box;
   height: auto;
   width: 100%;
 }
 article span.wp-caption-text {
-  background-color: #ddd;
+  background-color: #fff;
   display: block;
   margin-top: -10px;
   padding: 10px;
@@ -231,13 +233,13 @@ article span.wp-caption-text {
   border-bottom: 1px solid #999;
   padding: 20px 0;
 }
-#commenti ol {
+#comments ol {
   list-style: none;
 }
-#commenti > ol {
+#comments > ol {
   padding-left: 0;
 }
-#commenti .avatar {
+#comments .avatar {
   float: left;
   margin: 0 10px 10px 0;
 }
@@ -485,7 +487,7 @@ a.skip:focus {
   width: auto;
 }
 .visually-hidden,
-#commenti .says {
+#comments .says {
   clip-path: inset(50%);
   height: 1px;
   overflow: hidden;
@@ -725,7 +727,10 @@ body.december #backtotop::before {
   }
 
   /* 7.1.2.2 Main Content */
-  #commenti ol.children {
+  main, aside {
+    padding: 20px 10px;
+  }
+  #comments ol.children {
     border-left: 1px solid #ccc;
     margin-left: 5px;
     padding-left: 5px;
@@ -743,10 +748,12 @@ body.december #backtotop::before {
   /* Footer */
   footer {
     flex-direction: column;
+    padding: 20px 10px;
   }
   footer > * {
     border-right: 0;
-    margin-bottom: 20px;
+    margin: 0 0 20px;
+    padding: 0;
   }
   footer > *:last-child {
     margin-bottom: 0;
