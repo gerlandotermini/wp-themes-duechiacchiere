@@ -14,11 +14,45 @@
 		</form>
 	</div>
 
-	<?php if ( is_single() ): ?>
-	<div class="widget">
-	
-	</div>
-	<?php endif ?>
+	<?php
+		// We use tags to group series together (tag = ID of first post in the series)
+		if ( is_single() ) {
+			$tags = get_the_tags( $GLOBALS[ 'post' ]->ID );
+			if ( !empty( $tags ) ) {
+
+				// Get all the posts in the series
+				$args = array( 
+					'posts_per_page' => -1,
+					'tax_query' => array(
+						array(
+							'taxonomy' => 'post_tag',
+							'field' => 'slug',
+							'terms' => sanitize_title( $tags[ 0 ]->slug )
+						)
+					),
+					'orderby' => 'ID',
+					'order' => 'ASC'
+				);
+
+				$posts_in_series = get_posts( $args );
+				if ( !empty( $posts_in_series ) ) {
+					echo '<div class="widget"><h2>Le puntate della serie</h2><ol>';
+					
+					foreach ( $posts_in_series as $a_post ) {
+						if ( $a_post->ID == $GLOBALS[ 'post' ]->ID ) {
+							echo "<li>{$a_post->post_title}</li>";
+						}
+						else {
+							echo '<li><a href="' . get_permalink( $a_post->ID ) . '">' . $a_post->post_title . '</a></li>';
+						}
+						
+					}
+					
+					echo '</ol></div>';
+				}
+			}
+		}
+	?>
 
 	<div class="widget">
 		<h2>Commenti recenti</h2>

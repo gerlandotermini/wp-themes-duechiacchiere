@@ -276,7 +276,7 @@ article span.wp-caption-text {
 }
 
 /* 2.3 Sidebar */
-article a:hover, article a:focus, article a:focus-visible, {
+article a:hover, article a:focus, article a:focus-visible {
   text-shadow: 0 0 1px #444;
 }
 #search-form {
@@ -314,6 +314,9 @@ aside ul {
   list-style-type: none;
   margin-top: 5px;
   padding-left: 0;
+}
+aside ol {
+  padding-left: 1.2rem;
 }
 aside li {
   margin-bottom: 10px;

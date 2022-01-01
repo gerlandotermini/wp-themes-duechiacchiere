@@ -83,7 +83,7 @@
 				<<?= $title_tag ?>><a href="<?php the_permalink() ?>"><?php the_title( '', '' ) ?></a></<?= $title_tag ?>>
 				<?php if ( $GLOBALS[ 'post' ]->post_type == 'post' ): ?>
 				<p class="post-meta">
-					<span class="visually-hidden">Scritto il giorno </span><time datetime="<?= the_time( 'Y-m-d H:i:s' ) ?>"><?= strtolower( the_time('j F Y') ); ?></time>
+					<span class="visually-hidden">Scritto il giorno </span><time datetime="<?php the_time( 'Y-m-d H:i:s' ) ?>"><?= ucfirst( get_the_time('l, j F Y') ); ?></time>
 					<?php
 						if ( !empty( $categories_html ) ) {
 							echo '<span class="visually-hidden">Archiviato </span>in ' . $categories_html;
