@@ -3,20 +3,6 @@
 Template Name: Contact Form
 */
 
-function duechiacchiere_scrub_field( $header ) {
-	$headers_to_remove = array(
-		'/to\:/i',
-		'/from\:/i',
-		'/bcc\:/i',
-		'/cc\:/i',
-		'/content\-transfer\-encoding\:/i',
-		'/content\-type\:/i',
-		'/mime\-version\:/i' 
-	);
-
- return stripslashes( strip_tags( urldecode( preg_replace( $headers_to_remove, '', $header ) ) ) );
-}
-
 $data = array(
 	'author' => '',
 	'email' => '',
@@ -32,7 +18,7 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 			break;
 		}
 
-		$data[ $a_key ] = duechiacchiere_scrub_field( $_POST[ $a_key ] );
+		$data[ $a_key ] = duechiacchiere::scrub_field( $_POST[ $a_key ] );
 	}
 
 	if ( empty( $error_message ) && filter_var( $data [ 'email' ], FILTER_VALIDATE_EMAIL ) ) {

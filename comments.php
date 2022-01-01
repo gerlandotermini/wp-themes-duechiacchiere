@@ -37,7 +37,7 @@ $comment_count = get_comments_number();
 			'author' => '<p class="comment-form-author"><label for="author">Nome <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="5" maxlength="245" required="required"></p>',
 			'email' => '<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="5" maxlength="100" required="required"></p>',
 			'url' => '<p class="comment-form-url"><label for="url">Sito Web</label> <input id="url" name="url" type="text" value="" size="5" maxlength="200"></p>',
-			'cookies' => ''
+			'cookies' => '<input type="hidden" value="1" name="wp-comment-cookies-consent">'
 		),
 		'logged_in_as' => null,
 		'title_reply' => 'Lascia un commento',

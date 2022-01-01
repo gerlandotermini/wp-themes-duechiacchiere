@@ -67,8 +67,12 @@
 	else if ( is_page() ) {
 		$title_tag = 'h1';
 	}
+	else if ( is_search() ) {
+		$search_keywords = duechiacchiere::scrub_field( $_GET[ 's' ] );
+		$intro_title = "<h1 class=\"visually-hidden\">Risultati della ricerca per: $search_keywords</h1>";
+	}
 
-	$bg_month = strtolower( date( 'F' ) );
+	$bg_month = isset( $_GET[ 'colors' ] ) ? duechiacchiere::scrub_field( $_GET[ 'colors' ] ) : strtolower( date( 'F' ) );
 	if ( $category_boy == 'ingresso' ) {
 		switch ( $bg_month ) {
 			case 'june':

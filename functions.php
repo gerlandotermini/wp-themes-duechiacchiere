@@ -27,10 +27,10 @@ class duechiacchiere {
 		add_filter( 'wp_video_shortcode', array( __CLASS__, 'responsive_video_embed' ) );
 
 		// Customize the TinyMCE Editor
-		// Register our callback to the appropriate filter
 		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
 		add_filter( 'tiny_mce_before_init', array( __CLASS__, 'my_mce_before_init_insert_formats' ) );
 		
+		// Miscellaneous clean up
 		self::_remove_emoji_hooks();
 		self::_remove_wp_headers();
 	}
@@ -50,21 +50,30 @@ class duechiacchiere {
 	public static function wp_enqueue_scripts() {
 		wp_enqueue_style( 'duechiacchiere', get_stylesheet_uri() );
 		wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/js/duechiacchiere.js', array(), null, true );
+		wp_localize_script( 'duechiacchiere', 'duechiacchiere',
+				array( 
+						'COOKIEHASH' => COOKIEHASH
+				)
+		);
+
+		// Remove Gutenberg styles from frontend
+		wp_dequeue_style( 'wp-block-library' );
+		wp_dequeue_style( 'wp-block-library-theme' );
+		wp_dequeue_style( 'wc-block-style' ); 
 	}
 	
 	public static function wcag_menu_link_attributes( $atts, $item, $args, $depth ) {
 		// Add [aria-haspopup] and [aria-expanded] to menu items that have children
 		$item_has_children = in_array( 'menu-item-has-children', $item->classes );
 		if ( $item_has_children ) {
-				$atts['aria-haspopup'] = "true";
-				$atts['aria-expanded'] = "false";
+				$atts[ 'aria-haspopup' ] = 'true';
+				$atts[ 'aria-expanded' ] = 'false';
 		}
 	
 		return $atts;
 	}
 
 	public static function img_caption_html($attr, $content = null) {
-
 		extract(shortcode_atts(array(
 			'id'	=> '',
 			'align'	=> 'alignnone',
@@ -139,7 +148,6 @@ class duechiacchiere {
 		return $buttons;
 	}
 
-
 	public static function get_substr_words( $string, $desired_length ) {
 		$parts = preg_split( '/([\s\n\r]+)/u', $string, null, PREG_SPLIT_DELIM_CAPTURE );
 		$parts_count = count( $parts );
@@ -154,6 +162,20 @@ class duechiacchiere {
 		}
 	
 		return implode( array_slice( $parts, 0, $last_part ) ) . ( ( $parts_count > $last_part) ? '...' : '' );
+	}
+
+	public static function scrub_field( $header ) {
+		$headers_to_remove = array(
+			'/to\:/i',
+			'/from\:/i',
+			'/bcc\:/i',
+			'/cc\:/i',
+			'/content\-transfer\-encoding\:/i',
+			'/content\-type\:/i',
+			'/mime\-version\:/i' 
+		);
+	
+	 return stripslashes( strip_tags( urldecode( preg_replace( $headers_to_remove, '', $header ) ) ) );
 	}
 
 	private static function _remove_emoji_hooks() {

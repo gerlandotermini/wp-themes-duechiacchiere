@@ -1,5 +1,5 @@
 // Keyboard-friendly Navigation
-let getSiblings = function ( e ) {
+let getSiblings = function( e ) {
   let siblings = []; 
 
   // If no parent, return no sibling
@@ -18,6 +18,16 @@ let getSiblings = function ( e ) {
       sibling = sibling.nextSibling;
   }
   return siblings;
+}
+
+let getCookie = function( name ) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split( `; ${name}=` );
+  if (parts.length === 2) {
+    return decodeURIComponent( parts.pop().split( ';' ).shift() );
+  }
+
+  return '';
 }
 
 document.querySelectorAll( '#header-container ul.menu > .menu-item > a' ).forEach( link => {
@@ -55,32 +65,9 @@ window.onscroll = function() {
   }
 }
 
-// When the user clicks on the button, scroll to the top of the document
-// function topFunction() {
-//   document.body.scrollTop = 0; // For Safari
-//   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-// }
-
-// Media Queries
-// var previousStatus = false;
-// viewport = window.matchMedia( "(max-width: 992px)" );
-// function adjustLayout( viewport ) {
-//   if ( viewport.matches ) {
-//     // Mobile layout
-//     siteName = document.querySelector( '#branding #name' );
-//     if ( typeof siteName != 'undefined' && siteName != null ) {
-//       document.querySelector( '#primary-menu' ).prepend( document.querySelector( '#branding #name' ) );
-//     }
-//   }
-//   else {
-//     // Desktop Layout
-//     siteName = document.querySelector( '#primary-menu #name' );
-//     if ( typeof siteName != 'undefined' && siteName != null ) {
-//       document.querySelector( '#branding' ).append( document.querySelector( '#primary-menu #name' ) );
-//     }
-//   }
-// }
-
-// Check resolution on load and on resize
-// adjustLayout( viewport );
-// viewport.addEventListener( 'change', adjustLayout );
+// Populate comment fields with cookie values, if available
+if ( typeof( duechiacchiere.COOKIEHASH ) != 'undefined' ) {
+  document.querySelector( '#commentform #author' ).value = getCookie( 'comment_author_' + duechiacchiere.COOKIEHASH );
+  document.querySelector( '#commentform #email' ).value = getCookie( 'comment_author_email_' + duechiacchiere.COOKIEHASH );
+  document.querySelector( '#commentform #url' ).value = getCookie( 'comment_author_url_' + duechiacchiere.COOKIEHASH );
+}
