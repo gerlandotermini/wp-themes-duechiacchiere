@@ -59,7 +59,13 @@
 		<ul>
 		<?php
 			$number_comments = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
-			$comments_list = get_comments( "status=approve&orderby=comment_date&number=$number_comments&type=comment" );
+			$comments_list = get_comments( array(
+				'status' => 'approve',
+				'orderby' => 'comment_date',
+				'number' => $number_comments,
+				'type' => 'comment',
+				'author__not_in' => array( 1 ) 
+			) );
 			foreach ( $comments_list as $a_comment ) {
 				$comment_post_title = get_the_title( $a_comment->comment_post_ID );
 				$comment_permalink = get_comment_link( $a_comment->comment_ID );
@@ -71,7 +77,7 @@
 	</div>
 
 	<div class="widget">
-		<h2>A caso dal mio archivio</h2>
+		<h2>Articoli a casaccio</h2>
 		<ul class="plain-list">
 		<?php
 			$numberposts = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;

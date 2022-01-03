@@ -27,8 +27,9 @@ class duechiacchiere {
 		add_filter( 'wp_video_shortcode', array( __CLASS__, 'responsive_video_embed' ) );
 
 		// Customize the TinyMCE Editor
+		add_filter( 'mce_external_plugins', array( __CLASS__, 'add_tinymce_abbr' ) );
 		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
-		add_filter( 'tiny_mce_before_init', array( __CLASS__, 'my_mce_before_init_insert_formats' ) );
+		add_filter( 'tiny_mce_before_init', array( __CLASS__, 'tiny_mce_before_init' ) );
 		
 		// Miscellaneous clean up
 		self::_remove_emoji_hooks();
@@ -118,22 +119,31 @@ class duechiacchiere {
 	}
 
 	// Add custom styles to TinyMCE
-	public static function my_mce_before_init_insert_formats( $init_array ) {
-		// Define the style_formats array
-		$style_formats = array(
-				// Each array child is a format with it's own settings
-				array(
-						'title' => 'External Link',
-						'selector' => 'a',
-						'classes' => 'external'
-				)
-		);
+	public static function tiny_mce_before_init( $settings ) {
+		// Only show the block elements that we should use
+		$settings[ 'block_formats' ] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Code=code;Preformatted=pre';
 
 		// Insert the array, JSON ENCODED, into 'style_formats'
-		$init_array[ 'style_formats' ] = json_encode( $style_formats );
+		$settings[ 'style_formats' ] = json_encode( array(
+			array(
+				'title' => 'class="external"',
+				'selector' => 'a',
+				'classes' => 'external'
+			),
+			array(
+				'title' => 'lang="en"',
+				'selector' => '*',
+				'attributes' => array( 'lang' => 'en' )
+			)
+		) );
 
-		return $init_array;
-	} 
+		return $settings;
+	}
+
+	public static function add_tinymce_abbr( $plugin_array ) {
+		$plugin_array[ 'tinymce_duechiacchiere' ] = get_template_directory_uri() . '/js/tinymce.js';
+		return $plugin_array;
+	}
 
 	// Callback function to insert 'styleselect' into the $buttons array
 	public static function mce_buttons( $buttons ) {
@@ -144,6 +154,14 @@ class duechiacchiere {
 		if ( ( $key = array_search( 'wp_adv', $buttons ) ) !== false ) {
 			unset( $buttons[ $key ] );
 		}
+
+		// Move the wp_more button 
+		if ( ( $key = array_search( 'wp_more', $buttons ) ) !== false ) {
+			unset( $buttons[ $key ] );
+		}
+
+		array_push( $buttons, 'tinymce_abbr' );
+		array_push( $buttons, 'wp_more' );
 
 		return $buttons;
 	}
