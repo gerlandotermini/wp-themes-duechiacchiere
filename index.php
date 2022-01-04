@@ -78,30 +78,42 @@
 				}
 				$comments_html .= "<span class=\"visually-hidden\"> per {$GLOBALS[ 'post' ]->post_title}</span>";
 		?>
-			<article>
-				<header>
-					<<?= $title_tag ?>><a href="<?php the_permalink() ?>"><?php the_title( '', '' ) ?></a></<?= $title_tag ?>>
-					<?php if ( $GLOBALS[ 'post' ]->post_type == 'post' ): ?>
-					<p class="post-meta">
-						<span class="visually-hidden">Scritto il giorno </span><time datetime="<?php the_time( 'Y-m-d H:i:s' ) ?>"><?= ucfirst( get_the_time('l, j F Y') ); ?></time>
-						<?php
-							if ( !empty( $categories_html ) ) {
-								echo '<span class="visually-hidden">Archiviato </span>in ' . $categories_html;
-							}
-							if ( !empty( $comments_html ) ) {
-								echo ' &mdash; ' . $comments_html;
-							}
-							if ( !is_single() ) {
-								echo edit_post_link( '[M]', ' ' );
-							}
-						?>
-					</p>
-					<?php endif // is post ?>
-				</header>
-				<?php the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false ); ?>
+		<article>
+			<header>
+				<<?= $title_tag ?>><?php if ( !is_single() ): ?><a href="<?php the_permalink() ?>"><?php endif; the_title( '', '' ); if ( !is_single() ): ?></a><?php endif ?></<?= $title_tag ?>>
+				<?php if ( $GLOBALS[ 'post' ]->post_type == 'post' ): ?>
+				<p class="post-meta">
+					<span class="visually-hidden">Scritto il giorno </span><time datetime="<?php the_time( 'Y-m-d H:i:s' ) ?>"><?= ucfirst( get_the_time('l, j F Y') ); ?></time>
+					<?php
+						if ( !empty( $categories_html ) ) {
+							echo '<span class="visually-hidden">Archiviato </span>in ' . $categories_html;
+						}
+						if ( !empty( $comments_html ) ) {
+							echo ' &mdash; ' . $comments_html;
+						}
+						if ( !is_single() ) {
+							echo edit_post_link( '[M]', ' ' );
+						}
+					?>
+				</p>
+				<?php endif // is post ?>
+			</header>
+			<?php the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false ); ?>
+
+			<?php /* if ( is_single() ): ?>
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6022102240639727" crossorigin="anonymous"></script>
+				<ins class="adsbygoogle"
+						style="display:block; text-align:center;"
+						data-ad-layout="in-article"
+						data-ad-format="fluid"
+						data-adtest="<?= ( defined( 'WP_LOCAL_DEV' ) && WP_LOCAL_DEV ) ? 'on' : 'off' ?>"
+						data-ad-client="ca-pub-6022102240639727"
+						data-ad-slot="6629110691"></ins>
+				<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+			<?php endif */ ?>
 			</article>
 
-			<?php if ( !post_password_required() ) comments_template(); ?>
+			<?php if ( !post_password_required() && !is_attachment() ) comments_template(); ?>
 		<?php endwhile; ?>
 
 		<?php if ( $GLOBALS[ 'wp_query' ]->max_num_pages > 0 ): ?>
