@@ -4,7 +4,8 @@ class duechiacchiere {
 	public static function init() {
 		// This theme uses wp_nav_menu() above and below the main page header
 		register_nav_menus( array(
-			'primary' => 'Primary Navigation'
+			'primary' => 'Primary Navigation',
+			'sidebar' => 'External Links'
 		) );
 
 		// Redirect shortlinks (with post id) to the actual canonical URLs
@@ -17,7 +18,8 @@ class duechiacchiere {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ) );
 
 		// Make the main menu more accessible
-		add_filter( 'nav_menu_link_attributes', array( __CLASS__, 'wcag_menu_link_attributes' ), 10, 4 );
+		add_filter( 'nav_menu_link_attributes', array( __CLASS__, 'nav_menu_link_attributes' ), 10, 4 );
+		add_filter( 'walker_nav_menu_start_el', array( __CLASS__, 'walker_nav_menu_start_el' ), 10, 4 );
 
 		// Customize image HTML wrappers
 		add_shortcode( 'caption', array( __CLASS__, 'img_caption_html' ) );
@@ -63,7 +65,7 @@ class duechiacchiere {
 		wp_dequeue_style( 'wc-block-style' ); 
 	}
 	
-	public static function wcag_menu_link_attributes( $atts, $item, $args, $depth ) {
+	public static function nav_menu_link_attributes( $atts, $item, $args, $depth ) {
 		// Add [aria-haspopup] and [aria-expanded] to menu items that have children
 		$item_has_children = in_array( 'menu-item-has-children', $item->classes );
 		if ( $item_has_children ) {
@@ -72,6 +74,14 @@ class duechiacchiere {
 		}
 	
 		return $atts;
+	}
+
+	public static function walker_nav_menu_start_el( $item_output, $item, $depth, $args ) {
+    if ( !empty( $item->description ) ) {
+        $item_output = str_replace( $args->link_after . '</a>', $args->link_after . '</a>' . '<p class="menu-item-description">' . $item->description . '</p>', $item_output );
+    }
+ 
+    return $item_output;
 	}
 
 	public static function img_caption_html($attr, $content = null) {

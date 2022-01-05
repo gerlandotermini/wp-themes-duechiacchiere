@@ -88,4 +88,21 @@
 		?>
 		</ul>
 	</div>
+
+	<?php if ( is_front_page() ): ?>
+	<div class="widget">
+		<h2>Faccio cose, vedo siti</h2>
+		<?php 
+			$external = wp_nav_menu( array(
+				'theme_location' => 'sidebar',
+				'container' => '',
+				'menu_class' => 'plain-list',
+				'depth' => 1,
+				'echo' => false
+			) );
+
+			echo str_replace( array( '<a', '</a>' ), array( '<h3><a', '</a></h3>' ), $external );
+		?>
+	</div>
+	<?php endif ?>
 </aside>
