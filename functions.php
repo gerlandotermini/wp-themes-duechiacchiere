@@ -33,6 +33,9 @@ class duechiacchiere {
 		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
 		add_filter( 'tiny_mce_before_init', array( __CLASS__, 'tiny_mce_before_init' ) );
 		
+		// Add a Post List button to the admin bar
+		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_menu' ), 100 );
+
 		// Miscellaneous clean up
 		self::_remove_emoji_hooks();
 		self::_remove_wp_headers();
@@ -174,6 +177,15 @@ class duechiacchiere {
 		array_push( $buttons, 'wp_more' );
 
 		return $buttons;
+	}
+
+	public static function admin_bar_menu( $wp_admin_bar ) {
+		$args = array(
+			'id' => 'post-list',
+			'title' => __( 'Posts' ),
+			'href' => get_admin_url( 1, 'edit.php' )
+		);
+		$wp_admin_bar->add_node($args);
 	}
 
 	public static function get_substr_words( $string, $desired_length ) {
