@@ -1,3 +1,6 @@
+// WordPress COOKIEHASH (replaced when script is enqueued)
+let duechiacchiere = { 'COOKIEHASH': 'COOKIEHASHVALUE' };
+
 // Keyboard-friendly Navigation
 let getSiblings = function( e ) {
   let siblings = []; 
@@ -21,9 +24,9 @@ let getSiblings = function( e ) {
 }
 
 let getCookie = function( name ) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split( `; ${name}=` );
-  if (parts.length === 2) {
+  const value = '; ' + document.cookie;
+  const parts = value.split( '; ' + name + '=' );
+  if ( parts.length === 2 ) {
     return decodeURIComponent( parts.pop().split( ';' ).shift() );
   }
 
@@ -66,7 +69,7 @@ window.onscroll = function() {
 }
 
 // Populate comment fields with cookie values, if available
-if ( typeof( duechiacchiere.COOKIEHASH ) != 'undefined' ) {
+if ( typeof( duechiacchiere.COOKIEHASH ) != 'undefined' && document.querySelector( '#commentform #author' ) != null ) {
   document.querySelector( '#commentform #author' ).value = getCookie( 'comment_author_' + duechiacchiere.COOKIEHASH );
   document.querySelector( '#commentform #email' ).value = getCookie( 'comment_author_email_' + duechiacchiere.COOKIEHASH );
   document.querySelector( '#commentform #url' ).value = getCookie( 'comment_author_url_' + duechiacchiere.COOKIEHASH );

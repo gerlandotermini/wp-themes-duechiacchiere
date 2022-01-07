@@ -518,7 +518,7 @@ html {
 
   /* 5.1 January */
   body.january {
-    background: url( "img/months/1.webp" ) repeat-x fixed 0 0 #000;
+    background: url( "themeuri/img/months/1.webp" ) repeat-x fixed 0 0 #000;
   }
   body.january a, body.january a:visited, body.january a:active {
     color: #560bad;

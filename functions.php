@@ -13,9 +13,11 @@ class duechiacchiere {
 
 		// Sorry, no Gutenberg allowed
 		add_filter( 'use_block_editor_for_post_type', '__return_false' );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ), 100 );
 
 		// Enqueue styles and scripts
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ) );
+		add_action( 'wp_head', array( __CLASS__, 'print_styles' ) );
+		add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
 
 		// Make the main menu more accessible
 		add_filter( 'nav_menu_link_attributes', array( __CLASS__, 'nav_menu_link_attributes' ), 10, 4 );
@@ -27,6 +29,10 @@ class duechiacchiere {
 		// Tweak the YouTube and Video oEmbed code
 		add_filter( 'embed_oembed_html', array( __CLASS__, 'responsive_youtube_embed' ), 10, 4 );
 		add_filter( 'wp_video_shortcode', array( __CLASS__, 'responsive_video_embed' ) );
+
+		// Update the Google Sitemap file whenever a new post is published
+		add_action( 'post_updated', array( __CLASS__, 'xml_sitemap' ) );
+		add_action( 'publish_page', array( __CLASS__, 'xml_sitemap' ) );
 
 		// Customize the TinyMCE Editor
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'add_tinymce_abbr' ) );
@@ -54,18 +60,19 @@ class duechiacchiere {
 	}
 
 	public static function wp_enqueue_scripts() {
-		wp_enqueue_style( 'duechiacchiere', get_stylesheet_uri() );
-		wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/js/duechiacchiere.js', array(), null, true );
-		wp_localize_script( 'duechiacchiere', 'duechiacchiere',
-				array( 
-						'COOKIEHASH' => COOKIEHASH
-				)
-		);
-
-		// Remove Gutenberg styles from frontend
 		wp_dequeue_style( 'wp-block-library' );
 		wp_dequeue_style( 'wp-block-library-theme' );
 		wp_dequeue_style( 'wc-block-style' ); 
+	}
+
+	public static function print_styles() {
+		$css = file_get_contents( get_template_directory() . '/style.css' );
+		echo '<style type="text/css">' . str_replace( 'themeuri', get_stylesheet_directory_uri(), $css ) . '</style>';
+	}
+
+	public static function print_scripts() {
+		$js = file_get_contents( get_template_directory() . '/js/duechiacchiere.min.js' );
+		echo '<script>' . str_replace( 'COOKIEHASHVALUE', COOKIEHASH, $js ) . '</script>';
 	}
 	
 	public static function nav_menu_link_attributes( $atts, $item, $args, $depth ) {
@@ -129,6 +136,29 @@ class duechiacchiere {
 		$html = preg_replace( '/\<[\/]{0,1}div[^\>]*\>/i', '', $output );
 
 		return $html;
+	}
+
+	public static function xml_sitemap() {
+		$postsForSitemap = get_posts( array(
+			'numberposts' => -1,
+			'orderby' => 'modified',
+			'post_type' => array( 'post','page' ),
+			'order' => 'DESC'
+		) );
+	
+		$sitemap = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+	
+		foreach ( $postsForSitemap as $a_post ) {
+			$postdate = explode( ' ', $a_post->post_modified );
+			$sitemap .= '<url><loc>' . get_permalink( $a_post->ID ) . '</loc><lastmod>' . $postdate[ 0 ] . '</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>';
+		}
+	
+		$sitemap .= '</urlset>';
+
+		// I'm using dirname here because WP is installed in a subfolder
+		$fp = fopen( dirname( ABSPATH ) . '/sitemap.xml', 'w' );
+		fwrite( $fp, $sitemap );
+		fclose( $fp );
 	}
 
 	// Add custom styles to TinyMCE
