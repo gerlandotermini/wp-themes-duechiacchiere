@@ -126,8 +126,8 @@
 						'base' => str_replace( 99999, '%#%', esc_url( get_pagenum_link( 99999 ) ) ), 
 						'current' => $current_page,
 						'format' => '?paged=%#%',
-						'prev_text' => 'prev',
-						'next_text' => 'next',
+						'prev_text' => 'prev_placeholder',
+						'next_text' => 'next_placeholder',
 						'total' => $GLOBALS[ 'wp_query' ]->max_num_pages,
 						'type'  => 'array'
 					) );
@@ -135,45 +135,24 @@
 					if ( is_array( $pages ) ) {
 
 						if ( $current_page <= 2 ) {
-							echo '
-								<li class="pagination-item previous-page">
-									<i></i>
-								</li>';
+							echo '<li class="pagination-item previous-page"><i></i></li>';
 						}
 						else {
-							echo '
-								<li class="pagination-item previous-page">
-									<a href="/page/' . ( $current_page - 1 ) . ( !empty( $_SERVER[ 'QUERY_STRING' ] ) ? '?' . $_SERVER[ 'QUERY_STRING' ] : '' ) . '">
-										<span class="visually-hidden">
-											Vai alla pagina precedente dell\'archivio
-										</span>
-									</a>
-								</li>';
+							echo '<li class="pagination-item previous-page">' . str_replace( array( 'href=', 'prev_placeholder' ), array( "title=\"Vai alla pagina precedente dell'archivio\" href=", '' ), $pages[ 0 ] ) . '</li>';
 						}
 
 						foreach ( $pages as $a_page_html ) {
 							$loop_page = trim( strip_tags( $a_page_html ) );
-							if ( $loop_page != 'prev' && $loop_page != 'next' ) {
-								$a_page_html = str_replace( 'href=', "title=\"Vai alla pagina $loop_page dell'archivio\" href=", $a_page_html );
-								echo "<li class=\"pagination-item\">$a_page_html</li>";
+							if ( $loop_page != 'prev_placeholder' && $loop_page != 'next_placeholder' ) {
+								echo '<li class="pagination-item">' . str_replace( 'href=', "title=\"Vai alla pagina $loop_page dell'archivio\" href=", $a_page_html ) . '</li>';
 							}
 						}
 
 						if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
-							echo '
-								<li class="pagination-item next-page">
-									<i></i>
-								</li>';
+							echo '<li class="pagination-item next-page"><i></i></li>';
 						}
 						else {
-							echo '
-								<li class="pagination-item next-page">
-								<a href="/page/' . ( $current_page + 1 ) . ( !empty( $_SERVER[ 'QUERY_STRING' ] ) ? '?' . $_SERVER[ 'QUERY_STRING' ] : '' ) . '">
-										<span class="visually-hidden">
-											Vai alla pagina successiva dell\'archivio
-										</span>
-									</a>
-								</li>';
+							echo '<li class="pagination-item next-page">' . str_replace( array( 'href=', 'next_placeholder' ), array( "title=\"Vai alla pagina successiva dell'archivio\" href=", '' ), $pages[ count( $pages ) - 1 ] ) . '</li>';
 						}
 					}
 				?>
