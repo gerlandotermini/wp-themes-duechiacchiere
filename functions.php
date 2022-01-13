@@ -26,6 +26,9 @@ class duechiacchiere {
 		// Customize image HTML wrappers
 		add_shortcode( 'caption', array( __CLASS__, 'img_caption_html' ) );
 
+		// Don't generate thumbnails, this theme only uses full size
+		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
+
 		// Tweak the YouTube and Video oEmbed code
 		add_filter( 'embed_oembed_html', array( __CLASS__, 'responsive_youtube_embed' ), 10, 4 );
 		add_filter( 'wp_video_shortcode', array( __CLASS__, 'responsive_video_embed' ) );
@@ -139,7 +142,7 @@ class duechiacchiere {
 	}
 
 	public static function xml_sitemap() {
-		$postsForSitemap = get_posts( array(
+		$posts = get_posts( array(
 			'numberposts' => -1,
 			'orderby' => 'modified',
 			'post_type' => array( 'post','page' ),
@@ -148,7 +151,7 @@ class duechiacchiere {
 	
 		$sitemap = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 	
-		foreach ( $postsForSitemap as $a_post ) {
+		foreach ( $posts as $a_post ) {
 			$postdate = explode( ' ', $a_post->post_modified );
 			$sitemap .= '<url><loc>' . get_permalink( $a_post->ID ) . '</loc><lastmod>' . $postdate[ 0 ] . '</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>';
 		}
@@ -213,7 +216,7 @@ class duechiacchiere {
 		$args = array(
 			'id' => 'post-list',
 			'title' => __( 'Posts' ),
-			'href' => get_admin_url( 1, 'edit.php' )
+			'href' => get_admin_url( 1, 'edit.php?page=cal' )
 		);
 		$wp_admin_bar->add_node($args);
 	}

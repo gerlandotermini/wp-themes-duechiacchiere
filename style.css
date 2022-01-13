@@ -534,7 +534,7 @@ html {
 
   /* 5.2 February */
   body.february {
-    background: url( "img/months/2.webp" ) repeat fixed center 0 #786960;
+    background: url( "themeuri/img/months/2.webp" ) repeat fixed center 0 #786960;
   }
   body.february a, body.february a:visited, body.february a:active {
     color: #721620;
@@ -550,7 +550,7 @@ html {
 
   /* 5.3 March */
   body.march {
-    background: url( "img/months/3.webp" ) repeat fixed 0 0 #332874;
+    background: url( "themeuri/img/months/3.webp" ) repeat fixed 0 0 #332874;
   }
   body.march a, body.march a:visited, body.march a:active {
     color: #443796;
@@ -566,7 +566,7 @@ html {
 
   /* 5.4 April */
   body.april {
-    background: url( "img/months/4.webp" ) repeat fixed center 0 #476a06;
+    background: url( "themeuri/img/months/4.webp" ) repeat fixed center 0 #476a06;
   }
   body.april a, body.april a:visited, body.april a:active {
     color: #2c3d1d;
@@ -583,7 +583,7 @@ html {
 
   /* 5.5 May */
   body.may {
-    background: url( "img/months/5.webp" ) repeat fixed center 0 #0d6f00;
+    background: url( "themeuri/img/months/5.webp" ) repeat fixed center 0 #0d6f00;
   }
   body.may a, body.may a:visited, body.may a:active {
     color: #4f7101;
@@ -599,7 +599,7 @@ html {
 
   /* 5.6 June */
   body.june {
-    background: url( "img/months/6.webp" ) repeat fixed center 0 #0d6f00;
+    background: url( "themeuri/img/months/6.webp" ) repeat fixed center 0 #0d6f00;
     box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
   }
   body.june a, body.june a:visited, body.june a:active {
@@ -616,7 +616,7 @@ html {
 
   /* 5.7 July */
   body.july {
-    background: url( "img/months/7.webp" ) no-repeat fixed center 0 #040001;
+    background: url( "themeuri/img/months/7.webp" ) no-repeat fixed center 0 #040001;
   }
   body.july a, body.july a:visited, body.july a:active {
     color: #002868;
@@ -632,7 +632,7 @@ html {
 
   /* 5.8 August */
   body.august {
-    background: url( "img/months/8.webp" ) repeat fixed 150px center #fecc59;
+    background: url( "themeuri/img/months/8.webp" ) repeat fixed 150px center #fecc59;
     box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
   }
   body.august a, body.august a:visited, body.august a:active {
@@ -649,7 +649,7 @@ html {
 
   /* 5.9 September */
   body.september {
-    background: url( "img/months/9.webp" ) repeat fixed center 0 #ac4900;
+    background: url( "themeuri/img/months/9.webp" ) repeat fixed center 0 #ac4900;
   }
   body.september a, body.september a:visited, body.september a:active {
     color: #994000;
@@ -665,7 +665,7 @@ html {
 
   /* 5.10 October */
   body.october {
-    background: url( "img/months/10.webp" ) repeat fixed center 0 #000000;
+    background: url( "themeuri/img/months/10.webp" ) repeat fixed center 0 #000000;
   }
   body.october a, body.october a:visited, body.october a:active {
     color: #dd801d;
@@ -681,7 +681,7 @@ html {
 
   /* 5.11 November */
   body.november {
-    background: url( "img/months/11.webp" ) repeat fixed center 0 #2d1a0b;
+    background: url( "themeuri/img/months/11.webp" ) repeat fixed center 0 #2d1a0b;
   }
   body.november a, body.november a:visited, body.november a:active {
     color: #664438;
@@ -697,7 +697,7 @@ html {
 
   /* 5.12 December */
   body.december {
-    background: url( "img/months/12.webp" ) repeat fixed 0 0 #711517;
+    background: url( "themeuri/img/months/12.webp" ) repeat fixed 0 0 #711517;
   }
   body.december a, body.december a:visited, body.december a:active {
     color: #c80000;
