@@ -44,6 +44,10 @@
 			while ( have_posts() ):
 				the_post();
 
+				if ( !empty( $_GET[ 'day' ] ) && !empty( $_GET[ 'monthnum' ] ) && get_the_time( 'Y' ) == date_i18n( 'Y' ) ) {
+					continue;
+				}
+
 				if ( !is_single() ) {
 					$categories = get_the_category( $GLOBALS[ 'post' ]->ID );
 
@@ -92,7 +96,7 @@
 							echo ' &mdash; ' . $comments_html;
 						}
 						if ( !is_single() ) {
-							echo edit_post_link( '[M]', ' ' );
+							edit_post_link( '[M]', ' ' );
 						}
 					?>
 				</p>

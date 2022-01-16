@@ -43,7 +43,9 @@
 							echo "<li>{$a_post->post_title}</li>";
 						}
 						else {
-							echo '<li><a href="' . get_permalink( $a_post->ID ) . '">' . $a_post->post_title . '</a></li>';
+							echo '<li><a href="' . get_permalink( $a_post->ID ) . '">' . $a_post->post_title . '</a>';
+							edit_post_link( '[M]', ' ', '', $a_post->ID );
+							echo '</li>';
 						}
 						
 					}
@@ -58,7 +60,7 @@
 		<h2>Commenti recenti</h2>
 		<ul>
 		<?php
-			$number_comments = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
+			$number_comments = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 4 ) ? 4 : 3;
 			$comments_list = get_comments( array(
 				'status' => 'approve',
 				'orderby' => 'comment_date',
@@ -70,7 +72,7 @@
 				$comment_post_title = get_the_title( $a_comment->comment_post_ID );
 				$comment_permalink = get_comment_link( $a_comment->comment_ID );
 				$comment_excerpt = duechiacchiere::get_substr_words( strip_tags( $a_comment->comment_content ), 150 );
-				echo "<li><a title=\"Vai al commento all'articolo: $comment_post_title\" href=\"$comment_permalink\">$a_comment->comment_author</a>: $comment_excerpt</li>";
+				echo '<li><h3><a title="Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title . '" href="' . $comment_permalink .'">' . $a_comment->comment_author . ' su ' . $comment_post_title . '</a></h3><p>' . $comment_excerpt . '</p></li>';
 			}
 		?>
 		</ul>
@@ -80,10 +82,12 @@
 		<h2>Articoli a casaccio</h2>
 		<ul class="plain-list">
 		<?php
-			$numberposts = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
+			$numberposts = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 4 ) ? 4 : 3;
 			$random_posts = get_posts( "numberposts=$numberposts&orderby=rand&exclude=" . ( isset( $GLOBALS[ 'post' ]->ID ) ? $GLOBALS[ 'post' ]->ID : 0 ) );
 			foreach( $random_posts as $a_post ) {
-				echo '<li><h3><a href="' . get_permalink( $a_post->ID ). '">' . $a_post->post_title . '</a></h3><p>' . duechiacchiere::get_substr_words( strip_tags( $a_post->post_content ), 150 ) . '</p></li>';
+				echo '<li><h3><a href="' . get_permalink( $a_post->ID ). '">' . $a_post->post_title . '</a>';
+				edit_post_link( '[M]', ' ', '', $a_post->ID );
+				echo '</h3><p>' . duechiacchiere::get_substr_words( strip_tags( $a_post->post_content ), 150 ) . '</p></li>';
 			}
 		?>
 		</ul>

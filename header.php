@@ -2,8 +2,8 @@
 <html lang="it" xml:lang="it" dir="ltr">
 <head>
 	<!-- BEGIN: Technical info -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<!-- END: Technical info -->
 
 	<!-- BEGIN: Editorial info -->
@@ -12,13 +12,17 @@
 	$category_boy = 'ingresso';
 	$intro_title = '';
 	$title_tag = 'h2';
+	$schema_code = '';
 
 	if ( is_single() ) {
+		$page_image = duechiacchiere::first_post_image( $GLOBALS[ 'post' ]->post_content );
+
+		if ( empty( $page_image ) ) {
+			$page_image = get_template_directory_uri() . '/img/boys/ingresso.webp';
+		}
+
 		if ( has_post_thumbnail( $GLOBALS[ 'post' ]->ID ) ) {
 			$page_image = wp_get_attachment_image_src( get_post_thumbnail_id( $GLOBALS[ 'post' ]->ID ), 'medium' );
-		}
-		else {
-			$page_image = get_template_directory_uri() . '/img/boys/ingresso.webp';
 		}
 		
 		if ( $page_description = $GLOBALS[ 'post' ]->post_excerpt ) {
@@ -38,13 +42,47 @@
 		}
 
 		$title_tag = 'h1';
+		$schema_code = ',
+			{
+				"@type": "BlogPosting",
+				"mainEntityOfPage": {
+					"@type": "WebPage",
+					"@id": "' .  get_the_permalink() . '#contenuto"
+				},
+				"headline": "' . get_the_title() . '",
+				"image": "' . $page_image . '",
+				"author": {
+					"@type": "Person",
+					"name": "camu",
+					"url": "' . get_bloginfo( 'url' ) . '"
+				},  
+				"publisher": {
+					"@type": "Organization",
+					"name": "' . get_bloginfo( 'name' ) . '",
+					"logo": {
+						"@type": "ImageObject",
+						"url": "' . get_template_directory_uri() . '/img/boys/ingresso.webp"
+					}
+				},
+				"datePublished": "' . get_the_time( 'c' ) . '",
+				"dateModified": "' . get_the_modified_date( 'c' ) . '",
+				"inLanguage": "it-IT",
+				"potentialAction": [
+					{
+						"@type": "ReadAction",
+						"target": [
+							"' . get_the_permalink() . '"
+						]
+					}
+				]
+			}';
 ?>
-	<meta property="og:title" content="<?php echo the_title(); ?>"/>
+	<meta property="og:title" content="<?php the_title(); ?>"/>
 	<meta property="og:description" content="<?php echo $page_description; ?>"/>
 	<meta property="og:type" content="article"/>
-	<meta property="og:url" content="<?php echo the_permalink(); ?>"/>
-	<meta property="og:site_name" content="<?php echo get_bloginfo(); ?>"/>
-	<meta property="og:image" content="<?php echo $page_image; ?>"/>
+	<meta property="og:url" content="<?php the_permalink(); ?>"/>
+	<meta property="og:site_name" content="<?= get_bloginfo( 'name' ); ?>"/>
+	<meta property="og:image" content="<?= $page_image; ?>"/>
 <?php }
 	else if ( is_category() ) {
 		$category = get_queried_object();
@@ -57,6 +95,47 @@
 
 		$category_boy = $category->slug;
 		$intro_title = "<h1 class=\"visually-hidden\">Articoli recenti in {$category->name}</h1>";
+
+		$schema_code = ',
+			{
+				"@type": "CollectionPage",
+				"@id": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '#contenuto"
+				"url": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '",
+				"name": "' . ucfirst( strip_tags( get_the_archive_title() ) ) . '",
+				"isPartOf": {
+					"@id": "' . get_bloginfo( 'url' ) . '"
+				},
+				"inLanguage": "it-IT",
+				"potentialAction": [
+					{
+						"@type": "ReadAction",
+						"target": [
+							"' . home_url( $GLOBALS[ 'wp' ]->request ) . '"
+						]
+					}
+				]
+			}';
+	}
+	else if ( is_date() ) {
+		$schema_code = ',
+			{
+				"@type": "CollectionPage",
+				"@id": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '#contenuto",
+				"url": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '",
+				"name": "' . ucfirst( strip_tags( get_the_archive_title() ) ) . '",
+				"isPartOf": {
+					"@id": "' . get_bloginfo( 'url' ) . '"
+				},
+				"inLanguage": "it-IT",
+				"potentialAction": [
+					{
+						"@type": "ReadAction",
+						"target": [
+							"' . home_url( $GLOBALS[ 'wp' ]->request ) . '"
+						]
+					}
+				]
+			}';
 	}
 	else if ( is_404() ) {
 		$category_boy = '404';
@@ -91,6 +170,34 @@
 	}
 ?>
 	<!-- END: Editorial info -->
+
+	<!-- BEGIN: Schema.org definitions -->
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "WebSite",
+				"@id": "<?= get_bloginfo( 'url' ) ?>#contenuto",
+				"url": "<?= get_bloginfo( 'url' ) ?>",
+				"name": "<?= get_bloginfo( 'name' ) ?>",
+				"description": "<?= get_bloginfo( 'description' ) ?>",
+				"potentialAction": [
+					{
+						"@type": "SearchAction",
+						"target": {
+							"@type": "EntryPoint",
+							"urlTemplate": "<?= get_bloginfo( 'url' ) ?>?s={search_term_string}"
+						},
+						"query-input": "required name=search_term_string"
+					}
+				],
+				"inLanguage": "it-IT"
+			}<?= $schema_code ?>
+		]
+	}
+	</script>
+	<!-- END: Schema.org definitions -->
 
 	<!-- BEGIN: Google fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">

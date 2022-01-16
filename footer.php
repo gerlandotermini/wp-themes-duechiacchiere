@@ -32,7 +32,8 @@
 		<nav>
 			<h2>Indietro nel tempo</h2>
 			<ul>
-				<?php wp_get_archives('type=monthly&limit=6'); ?>
+				<?php wp_get_archives('type=monthly&limit=5'); ?>
+				<li><a href="/?day=<?= date_i18n( 'd' ) ?>&monthnum=<?= date_i18n( 'm' ) ?>">Oggi nel passato</a>
 			</ul>
 		</nav>
 	</footer>

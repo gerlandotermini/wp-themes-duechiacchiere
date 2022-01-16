@@ -251,6 +251,16 @@ class duechiacchiere {
 	 return stripslashes( strip_tags( urldecode( preg_replace( $headers_to_remove, '', $header ) ) ) );
 	}
 
+	public static function first_post_image( $post_content ) {
+		$output = preg_match_all( '/<img.+?src=[\'"]([^\'"]+)[\'"].*?>/i', $post_content, $matches );
+
+		if ( !empty( $matches[ 1 ][ 0 ] ) ) {
+			return $matches[ 1 ][ 0 ];
+		}
+
+		return '';
+	}
+
 	private static function _remove_emoji_hooks() {
 		// All actions related to emojis
 		remove_action( 'admin_print_styles', 'print_emoji_styles' );
