@@ -222,7 +222,7 @@ class duechiacchiere {
 	}
 
 	public static function get_substr_words( $string, $desired_length ) {
-		$parts = preg_split( '/([\s\n\r]+)/u', $string, null, PREG_SPLIT_DELIM_CAPTURE );
+		$parts = preg_split( '/([\s\n\r]+)/u', strip_tags( $string ), null, PREG_SPLIT_DELIM_CAPTURE );
 		$parts_count = count( $parts );
 	
 		$length = 0;

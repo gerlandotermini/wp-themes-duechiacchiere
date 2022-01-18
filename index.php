@@ -6,7 +6,7 @@
 		
 		<?php
 			if ( !is_single() ) {
-				echo $intro_title;
+				echo $heading_title;
 			}
 		
 			if ( !have_posts() ): ?>
