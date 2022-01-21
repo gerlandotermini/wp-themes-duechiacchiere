@@ -213,8 +213,8 @@ class duechiacchiere {
 			unset( $buttons[ $key ] );
 		}
 
-		array_push( $buttons, 'currentdate' );
-		array_push( $buttons, 'tinymce_abbr' );
+		array_push( $buttons, 'duechiacchiere_recipe' );
+		array_push( $buttons, 'duechiacchiere_abbr' );
 		array_push( $buttons, 'wp_more' );
 
 		return $buttons;
