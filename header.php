@@ -193,6 +193,7 @@
 	<!-- BEGIN: Technical info -->
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<?php $parsed = parse_url( $_SERVER[ 'REQUEST_URI' ] ); if ( !empty( $parsed[ 'query' ] ) ): ?><meta name="robots" content="noindex,nofollow"><?php endif ?>
 	<!-- END: Technical info -->
 
 	<!-- BEGIN: Editorial info -->

@@ -11,9 +11,9 @@
 				<li><a href="https://www.tophost.it" title="il fornitore di hosting italiano che ospita dal 2005 queste pagine">Il servizio che mi ospita</a></li>
 				<li><a href="https://it.wordpress.org/" title="sito italiano del sistema WordPress per la gestione dei contenuti">Il sistema di gestione</a></li>
 				<li><a href="/accessibile" title="leggi le informazioni sul livello di accessibilit&agrave; di queste pagine">Un sito accessibile a tutti</a></li>
-				<li><a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fwww.duechiacchiere.it%2F" hreflang="en" title="pagina in inglese per verificare la correttezza semantica di un sito">Un codice impeccabile</a></li>
+				<li><a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fwww.duechiacchiere.it%2F" rel="nofollow" hreflang="en" title="pagina in inglese per verificare la correttezza semantica di un sito">Un codice impeccabile</a></li>
 				<li><a href="http://www.rxstrip.it/">L'artista del ragazzo</a></li>
-				<li><a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" title="pagina in italiano che descrive la licenza per i contenuti">La licenza di attribuzione</a></li>
+				<li><a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" rel="nofollow" title="pagina in italiano che descrive la licenza per i contenuti">La licenza di attribuzione</a></li>
 			</ul>
 		</nav>
 
@@ -33,7 +33,7 @@
 			<h2>Indietro nel tempo</h2>
 			<ul>
 				<?php wp_get_archives('type=monthly&limit=5'); ?>
-				<li><a href="/?day=<?= date_i18n( 'd' ) ?>&monthnum=<?= date_i18n( 'm' ) ?>">Oggi nel passato</a>
+				<li><a href="/?day=<?= date_i18n( 'd' ) ?>&monthnum=<?= date_i18n( 'm' ) ?>" rel="nofollow">Oggi nel passato</a>
 			</ul>
 		</nav>
 	</footer>

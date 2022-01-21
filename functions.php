@@ -23,6 +23,9 @@ class duechiacchiere {
 		add_filter( 'nav_menu_link_attributes', array( __CLASS__, 'nav_menu_link_attributes' ), 10, 4 );
 		add_filter( 'walker_nav_menu_start_el', array( __CLASS__, 'walker_nav_menu_start_el' ), 10, 4 );
 
+		// Add nofollow to the monthly archive links in the footer
+		add_filter( 'get_archives_link', array( __CLASS__, 'get_archives_link' ) );
+
 		// Customize image HTML wrappers
 		add_shortcode( 'caption', array( __CLASS__, 'img_caption_html' ) );
 
@@ -38,7 +41,7 @@ class duechiacchiere {
 		add_action( 'publish_page', array( __CLASS__, 'xml_sitemap' ) );
 
 		// Customize the TinyMCE Editor
-		add_filter( 'mce_external_plugins', array( __CLASS__, 'add_tinymce_abbr' ) );
+		add_filter( 'mce_external_plugins', array( __CLASS__, 'mce_external_plugins' ) );
 		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
 		add_filter( 'tiny_mce_before_init', array( __CLASS__, 'tiny_mce_before_init' ) );
 		
@@ -95,6 +98,10 @@ class duechiacchiere {
     }
  
     return $item_output;
+	}
+
+	public static function get_archives_link( $link_html = '' ) {
+		return str_replace( '<a href=', '<a rel="nofollow" href=',  $link_html );
 	}
 
 	public static function img_caption_html($attr, $content = null) {
@@ -186,7 +193,7 @@ class duechiacchiere {
 		return $settings;
 	}
 
-	public static function add_tinymce_abbr( $plugin_array ) {
+	public static function mce_external_plugins( $plugin_array ) {
 		$plugin_array[ 'tinymce_duechiacchiere' ] = get_template_directory_uri() . '/js/tinymce.js';
 		return $plugin_array;
 	}
@@ -206,6 +213,7 @@ class duechiacchiere {
 			unset( $buttons[ $key ] );
 		}
 
+		array_push( $buttons, 'currentdate' );
 		array_push( $buttons, 'tinymce_abbr' );
 		array_push( $buttons, 'wp_more' );
 
