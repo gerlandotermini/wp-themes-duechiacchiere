@@ -470,9 +470,6 @@ html {
   h1 a, h2 a, h3 a {
     text-decoration: none;
   }
-  a {
-    word-break: break-all;
-  }
   a:hover, a:focus, a:focus-visible {
     text-shadow: 0 0 1px #444;
   }
@@ -866,6 +863,9 @@ html {
     border-left: 1px solid #ccc;
     margin-left: 5px;
     padding-left: 5px;
+  }
+  #comments a {
+    word-break: break-all;
   }
   #commentform .form-submit {
     padding: 0;

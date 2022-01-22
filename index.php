@@ -84,7 +84,7 @@
 		?>
 		<article>
 			<header>
-				<<?= $title_tag ?>><?php if ( !is_single() ): ?><a href="<?php the_permalink() ?>"><?php endif; the_title( '', '' ); if ( !is_single() ): ?></a><?php endif ?></<?= $title_tag ?>>
+				<<?= $title_tag ?>><?php if ( !is_single() && !is_page() ): ?><a href="<?php the_permalink() ?>"><?php endif; the_title( '', '' ); if ( !is_single() ): ?></a><?php endif ?></<?= $title_tag ?>>
 				<?php if ( $GLOBALS[ 'post' ]->post_type == 'post' ): ?>
 				<p class="post-meta">
 					<span class="visually-hidden">Scritto il giorno </span><time datetime="<?php the_time( 'Y-m-d H:i:s' ) ?>"><?= ucfirst( get_the_time('l, j F Y') ); ?></time>
