@@ -136,25 +136,27 @@
 
 		$og_meta[ 'type' ] = 'website';
 
-		$schema_code = ',
-			{
-				"@type": "CollectionPage",
-				"@id": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '#contenuto"
-				"url": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '",
-				"name": "' . ucfirst( strip_tags( get_the_archive_title() ) ) . '",
-				"isPartOf": {
-					"@id": "' . get_bloginfo( 'url' ) . '#contenuto"
-				},
-				"inLanguage": "it-IT",
-				"potentialAction": [
-					{
-						"@type": "ReadAction",
-						"target": [
-							"' . home_url( $GLOBALS[ 'wp' ]->request ) . '"
-						]
-					}
-				]
-			}';
+		if ( home_url( $GLOBALS[ 'wp' ]->request ) != get_bloginfo( 'url' ) ) {
+			$schema_code = ',
+				{
+					"@type": "CollectionPage",
+					"@id": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '#contenuto",
+					"url": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '",
+					"name": "' . ucfirst( strip_tags( get_the_archive_title() ) ) . '",
+					"isPartOf": {
+						"@id": "' . get_bloginfo( 'url' ) . '#contenuto"
+					},
+					"inLanguage": "it-IT",
+					"potentialAction": [
+						{
+							"@type": "ReadAction",
+							"target": [
+								"' . home_url( $GLOBALS[ 'wp' ]->request ) . '"
+							]
+						}
+					]
+				}';
+		}
 	}
 	else if ( is_404() ) {
 		$category_boy = '404';

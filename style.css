@@ -332,6 +332,9 @@ html {
   aside p {
     margin-top: 5px;
   }
+  aside a {
+    text-decoration: none;
+  }
 
   /* 2.4 Pagination */
   #pagination {

@@ -40,6 +40,9 @@ class duechiacchiere {
 		add_action( 'post_updated', array( __CLASS__, 'xml_sitemap' ) );
 		add_action( 'publish_page', array( __CLASS__, 'xml_sitemap' ) );
 
+		// Inject old posts in the RSS feed
+		add_filter( 'posts_results', array( __CLASS__, 'posts_results' ) );
+
 		// Customize the TinyMCE Editor
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'mce_external_plugins' ) );
 		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
@@ -169,6 +172,33 @@ class duechiacchiere {
 		$fp = fopen( dirname( ABSPATH ) . '/sitemap.xml', 'w' );
 		fwrite( $fp, $sitemap );
 		fclose( $fp );
+	}
+
+	public static function posts_results( $posts ) {
+		if (!is_feed() ) {
+			return $posts;
+		}
+		
+		$old_posts = get_posts( array(
+			'post_type' => 'post',
+			'monthnum' => date_i18n( 'm' ),
+			'day' => date_i18n( 'd' ),
+			'posts_per_page' => -1,
+			'orderby' => 'date',
+			'order' => 'desc'
+		) );
+	
+		$count_posts = 0;
+		if ( count( $old_posts ) > 1 ) {
+			foreach( $old_posts as $a_post ) {
+				if ( ( $count_posts < 2 ) && date_i18n( 'Y', strtotime( $a_post->post_date ) ) != date_i18n( 'Y' ) ) {
+					$posts = array_merge( $posts, array( $a_post ) );
+					$count_posts++;
+				}
+			}
+		}
+	
+		return $posts;
 	}
 
 	// Add custom styles to TinyMCE

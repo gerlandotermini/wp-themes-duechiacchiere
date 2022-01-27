@@ -35,8 +35,8 @@
 				);
 
 				$posts_in_series = get_posts( $args );
-				if ( !empty( $posts_in_series ) ) {
-					echo '<div class="widget"><h2>Le puntate della serie</h2><ol>';
+				if ( !empty( $posts_in_series ) && count( $posts_in_series ) > 1 ) {
+					echo '<div class="widget"><h2>Le puntate della serie</h2><ul>';
 					
 					foreach ( $posts_in_series as $a_post ) {
 						if ( $a_post->ID == $GLOBALS[ 'post' ]->ID ) {
@@ -50,7 +50,7 @@
 						
 					}
 					
-					echo '</ol></div>';
+					echo '</ul></div>';
 				}
 			}
 		}
@@ -72,7 +72,7 @@
 				$comment_post_title = get_the_title( $a_comment->comment_post_ID );
 				$comment_permalink = get_comment_link( $a_comment->comment_ID );
 				$comment_excerpt = duechiacchiere::get_substr_words( $a_comment->comment_content, 150 );
-				echo '<li><h3><a title="Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title . '" href="' . $comment_permalink .'">' . $a_comment->comment_author . ' su ' . $comment_post_title . '</a></h3><p>' . $comment_excerpt . '</p></li>';
+				echo '<li><h3><a title="Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title . '" href="' . $comment_permalink .'">' . $a_comment->comment_author . ' su ' . $comment_post_title . '</a></h3>' . apply_filters( 'comment_text', $comment_excerpt ) . '</li>';
 			}
 		?>
 		</ul>
