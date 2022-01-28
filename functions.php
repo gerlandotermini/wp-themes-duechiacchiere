@@ -47,6 +47,9 @@ class duechiacchiere {
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'mce_external_plugins' ) );
 		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
 		add_filter( 'tiny_mce_before_init', array( __CLASS__, 'tiny_mce_before_init' ) );
+
+		add_action( 'admin_head-post.php', array( __CLASS__, 'admin_head_post' ) );
+		add_action( 'admin_head-post-new.php', array( __CLASS__, 'admin_head_post' ) );
 		
 		// Add a Post List button to the admin bar
 		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_menu' ), 100 );
@@ -248,6 +251,19 @@ class duechiacchiere {
 		array_push( $buttons, 'wp_more' );
 
 		return $buttons;
+	}
+
+	public static function admin_head_post(){
+		if ( 'page' != get_post_type() ) {
+			echo '
+				<script>jQuery(document).ready(function(){
+					jQuery("#postexcerpt .handlediv").after("<div style=\"position:absolute;top:auto;bottom:18px;left:auto;right:15px;\">Character count: <span id=\"excerpt_counter\"></span></div>");
+					jQuery("span#excerpt_counter").text(jQuery("#excerpt").val().length);
+					jQuery("#excerpt").keyup( function() {
+						jQuery("span#excerpt_counter").text(jQuery("#excerpt").val().length);
+					});
+				});</script>';
+		}
 	}
 
 	public static function admin_bar_menu( $wp_admin_bar ) {

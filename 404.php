@@ -20,12 +20,24 @@
 				come si permette, quell'idiota?</p>
 				
 				<p>E cos&igrave; eccoci qui. Che si fa adesso? Beh, personalmente ti consiglierei di dare
-				un'occhiata alla navigazione in alto, chiss&agrave; che non ci possa trovare qualche informazione
-				utile. Se proprio non riesci a trovare quello che stavi cercando, ti consiglio di
-				contattarmi, tramite l'<a href="/contatto" title="scrivimi un messaggio">apposito modulo da compilare</a>.
-				Nei limiti del possibile, cercher&ograve; di aiutarti a ritrovare la strada smarrita.
+				un'occhiata alla navigazione in alto, chiss&agrave; che non noti qualche indicazione
+				utile a ritrovare la retta via. Se proprio non riesci a scovare quello che stavi cercando, ti consiglio di
+				contattarmi tramite l'<a href="/contatto" title="scrivimi un messaggio">apposito modulo</a>.
+				Nel frattempo, ti propongo qui sotto alcuni articoli dal mio archivio che potrebbero stuzzicare la tua curiosit&agrave;.
 			</p>
 		</article>
+
+		<?php
+			$random_posts = get_posts( "numberposts=5&orderby=rand" );
+			foreach ( $random_posts as $a_post ):
+		?>
+			<article>
+				<header>
+					<h2><a href="<?= get_the_permalink( $a_post->ID ) ?>"><?= get_the_title( $a_post->ID ) ?></a></h2>
+				</header>
+				<?= apply_filters( 'the_content', get_the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false, $a_post->ID ) ); ?>
+			</article>
+		<?php endforeach; wp_reset_postdata(); ?>
 	</main>
 
 	<?php get_sidebar() ?>

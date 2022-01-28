@@ -78,6 +78,7 @@
 		</ul>
 	</div>
 
+	<?php if ( !is_404() ): ?>
 	<div class="widget">
 		<h2>Articoli a casaccio</h2>
 		<ul class="plain-list">
@@ -92,6 +93,7 @@
 		?>
 		</ul>
 	</div>
+	<?php endif ?>
 
 	<?php if ( is_front_page() && !is_paged() ): ?>
 	<div class="widget">

@@ -39,7 +39,7 @@
 		}
 		if ( $GLOBALS[ 'post' ]->comment_count > 0 ) {
 			if ( !empty( $og_meta[ 'description' ] ) ) {
-				$og_meta[ 'description' ] .= '&mdash; ';	
+				$og_meta[ 'description' ] .= ' - ';	
 			}
 
 			$og_meta[ 'description' ] .= 'Numero di commenti: ' . $GLOBALS[ 'post' ]->comment_count;
@@ -200,7 +200,10 @@
 
 	<!-- BEGIN: Editorial info -->
 	<meta name="author" content="camu"/>
-<?php 
+<?php
+	if ( !empty( $og_meta[ 'description' ] ) ) {
+		echo '<meta name="description" content="' . $og_meta[ 'description' ] . '">';
+	}
 	foreach ( $og_meta as $meta_key => $meta_value ) {
 		if ( !empty( $meta_value ) ) {
 			echo '<meta property="og:' . $meta_key . '" content="' . $meta_value . '"/>';
