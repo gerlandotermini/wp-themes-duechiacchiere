@@ -189,6 +189,9 @@
 				break;
 		}
 	}
+	if ( date_i18n( 'md' ) == '0401' ) {
+		$bg_month .= ' april-fools';
+	}
 ?><!DOCTYPE html>
 <html lang="it" xml:lang="it" dir="ltr">
 <head>

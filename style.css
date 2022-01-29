@@ -714,6 +714,13 @@ html {
     border-right: 15px solid #c80000;
   }
 
+  /* 5.13 April Fool's Day */
+  body.april-fools *{
+    filter: blur(1px);
+  }
+  body.april-fools *:hover{
+    filter: none;
+  }
 } 
 /* End: Media Screen */
 
