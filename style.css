@@ -715,11 +715,25 @@ html {
   }
 
   /* 5.13 April Fool's Day */
+  body.april-fools {
+    animation: fadeOut infinite linear 120s;
+  }
   body.april-fools *{
     filter: blur(1px);
   }
   body.april-fools *:hover{
     filter: none;
+  }
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.2;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 } 
 /* End: Media Screen */

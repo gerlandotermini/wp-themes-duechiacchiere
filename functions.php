@@ -60,15 +60,14 @@ class duechiacchiere {
 	}
 
 	public static function redirect_post_id_to_canonical_url() {
-			if ( is_404() ) {
-				$request = str_replace( '/', '', $_SERVER[ 'REQUEST_URI' ] );
-				$canonical = get_permalink( intval( $request ) );
+		if ( is_404() ) {
+			$canonical = get_permalink( intval( str_replace( '/', '', $_SERVER[ 'REQUEST_URI' ] ) ) );
 
-				if ( !empty( $canonical ) ) {
-					wp_redirect( $canonical, 301 );
-					return;
-				}
+			if ( !empty( $canonical ) ) {
+				wp_redirect( $canonical, 301 );
+				return;
 			}
+		}
 	}
 
 	public static function wp_enqueue_scripts() {
@@ -110,40 +109,42 @@ class duechiacchiere {
 		return str_replace( '<a href=', '<a rel="nofollow" href=',  $link_html );
 	}
 
-	public static function img_caption_html($attr, $content = null) {
-		extract(shortcode_atts(array(
+	public static function img_caption_html( $attr, $content = null ) {
+		extract( shortcode_atts( array(
 			'id'	=> '',
 			'align'	=> 'alignnone',
 			'width'	=> '',
 			'caption' => ''
-		), $attr));
+		), $attr ) );
 		
 		// New approach implemented in WP 3.4: caption is not an attribute anymore
-		if (empty($caption)){
-			if (substr($content, 0, 2) == '<i'){
-				list($image, $caption) = explode('/>', $content);
+		if ( empty( $caption ) ) {
+			if ( substr( $content, 0, 2 ) == '<i' ) {
+				list( $image, $caption ) = explode( '/>', $content );
 				$separator = "/>";
 			}
-			else{
-				list($image, $caption) = explode('/a>', $content);
+			else {
+				list( $image, $caption ) = explode( '/a>', $content );
 				$separator = 'span></span></a>';
 			}
 		}
-		else{
+		else {
 			$image = $content;
 			$separator = '';
 		}
 	
-		if ( 1 > (int) $width || empty($caption) )
+		if ( 1 > (int) $width || empty( $caption ) )
 			return $content;
 	
-		if ( $id ) $id = 'id="' . esc_attr($id) . '" ';
+		if ( $id ) {
+			$id = 'id="' . esc_attr( $id ) . '" ';
+		}
 	
 		return "<figure $id class='wp-caption $align' style='max-width:{$width}px'>$image$separator <span class='wp-caption-text'>$caption</span></figure>";
 	}
 
 	public static function responsive_youtube_embed( $html, $url, $attr, $post_ID ) {
-		return "<p class=\"video-container\">$html</p>";
+		return '<p class="video-container">' . $html . '</p>';
 	}
 
 	public static function responsive_video_embed( $output ) {
@@ -155,6 +156,13 @@ class duechiacchiere {
 	}
 
 	public static function xml_sitemap() {
+		$sitemap_file = $_SERVER[ 'DOCUMENT_ROOT' ] . '/sitemap.xml';
+
+		// Don't generate the file more than once every hour
+		if ( file_exists( $sitemap_file ) && date_i18n( 'YmdH', filemtime( $sitemap_file ) ) == date_i18n( 'YmdH' ) ) {
+			return false;
+		}
+		
 		$posts = get_posts( array(
 			'numberposts' => -1,
 			'orderby' => 'modified',
@@ -163,22 +171,18 @@ class duechiacchiere {
 		) );
 	
 		$sitemap = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-	
+			
 		foreach ( $posts as $a_post ) {
 			$postdate = explode( ' ', $a_post->post_modified );
 			$sitemap .= '<url><loc>' . get_permalink( $a_post->ID ) . '</loc><lastmod>' . $postdate[ 0 ] . '</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>';
 		}
 	
 		$sitemap .= '</urlset>';
-
-		// I'm using dirname here because WP is installed in a subfolder
-		$fp = fopen( dirname( ABSPATH ) . '/sitemap.xml', 'w' );
-		fwrite( $fp, $sitemap );
-		fclose( $fp );
+		file_put_contents( $sitemap_file, $sitemap );
 	}
 
 	public static function posts_results( $posts ) {
-		if (!is_feed() ) {
+		if ( !is_feed() ) {
 			return $posts;
 		}
 		
