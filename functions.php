@@ -158,8 +158,8 @@ class duechiacchiere {
 	public static function xml_sitemap() {
 		$sitemap_file = $_SERVER[ 'DOCUMENT_ROOT' ] . '/sitemap.xml';
 
-		// Don't generate the file more than once every hour
-		if ( file_exists( $sitemap_file ) && date_i18n( 'YmdH', filemtime( $sitemap_file ) ) == date_i18n( 'YmdH' ) ) {
+		// Don't generate the sitemap file more than once every hour
+		if ( file_exists( $sitemap_file ) && ( date( 'U' ) - date( 'U', filemtime( $sitemap_file ) ) < 3600 ) ) {
 			return false;
 		}
 		
