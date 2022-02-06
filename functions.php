@@ -29,6 +29,9 @@ class duechiacchiere {
 		// Customize image HTML wrappers
 		add_shortcode( 'caption', array( __CLASS__, 'img_caption_html' ) );
 
+		// Add excerpt to pages
+		add_post_type_support( 'page', 'excerpt' );
+
 		// Don't generate thumbnails, this theme only uses full size
 		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
 
@@ -73,7 +76,8 @@ class duechiacchiere {
 	public static function wp_enqueue_scripts() {
 		wp_dequeue_style( 'wp-block-library' );
 		wp_dequeue_style( 'wp-block-library-theme' );
-		wp_dequeue_style( 'wc-block-style' ); 
+		wp_dequeue_style( 'wc-block-style' );
+		wp_dequeue_style( 'global-styles' );
 	}
 
 	public static function print_styles() {
@@ -139,8 +143,9 @@ class duechiacchiere {
 		if ( $id ) {
 			$id = 'id="' . esc_attr( $id ) . '" ';
 		}
-	
-		return "<figure $id class='wp-caption $align' style='max-width:{$width}px'>$image$separator <span class='wp-caption-text'>$caption</span></figure>";
+		$caption = trim( $caption );
+
+		return "<figure $id class=\"wp-caption $align\" style=\"max-width:{$width}px\">$image$separator <span class=\"wp-caption-text\" aria-hidden=\"true\">$caption</span></figure>";
 	}
 
 	public static function responsive_youtube_embed( $html, $url, $attr, $post_ID ) {
@@ -198,8 +203,10 @@ class duechiacchiere {
 		$count_posts = 0;
 		if ( count( $old_posts ) > 1 ) {
 			foreach( $old_posts as $a_post ) {
-				if ( ( $count_posts < 2 ) && date_i18n( 'Y', strtotime( $a_post->post_date ) ) != date_i18n( 'Y' ) ) {
-					$posts = array_merge( $posts, array( $a_post ) );
+				if ( ( $count_posts < 1 ) && date_i18n( 'Y', strtotime( $a_post->post_date ) ) != date_i18n( 'Y' ) ) {
+					$a_post->post_date_gmt = date_i18n( 'Y-m-d 00:00:01' );
+					$a_post->post_title = "Dall'archivio: " . $a_post->post_title;
+					$posts = array_merge( array( $a_post ), $posts );
 					$count_posts++;
 				}
 			}
@@ -357,7 +364,7 @@ class duechiacchiere {
 		remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 	
 		// Enable title tag
-		 add_theme_support( 'title-tag' );
+		add_theme_support( 'title-tag' ); 
 	
 		// Remove XML-RPC and feed links
 		remove_action( 'wp_head', 'rsd_link' );

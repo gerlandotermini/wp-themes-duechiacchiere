@@ -83,7 +83,7 @@
 		<h2>Articoli a casaccio</h2>
 		<ul class="plain-list">
 		<?php
-			$numberposts = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
+			$numberposts = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 4 : 3;
 			$random_posts = get_posts( "numberposts=$numberposts&orderby=rand&exclude=" . ( isset( $GLOBALS[ 'post' ]->ID ) ? $GLOBALS[ 'post' ]->ID : 0 ) );
 			foreach( $random_posts as $a_post ) {
 				echo '<li><h3><a href="' . get_permalink( $a_post->ID ). '">' . $a_post->post_title . '</a>';

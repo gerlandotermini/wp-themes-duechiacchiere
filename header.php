@@ -5,7 +5,7 @@
 
 	$og_meta = array(
 		'title' => '',
-		'description' => '',
+		'description' => get_bloginfo( 'description' ),
 		'type' => 'website',
 		'url' => home_url( $GLOBALS[ 'wp' ]->request ),
 		'image' => ''
@@ -130,7 +130,7 @@
 			$category_boy = $category->slug;
 
 			$og_meta[ 'title' ] = "Articoli recenti in {$category->name}";
-			$og_meta[ 'description' ] = "Sfoglia gli articoli conservati in questa stanza.";
+			$og_meta[ 'description' ] = "Sfoglia gli articoli archiviati in {$category->name}";
 			$heading_title = "<h1 class=\"visually-hidden\">{$og_meta[ 'title' ]}</h1>";
 		}
 
@@ -166,6 +166,10 @@
 	}
 	else if ( is_page() ) {
 		$title_tag = 'h1';
+
+		if ( !empty( $GLOBALS[ 'post' ]->post_excerpt ) ) {
+			$og_meta[ 'description' ] = str_replace( '"', "'", strip_tags( $GLOBALS[ 'post' ]->post_excerpt ) );
+		}
 	}
 	else if ( is_search() ) {
 		$search_keywords = duechiacchiere::scrub_field( $_GET[ 's' ] );
@@ -193,7 +197,7 @@
 		$bg_month .= ' april-fools';
 	}
 ?><!DOCTYPE html>
-<html lang="it" xml:lang="it" dir="ltr">
+<html lang="it" dir="ltr">
 <head>
 	<!-- BEGIN: Technical info -->
 	<meta charset="utf-8"/>
