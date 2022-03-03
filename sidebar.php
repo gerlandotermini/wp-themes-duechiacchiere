@@ -36,11 +36,11 @@
 
 				$posts_in_series = get_posts( $args );
 				if ( !empty( $posts_in_series ) && count( $posts_in_series ) > 1 ) {
-					echo '<div class="widget"><h2>Le puntate della serie</h2><ul>';
+					echo '<div class="widget"><h2>Tutte le puntate</h2><ul>';
 					
 					foreach ( $posts_in_series as $a_post ) {
 						if ( $a_post->ID == $GLOBALS[ 'post' ]->ID ) {
-							echo "<li>{$a_post->post_title}</li>";
+							echo '<li class="current-post">' . $a_post->post_title . '</li>';
 						}
 						else {
 							echo '<li><a href="' . get_permalink( $a_post->ID ) . '">' . $a_post->post_title . '</a>';

@@ -1,6 +1,8 @@
 <?php
 
 class duechiacchiere {
+	public static $naked_day = '04/09';
+
 	public static function init() {
 		// This theme uses wp_nav_menu() above and below the main page header
 		register_nav_menus( array(
@@ -15,9 +17,11 @@ class duechiacchiere {
 		add_filter( 'use_block_editor_for_post_type', '__return_false' );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ), 100 );
 
-		// Enqueue styles and scripts
-		add_action( 'wp_head', array( __CLASS__, 'print_styles' ) );
-		add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
+		// Enqueue styles and scripts, except on CSS Naked Day - https://css-naked-day.github.io/
+		if ( date_i18n( 'm/d' ) != self::$naked_day ) {
+			add_action( 'wp_head', array( __CLASS__, 'print_styles' ) );
+			add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
+		}
 
 		// Make the main menu more accessible
 		add_filter( 'nav_menu_link_attributes', array( __CLASS__, 'nav_menu_link_attributes' ), 10, 4 );
@@ -203,7 +207,7 @@ class duechiacchiere {
 		$count_posts = 0;
 		if ( count( $old_posts ) > 1 ) {
 			foreach( $old_posts as $a_post ) {
-				if ( ( $count_posts < 1 ) && date_i18n( 'Y', strtotime( $a_post->post_date ) ) != date_i18n( 'Y' ) ) {
+				if ( ( $count_posts < 2 ) && date_i18n( 'Y', strtotime( $a_post->post_date ) ) != date_i18n( 'Y' ) ) {
 					$a_post->post_date_gmt = date_i18n( 'Y-m-d 00:00:01' );
 					$a_post->post_title = "Dall'archivio: " . $a_post->post_title;
 					$posts = array_merge( array( $a_post ), $posts );
@@ -347,6 +351,14 @@ class duechiacchiere {
 		remove_action( 'wp_head', 'wlwmanifest_link' );
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_head', 'wp_shortlink_wp_head');
+		remove_action( 'rss2_head', 'the_generator' );
+    remove_action( 'rss_head',  'the_generator' );
+    remove_action( 'rdf_header', 'the_generator' );
+    remove_action( 'atom_head', 'the_generator' );
+    remove_action( 'commentsrss2_head', 'the_generator' );
+    remove_action( 'opml_head', 'the_generator' );
+    remove_action( 'app_head',  'the_generator' );
+    remove_action( 'comments_atom_head', 'the_generator' );
 	
 		// Remove the REST API endpoint.
 		remove_action( 'rest_api_init', 'wp_oembed_register_route' );

@@ -254,7 +254,7 @@
 	<!-- END: Google fonts -->
 
 	<!-- BEGIN: RSS feed -->
-	<link rel="alternate" type="application/rss+xml" title="Articoli del blog" href="https://feeds.feedburner.com/duechiacchiere" />
+	<link rel="alternate" type="application/rss+xml" title="Articoli del blog" href="https://www.duechiacchiere.it/feed" />
 	<!-- END: RSS feed -->
 
 	<!-- BEGIN: WP_Head -->
@@ -268,13 +268,16 @@
 	<header id="header-container">
 		<div id="branding">
 			<a href="/" title="Torna alla pagina iniziale del sito"><img id="logo" src="<?= get_template_directory_uri() ?>/img/boys/<?= $category_boy ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
-			<h2 id="name">due chiacchiere</h2></a>
+			<h2 id="name">due chiacchiere</h2></a><?php if ( date_i18n( 'm/d' ) == duechiacchiere::$naked_day ): ?><h3>Non preoccuparti se oggi il sito sembra diverso, sto partecipando al <a href="https://css-naked-day.github.io/" hreflang="en" lang="en">CSS Naked Day</a></h3><?php endif ?>
+
+			<?php if ( date_i18n( 'm/d' ) != duechiacchiere::$naked_day ): ?>
 			<button class="hamburger hamburger--squeeze" type="button" id="mobile-menu-trigger" aria-expanded="false">
 				<span class="visually-hidden">Pulsante per aprire e chiudere il menu del sito</span>
 				<span class="hamburger-box">
 					<span class="hamburger-inner"></span>
 				</span>
 			</button>
+			<?php endif ?>
 		</div>
 
 		<nav aria-label="Navigazione primaria" id="primary-menu">

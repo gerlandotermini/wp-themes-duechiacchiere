@@ -1,5 +1,3 @@
-console.log('a');
-
 (function() {
 	tinymce.PluginManager.add( 'tinymce_duechiacchiere', function( editor, url ) {
 		

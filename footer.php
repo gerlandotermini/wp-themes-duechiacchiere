@@ -23,7 +23,7 @@
 				<li><a href="https://www.linkedin.com/in/gerlando/" hreflang="en">Il mio profilo su LinkedIn</a></li>
 				<li><a href="/contatto" title="lasciami un messaggio tramite il modulo di contatto">La buca delle lettere</a></li>
 				<li><a href="/diretta" title="quello che vedo dalla finestra del mio ufficio">In diretta dalla casa</a></li>
-				<li><a href="/feed">Il <span lang="en">feed</span> degli articoli in <abbr title="really simple syndication" lang="en">RSS</abbr></a></li>
+				<li><a href="/feed">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> degli articoli</a></li>
 				<li><a href="/privacy">La tua <span lang="en">privacy</span> al sicuro</a></li>
 				<li><a href="/moderazione" title="domande e risposte sulle mie regole di moderazione dei commenti">Le regole per i commenti</a></li>
 			</ul>
