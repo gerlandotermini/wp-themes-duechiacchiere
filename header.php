@@ -129,11 +129,41 @@
 
 			$category_boy = $category->slug;
 
-			$og_meta[ 'title' ] = "Articoli recenti in {$category->name}";
-			$og_meta[ 'description' ] = "Sfoglia gli articoli archiviati in {$category->name}";
-			$heading_title = "<h1 class=\"visually-hidden\">{$og_meta[ 'title' ]}</h1>";
+			$og_meta[ 'title' ] = "Archivio del giorno {$category->name}";
+			$og_meta[ 'description' ] = "Sfoglia gli articoli conservati in {$category->name}";
+		}
+		else if ( is_date() ) {
+			$month_names = array(
+				'Gennaio',
+				'Febbraio',
+				'Marzo',
+				'Aprile',
+				'Maggio',
+				'Giugno',
+				'Luglio',
+				'Agosto',
+				'Settembre',
+				'Ottobre',
+				'Novembre',
+				'Dicembre'
+			);
+		
+			$date_string = '';
+			if ( is_year() ) {
+				$date_string = "l'anno " . get_query_var( 'year' );
+			}
+			else if ( is_month() ) {
+				$date_string = ' mese di ' . $month_names[ intval( get_query_var( 'monthnum' ) ) - 1 ] . ' ' . get_query_var( 'year' );
+			}
+			else if ( is_day() ) {
+				$date_string = ' ' . get_query_var( 'day' ) . ' ' . $month_names[ intval( get_query_var( 'monthnum' ) ) - 1 ] . ' ' . get_query_var( 'year' );
+			}
+
+			$og_meta[ 'title' ] = "Archivio del$date_string";
+			$og_meta[ 'description' ] = "Sfoglia gli articoli del$date_string in ordine cronologico inverso";
 		}
 
+		$heading_title = "<h1 class=\"visually-hidden\">{$og_meta[ 'title' ]}</h1>";
 		$og_meta[ 'type' ] = 'website';
 
 		if ( home_url( $GLOBALS[ 'wp' ]->request ) != get_bloginfo( 'url' ) ) {
