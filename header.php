@@ -15,6 +15,13 @@
 	$schema_code = '';
 
 	if ( is_single() ) {
+		// Redirect video attachments to their post, if their description is empty
+		if ( $GLOBALS[ 'post' ]->post_type == 'attachment' && strpos( $GLOBALS[ 'post' ]->post_mime_type, 'video' ) !== false && empty( $GLOBALS[ 'post' ]->post_content ) && !empty( $GLOBALS[ 'post' ]->post_parent ) ) {
+			header( 'HTTP/1.1 301 Moved Permanently' );
+			header( 'Location: ' . get_permalink( $GLOBALS[ 'post' ]->post_parent ) );
+			exit;
+		}
+		
 		$categories = wp_get_post_terms( $GLOBALS[ 'post' ]->ID, 'category', 'orderby=id' );
 		if ( count( $categories ) > 0 ) {
 			$category_boy = $categories[ 0 ]->slug;
@@ -298,7 +305,7 @@
 	<header id="header-container">
 		<div id="branding">
 			<a href="/" title="Torna alla pagina iniziale del sito"><img id="logo" src="<?= get_template_directory_uri() ?>/img/boys/<?= $category_boy ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
-			<h2 id="name">due chiacchiere</h2></a><?php if ( date_i18n( 'm/d' ) == duechiacchiere::$naked_day ): ?><h3>Non preoccuparti se oggi il sito sembra diverso, sto partecipando al <a href="https://css-naked-day.github.io/" hreflang="en" lang="en">CSS Naked Day</a></h3><?php endif ?>
+			<p id="name">due chiacchiere</p></a><?php if ( date_i18n( 'm/d' ) == duechiacchiere::$naked_day ): ?><h3>Non preoccuparti se oggi il sito sembra diverso, sto partecipando al <a href="https://css-naked-day.github.io/" hreflang="en" lang="en">CSS Naked Day</a></h3><?php endif ?>
 
 			<?php if ( date_i18n( 'm/d' ) != duechiacchiere::$naked_day ): ?>
 			<button class="hamburger hamburger--squeeze" type="button" id="mobile-menu-trigger" aria-expanded="false">
