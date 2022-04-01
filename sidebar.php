@@ -30,7 +30,7 @@
 							'terms' => sanitize_title( $tags[ 0 ]->slug )
 						)
 					),
-					'orderby' => 'ID',
+					'orderby' => 'date',
 					'order' => 'ASC'
 				);
 
