@@ -217,29 +217,9 @@ html {
     padding: 10px;
     text-align: center;
   }
-  .attachment .mejs-container {
+  .mejs-container {
+    margin-bottom: 20px;
     margin-top: 20px;
-  }
-  .video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-  }
-  .video-container iframe,
-  .video-container object,
-  .video-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .adsbygoogle {
-    border-top: 1px solid #999;
-    border-bottom: 1px solid #999;
-    padding: 20px 0;
   }
   #comments ol {
     list-style: none;
@@ -585,7 +565,7 @@ html {
 
   /* 5.4 April */
   body.april {
-    background: url( "themeuri/img/months/4.webp" ) repeat fixed center 0 #476a06;
+    background: url( "themeuri/img/months/4.webp" ) repeat fixed center 0 #413D3D;
   }
   body.april a, body.april a:visited, body.april a:active {
     color: #2c3d1d;
@@ -603,6 +583,7 @@ html {
   /* 5.5 May */
   body.may {
     background: url( "themeuri/img/months/5.webp" ) repeat fixed center 0 #0d6f00;
+    box-shadow: 0px 0px 15px 10px rgb( 0 0 0 / 50% );
   }
   body.may a, body.may a:visited, body.may a:active {
     color: #4f7101;
@@ -618,7 +599,8 @@ html {
 
   /* 5.6 June */
   body.june {
-    background: url( "themeuri/img/months/6.webp" ) repeat fixed center 0 #0d6f00;
+    background: url( "themeuri/img/months/6.webp" ) no-repeat fixed center 0 #f2dfb7;
+    background-size: cover;
     box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
   }
   body.june a, body.june a:visited, body.june a:active {

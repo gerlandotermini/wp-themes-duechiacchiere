@@ -1,8 +1,6 @@
 <?php
 
 class duechiacchiere {
-	public static $naked_day = '04/09';
-
 	public static function init() {
 		// This theme uses wp_nav_menu() above and below the main page header
 		register_nav_menus( array(
@@ -18,7 +16,7 @@ class duechiacchiere {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ), 100 );
 
 		// Enqueue styles and scripts, except on CSS Naked Day - https://css-naked-day.github.io/
-		if ( date_i18n( 'm/d' ) != self::$naked_day ) {
+		if ( !self::is_naked_day() ) {
 			add_action( 'wp_head', array( __CLASS__, 'print_styles' ) );
 			add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
 		}
@@ -282,12 +280,14 @@ class duechiacchiere {
 	}
 
 	public static function admin_bar_menu( $wp_admin_bar ) {
-		$args = array(
-			'id' => 'post-list',
-			'title' => __( 'Posts' ),
-			'href' => get_admin_url( 1, 'edit.php?page=cal' )
-		);
-		$wp_admin_bar->add_node($args);
+		if ( is_plugin_active( 'editorial-calendar/edcal.php' ) ) {
+			$args = array(
+				'id' => 'post-list',
+				'title' => __( 'Posts' ),
+				'href' => get_admin_url( 1, 'edit.php?page=cal' )
+			);
+			$wp_admin_bar->add_node($args);	
+		}
 	}
 
 	public static function get_substr_words( $string, $desired_length ) {
@@ -328,6 +328,18 @@ class duechiacchiere {
 		}
 
 		return '';
+	}
+
+	public static function is_naked_day() {
+		$start = date( 'U', mktime( -12, 0, 0, 4, 9, date( 'Y' ) ) );
+		$end = date( 'U', mktime( 36, 0, 0, 4, 9, date( 'Y' ) ) );
+		$z = date( 'Z' ) * -1;
+		$now = time() + $z;
+		if ( $now >= $start && $now <= $end ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private static function _remove_emoji_hooks() {
