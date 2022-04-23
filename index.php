@@ -72,13 +72,13 @@
 				$comment_count = get_comments_number();
 				switch( $comment_count ) {
 					case 0:
-						$comments_html = "<a href=\"" . get_permalink() . "#rispondi\">Lascia un commento</a>";
+						$comments_html = "<a class=\"comments-link\" href=\"" . get_permalink() . "#rispondi\">Lascia un commento</a>";
 						break;
 					case 1:
-						$comments_html = "<span class=\"visually-hidden\">c'&egrave; </span><a href=\"" . get_permalink() . "#comments\">1 commento</a>";
+						$comments_html = "<span class=\"visually-hidden\">c'&egrave; </span><a class=\"comments-link\" href=\"" . get_permalink() . "#comments\">1 commento</a>";
 						break;
 					default:
-						$comments_html = "<span class=\"visually-hidden\">ci sono </span><a href=\"" . get_permalink() . "#comments\">{$comment_count} commenti</a>";
+						$comments_html = "<span class=\"visually-hidden\">ci sono </span><a class=\"comments-link\" href=\"" . get_permalink() . "#comments\">{$comment_count} commenti</a>";
 				}
 				$comments_html .= "<span class=\"visually-hidden\"> per {$GLOBALS[ 'post' ]->post_title}</span>";
 		?>
@@ -93,7 +93,7 @@
 							echo '<span class="visually-hidden">Archiviato </span>in ' . $categories_html;
 						}
 						if ( !empty( $comments_html ) ) {
-							echo ' &mdash; ' . $comments_html;
+							echo ' <span class="comment-separator">&mdash;</span> ' . $comments_html;
 						}
 						if ( !is_single() ) {
 							edit_post_link( '[M]', ' ' );
