@@ -233,6 +233,11 @@ class duechiacchiere {
 				'title' => 'lang="en"',
 				'selector' => '*',
 				'attributes' => array( 'lang' => 'en' )
+			),
+			array(
+				'title' => 'hreflang="en"',
+				'selector' => 'a',
+				'attributes' => array( 'hreflang' => 'en' )
 			)
 		) );
 
@@ -259,6 +264,7 @@ class duechiacchiere {
 			unset( $buttons[ $key ] );
 		}
 
+		array_push( $buttons, 'duechiacchiere_code' );
 		array_push( $buttons, 'duechiacchiere_recipe' );
 		array_push( $buttons, 'duechiacchiere_abbr' );
 		array_push( $buttons, 'wp_more' );

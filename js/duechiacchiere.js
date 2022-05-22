@@ -54,7 +54,13 @@ document.querySelectorAll( '#header-container ul.menu > .menu-item > a' ).forEac
 document.querySelector( '#mobile-menu-trigger' ).addEventListener( 'click', function() {
   this.classList.toggle( 'is-active');
   document.querySelector( '#primary-menu .menu' ).classList.toggle( 'open' );
-  
+});
+
+// Open external links in a new tab/window
+document.querySelectorAll( 'a' ).forEach( link => {
+  if ( link.getAttribute( 'href' ) && link.hostname !== location.hostname ) {
+    link.target = '_blank';
+  }
 });
 
 // Back to Top Button
