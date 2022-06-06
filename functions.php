@@ -34,6 +34,9 @@ class duechiacchiere {
 		// Add excerpt to pages
 		add_post_type_support( 'page', 'excerpt' );
 
+		// Filter really long comments (spam)
+		add_filter( 'preprocess_comment' , array( __CLASS__, 'preprocess_comment' ) );
+
 		// Don't generate thumbnails, this theme only uses full size
 		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
 
@@ -148,6 +151,14 @@ class duechiacchiere {
 		$caption = trim( $caption );
 
 		return "<figure $id class=\"wp-caption $align\" style=\"max-width:{$width}px\">$image$separator <span class=\"wp-caption-text\" aria-hidden=\"true\">$caption</span></figure>";
+	}
+
+	public static function preprocess_comment( $commentdata = array() ) {
+		if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 ) {
+			die( 'Pussa via brutta bertuccia' );
+		};
+		
+		return $commentdata;
 	}
 
 	public static function responsive_youtube_embed( $html, $url, $attr, $post_ID ) {
