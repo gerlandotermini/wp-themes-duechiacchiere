@@ -197,7 +197,7 @@ html {
     margin-top: 0;
   }
   #contenuto article a:not([href*='sitedomain']):not([href^='#']):not([href^='/']):not([href*='wikipedia.org']):before,
-  .comment-body > p a:not([href*='sitedomain']):not([href^='#']):not([href^='/']):not([href*='wikipedia.org']):before
+  .comment-body > p a:not([href*='sitedomain']):not([href^='#']):not([href^='/']):not([href*='wikipedia.org']):before {
     content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
     margin: 0 5px 0 2px;
     opacity: 0.5;
@@ -486,6 +486,13 @@ html {
   }
   cite {
     font-style: normal;
+  }
+  pre {
+    background-color: #282a36;
+    color: #ddd;
+    font-size: .9em;
+    padding: 10px;
+    white-space: pre-wrap;
   }
 
   /* 4. Accessibility */
@@ -941,7 +948,7 @@ html {
 
 /* Media Print */
 @media print {
-  .visually-hidden, .skip, button, nav, .more-link, .mejs-container, .comments-area, .comment-respond, aside, footer {
+  .visually-hidden, .skip, button, nav, .more-link, .mejs-container, .comments-area, .comment-respond, .comment-separator, .comments-link, aside, footer {
     display: none;
   }
 
@@ -1015,5 +1022,9 @@ html {
   }
   cite {
     font-style: normal;
+  }
+  .entry a::after{
+    color: #888;
+    content: " [" attr(href) "] ";
   }
 }

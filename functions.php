@@ -297,6 +297,7 @@ class duechiacchiere {
 	}
 
 	public static function admin_bar_menu( $wp_admin_bar ) {
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		if ( is_plugin_active( 'editorial-calendar/edcal.php' ) ) {
 			$args = array(
 				'id' => 'post-list',

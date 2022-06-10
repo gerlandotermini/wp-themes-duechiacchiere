@@ -102,22 +102,12 @@
 				</p>
 				<?php endif // is post ?>
 			</header>
-			<?php the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false ); ?>
+			<div class="entry">
+				<?php the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false ); ?>
+			</div>
+		</article>
 
-			<?php /* if ( is_single() ): ?>
-				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6022102240639727" crossorigin="anonymous"></script>
-				<ins class="adsbygoogle"
-						style="display:block; text-align:center;"
-						data-ad-layout="in-article"
-						data-ad-format="fluid"
-						data-adtest="<?= ( defined( 'WP_LOCAL_DEV' ) && WP_LOCAL_DEV ) ? 'on' : 'off' ?>"
-						data-ad-client="ca-pub-6022102240639727"
-						data-ad-slot="6629110691"></ins>
-				<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-			<?php endif */ ?>
-			</article>
-
-			<?php if ( !post_password_required() && !is_attachment() ) comments_template(); ?>
+		<?php if ( !post_password_required() && !is_attachment() ) comments_template(); ?>
 		<?php endwhile; ?>
 
 		<?php if ( $GLOBALS[ 'wp_query' ]->max_num_pages > 0 ): ?>
