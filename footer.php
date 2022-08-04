@@ -1,8 +1,8 @@
 	<footer aria-label="Collegamenti utili">
 		<div>
 			<h2>L'inquilino</h2>
-			<p>Sono un <a href="/ciao-america" title="il racconto del giorno del grande viaggio">cervello in fuga</a>: dal 2008 risiedo in un ridente paesino del New Jersey, negli Stati Uniti.
-			Quest'angolino sperduto della rete, dove condivido quello che mi passa per la testa, &egrave; da sempre il mio laboratorio creativo aperto al confronto di opinioni.</p>
+			<p>Sono un <a href="/ciao-america" title="il racconto del giorno del grande viaggio">cervello in fuga</a>: nel 2008 mi sono trasferito negli Stati Uniti, alla ricerca del mio equilibrio interno.
+			In questa casetta virtuale sperduta nei meandri della rete continuo ad accumulare i miei pensieri, magari possono tornare utili a qualche navigante smarrito.</p>
 		</div>
 
 		<nav>
