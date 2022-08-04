@@ -33,13 +33,19 @@
 			<h2>Indietro nel tempo</h2>
 			<ul>
 				<?php 
-					$month_links = explode( '</li>', str_replace( array( '<li>', "\n" ), '', wp_get_archives( 'type=monthly&limit=6&echo=0' ) ) ); 
+					$month_links = explode( '</li>', str_replace( array( '<li>', "\n" ), '', wp_get_archives( 'type=monthly&limit=120&echo=0' ) ) ); 
+					$count_links = 0;
+
 					foreach ( $month_links as $a_month_link ) {
+						if ( $count_links > 4 ) {
+							break;
+						}
 						if ( strpos( $a_month_link, date_i18n( 'F Y' ) ) !== false ) {
 							continue;
 						}
 						
 						echo '<li>' . trim( $a_month_link ) . "</li>";
+						$count_links++;
 					}
 				?>
 				<li><a href="/?day=<?= date_i18n( 'd' ) ?>&monthnum=<?= date_i18n( 'm' ) ?>" rel="nofollow">Oggi nel passato</a>
