@@ -21,8 +21,8 @@
 			<h2>Varie ed eventuali</h2>
 			<ul>
 				<li><a href="https://www.linkedin.com/in/gerlando/" hreflang="en">Il mio profilo su LinkedIn</a></li>
+				<li><a href="https://github.com/gerlandotermini" hreflang="en">Il codice che scrivo</a></li>
 				<li><a href="/contatto" title="lasciami un messaggio tramite il modulo di contatto">La buca delle lettere</a></li>
-				<li><a href="/diretta" title="quello che vedo dalla finestra del mio ufficio">In diretta dalla casa</a></li>
 				<li><a href="/feed">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> degli articoli</a></li>
 				<li><a href="/privacy">La tua <span lang="en">privacy</span> al sicuro</a></li>
 				<li><a href="/moderazione" title="domande e risposte sulle mie regole di moderazione dei commenti">Le regole per i commenti</a></li>
@@ -32,7 +32,16 @@
 		<nav>
 			<h2>Indietro nel tempo</h2>
 			<ul>
-				<?php wp_get_archives('type=monthly&limit=5'); ?>
+				<?php 
+					$month_links = explode( '</li>', str_replace( array( '<li>', "\n" ), '', wp_get_archives( 'type=monthly&limit=6&echo=0' ) ) ); 
+					foreach ( $month_links as $a_month_link ) {
+						if ( strpos( $a_month_link, date_i18n( 'F Y' ) ) !== false ) {
+							continue;
+						}
+						
+						echo '<li>' . trim( $a_month_link ) . "</li>";
+					}
+				?>
 				<li><a href="/?day=<?= date_i18n( 'd' ) ?>&monthnum=<?= date_i18n( 'm' ) ?>" rel="nofollow">Oggi nel passato</a>
 			</ul>
 		</nav>

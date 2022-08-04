@@ -236,11 +236,6 @@ class duechiacchiere {
 		// Insert the array, JSON ENCODED, into 'style_formats'
 		$settings[ 'style_formats' ] = json_encode( array(
 			array(
-				'title' => 'class="external"',
-				'selector' => 'a',
-				'classes' => 'external'
-			),
-			array(
 				'title' => 'lang="en"',
 				'selector' => '*',
 				'attributes' => array( 'lang' => 'en' )
