@@ -1,7 +1,7 @@
 <?php include_once( 'header.php' ) ?>
 
 <div id="content-wrapper">
-	<main id="contenuto">
+	<main id="content">
 		<?php /* echo (($wp_query->found_posts==1)?'Trovato ':'Trovati ').$wp_query->found_posts.(($wp_query->found_posts==1)?' risultato':' risultati'); ?> per <strong><?php echo htmlspecialchars(stripslashes($_REQUEST['s'])) ?></strong> */ ?>
 		
 		<?php
@@ -72,7 +72,7 @@
 				$comment_count = get_comments_number();
 				switch( $comment_count ) {
 					case 0:
-						$comments_html = "<a class=\"comments-link\" href=\"" . get_permalink() . "#rispondi\">Lascia un commento</a>";
+						$comments_html = "<a class=\"comments-link\" href=\"" . get_permalink() . "#respond\">Lascia un commento</a>";
 						break;
 					case 1:
 						$comments_html = "<span class=\"visually-hidden\">c'&egrave; </span><a class=\"comments-link\" href=\"" . get_permalink() . "#comments\">1 commento</a>";
