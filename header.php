@@ -290,8 +290,15 @@
 	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Outfit:wght@300;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 	<!-- END: Google fonts -->
 
+	<!-- BEGIN: Favicon -->
+	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/android-chrome.png">
+	<link rel="apple-touch-icon-precomposed" sizes="180x180" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/apple-touch-icon.png">
+	<!-- END: Favicon -->
+
 	<!-- BEGIN: RSS feed -->
-	<link rel="alternate" type="application/rss+xml" title="Articoli del blog" href="https://www.duechiacchiere.it/feed" />
+	<link rel="alternate" type="application/rss+xml" title="Articoli del blog" href="<?= get_bloginfo( 'url' ) ?>/feed" />
 	<!-- END: RSS feed -->
 
 	<!-- BEGIN: WP_Head -->
@@ -300,7 +307,7 @@
 </head>
 
 <body <?= body_class( $bg_month ) ?>>
-	<a class="skip" href="#contenuto">Salta al contenuto</a>
+	<a class="skip" href="#content">Salta al contenuto</a>
 
 	<header id="header-container">
 		<div id="branding">
