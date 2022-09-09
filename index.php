@@ -23,7 +23,7 @@
 					</p>
 					<p>
 						<span class="wp-caption aligncenter">
-							<img src="<?= get_template_directory_uri() ?>'/img/mappa.jpg'" alt="una mappa planimetrica con tante scritte in inglese">
+							<img src="<?= get_template_directory_uri() ?>/img/mappa.jpg" alt="una mappa planimetrica con tante scritte in inglese">
 							<span class="wp-caption-text">L'arcana mappa del sito &egrave; finalmente stata svelata</span>
 						</span>
 					</p>
