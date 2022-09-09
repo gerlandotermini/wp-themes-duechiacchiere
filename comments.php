@@ -34,6 +34,8 @@ $comment_count = get_comments_number();
 
 	<?php
 	comment_form( array(
+		// This action makes the assumption that WP is installed in the 'wp' subdirectory
+		'action' => get_home_url() . '/wp/wp-comments-post.php',
 		'comment_notes_before' => '',
 		'comment_notes_after' => '',
 		'comment_field' => '<p class="comment-form-comment"><label for="comment" class="visually-hidden">Commento</label><textarea id="comment" name="comment" cols="10" rows="8" maxlength="65525" aria-required="true" required="required"></textarea></p>',
