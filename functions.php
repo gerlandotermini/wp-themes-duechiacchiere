@@ -42,7 +42,8 @@ class duechiacchiere {
 
 		// Tweak the YouTube and Video oEmbed code
 		add_filter( 'embed_oembed_html', array( __CLASS__, 'responsive_youtube_embed' ), 10, 4 );
-		add_filter( 'wp_video_shortcode', array( __CLASS__, 'responsive_video_embed' ) );
+		add_filter( 'style_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
+		add_filter( 'script_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 
 		// Update the Google Sitemap file whenever a new post is published
 		add_action( 'post_updated', array( __CLASS__, 'xml_sitemap' ) );
@@ -165,12 +166,9 @@ class duechiacchiere {
 		return '<p class="video-container">' . $html . '</p>';
 	}
 
-	public static function responsive_video_embed( $output ) {
-		$html = str_replace( "<video", "<video muted playsinline ", $output );
-		$html = str_replace( "controls=", "data-controls=", $html );
-		$html = preg_replace( '/\<[\/]{0,1}div[^\>]*\>/i', '', $output );
-
-		return $html;
+	// This function assumes that WordPress is installed in the 'wp' subfolder
+	public static function script_loader_src( $src, $handle ) {
+		return str_replace( get_site_url(), get_home_url() . '/wp', $src );
 	}
 
 	public static function xml_sitemap() {

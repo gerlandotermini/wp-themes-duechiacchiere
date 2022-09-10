@@ -227,10 +227,6 @@ html {
     padding: 10px;
     text-align: center;
   }
-  .mejs-container {
-    margin-bottom: 20px;
-    margin-top: 20px;
-  }
   #comments ol {
     list-style: none;
   }
