@@ -172,7 +172,18 @@ class duechiacchiere {
 	}
 
 	public static function xml_sitemap() {
-		$sitemap_file = $_SERVER[ 'DOCUMENT_ROOT' ] . '/sitemap.xml';
+		$sitemap_file = '';
+		if ( !empty( $_SERVER[ 'DOCUMENT_ROOT' ] ) ) {
+			if ( file_exists( $_SERVER[ 'DOCUMENT_ROOT' ] . '/wp-config.php' ) ) {
+				$sitemap_file = $_SERVER[ 'DOCUMENT_ROOT' ] . '/sitemap.xml';
+			} else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/../wp-config.php')) {
+				$sitemap_file = $_SERVER[ 'DOCUMENT_ROOT' ] . '/../sitemap.xml';
+			}
+		}
+
+		if ( empty( $sitemap_file ) ) {
+			return 0;
+		}
 
 		// Don't generate the sitemap file more than once every hour
 		if ( file_exists( $sitemap_file ) && ( date( 'U' ) - date( 'U', filemtime( $sitemap_file ) ) < 3600 ) ) {
