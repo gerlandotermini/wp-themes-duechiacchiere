@@ -49,8 +49,9 @@ class duechiacchiere {
 		add_action( 'post_updated', array( __CLASS__, 'xml_sitemap' ) );
 		add_action( 'publish_page', array( __CLASS__, 'xml_sitemap' ) );
 
-		// Inject old posts in the RSS feed
-		add_filter( 'posts_results', array( __CLASS__, 'posts_results' ) );
+		// Generate a today's posts feed
+		add_feed( 'accadde-oggi', array( __CLASS__, 'feed_todays_in_the_past' ) );
+		add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ) );
 
 		// Customize the TinyMCE Editor
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'mce_external_plugins' ) );
@@ -208,33 +209,20 @@ class duechiacchiere {
 		file_put_contents( $sitemap_file, $sitemap );
 	}
 
-	public static function posts_results( $posts ) {
-		if ( !is_feed() ) {
-			return $posts;
+	// Make sure to save the Permalinks settings for WP to add this feed to its rewrite rules
+	public static function feed_todays_in_the_past() {
+		load_template( ABSPATH . WPINC . '/feed-rss2.php' );
+	}
+	public static function pre_get_posts( $query ) {
+		// Bail if $query is not an object or of incorrect class
+		if ( $query->is_feed( 'accadde-oggi' ) ) {
+			$query->set( 'post_type', 'post' );
+			$query->set( 'monthnum', date_i18n( 'm' ) );
+			$query->set( 'day', date_i18n( 'd' ) );
+			$query->set( 'posts_per_page', -1 );
+			$query->set( 'orderby', 'date' );
+			$query->set( 'order', 'desc' );
 		}
-		
-		$old_posts = get_posts( array(
-			'post_type' => 'post',
-			'monthnum' => date_i18n( 'm' ),
-			'day' => date_i18n( 'd' ),
-			'posts_per_page' => -1,
-			'orderby' => 'date',
-			'order' => 'desc'
-		) );
-	
-		$count_posts = 0;
-		if ( count( $old_posts ) > 1 ) {
-			foreach( $old_posts as $a_post ) {
-				if ( ( $count_posts < 2 ) && date_i18n( 'Y', strtotime( $a_post->post_date ) ) != date_i18n( 'Y' ) ) {
-					$a_post->post_date_gmt = date_i18n( 'Y-m-d 00:00:01' );
-					$a_post->post_title = "Dall'archivio: " . $a_post->post_title;
-					$posts = array_merge( array( $a_post ), $posts );
-					$count_posts++;
-				}
-			}
-		}
-	
-		return $posts;
 	}
 
 	// Add custom styles to TinyMCE
@@ -386,13 +374,13 @@ class duechiacchiere {
 		remove_action( 'wp_head', 'wp_generator' );
 		remove_action( 'wp_head', 'wp_shortlink_wp_head');
 		remove_action( 'rss2_head', 'the_generator' );
-    remove_action( 'rss_head',  'the_generator' );
-    remove_action( 'rdf_header', 'the_generator' );
-    remove_action( 'atom_head', 'the_generator' );
-    remove_action( 'commentsrss2_head', 'the_generator' );
-    remove_action( 'opml_head', 'the_generator' );
-    remove_action( 'app_head',  'the_generator' );
-    remove_action( 'comments_atom_head', 'the_generator' );
+		remove_action( 'rss_head',  'the_generator' );
+		remove_action( 'rdf_header', 'the_generator' );
+		remove_action( 'atom_head', 'the_generator' );
+		remove_action( 'commentsrss2_head', 'the_generator' );
+		remove_action( 'opml_head', 'the_generator' );
+		remove_action( 'app_head',  'the_generator' );
+		remove_action( 'comments_atom_head', 'the_generator' );
 	
 		// Remove the REST API endpoint.
 		remove_action( 'rest_api_init', 'wp_oembed_register_route' );
