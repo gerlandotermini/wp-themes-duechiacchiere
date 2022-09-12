@@ -225,11 +225,15 @@ class duechiacchiere {
 
 			// Change the feed title
 			add_filter( 'wp_title_rss', array( __CLASS__, 'wp_title_rss' ) );
+			add_filter( 'get_post_time', array( __CLASS__, 'get_post_time' ) );
 		}
 	}
 
 	public static function wp_title_rss( $title ) {
 		return "Dall'archivio di $title";
+	}
+	public static function get_post_time( $title ) {
+		return date_i18n( 'Y-m-d 00:00:01' );
 	}
 
 	// Add custom styles to TinyMCE
