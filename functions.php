@@ -213,8 +213,8 @@ class duechiacchiere {
 	public static function feed_todays_in_the_past() {
 		load_template( ABSPATH . WPINC . '/feed-rss2.php' );
 	}
+
 	public static function pre_get_posts( $query ) {
-		// Bail if $query is not an object or of incorrect class
 		if ( $query->is_feed( 'accadde-oggi' ) ) {
 			$query->set( 'post_type', 'post' );
 			$query->set( 'monthnum', date_i18n( 'm' ) );
@@ -222,7 +222,14 @@ class duechiacchiere {
 			$query->set( 'posts_per_page', -1 );
 			$query->set( 'orderby', 'date' );
 			$query->set( 'order', 'desc' );
+
+			// Change the feed title
+			add_filter( 'wp_title_rss', array( __CLASS__, 'wp_title_rss' ) );
 		}
+	}
+
+	public static function wp_title_rss( $title ) {
+		return "Dall'archivio di $title";
 	}
 
 	// Add custom styles to TinyMCE
