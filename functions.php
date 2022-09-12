@@ -227,6 +227,7 @@ class duechiacchiere {
 			// Change the feed title
 			add_filter( 'wp_title_rss', array( __CLASS__, 'wp_title_rss' ) );
 			add_filter( 'get_post_time', array( __CLASS__, 'get_post_time' ) );
+			add_filter( 'get_feed_build_date', array( __CLASS__, 'get_feed_build_date' ), 10, 2 );
 		}
 	}
 
@@ -235,6 +236,9 @@ class duechiacchiere {
 	}
 	public static function get_post_time( $title ) {
 		return date_i18n( 'Y-m-d 00:00:01' );
+	}
+	public static function get_feed_build_date( $max_modified_time, $format ) {
+		return date_i18n( 'Y-m-d 00:00:10' );
 	}
 
 	// Add custom styles to TinyMCE
