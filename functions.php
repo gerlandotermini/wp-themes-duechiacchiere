@@ -238,7 +238,7 @@ class duechiacchiere {
 		return date_i18n( 'Y-m-d 00:00:01' );
 	}
 	public static function get_feed_build_date( $max_modified_time, $format ) {
-		return date_i18n( 'D, d M Y H:i:s +0000' );
+		return date( 'D, d M Y H:i:s +0000' );
 	}
 
 	// Add custom styles to TinyMCE
