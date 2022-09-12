@@ -222,6 +222,7 @@ class duechiacchiere {
 			$query->set( 'posts_per_page', -1 );
 			$query->set( 'orderby', 'date' );
 			$query->set( 'order', 'desc' );
+			$query->set( 'date_query', array( 'before' => array( 'year' => date_i18n( 'Y' ), 'month' => 1, 'day' => 1 ), 'inclusive' => false ) );
 
 			// Change the feed title
 			add_filter( 'wp_title_rss', array( __CLASS__, 'wp_title_rss' ) );
