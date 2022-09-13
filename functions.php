@@ -50,7 +50,7 @@ class duechiacchiere {
 		add_action( 'publish_page', array( __CLASS__, 'xml_sitemap' ) );
 
 		// Generate a today's posts feed
-		add_feed( 'accadde-oggi', array( __CLASS__, 'feed_todays_in_the_past' ) );
+		add_feed( 'scrissi-oggi', array( __CLASS__, 'feed_today_in_the_past' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ) );
 
 		// Customize the TinyMCE Editor
@@ -210,12 +210,12 @@ class duechiacchiere {
 	}
 
 	// Make sure to save the Permalinks settings for WP to add this feed to its rewrite rules
-	public static function feed_todays_in_the_past() {
+	public static function feed_today_in_the_past() {
 		load_template( ABSPATH . WPINC . '/feed-rss2.php' );
 	}
 
 	public static function pre_get_posts( $query ) {
-		if ( $query->is_feed( 'accadde-oggi' ) ) {
+		if ( $query->is_feed( 'scrissi-oggi' ) ) {
 			$query->set( 'post_type', 'post' );
 			$query->set( 'monthnum', date_i18n( 'm' ) );
 			$query->set( 'day', date_i18n( 'd' ) );

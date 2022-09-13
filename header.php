@@ -299,6 +299,7 @@
 
 	<!-- BEGIN: RSS feed -->
 	<link rel="alternate" type="application/rss+xml" title="Articoli del blog" href="<?= get_bloginfo( 'url' ) ?>/feed" />
+	<link rel="alternate" type="application/rss+xml" title="Scrissi oggi" href="<?= get_bloginfo( 'url' ) ?>/feed/scrissi-oggi" />
 	<!-- END: RSS feed -->
 
 	<!-- BEGIN: WP_Head -->
