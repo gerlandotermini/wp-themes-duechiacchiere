@@ -99,7 +99,7 @@
 					$terms = array();
 				}
 				$term_list = wp_list_pluck( $terms, 'slug' );
-				var_dump($term_list);
+
 				$list_posts = get_posts( array(
 					'post_type' => 'post',
 					'post_status' => 'publish',
