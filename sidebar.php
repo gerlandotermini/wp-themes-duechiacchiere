@@ -60,7 +60,7 @@
 		<h2>Commenti recenti</h2>
 		<ul>
 		<?php
-			$number_comments = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
+			$number_comments = 4;
 			$comments_list = get_comments( array(
 				'status' => 'approve',
 				'orderby' => 'comment_date',
