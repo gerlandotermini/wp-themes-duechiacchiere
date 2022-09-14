@@ -80,12 +80,44 @@
 
 	<?php if ( !is_404() ): ?>
 	<div class="widget">
-		<h2>Articoli a casaccio</h2>
+		<h2><?php if ( is_single() ): ?>Articoli correlati<?php else: ?>Articoli a casaccio<?php endif; ?></h2>
 		<ul class="plain-list">
 		<?php
-			$numberposts = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 4 : 3;
-			$random_posts = get_posts( "numberposts=$numberposts&orderby=rand&exclude=" . ( isset( $GLOBALS[ 'post' ]->ID ) ? $GLOBALS[ 'post' ]->ID : 0 ) );
-			foreach( $random_posts as $a_post ) {
+			$numberposts = 4;
+			
+			if ( !is_single() ) {
+				$list_posts = get_posts( array(
+					'post_type' => 'post',
+					'post_status' => 'publish',
+					'numberposts' => $numberposts,
+					'orderby' => 'rand'
+				) );
+			}
+			else {
+				$terms = get_the_terms( get_the_ID(), 'category' );
+				if ( empty( $terms ) ) {
+					$terms = array();
+				}
+				$term_list = wp_list_pluck( $terms, 'slug' );
+				var_dump($term_list);
+				$list_posts = get_posts( array(
+					'post_type' => 'post',
+					'post_status' => 'publish',
+					'numberposts' => $numberposts,
+					'orderby' => 'rand',
+					'post__not_in' => array( $GLOBALS[ 'post' ]->ID ),
+					'tax_query' => array(
+						array(
+							'taxonomy' => 'category',
+							'field' => 'slug',
+							'terms' => $term_list,
+							'operator' => 'IN'
+						)
+					)
+				) );
+			}
+
+			foreach( $list_posts as $a_post ) {
 				echo '<li><h3><a href="' . get_permalink( $a_post->ID ). '">' . $a_post->post_title . '</a>';
 				edit_post_link( '[M]', ' ', '', $a_post->ID );
 				echo '</h3><p>' . duechiacchiere::get_substr_words( $a_post->post_content, 150 ) . '</p></li>';
