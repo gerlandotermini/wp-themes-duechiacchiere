@@ -60,11 +60,11 @@
 		<h2>Commenti recenti</h2>
 		<ul>
 		<?php
-			$number_comments = 4;
+			$how_many = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
 			$comments_list = get_comments( array(
 				'status' => 'approve',
 				'orderby' => 'comment_date',
-				'number' => $number_comments,
+				'number' => $how_many,
 				'type' => 'comment',
 				'author__not_in' => array( 1 ) 
 			) );
@@ -82,14 +82,12 @@
 	<div class="widget">
 		<h2><?php if ( is_single() ): ?>Nella stessa stanza<?php else: ?>Articoli a casaccio<?php endif; ?></h2>
 		<ul class="plain-list">
-		<?php
-			$numberposts = 4;
-			
+		<?php			
 			if ( !is_single() ) {
 				$list_posts = get_posts( array(
 					'post_type' => 'post',
 					'post_status' => 'publish',
-					'numberposts' => $numberposts,
+					'numberposts' => $how_many,
 					'orderby' => 'rand'
 				) );
 			}
@@ -103,7 +101,7 @@
 				$list_posts = get_posts( array(
 					'post_type' => 'post',
 					'post_status' => 'publish',
-					'numberposts' => $numberposts,
+					'numberposts' => $how_many,
 					'orderby' => 'rand',
 					'post__not_in' => array( $GLOBALS[ 'post' ]->ID ),
 					'tax_query' => array(

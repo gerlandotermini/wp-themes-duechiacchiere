@@ -2,7 +2,7 @@
 		<div>
 			<h2>L'inquilino</h2>
 			<p>Sono un <a href="/ciao-america" title="il racconto del giorno del grande viaggio">cervello in fuga</a>: nel 2008 mi sono trasferito negli Stati Uniti, alla ricerca del mio equilibrio interno.
-			In questa casetta virtuale sperduta nei meandri della rete continuo ad accumulare i miei pensieri, magari possono tornare utili a qualche navigante smarrito.</p>
+			In questa casetta virtuale sperduta nei meandri della rete continuo ad accumulare i miei pensieri, chiss&agrave; che non tornino utili a qualche navigante smarrito.</p>
 		</div>
 
 		<nav>
