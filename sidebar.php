@@ -80,7 +80,7 @@
 
 	<?php if ( !is_404() ): ?>
 	<div class="widget">
-		<h2><?php if ( is_single() ): ?>Articoli correlati<?php else: ?>Articoli a casaccio<?php endif; ?></h2>
+		<h2><?php if ( is_single() ): ?>Nella stessa stanza<?php else: ?>Articoli a casaccio<?php endif; ?></h2>
 		<ul class="plain-list">
 		<?php
 			$numberposts = 4;
