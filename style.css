@@ -231,7 +231,7 @@ html {
     width: 100% !important;
     height: 100% !important;
   }
-  .mejs-container {
+  .mejs-container.wp-video-shortcode {
     padding-top: 56.25%;
   }
   .wp-video, video.wp-video-shortcode {
