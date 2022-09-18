@@ -596,7 +596,7 @@ html {
 
   /* 5.3 March */
   body.march {
-    background: url( "themeuri/img/months/3.webp" ) repeat fixed 0 0 #332874;
+    background: url( "themeuri/img/months/3.webp" ) repeat fixed 100px 100px #332874;
   }
   body.march a, body.march a:visited, body.march a:active {
     color: #443796;
