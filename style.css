@@ -3,7 +3,7 @@ Theme Name: duechiacchiere
 Author: camu
 Author URI: https://www.duechiacchiere.it
 Description: My personal blog's minimalistic theme. Highly optimized, accessible and easy to use.
-Version: 3.3.2
+Version: 3.4
 License: This theme is distributed under the terms of the GNU GPL version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -260,12 +260,15 @@ html {
     left: 0;
     width: auto !important;
     height: auto !important;
-  }  
+  }
   #comments ol {
     list-style: none;
   }
   #comments > ol {
     padding-left: 0;
+  }
+  .comment #respond {
+    padding-left: 40px;
   }
   #comments .avatar {
     float: left;

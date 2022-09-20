@@ -22,17 +22,6 @@ let getSiblings = function( e ) {
   }
   return siblings;
 }
-
-let getCookie = function( name ) {
-  const value = '; ' + document.cookie;
-  const parts = value.split( '; ' + name + '=' );
-  if ( parts.length === 2 ) {
-    return decodeURIComponent( parts.pop().split( ';' ).shift() );
-  }
-
-  return '';
-}
-
 document.querySelectorAll( '#header-container ul.menu > .menu-item > a' ).forEach( link => {
     // Add a 'focus' event handler to each top level link
     link.addEventListener( 'focus', function() {
@@ -50,7 +39,19 @@ document.querySelectorAll( '#header-container ul.menu > .menu-item > a' ).forEac
     });
 });
 
-// Hamburger Menu and Overlay
+// Display the comment form under the comment for replies
+form_container = document.querySelector( '#respond' );
+document.querySelectorAll( '.comment-reply-link' ).forEach( link => {
+    link.addEventListener( 'click', function( e ) {
+        e.preventDefault();
+        comment_container = this.closest( '.comment-body' );
+        form_container.querySelector( '#reply-title' ).classList.add( 'visually-hidden' );
+        comment_container.append( form_container );
+        form_container.querySelector( '#comment' ).focus();
+    });
+});
+
+// Hamburger menu and dropdown
 document.querySelector( '#mobile-menu-trigger' ).addEventListener( 'click', function() {
   this.classList.toggle( 'is-active');
   document.querySelector( '#primary-menu .menu' ).classList.toggle( 'open' );
@@ -64,7 +65,7 @@ document.querySelectorAll( 'a' ).forEach( link => {
   }
 });
 
-// Back to Top Button
+// Show/hide back to top button
 window.onscroll = function() {
   if ( document.body.scrollTop > 300 || document.documentElement.scrollTop > 300 ) {
     document.getElementById( 'backtotop' ).style.opacity = 1;
@@ -76,6 +77,15 @@ window.onscroll = function() {
 }
 
 // Populate comment fields with cookie values, if available
+let getCookie = function( name ) {
+  const value = '; ' + document.cookie;
+  const parts = value.split( '; ' + name + '=' );
+  if ( parts.length === 2 ) {
+    return decodeURIComponent( parts.pop().split( ';' ).shift() );
+  }
+
+  return '';
+}
 if ( typeof( duechiacchiere.COOKIEHASH ) != 'undefined' && document.querySelector( '#commentform #author' ) != null ) {
   document.querySelector( '#commentform #author' ).value = getCookie( 'comment_author_' + duechiacchiere.COOKIEHASH );
   document.querySelector( '#commentform #email' ).value = getCookie( 'comment_author_email_' + duechiacchiere.COOKIEHASH );
