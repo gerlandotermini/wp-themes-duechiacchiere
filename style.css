@@ -54,7 +54,7 @@ Table of Contents
 html{line-height:1.15}body{margin:0 auto}main{display:block}h1{font-size:1.6em;margin:0 0 0.1em}h2{font-weight:300;margin:0 0 0.1em}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:1px dashed;text-decoration:none;}b,strong{font-weight:bolder}code,kbd,samp{background-color:#E8EDDF;font-family:monospace,monospace;font-size:.9em;padding:2px 4px}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}button,[type="button"],[type="reset"],[type="submit"]{appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:0;padding:0;width:auto}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}
 /* 2. Structure */
 html {
-  padding: 40px 0;
+  padding: 60px 0;
   scroll-behavior: smooth;
 }
 @media screen {
@@ -567,7 +567,7 @@ html {
 
   /* 5.1 January */
   body.january {
-    background: url( "themeuri/img/months/1.webp" ) repeat-x fixed 0 0 #000;
+    background: url( "themeuri/img/bg/1.webp" ) repeat-x fixed 0 0 #000;
   }
   body.january a, body.january a:visited, body.january a:active {
     color: #560bad;
@@ -583,7 +583,7 @@ html {
 
   /* 5.2 February */
   body.february {
-    background: url( "themeuri/img/months/2.webp" ) repeat fixed center 0 #786960;
+    background: url( "themeuri/img/bg/2.webp" ) repeat fixed center 0 #786960;
   }
   body.february a, body.february a:visited, body.february a:active {
     color: #721620;
@@ -599,7 +599,7 @@ html {
 
   /* 5.3 March */
   body.march {
-    background: url( "themeuri/img/months/3.webp" ) repeat fixed 0 0 #332874;
+    background: url( "themeuri/img/bg/3.webp" ) repeat fixed 0 0 #332874;
   }
   body.march a, body.march a:visited, body.march a:active {
     color: #443796;
@@ -615,7 +615,7 @@ html {
 
   /* 5.4 April */
   body.april {
-    background: url( "themeuri/img/months/4.webp" ) repeat fixed center 0 #413D3D;
+    background: url( "themeuri/img/bg/4.webp" ) repeat fixed center 0 #413D3D;
   }
   body.april a, body.april a:visited, body.april a:active {
     color: #2c3d1d;
@@ -632,7 +632,7 @@ html {
 
   /* 5.5 May */
   body.may {
-    background: url( "themeuri/img/months/5.webp" ) repeat fixed center 0 #0d6f00;
+    background: url( "themeuri/img/bg/5.webp" ) repeat fixed center 0 #0d6f00;
     box-shadow: 0px 0px 15px 10px rgb( 0 0 0 / 50% );
   }
   body.may a, body.may a:visited, body.may a:active {
@@ -649,7 +649,7 @@ html {
 
   /* 5.6 June */
   body.june {
-    background: url( "themeuri/img/months/6.webp" ) repeat fixed center 0 #040001;
+    background: url( "themeuri/img/bg/6.webp" ) repeat fixed center 0 #040001;
     box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
   }
   body.june a, body.june a:visited, body.june a:active {
@@ -666,7 +666,7 @@ html {
 
   /* 5.7 July */
   body.july {
-    background: url( "themeuri/img/months/7.webp" ) no-repeat fixed center 0 #f2dfb7;
+    background: url( "themeuri/img/bg/7.webp" ) no-repeat fixed center 0 #f2dfb7;
     background-size: cover;
     box-shadow: 0px 0px 0px 12px rgb( 42 56 69 / 30% );
   }
@@ -684,7 +684,7 @@ html {
 
   /* 5.8 August */
   body.august {
-    background: url( "themeuri/img/months/8.webp" ) repeat fixed 150px center #fecc59;
+    background: url( "themeuri/img/bg/8.webp" ) repeat fixed 150px center #fecc59;
     box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
   }
   body.august a, body.august a:visited, body.august a:active {
@@ -701,7 +701,7 @@ html {
 
   /* 5.9 September */
   body.september {
-    background: url( "themeuri/img/months/9.webp" ) repeat fixed center 0 #ac4900;
+    background: url( "themeuri/img/bg/9.webp" ) repeat fixed center 0 #ac4900;
   }
   body.september a, body.september a:visited, body.september a:active {
     color: #994000;
@@ -717,7 +717,7 @@ html {
 
   /* 5.10 October */
   body.october {
-    background: url( "themeuri/img/months/10.webp" ) repeat fixed center 0 #000000;
+    background: url( "themeuri/img/bg/10.webp" ) repeat fixed center 0 #000000;
   }
   body.october a, body.october a:visited, body.october a:active {
     color: #dd801d;
@@ -733,7 +733,7 @@ html {
 
   /* 5.11 November */
   body.november {
-    background: url( "themeuri/img/months/11.webp" ) repeat fixed center 0 #2d1a0b;
+    background: url( "themeuri/img/bg/11.webp" ) repeat fixed center 0 #2d1a0b;
   }
   body.november a, body.november a:visited, body.november a:active {
     color: #664438;
@@ -749,7 +749,7 @@ html {
 
   /* 5.12 December */
   body.december {
-    background: url( "themeuri/img/months/12.webp" ) repeat fixed 0 0 #711517;
+    background: url( "themeuri/img/bg/12.webp" ) repeat fixed 0 0 #711517;
   }
   body.december a, body.december a:visited, body.december a:active {
     color: #c80000;
@@ -781,7 +781,24 @@ html {
       opacity: 1;
     }
   }
-} 
+}
+
+/* 5.13 Mourning */
+body.mourning {
+  background: url( "themeuri/img/bg/mourning.webp" ) no-repeat fixed -50px 100% #000;
+}
+body.mourning a, body.mourning a:visited, body.mourning a:active {
+  color: #555;
+}
+body.mourning #search-button svg {
+  fill: #555;
+}
+body.mourning .pagination-item.previous-page a::before,
+body.mourning .pagination-item.next-page a::before,
+body.mourning #backtotop::before {
+  border-right: 15px solid #555;
+}
+
 /* End: Media Screen */
 
 /* 7. Media Queries */
