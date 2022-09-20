@@ -46,6 +46,7 @@ document.querySelectorAll( '.comment-reply-link' ).forEach( link => {
         e.preventDefault();
         comment_container = this.closest( '.comment-body' );
         form_container.querySelector( '#reply-title' ).classList.add( 'visually-hidden' );
+        form_container.querySelector( '#comment_parent' ).setAttribute( 'value', comment_container.getAttribute( 'id' ).replace(/\D/g, '') );
         comment_container.append( form_container );
         form_container.querySelector( '#comment' ).focus();
     });
