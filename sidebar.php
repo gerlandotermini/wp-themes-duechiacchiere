@@ -79,6 +79,7 @@
 
 	if ( !is_404() ) {
 		if ( !is_single() ) {
+			$heading = 'Articoli a casaccio';
 			$list_posts = get_posts( array(
 				'post_type' => 'post',
 				'post_status' => 'publish',
@@ -87,31 +88,33 @@
 			) );
 		}
 		else {
+			$heading = 'Nella stessa stanza';
 			$terms = get_the_terms( get_the_ID(), 'category' );
-			if ( empty( $terms ) ) {
-				$terms = array();
-			}
-			$term_list = wp_list_pluck( $terms, 'slug' );
 
-			$list_posts = get_posts( array(
-				'post_type' => 'post',
-				'post_status' => 'publish',
-				'numberposts' => $how_many,
-				'orderby' => 'rand',
-				'post__not_in' => array( $GLOBALS[ 'post' ]->ID ),
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'category',
-						'field' => 'slug',
-						'terms' => $term_list,
-						'operator' => 'IN'
+			$list_posts = array();
+			if ( !empty( $terms ) ) {
+				$term_list = wp_list_pluck( $terms, 'slug' );
+
+				$list_posts = get_posts( array(
+					'post_type' => 'post',
+					'post_status' => 'publish',
+					'numberposts' => $how_many,
+					'orderby' => 'rand',
+					'post__not_in' => array( $GLOBALS[ 'post' ]->ID ),
+					'tax_query' => array(
+						array(
+							'taxonomy' => 'category',
+							'field' => 'slug',
+							'terms' => $term_list,
+							'operator' => 'IN'
+						)
 					)
-				)
-			) );
+				) );
+			}
 		}
 
 		if ( !empty( $list_posts ) ) {
-			echo '<div class="widget"><h2>' . ( is_single() ? 'Nella stessa stanza':'Articoli a casaccio' ) . '</h2><ul class="plain-list">';
+			echo '<div class="widget"><h2>' . $heading . '</h2><ul class="plain-list">';
 	
 			foreach( $list_posts as $a_post ) {
 				echo '<li><h3><a href="' . get_permalink( $a_post->ID ). '">' . $a_post->post_title . '</a>';
