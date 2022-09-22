@@ -15,130 +15,128 @@
 	</div>
 
 	<?php
-		// We use tags to group series together (tag = ID of first post in the series)
-		if ( is_single() ) {
-			$tags = get_the_tags( $GLOBALS[ 'post' ]->ID );
-			if ( !empty( $tags ) ) {
+	// We use tags to group series together (tag = ID of first post in the series)
+	if ( is_single() ) {
+		$tags = get_the_tags( $GLOBALS[ 'post' ]->ID );
+		if ( !empty( $tags ) ) {
 
-				// Get all the posts in the series
-				$args = array( 
-					'posts_per_page' => -1,
-					'tax_query' => array(
-						array(
-							'taxonomy' => 'post_tag',
-							'field' => 'slug',
-							'terms' => sanitize_title( $tags[ 0 ]->slug )
-						)
-					),
-					'orderby' => 'date',
-					'order' => 'ASC'
-				);
+			// Get all the posts in the series
+			$args = array( 
+				'posts_per_page' => -1,
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'post_tag',
+						'field' => 'slug',
+						'terms' => sanitize_title( $tags[ 0 ]->slug )
+					)
+				),
+				'orderby' => 'date',
+				'order' => 'ASC'
+			);
 
-				$posts_in_series = get_posts( $args );
-				if ( !empty( $posts_in_series ) && count( $posts_in_series ) > 1 ) {
-					echo '<div class="widget"><h2>Tutte le puntate</h2><ul>';
-					
-					foreach ( $posts_in_series as $a_post ) {
-						if ( $a_post->ID == $GLOBALS[ 'post' ]->ID ) {
-							echo '<li class="current-post">' . $a_post->post_title . '</li>';
-						}
-						else {
-							echo '<li><a href="' . get_permalink( $a_post->ID ) . '">' . $a_post->post_title . '</a>';
-							edit_post_link( '[M]', ' ', '', $a_post->ID );
-							echo '</li>';
-						}
-						
+			$posts_in_series = get_posts( $args );
+			if ( !empty( $posts_in_series ) && count( $posts_in_series ) > 1 ) {
+				echo '<div class="widget"><h2>Tutte le puntate</h2><ul>';
+				
+				foreach ( $posts_in_series as $a_post ) {
+					if ( $a_post->ID == $GLOBALS[ 'post' ]->ID ) {
+						echo '<li class="current-post">' . $a_post->post_title . '</li>';
+					}
+					else {
+						echo '<li><a href="' . get_permalink( $a_post->ID ) . '">' . $a_post->post_title . '</a>';
+						edit_post_link( '[M]', ' ', '', $a_post->ID );
+						echo '</li>';
 					}
 					
-					echo '</ul></div>';
 				}
+				
+				echo '</ul></div>';
 			}
 		}
-	?>
+	}
 
-	<div class="widget">
-		<h2>Commenti recenti</h2>
-		<ul>
-		<?php
-			$how_many = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
-			$comments_list = get_comments( array(
-				'status' => 'approve',
-				'orderby' => 'comment_date',
-				'number' => $how_many,
-				'type' => 'comment',
-				'author__not_in' => array( 1 ) 
+	$how_many = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
+	$comments_list = get_comments( array(
+		'status' => 'approve',
+		'orderby' => 'comment_date',
+		'number' => $how_many,
+		'type' => 'comment',
+		'author__not_in' => array( 1 ) 
+	) );
+
+	if ( !empty( $comments_list ) ) {
+		echo '<div class="widget"><h2>Commenti recenti</h2><ul>';
+
+		foreach ( $comments_list as $a_comment ) {
+			$comment_post_title = get_the_title( $a_comment->comment_post_ID );
+			$comment_permalink = get_comment_link( $a_comment->comment_ID );
+			$comment_excerpt = duechiacchiere::get_substr_words( $a_comment->comment_content, 150 );
+			echo '<li><h3><a title="Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title . '" href="' . $comment_permalink .'">' . $a_comment->comment_author . ' su ' . $comment_post_title . '</a></h3>' . apply_filters( 'comment_text', $comment_excerpt ) . '</li>';
+		}
+
+		echo '</ul></div>';
+	}
+
+	if ( !is_404() ) {
+		if ( !is_single() ) {
+			$list_posts = get_posts( array(
+				'post_type' => 'post',
+				'post_status' => 'publish',
+				'numberposts' => $how_many,
+				'orderby' => 'rand'
 			) );
-			foreach ( $comments_list as $a_comment ) {
-				$comment_post_title = get_the_title( $a_comment->comment_post_ID );
-				$comment_permalink = get_comment_link( $a_comment->comment_ID );
-				$comment_excerpt = duechiacchiere::get_substr_words( $a_comment->comment_content, 150 );
-				echo '<li><h3><a title="Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title . '" href="' . $comment_permalink .'">' . $a_comment->comment_author . ' su ' . $comment_post_title . '</a></h3>' . apply_filters( 'comment_text', $comment_excerpt ) . '</li>';
+		}
+		else {
+			$terms = get_the_terms( get_the_ID(), 'category' );
+			if ( empty( $terms ) ) {
+				$terms = array();
 			}
-		?>
-		</ul>
-	</div>
+			$term_list = wp_list_pluck( $terms, 'slug' );
 
-	<?php if ( !is_404() ): ?>
-	<div class="widget">
-		<h2><?php if ( is_single() ): ?>Nella stessa stanza<?php else: ?>Articoli a casaccio<?php endif; ?></h2>
-		<ul class="plain-list">
-		<?php			
-			if ( !is_single() ) {
-				$list_posts = get_posts( array(
-					'post_type' => 'post',
-					'post_status' => 'publish',
-					'numberposts' => $how_many,
-					'orderby' => 'rand'
-				) );
-			}
-			else {
-				$terms = get_the_terms( get_the_ID(), 'category' );
-				if ( empty( $terms ) ) {
-					$terms = array();
-				}
-				$term_list = wp_list_pluck( $terms, 'slug' );
-
-				$list_posts = get_posts( array(
-					'post_type' => 'post',
-					'post_status' => 'publish',
-					'numberposts' => $how_many,
-					'orderby' => 'rand',
-					'post__not_in' => array( $GLOBALS[ 'post' ]->ID ),
-					'tax_query' => array(
-						array(
-							'taxonomy' => 'category',
-							'field' => 'slug',
-							'terms' => $term_list,
-							'operator' => 'IN'
-						)
+			$list_posts = get_posts( array(
+				'post_type' => 'post',
+				'post_status' => 'publish',
+				'numberposts' => $how_many,
+				'orderby' => 'rand',
+				'post__not_in' => array( $GLOBALS[ 'post' ]->ID ),
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'category',
+						'field' => 'slug',
+						'terms' => $term_list,
+						'operator' => 'IN'
 					)
-				) );
-			}
+				)
+			) );
+		}
 
+		if ( !empty( $list_posts ) ) {
+			echo '<div class="widget"><h2>' . ( is_single() ? 'Nella stessa stanza':'Articoli a casaccio' ) . '</h2><ul class="plain-list">';
+	
 			foreach( $list_posts as $a_post ) {
 				echo '<li><h3><a href="' . get_permalink( $a_post->ID ). '">' . $a_post->post_title . '</a>';
 				edit_post_link( '[M]', ' ', '', $a_post->ID );
 				echo '</h3><p>' . duechiacchiere::get_substr_words( $a_post->post_content, 150 ) . '</p></li>';
 			}
-		?>
-		</ul>
-	</div>
-	<?php endif ?>
 
-	<?php if ( is_front_page() && !is_paged() ): ?>
-	<div class="widget">
-		<h2>Faccio cose, vedo siti</h2>
-		<?php 
-			$external = wp_nav_menu( array(
-				'theme_location' => 'sidebar',
-				'container' => '',
-				'menu_class' => 'plain-list',
-				'depth' => 1,
-				'echo' => false
-			) );
+			echo '</ul></div>';
+		}
+	}
 
+	if ( is_front_page() && !is_paged() ) {
+		$external = wp_nav_menu( array(
+			'theme_location' => 'sidebar',
+			'container' => '',
+			'menu_class' => 'plain-list',
+			'depth' => 1,
+			'echo' => false,
+			'fallback_cb' => '__return_false'
+		) );
+
+		if ( ! empty ( $external ) ) {
+			echo '<div class="widget"><h2>Faccio cose, vedo siti</h2>';
 			echo str_replace( array( '<a', '</a>' ), array( '<h3><a', '</a></h3>' ), $external );
-		?>
-	</div>
-	<?php endif ?>
+			echo '</div>';
+		}
+	} ?>
 </aside>
