@@ -1,6 +1,5 @@
 <?php
-
-	$category_boy = 'ingresso';
+	$default_category = 'ingresso';
 	$title_tag = 'h2';
 
 	$og_meta = array(
@@ -24,7 +23,7 @@
 		
 		$categories = wp_get_post_terms( $GLOBALS[ 'post' ]->ID, 'category', 'orderby=id' );
 		if ( count( $categories ) > 0 ) {
-			$category_boy = $categories[ 0 ]->slug;
+			$default_category = $categories[ 0 ]->slug;
 		}
 
 		$title_tag = 'h1';
@@ -134,7 +133,7 @@
 				$category = get_category( $ancestors[ count( $ancestors ) - 1 ] );
 			}
 
-			$category_boy = $category->slug;
+			$default_category = $category->slug;
 
 			$og_meta[ 'title' ] = "Archivio del giorno {$category->name}";
 			$og_meta[ 'description' ] = "Sfoglia gli articoli conservati in {$category->name}";
@@ -196,7 +195,7 @@
 		}
 	}
 	else if ( is_404() ) {
-		$category_boy = '404';
+		$default_category = '404';
 	}
 	else if ( is_front_page() ) {
 		$heading_title = "<h1 class=\"visually-hidden\">Articoli recenti</h1>";
@@ -214,16 +213,16 @@
 	}
 
 	$bg_month = isset( $_GET[ 'colors' ] ) ? duechiacchiere::scrub_field( $_GET[ 'colors' ] ) : strtolower( date( 'F' ) );
-	if ( $category_boy == 'ingresso' ) {
+	if ( $default_category == 'ingresso' ) {
 		switch ( $bg_month ) {
 			case 'june':
 			case 'july':
 			case 'august':
-				$category_boy .= '-manichecorte';
+				$default_category .= '-manichecorte';
 				break;
 
 			case 'december':
-				$category_boy .= '-natale';
+				$default_category .= '-natale';
 				break;
 
 			default:
@@ -312,7 +311,7 @@
 
 	<header id="header-container">
 		<div id="branding">
-			<a href="/" title="Torna alla pagina iniziale del sito"><img id="logo" src="<?= get_template_directory_uri() ?>/img/boys/<?= $category_boy ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
+			<a href="/" title="Torna alla pagina iniziale del sito"><img id="logo" src="<?= get_template_directory_uri() ?>/assets/img/camu/<?= $default_category ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
 			<p id="name">due chiacchiere</p></a><?php if ( duechiacchiere::is_naked_day() ): ?><h3>Non preoccuparti se oggi il sito sembra diverso, sto partecipando al <a href="https://css-naked-day.github.io/" hreflang="en" lang="en">CSS Naked Day</a></h3><?php endif ?>
 
 			<?php if ( !duechiacchiere::is_naked_day() ): ?>
