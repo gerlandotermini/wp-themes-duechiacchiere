@@ -14,12 +14,14 @@
   },
   "homepage": "https://github.com/gerlandotermini/wp-themes-duechiacchiere#readme",
   "devDependencies": {
+    "chokidar": "^3.5.3",
     "gulp": "^4.0.2",
     "gulp-imagemin": "^8.0.0",
     "gulp-newer": "^1.4.0",
     "gulp-notify": "^4.0.0",
     "gulp-plumber": "^1.2.1",
     "gulp-sass": "^5.1.0",
-    "sass": "^1.55.0"
+    "sass": "^1.55.0",
+    "uuid": "^9.0.0"
   }
 }
