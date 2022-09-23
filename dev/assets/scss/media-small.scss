@@ -1,0 +1,186 @@
+html {
+padding: 0;
+scroll-behavior: smooth;
+}
+body {
+box-shadow: none;
+font-size: 1.05em;
+width: 100%;
+}
+h1 {
+font-size: 1.4em;
+margin-bottom: .3em;
+}
+h2 {
+font-size: 1.3em;
+margin-bottom: .3em;
+}
+
+/* 7.1.2 Structure */
+#content-wrapper {
+flex-direction: column;
+}
+aside {
+border-top: 1px solid #ccc;
+padding: 20px;
+}
+
+/* 7.1.2.1 Header */
+#header-container {
+border-radius: 0;
+}
+#header-container #name {
+display: none;
+}
+#header-container #mobile-menu-trigger {
+align-self: center;
+display: flex;
+flex: 1;
+justify-content: end;
+margin: 0 25px 0 auto;
+-webkit-tap-highlight-color: transparent;
+}
+.hamburger {
+display: inline-block;
+cursor: pointer;
+transition-property: opacity, filter;
+transition-duration: 0.15s;
+transition-timing-function: linear;
+font: inherit;
+color: inherit;
+text-transform: none;
+background-color: transparent;
+border: 0;
+margin: 0;
+overflow: visible;
+}
+.hamburger:hover {
+opacity: 0.7;
+}
+.hamburger.is-active:hover {
+opacity: 0.7;
+}
+.hamburger.is-active .hamburger-inner,
+.hamburger.is-active .hamburger-inner::before,
+.hamburger.is-active .hamburger-inner::after {
+background-color: #000;
+}
+
+.hamburger-box {
+width: 40px;
+height: 24px;
+display: inline-block;
+position: relative; }
+
+.hamburger-inner {
+display: block;
+top: 50%;
+margin-top: -2px; }
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+    width: 40px;
+    height: 4px;
+    background-color: #000;
+    border-radius: 4px;
+    position: absolute;
+    transition-property: transform;
+    transition-duration: 0.15s;
+    transition-timing-function: ease; }
+.hamburger-inner::before, .hamburger-inner::after {
+    content: "";
+    display: block; }
+.hamburger-inner::before {
+    top: -10px; }
+.hamburger-inner::after {
+    bottom: -10px; }
+    .hamburger--squeeze .hamburger-inner {
+    transition-duration: 0.075s;
+    transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+    .hamburger--squeeze .hamburger-inner::before {
+        transition: top 0.075s 0.12s ease, opacity 0.075s ease; }
+    .hamburger--squeeze .hamburger-inner::after {
+        transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+    
+    .hamburger--squeeze.is-active .hamburger-inner {
+    transform: rotate(45deg);
+    transition-delay: 0.12s;
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+    .hamburger--squeeze.is-active .hamburger-inner::before {
+        top: 0;
+        opacity: 0;
+        transition: top 0.075s ease, opacity 0.075s 0.12s ease; }
+    .hamburger--squeeze.is-active .hamburger-inner::after {
+        bottom: 0;
+        transform: rotate(-90deg);
+        transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1); }
+
+
+#header-container ul.menu {
+flex-direction: column;
+transition: max-height 1s ease-out;
+padding: 0;
+width: 100%;
+font-size: 1.5em;
+max-height: 0;
+overflow: hidden;
+}
+#header-container ul.menu > li {
+text-align: center;
+}
+#header-container ul.menu > li > a {
+border-top: 1px solid #ccc;
+}
+
+#header-container ul.menu.open {
+max-height: 800px;
+}
+
+#header-container ul.menu li.menu-item-has-children:hover > ul.sub-menu,
+#header-container ul.menu li.menu-item-has-children.focus > ul.sub-menu {
+display: none;
+}
+
+/* 7.1.2.2 Main Content */
+main, aside {
+padding: 20px;
+}
+.post-meta time,
+.post-meta .comments-link {
+display: block;
+}
+.post-meta .comment-separator {
+display: none;
+}
+#comments ol.children {
+border-left: 1px solid #ccc;
+margin-left: 5px;
+padding-left: 5px;
+}
+#comments a {
+word-break: break-all;
+}
+#commentform .form-submit {
+padding: 0;
+width: 100%;
+}
+
+/* 7.1.2.4 Pagination */
+#pagination {
+display: none;
+}
+
+/* Footer */
+footer {
+border-radius: 0;
+flex-direction: column;
+padding: 20px;
+}
+footer > * {
+border-right: 0;
+border-bottom: 1px solid #ccc;
+margin: 0 0 20px;
+padding: 0 0 20px;
+}
+footer > *:last-child {
+margin-bottom: 0;
+border-bottom: 0;
+}

@@ -1,0 +1,74 @@
+@import "variables";
+@import "normalize";
+
+/* 
+Theme Name: duechiacchiere
+Author: camu
+Author URI: https://duechiacchiere.it
+Description: My personal blog's minimalistic theme. Highly optimized, accessible and easy to use.
+Version: 4.0.0
+License: This theme is distributed under the terms of the GNU GPL version 2
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Table of Contents
+
+1. Normalize
+
+2. Structure
+  2.1 Header
+  2.2 Main Content
+  2.3 Sidebar
+  2.4 Pagination
+  2.5 Footer
+
+3. HTML Tags
+
+4. Accessibility
+
+5. Monthly colors
+  5.1 January
+  5.2 February
+  5.3 March
+  5.4 April
+  5.5 May
+  5.6 June
+  5.7 July
+  5.8 August
+  5.9 September
+  5.10 October
+  5.11 November
+  5.12 December
+
+6. Specific Pages
+
+7. Media Queries
+  7.1 Small Viewport
+    7.1.1 Normalize
+    7.1.2 Structure
+      7.1.2.1 Header
+      7.1.2.2 Main Content
+      7.1.2.3 Sidebar
+      7.1.2.4 Pagination
+
+*/
+
+
+
+
+
+
+
+
+  
+
+@media only screen and (max-width: 992px) {
+    @import "media-small";
+}
+
+@media only screen and (min-width: 993px) {
+    @import "media-large";
+}
+
+@media print {
+    @import "media-print";
+}

@@ -1,0 +1,25 @@
+{
+  "name": "duechiacchiere",
+  "version": "4.0.0",
+  "description": "My personal blog's minimalistic theme. Highly optimized, accessible and easy to use.",
+  "main": "gulpfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gerlandotermini/wp-themes-duechiacchiere.git"
+  },
+  "author": "camu",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/gerlandotermini/wp-themes-duechiacchiere/issues"
+  },
+  "homepage": "https://github.com/gerlandotermini/wp-themes-duechiacchiere#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-imagemin": "^8.0.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-notify": "^4.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.55.0"
+  }
+}
