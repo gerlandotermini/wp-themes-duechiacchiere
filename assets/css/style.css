@@ -310,6 +310,7 @@ template {
 
 /* Mobile first, baby! */
 @media only screen and (max-width: 992px) {
+  /* HTML Tags */
   html {
     padding: 0;
   }
@@ -326,7 +327,176 @@ template {
     font-size: 1.3em;
     margin-bottom: 0.3em;
   }
-  /* 7.1.2 Structure */
+  /* Monthly colors */
+  body.january {
+    background: url("themeuri/assets/img/bg/january.webp") repeat-x fixed 0 0 #000;
+  }
+  body.january a, body.january a:visited, body.january a:active {
+    color: #560bad;
+  }
+  body.january #search-button svg {
+    fill: #560bad;
+  }
+  body.january .pagination-item.previous-page a::before,
+body.january .pagination-item.next-page a::before,
+body.january #backtotop::before {
+    border-right: 15px solid #560bad;
+  }
+  body.february {
+    background: url("themeuri/assets/img/bg/february.webp") repeat fixed center 0 #786960;
+  }
+  body.february a, body.february a:visited, body.february a:active {
+    color: #721620;
+  }
+  body.february #search-button svg {
+    fill: #721620;
+  }
+  body.february .pagination-item.previous-page a::before,
+body.february .pagination-item.next-page a::before,
+body.february #backtotop::before {
+    border-right: 15px solid #721620;
+  }
+  body.march {
+    background: url("themeuri/assets/img/bg/march.webp") repeat fixed 0 0 #332874;
+  }
+  body.march a, body.march a:visited, body.march a:active {
+    color: #443796;
+  }
+  body.march #search-button svg {
+    fill: #443796;
+  }
+  body.march .pagination-item.previous-page a::before,
+body.march .pagination-item.next-page a::before,
+body.march #backtotop::before {
+    border-right: 15px solid #443796;
+  }
+  body.april {
+    background: url("themeuri/assets/img/bg/april.webp") repeat fixed center 0 #413D3D;
+  }
+  body.april a, body.april a:visited, body.april a:active {
+    color: #2c3d1d;
+  }
+  body.april #search-button svg {
+    fill: #2c3d1d;
+  }
+  body.april .pagination-item.previous-page a::before,
+body.april .pagination-item.next-page a::before,
+body.april #backtotop::before {
+    border-right: 15px solid #2c3d1d;
+  }
+  body.may {
+    background: url("themeuri/assets/img/bg/may.webp") repeat fixed center 0 #0d6f00;
+  }
+  body.may a, body.may a:visited, body.may a:active {
+    color: #4f7101;
+  }
+  body.may #search-button svg {
+    fill: #4f7101;
+  }
+  body.may .pagination-item.previous-page a::before,
+body.may .pagination-item.next-page a::before,
+body.may #backtotop::before {
+    border-right: 15px solid #4f7101;
+  }
+  body.june {
+    background: url("themeuri/assets/img/bg/june.webp") repeat fixed center 0 #040001;
+  }
+  body.june a, body.june a:visited, body.june a:active {
+    color: #6494c0;
+  }
+  body.june #search-button svg {
+    fill: #6494c0;
+  }
+  body.june .pagination-item.previous-page a::before,
+body.june .pagination-item.next-page a::before,
+body.june #backtotop::before {
+    border-right: 15px solid #6494c0;
+  }
+  body.july {
+    background: url("themeuri/assets/img/bg/july.webp") no-repeat fixed center 0 #f2dfb7;
+  }
+  body.july a, body.july a:visited, body.july a:active {
+    color: #002868;
+  }
+  body.july #search-button svg {
+    fill: #002868;
+  }
+  body.july .pagination-item.previous-page a::before,
+body.july .pagination-item.next-page a::before,
+body.july #backtotop::before {
+    border-right: 15px solid #002868;
+  }
+  body.august {
+    background: url("themeuri/assets/img/bg/august.webp") repeat fixed 150px center #fecc59;
+  }
+  body.august a, body.august a:visited, body.august a:active {
+    color: #22868e;
+  }
+  body.august #search-button svg {
+    fill: #22868e;
+  }
+  body.august .pagination-item.previous-page a::before,
+body.august .pagination-item.next-page a::before,
+body.august #backtotop::before {
+    border-right: 15px solid #22868e;
+  }
+  body.september {
+    background: url("themeuri/assets/img/bg/september.webp") repeat fixed center 0 #ac4900;
+  }
+  body.september a, body.september a:visited, body.september a:active {
+    color: #994000;
+  }
+  body.september #search-button svg {
+    fill: #994000;
+  }
+  body.september .pagination-item.previous-page a::before,
+body.september .pagination-item.next-page a::before,
+body.september #backtotop::before {
+    border-right: 15px solid #994000;
+  }
+  body.october {
+    background: url("themeuri/assets/img/bg/october.webp") repeat fixed center 0 #000000;
+  }
+  body.october a, body.october a:visited, body.october a:active {
+    color: #dd801d;
+  }
+  body.october #search-button svg {
+    fill: #dd801d;
+  }
+  body.october .pagination-item.previous-page a::before,
+body.october .pagination-item.next-page a::before,
+body.october #backtotop::before {
+    border-right: 15px solid #dd801d;
+  }
+  body.november {
+    background: url("themeuri/assets/img/bg/november.webp") repeat fixed center 0 #2d1a0b;
+  }
+  body.november a, body.november a:visited, body.november a:active {
+    color: #664438;
+  }
+  body.november #search-button svg {
+    fill: #664438;
+  }
+  body.november .pagination-item.previous-page a::before,
+body.november .pagination-item.next-page a::before,
+body.november #backtotop::before {
+    border-right: 15px solid #664438;
+  }
+  body.december {
+    background: url("themeuri/assets/img/bg/december.webp") repeat fixed 0 0 #711517;
+  }
+  body.december a, body.december a:visited, body.december a:active {
+    color: #c80000;
+  }
+  body.december #search-button svg {
+    fill: #c80000;
+  }
+  body.december .pagination-item.previous-page a::before,
+body.december .pagination-item.next-page a::before,
+body.december #backtotop::before {
+    border-right: 15px solid #c80000;
+  }
+  /* Page Structure */
   #content-wrapper {
     flex-direction: column;
   }
@@ -334,7 +504,7 @@ template {
     border-top: 1px solid #ccc;
     padding: 20px;
   }
-  /* 7.1.2.1 Header */
+  /* Mobile Nav */
   #header-container {
     border-radius: 0;
   }
@@ -993,175 +1163,6 @@ template {
     position: absolute;
     white-space: nowrap;
     width: 1px;
-  }
-  /* 5. Monthly colors */
-  body.january {
-    background: url("themeuri/assets/img/bg/january.webp") repeat-x fixed 0 0 #000;
-  }
-  body.january a, body.january a:visited, body.january a:active {
-    color: #560bad;
-  }
-  body.january #search-button svg {
-    fill: #560bad;
-  }
-  body.january .pagination-item.previous-page a::before,
-body.january .pagination-item.next-page a::before,
-body.january #backtotop::before {
-    border-right: 15px solid #560bad;
-  }
-  body.february {
-    background: url("themeuri/assets/img/bg/february.webp") repeat fixed center 0 #786960;
-  }
-  body.february a, body.february a:visited, body.february a:active {
-    color: #721620;
-  }
-  body.february #search-button svg {
-    fill: #721620;
-  }
-  body.february .pagination-item.previous-page a::before,
-body.february .pagination-item.next-page a::before,
-body.february #backtotop::before {
-    border-right: 15px solid #721620;
-  }
-  body.march {
-    background: url("themeuri/assets/img/bg/march.webp") repeat fixed 0 0 #332874;
-  }
-  body.march a, body.march a:visited, body.march a:active {
-    color: #443796;
-  }
-  body.march #search-button svg {
-    fill: #443796;
-  }
-  body.march .pagination-item.previous-page a::before,
-body.march .pagination-item.next-page a::before,
-body.march #backtotop::before {
-    border-right: 15px solid #443796;
-  }
-  body.april {
-    background: url("themeuri/assets/img/bg/april.webp") repeat fixed center 0 #413D3D;
-  }
-  body.april a, body.april a:visited, body.april a:active {
-    color: #2c3d1d;
-  }
-  body.april #search-button svg {
-    fill: #2c3d1d;
-  }
-  body.april .pagination-item.previous-page a::before,
-body.april .pagination-item.next-page a::before,
-body.april #backtotop::before {
-    border-right: 15px solid #2c3d1d;
-  }
-  body.may {
-    background: url("themeuri/assets/img/bg/may.webp") repeat fixed center 0 #0d6f00;
-  }
-  body.may a, body.may a:visited, body.may a:active {
-    color: #4f7101;
-  }
-  body.may #search-button svg {
-    fill: #4f7101;
-  }
-  body.may .pagination-item.previous-page a::before,
-body.may .pagination-item.next-page a::before,
-body.may #backtotop::before {
-    border-right: 15px solid #4f7101;
-  }
-  body.june {
-    background: url("themeuri/assets/img/bg/june.webp") repeat fixed center 0 #040001;
-  }
-  body.june a, body.june a:visited, body.june a:active {
-    color: #6494c0;
-  }
-  body.june #search-button svg {
-    fill: #6494c0;
-  }
-  body.june .pagination-item.previous-page a::before,
-body.june .pagination-item.next-page a::before,
-body.june #backtotop::before {
-    border-right: 15px solid #6494c0;
-  }
-  body.july {
-    background: url("themeuri/assets/img/bg/july.webp") no-repeat fixed center 0 #f2dfb7;
-  }
-  body.july a, body.july a:visited, body.july a:active {
-    color: #002868;
-  }
-  body.july #search-button svg {
-    fill: #002868;
-  }
-  body.july .pagination-item.previous-page a::before,
-body.july .pagination-item.next-page a::before,
-body.july #backtotop::before {
-    border-right: 15px solid #002868;
-  }
-  body.august {
-    background: url("themeuri/assets/img/bg/august.webp") repeat fixed 150px center #fecc59;
-  }
-  body.august a, body.august a:visited, body.august a:active {
-    color: #22868e;
-  }
-  body.august #search-button svg {
-    fill: #22868e;
-  }
-  body.august .pagination-item.previous-page a::before,
-body.august .pagination-item.next-page a::before,
-body.august #backtotop::before {
-    border-right: 15px solid #22868e;
-  }
-  body.september {
-    background: url("themeuri/assets/img/bg/september.webp") repeat fixed center 0 #ac4900;
-  }
-  body.september a, body.september a:visited, body.september a:active {
-    color: #994000;
-  }
-  body.september #search-button svg {
-    fill: #994000;
-  }
-  body.september .pagination-item.previous-page a::before,
-body.september .pagination-item.next-page a::before,
-body.september #backtotop::before {
-    border-right: 15px solid #994000;
-  }
-  body.october {
-    background: url("themeuri/assets/img/bg/october.webp") repeat fixed center 0 #000000;
-  }
-  body.october a, body.october a:visited, body.october a:active {
-    color: #dd801d;
-  }
-  body.october #search-button svg {
-    fill: #dd801d;
-  }
-  body.october .pagination-item.previous-page a::before,
-body.october .pagination-item.next-page a::before,
-body.october #backtotop::before {
-    border-right: 15px solid #dd801d;
-  }
-  body.november {
-    background: url("themeuri/assets/img/bg/november.webp") repeat fixed center 0 #2d1a0b;
-  }
-  body.november a, body.november a:visited, body.november a:active {
-    color: #664438;
-  }
-  body.november #search-button svg {
-    fill: #664438;
-  }
-  body.november .pagination-item.previous-page a::before,
-body.november .pagination-item.next-page a::before,
-body.november #backtotop::before {
-    border-right: 15px solid #664438;
-  }
-  body.december {
-    background: url("themeuri/assets/img/bg/december.webp") repeat fixed 0 0 #711517;
-  }
-  body.december a, body.december a:visited, body.december a:active {
-    color: #c80000;
-  }
-  body.december #search-button svg {
-    fill: #c80000;
-  }
-  body.december .pagination-item.previous-page a::before,
-body.december .pagination-item.next-page a::before,
-body.december #backtotop::before {
-    border-right: 15px solid #c80000;
   }
   /* April Fool's Day */
   body.april-fools {

@@ -1,3 +1,4 @@
+/* HTML Tags */
 html {
     padding: 0;
 }
@@ -15,7 +16,25 @@ h2 {
     margin-bottom: .3em;
 }
 
-/* 7.1.2 Structure */
+/* Monthly colors */
+@each $month in $months {
+    body.#{ nth( $month, 1 ) } {
+        background: url( "themeuri/assets/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
+    }
+    body.#{ nth( $month, 1 ) } a, body.#{ nth( $month, 1 ) } a:visited, body.#{ nth( $month, 1 ) } a:active {
+        color: #{ nth( $month, 3 ) };
+    }
+    body.#{ nth( $month, 1 ) } #search-button svg {
+        fill: #{ nth( $month, 3 ) };
+    }
+    body.#{ nth( $month, 1 ) } .pagination-item.previous-page a::before,
+    body.#{ nth( $month, 1 ) } .pagination-item.next-page a::before,
+    body.#{ nth( $month, 1 ) } #backtotop::before {
+        border-right: 15px solid #{ nth( $month, 3 ) };
+    }
+}
+
+/* Page Structure */
 #content-wrapper {
     flex-direction: column;
 }
@@ -24,7 +43,8 @@ aside {
     padding: 20px;
 }
 
-/* 7.1.2.1 Header */
+/* Mobile Nav */
+
 #header-container {
     border-radius: 0;
 }
