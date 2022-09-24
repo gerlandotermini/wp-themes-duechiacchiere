@@ -109,11 +109,11 @@ class duechiacchiere {
 	}
 
 	public static function walker_nav_menu_start_el( $item_output, $item, $depth, $args ) {
-    if ( !empty( $item->description ) ) {
-        $item_output = str_replace( $args->link_after . '</a>', $args->link_after . '</a>' . '<p class="menu-item-description">' . $item->description . '</p>', $item_output );
-    }
- 
-    return $item_output;
+		if ( !empty( $item->description ) ) {
+			$item_output = str_replace( $args->link_after . '</a>', $args->link_after . '</a>' . '<p class="menu-item-description">' . $item->description . '</p>', $item_output );
+		}
+	
+		return $item_output;
 	}
 
 	public static function get_archives_link( $link_html = '' ) {
@@ -264,7 +264,7 @@ class duechiacchiere {
 	}
 
 	public static function mce_external_plugins( $plugin_array ) {
-		$plugin_array[ 'tinymce_duechiacchiere' ] = get_template_directory_uri() . '/js/tinymce.js';
+		$plugin_array[ 'tinymce_duechiacchiere' ] = get_template_directory_uri() . '/assets/js/tinymce.js';
 		return $plugin_array;
 	}
 

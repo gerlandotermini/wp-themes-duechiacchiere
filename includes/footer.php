@@ -58,14 +58,27 @@
 	</button>
 
 	<!-- BEGIN: WP_Footer -->
-	<?php ob_start();
-		wp_footer();
-		$footer = ob_get_contents();
-		ob_end_clean();
-		$footer = str_replace( " type='text/javascript'", '', $footer );
-		echo str_replace( ' type="text/javascript"', '', $footer ); 
-	?>
+	<?php wp_footer(); ?>
 
 	<!-- END: WP_Footer -->
 </body>
 </html>
+
+<?php
+// Minify the output
+$page_output = ob_get_contents();
+
+ob_end_clean();
+
+// No need to have type defined in the script tag anymore
+$page_output = str_replace( " type='text/javascript'", '', $page_output );
+$page_output = str_replace( ' type="text/javascript"', '', $page_output );
+
+// No need for HTML comments
+$page_output = preg_replace( '/<!--(.*?)-->/', '', $page_output );
+
+// No need for multiple spaces
+$page_output = preg_replace( '/  +/', ' ', $page_output );
+
+// Finally, remove all the EOL characters and tabbing
+echo preg_replace( "/[\n\t]*/", "", $page_output );

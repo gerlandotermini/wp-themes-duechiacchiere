@@ -1,44 +1,71 @@
 'use strict';
 
-const gulp = require( 'gulp' );
-const sass = require( 'gulp-sass' )( require( 'sass' ) );
+const gulp = require( 'gulp' ),
 
+    // Minify CSS
+    clean = require( 'gulp-clean-css' ),
+
+    // Minify JS
+    minify = require( 'gulp-minify' ),
+
+    // Compile SCSS
+    sass = require( 'gulp-sass' )( require( 'sass' ) );
+
+// Where to find the source code and where to save the output
 const paths = {
-    style: {
-        // By using styles/**/*.sass we're telling gulp to check all folders for any sass file
-        src: './assets/scss/style.scss',
-
-        // Compiled files will end up in whichever folder it's found in (partials are not compiled)
-        dest: '../assets/css'
-    },
-    script: {
-        src: './assets/js/script.js',
+    scripts: {
+        src: './assets/js/**/*.js',
         dest: '../assets/js'
+    },
+    styles: {
+        src: {
+            main: './assets/scss/style.scss',
+            all: './assets/scss/**/*.scss'
+        },
+        dest: '../assets/css'
     }
 };
 
-// Define tasks after requiring dependencies
-// $ gulp style
-exports.style = style;
-function style() {
-    // Where should gulp look for the sass files?
+exports.scripts = scripts;
+function scripts() {
     return (
         gulp
-            .src( paths.style.src )
+            .src( paths.style.src.main )
  
             // Use sass with the files found, and log any errors
             .pipe( sass() ).on( 'error', sass.logError )
+
+            // Minify the output
+            .pipe( clean( { level: { 1: { specialComments: 0 } } } ) )
  
             // What is the destination for the compiled file?
             .pipe( gulp.dest( paths.style.dest ) )
     );
 }
+
+// Define tasks after requiring dependencies
+// $ gulp style
+exports.styles = styles;
+function styles() {
+    return (
+        gulp
+            .src( paths.styles.src.main )
  
+            // Use sass with the files found, and log any errors
+            .pipe( sass() ).on( 'error', sass.logError )
+
+            // Minify the output
+            .pipe( clean( { level: { 1: { specialComments: 0 } } } ) )
+ 
+            // What is the destination for the compiled file?
+            .pipe( gulp.dest( paths.styles.dest ) )
+    );
+}
+
 // $ gulp watch
 exports.watch = watch
-function watch(){
-    // gulp.watch takes in the location of the files to watch for changes
-    // and the name of the function we want to run on change
-    gulp.watch( paths.style.src, style )
+function watch() {
+    gulp.watch( paths.scripts.src, scripts );
+    gulp.watch( paths.styles.src.all, styles );
 }
     

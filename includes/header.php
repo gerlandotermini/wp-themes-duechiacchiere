@@ -1,4 +1,5 @@
 <?php
+	ob_start();
 	$default_category = 'ingresso';
 	$title_tag = 'h2';
 
@@ -45,7 +46,7 @@
 		}
 		if ( $GLOBALS[ 'post' ]->comment_count > 0 ) {
 			if ( !empty( $og_meta[ 'description' ] ) ) {
-				$og_meta[ 'description' ] .= ' - ';	
+				$og_meta[ 'description' ] .= ' - ';
 			}
 
 			$og_meta[ 'description' ] .= 'Numero di commenti: ' . $GLOBALS[ 'post' ]->comment_count;
@@ -56,7 +57,7 @@
 
 		$og_meta[ 'image' ] = duechiacchiere::first_post_image( $GLOBALS[ 'post' ]->post_content );
 		if ( empty( $og_meta[ 'image' ] ) ) {
-			$og_meta[ 'image' ] = get_template_directory_uri() . '/img/boys/ingresso.webp';
+			$og_meta[ 'image' ] = get_template_directory_uri() . '/assets/img/camu/ingresso.webp';
 			if ( has_post_thumbnail( $GLOBALS[ 'post' ]->ID ) ) {
 				$og_meta[ 'image' ] = get_the_post_thumbnail_url( $GLOBALS[ 'post' ]->ID, 'full' );
 			}
@@ -69,8 +70,8 @@
 				$schema_duration = str_replace ( [ '00H', '00M', '00H', '0' ], '', date( '\P\TH\Hi\Ms\S', $video_meta[ 'length' ] ) );
 			}
 
-			if ( strpos( $og_meta[ 'image' ], 'boys/ingresso.webp' ) ) {
-				$og_meta[ 'image' ] = get_template_directory_uri() . '/img/video-thumbnail.jpg';
+			if ( strpos( $og_meta[ 'image' ], 'camu/ingresso.webp' ) ) {
+				$og_meta[ 'image' ] = get_template_directory_uri() . '/assets/img/video-thumbnail.webp';
 			}
 
 			$schema_code = ',
@@ -106,7 +107,7 @@
 						"name": "' . get_bloginfo( 'name' ) . '",
 						"logo": {
 							"@type": "ImageObject",
-							"url": "' . get_template_directory_uri() . '/img/boys/ingresso.webp"
+							"url": "' . get_template_directory_uri() . '/assets/img/camu/ingresso.webp"
 						}
 					},
 					"datePublished": "' . get_the_time( 'c' ) . '",
@@ -195,10 +196,11 @@
 		}
 	}
 	else if ( is_404() ) {
+		$heading_title = '<h1 class="visually-hidden">Pagina non trovata</h1>';
 		$default_category = '404';
 	}
 	else if ( is_front_page() ) {
-		$heading_title = "<h1 class=\"visually-hidden\">Articoli recenti</h1>";
+		$heading_title = '<h1 class="visually-hidden">Articoli recenti</h1>';
 	}
 	else if ( is_page() ) {
 		$title_tag = 'h1';
@@ -210,6 +212,10 @@
 	else if ( is_search() ) {
 		$search_keywords = duechiacchiere::scrub_field( $_GET[ 's' ] );
 		$heading_title = "<h1 class=\"visually-hidden\">Risultati della ricerca per: $search_keywords</h1>";
+
+		if ( !have_posts() ) {
+			$default_category = '404';
+		}
 	}
 
 	$bg_month = isset( $_GET[ 'colors' ] ) ? duechiacchiere::scrub_field( $_GET[ 'colors' ] ) : strtolower( date( 'F' ) );
@@ -245,11 +251,11 @@
 	<meta name="author" content="camu"/>
 <?php
 	if ( !empty( $og_meta[ 'description' ] ) ) {
-		echo '<meta name="description" content="' . $og_meta[ 'description' ] . '">';
+		echo '<meta name="description" content="' . $og_meta[ 'description' ] . '">' . "\n";
 	}
 	foreach ( $og_meta as $meta_key => $meta_value ) {
 		if ( !empty( $meta_value ) ) {
-			echo '<meta property="og:' . $meta_key . '" content="' . $meta_value . '"/>';
+			echo '<meta property="og:' . $meta_key . '" content="' . $meta_value . '"/>' . "\n";
 		}
 	}
 ?>
