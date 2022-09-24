@@ -93,7 +93,7 @@ class duechiacchiere {
 	}
 
 	public static function print_scripts() {
-		$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
+		$js = file_get_contents( get_template_directory() . '/assets/js/script-min.js' );
 		echo '<script>' . str_replace( 'COOKIEHASHVALUE', COOKIEHASH, $js ) . '</script>';
 	}
 	
@@ -264,7 +264,7 @@ class duechiacchiere {
 	}
 
 	public static function mce_external_plugins( $plugin_array ) {
-		$plugin_array[ 'tinymce_duechiacchiere' ] = get_template_directory_uri() . '/assets/js/tinymce.js';
+		$plugin_array[ 'tinymce_duechiacchiere' ] = get_template_directory_uri() . '/assets/js/tinymce-min.js';
 		return $plugin_array;
 	}
 

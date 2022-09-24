@@ -1,7 +1,6 @@
 html {
     padding: 60px 0;
-    
-  }
+}
 body {
     border-radius: 10px;
     box-shadow: 0px 0px 0px 12px rgb( 255 255 255 / 40% );
@@ -508,206 +507,24 @@ a.skip:focus {
 }
 
 /* 5. Monthly colors */
-
-/* 5.1 January */
-body.january {
-    background: url( "themeuri/assets/img/bg/1.webp" ) repeat-x fixed 0 0 #000;
-}
-body.january a, body.january a:visited, body.january a:active {
-    color: #560bad;
-}
-body.january #search-button svg {
-    fill: #560bad;
-}
-body.january .pagination-item.previous-page a::before,
-body.january .pagination-item.next-page a::before,
-body.january #backtotop::before {
-    border-right: 15px solid #560bad;
-}
-
-/* 5.2 February */
-body.february {
-    background: url( "themeuri/img/bg/2.webp" ) repeat fixed center 0 #786960;
-}
-body.february a, body.february a:visited, body.february a:active {
-    color: #721620;
-}
-body.february #search-button svg {
-    fill: #721620;
-}
-body.february .pagination-item.previous-page a::before,
-body.february .pagination-item.next-page a::before,
-body.february #backtotop::before {
-    border-right: 15px solid #721620;
+@each $month in $months {
+    body.#{ nth( $month, 1 ) } {
+        background: url( "themeuri/assets/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
+    }
+    body.#{ nth( $month, 1 ) } a, body.#{ nth( $month, 1 ) } a:visited, body.#{ nth( $month, 1 ) } a:active {
+        color: #{ nth( $month, 3 ) };
+    }
+    body.#{ nth( $month, 1 ) } #search-button svg {
+        fill: #{ nth( $month, 3 ) };
+    }
+    body.#{ nth( $month, 1 ) } .pagination-item.previous-page a::before,
+    body.#{ nth( $month, 1 ) } .pagination-item.next-page a::before,
+    body.#{ nth( $month, 1 ) } #backtotop::before {
+        border-right: 15px solid #{ nth( $month, 3 ) };
+    }
 }
 
-/* 5.3 March */
-body.march {
-    background: url( "themeuri/img/bg/3.webp" ) repeat fixed 0 0 #332874;
-}
-body.march a, body.march a:visited, body.march a:active {
-    color: #443796;
-}
-body.march #search-button svg {
-    fill: #443796;
-}
-body.march .pagination-item.previous-page a::before,
-body.march .pagination-item.next-page a::before,
-body.march #backtotop::before {
-    border-right: 15px solid #443796;
-}
-
-/* 5.4 April */
-body.april {
-    background: url( "themeuri/img/bg/4.webp" ) repeat fixed center 0 #413D3D;
-}
-body.april a, body.april a:visited, body.april a:active {
-    color: #2c3d1d;
-}
-body.april #search-button svg {
-    fill: #2c3d1d;
-}
-body.april .pagination-item.previous-page a::before,
-body.april .pagination-item.next-page a::before,
-body.april #backtotop::before {
-    border-right: 15px solid #2c3d1d;
-}
-
-
-/* 5.5 May */
-body.may {
-    background: url( "themeuri/img/bg/5.webp" ) repeat fixed center 0 #0d6f00;
-    box-shadow: 0px 0px 15px 10px rgb( 0 0 0 / 50% );
-}
-body.may a, body.may a:visited, body.may a:active {
-    color: #4f7101;
-}
-body.may #search-button svg {
-    fill: #4f7101;
-}
-body.may .pagination-item.previous-page a::before,
-body.may .pagination-item.next-page a::before,
-body.may #backtotop::before {
-    border-right: 15px solid #4f7101;
-}
-
-/* 5.6 June */
-body.june {
-    background: url( "themeuri/img/bg/6.webp" ) repeat fixed center 0 #040001;
-    box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
-}
-body.june a, body.june a:visited, body.june a:active {
-    color: #6494c0;
-}
-body.june #search-button svg {
-    fill: #6494c0;
-}
-body.june .pagination-item.previous-page a::before,
-body.june .pagination-item.next-page a::before,
-body.june #backtotop::before {
-    border-right: 15px solid #6494c0;
-}
-
-/* 5.7 July */
-body.july {
-    background: url( "themeuri/img/bg/7.webp" ) no-repeat fixed center 0 #f2dfb7;
-    background-size: cover;
-    box-shadow: 0px 0px 0px 12px rgb( 42 56 69 / 30% );
-}
-body.july a, body.july a:visited, body.july a:active {
-    color: #002868;
-}
-body.july #search-button svg {
-    fill: #002868;
-}
-body.july .pagination-item.previous-page a::before,
-body.july .pagination-item.next-page a::before,
-body.july #backtotop::before {
-    border-right: 15px solid #002868;
-}
-
-/* 5.8 August */
-body.august {
-    background: url( "themeuri/img/bg/8.webp" ) repeat fixed 150px center #fecc59;
-    box-shadow: 0px 0px 0px 12px rgb( 0 0 0 / 20% );
-}
-body.august a, body.august a:visited, body.august a:active {
-    color: #22868e;
-}
-body.august #search-button svg {
-    fill: #22868e;
-}
-body.august .pagination-item.previous-page a::before,
-body.august .pagination-item.next-page a::before,
-body.august #backtotop::before {
-    border-right: 15px solid #22868e;
-}
-
-/* 5.9 September */
-body.september {
-    background: url( "themeuri/assets/img/bg/9.webp" ) repeat fixed center 0 #ac4900;
-}
-body.september a, body.september a:visited, body.september a:active {
-    color: #994000;
-}
-body.september #search-button svg {
-    fill: #994000;
-}
-body.september .pagination-item.previous-page a::before,
-body.september .pagination-item.next-page a::before,
-body.september #backtotop::before {
-    border-right: 15px solid #994000;
-}
-
-/* 5.10 October */
-body.october {
-    background: url( "themeuri/img/bg/10.webp" ) repeat fixed center 0 #000000;
-}
-body.october a, body.october a:visited, body.october a:active {
-    color: #dd801d;
-}
-body.october #search-button svg {
-    fill: #dd801d;
-}
-body.october .pagination-item.previous-page a::before,
-body.october .pagination-item.next-page a::before,
-body.october #backtotop::before {
-    border-right: 15px solid #dd801d;
-}
-
-/* 5.11 November */
-body.november {
-    background: url( "themeuri/img/bg/11.webp" ) repeat fixed center 0 #2d1a0b;
-}
-body.november a, body.november a:visited, body.november a:active {
-    color: #664438;
-}
-body.november #search-button svg {
-    fill: #664438;
-}
-body.november .pagination-item.previous-page a::before,
-body.november .pagination-item.next-page a::before,
-body.november #backtotop::before {
-    border-right: 15px solid #664438;
-}
-
-/* 5.12 December */
-body.december {
-    background: url( "themeuri/img/bg/12.webp" ) repeat fixed 0 0 #711517;
-}
-body.december a, body.december a:visited, body.december a:active {
-    color: #c80000;
-}
-body.december #search-button svg {
-    fill: #c80000;
-}
-body.december .pagination-item.previous-page a::before,
-body.december .pagination-item.next-page a::before,
-body.december #backtotop::before {
-    border-right: 15px solid #c80000;
-}
-
-/* 5.13 April Fool's Day */
+/* April Fool's Day */
 body.april-fools {
     animation: fadeInOut infinite linear 120s;
 }

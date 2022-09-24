@@ -1,68 +1,68 @@
 html {
-padding: 0;
+    padding: 0;
 }
 body {
-box-shadow: none;
-font-size: 1.05em;
-width: 100%;
+    box-shadow: none;
+    font-size: 1.05em;
+    width: 100%;
 }
 h1 {
-font-size: 1.4em;
-margin-bottom: .3em;
+    font-size: 1.4em;
+    margin-bottom: .3em;
 }
 h2 {
-font-size: 1.3em;
-margin-bottom: .3em;
+    font-size: 1.3em;
+    margin-bottom: .3em;
 }
 
 /* 7.1.2 Structure */
 #content-wrapper {
-flex-direction: column;
+    flex-direction: column;
 }
 aside {
-border-top: 1px solid #ccc;
-padding: 20px;
+    border-top: 1px solid #ccc;
+    padding: 20px;
 }
 
 /* 7.1.2.1 Header */
 #header-container {
-border-radius: 0;
+    border-radius: 0;
 }
 #header-container #name {
-display: none;
+    display: none;
 }
 #header-container #mobile-menu-trigger {
-align-self: center;
-display: flex;
-flex: 1;
-justify-content: end;
-margin: 0 25px 0 auto;
--webkit-tap-highlight-color: transparent;
+    align-self: center;
+    display: flex;
+    flex: 1;
+    justify-content: end;
+    margin: 0 25px 0 auto;
+    -webkit-tap-highlight-color: transparent;
 }
 .hamburger {
-display: inline-block;
-cursor: pointer;
-transition-property: opacity, filter;
-transition-duration: 0.15s;
-transition-timing-function: linear;
-font: inherit;
-color: inherit;
-text-transform: none;
-background-color: transparent;
-border: 0;
-margin: 0;
-overflow: visible;
+    display: inline-block;
+    cursor: pointer;
+    transition-property: opacity, filter;
+    transition-duration: 0.15s;
+    transition-timing-function: linear;
+    font: inherit;
+    color: inherit;
+    text-transform: none;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    overflow: visible;
 }
 .hamburger:hover {
-opacity: 0.7;
+    opacity: 0.7;
 }
 .hamburger.is-active:hover {
-opacity: 0.7;
+    opacity: 0.7;
 }
 .hamburger.is-active .hamburger-inner,
 .hamburger.is-active .hamburger-inner::before,
 .hamburger.is-active .hamburger-inner::after {
-background-color: #000;
+    background-color: #000;
 }
 
 .hamburger-box {

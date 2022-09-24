@@ -3,10 +3,10 @@
 const gulp = require( 'gulp' ),
 
     // Minify CSS
-    clean = require( 'gulp-clean-css' ),
+    clean_css = require( 'gulp-clean-css' ),
 
     // Minify JS
-    minify = require( 'gulp-minify' ),
+    clean_js = require( 'gulp-minify' ),
 
     // Compile SCSS
     sass = require( 'gulp-sass' )( require( 'sass' ) );
@@ -30,16 +30,13 @@ exports.scripts = scripts;
 function scripts() {
     return (
         gulp
-            .src( paths.style.src.main )
- 
-            // Use sass with the files found, and log any errors
-            .pipe( sass() ).on( 'error', sass.logError )
+            .src( paths.scripts.src )
 
             // Minify the output
-            .pipe( clean( { level: { 1: { specialComments: 0 } } } ) )
+            .pipe( clean_js( { mangle: { toplevel: true }, noSource: true } ) )
  
             // What is the destination for the compiled file?
-            .pipe( gulp.dest( paths.style.dest ) )
+            .pipe( gulp.dest( paths.scripts.dest ) )
     );
 }
 
@@ -55,7 +52,7 @@ function styles() {
             .pipe( sass() ).on( 'error', sass.logError )
 
             // Minify the output
-            .pipe( clean( { level: { 1: { specialComments: 0 } } } ) )
+            // .pipe( clean_css( { level: { 1: { specialComments: 0 } } } ) ) // Remove comments
  
             // What is the destination for the compiled file?
             .pipe( gulp.dest( paths.styles.dest ) )

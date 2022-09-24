@@ -6,18 +6,25 @@
 //	1.4. Typography
 //
 
-
-// 1.1. Borders
+// 1. Base colors
 // ------------------------------------------------
-$border-radius: 0;
+$text: #ff0000;
+$links: #00ff00;
+$border: #0000ff;
 
-// 1.2. Colors
+// 2. Monthly colors
 // ------------------------------------------------
-$primary: #005daa;
-$secondary: #ec9c1d;
-$success: #00a94f;
-$info: #8dc63f;
-$warning: #882345;
-$danger: #ff0000;
-$light: #ededed;
-$dark: #444444;
+$months: (
+    ( "january", "repeat-x fixed 0 0 #000", "#560bad" ),
+    ( "february", "repeat fixed center 0 #786960", "#721620" ),
+    ( "march", "repeat fixed 0 0 #332874", "#443796" ),
+    ( "april", "repeat fixed center 0 #413D3D", "#2c3d1d" ),
+    ( "may", "repeat fixed center 0 #0d6f00", "#4f7101" ),
+    ( "june", "repeat fixed center 0 #040001", "#6494c0" ),
+    ( "july", "no-repeat fixed center 0 #f2dfb7", "#002868" ),
+    ( "august", "repeat fixed 150px center #fecc59", "#22868e" ),
+    ( "september", "repeat fixed center 0 #ac4900", "#994000" ),
+    ( "october", "repeat fixed center 0 #000000", "#dd801d" ),
+    ( "november", "repeat fixed center 0 #2d1a0b", "#664438" ),
+    ( "december", "repeat fixed 0 0 #711517", "#c80000" )
+);
