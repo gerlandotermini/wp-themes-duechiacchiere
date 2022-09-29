@@ -1,0 +1,29 @@
+a.skip {
+    background-color: #fff;
+    height: 1px;
+    left: -10000px;
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    width: 1px;
+}
+a.skip:focus {
+    font-size: 2em;
+    font-weight: 100;
+    height: auto;
+    left: 20px;
+    padding: 10px;
+    position: fixed;
+    text-decoration: none;
+    top: 20px;
+    width: auto;
+}
+.visually-hidden,
+#comments .says {
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}

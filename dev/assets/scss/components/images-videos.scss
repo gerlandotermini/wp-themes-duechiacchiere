@@ -1,0 +1,16 @@
+article figure{
+    margin: 0 0 20px;
+    max-width: 100% !important;
+}
+article img {
+    box-sizing: border-box;
+    height: auto;
+    width: 100%;
+}
+article span.wp-caption-text {
+    background-color: #fff;
+    display: block;
+    margin-top: -10px;
+    padding: 10px;
+    text-align: center;
+}

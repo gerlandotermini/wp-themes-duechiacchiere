@@ -1,0 +1,16 @@
+@each $month in $months {
+    body.#{ nth( $month, 1 ) } {
+        background: url( "themeuri/assets/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
+    }
+    body.#{ nth( $month, 1 ) } a, body.#{ nth( $month, 1 ) } a:visited, body.#{ nth( $month, 1 ) } a:active {
+        color: #{ nth( $month, 3 ) };
+    }
+    body.#{ nth( $month, 1 ) } #search-button svg {
+        fill: #{ nth( $month, 3 ) };
+    }
+    body.#{ nth( $month, 1 ) }.pagination-item.previous-page a::before,
+    body.#{ nth( $month, 1 ) }.pagination-item.next-page a::before,
+    body.#{ nth( $month, 1 ) } #backtotop::before {
+        border-right: 15px solid #{ nth( $month, 3 ) };
+    }
+}

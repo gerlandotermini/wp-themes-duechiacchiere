@@ -51,6 +51,10 @@
 				<li><a href="/?day=<?= date_i18n( 'd' ) ?>&monthnum=<?= date_i18n( 'm' ) ?>&year=0" rel="nofollow">Oggi nel passato</a> [<a href="/feed/scrissi-oggi"><abbr title="really simple syndication" lang="en">RSS</abbr></a>]
 			</ul>
 		</nav>
+
+		<nav id="mobile-toolbar">
+			mobile toolbar
+		</nav>
 	</footer>
 
 	<button id="backtotop" onclick="window.scrollTo(0, 0);">

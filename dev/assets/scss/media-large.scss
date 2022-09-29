@@ -9,8 +9,7 @@ body {
     font-size: 1.15em;
     font-weight: 300;
     line-height: 1.4;
-    max-width: 1300px;
-    width: 90%;
+    
 }
 #content-wrapper {
     background-color: rgba( 255 255 255 / 97% );
@@ -33,25 +32,9 @@ aside {
     flex-direction: column;
     padding: 25px 20px 20px 0;
 }
-footer {
-    background-color: rgba( 20 20 20 / 85% );
-    color: #ecf7fa;
-    display: flex;
-    padding: 20px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top: 2px solid #ccc;
-}
+
 
 /* 2.1 Header */
-#header-container {
-    background-color: rgba( 255 255 255 / 97% );
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-#header-container > div {
-    display: flex;
-}
 #header-container > div > a {
     display: flex;
     flex: 1;

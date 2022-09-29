@@ -1,0 +1,8 @@
+@mixin media-query( $breakpoint: "large" ) {
+    @if $breakpoint == "large" {
+        @media only screen and ( min-width: 993px ) { @content; }
+    }
+    @else {
+        @media only screen and ( max-width: 992px ) { @content; }
+    }
+}

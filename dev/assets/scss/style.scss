@@ -1,15 +1,16 @@
-@import "variables";
-@import "normalize";
+@import "abstracts/variables";
+@import "abstracts/mixins";
 
-/* Mobile first, baby! */
-@media only screen and (max-width: 992px) {
-    @import "media-small";
-}
+@import "vendor/normalize";
 
-@media only screen and (min-width: 993px) {
-    @import "media-large";
-}
+@import 'components/accessibility';
+@import 'components/headings';
+@import 'components/images-videos';
+@import 'components/months';
 
-@media print {
-    @import "media-print";
-}
+@import 'layout/navigation';
+@import 'layout/header';
+@import 'layout/main';
+@import 'layout/sidebar';
+@import 'layout/footer';
+
