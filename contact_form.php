@@ -22,10 +22,6 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 	}
 
 	if ( empty( $error_message ) && filter_var( $data [ 'email' ], FILTER_VALIDATE_EMAIL ) ) {
-		$recipient = get_bloginfo( 'admin_email' );
-		
-		$subject = 'Contatto - ' . get_bloginfo( 'name' );
-
 		$headers = "MIME-Version: 1.0\n";
 		$headers .= "From: {$data[ 'author' ]} <{$data[ 'email' ]}>\n";
 		$headers .= "Content-Type: text/plain; charset=iso-8859-1\"\n";
@@ -38,9 +34,9 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 		$copy_message .= $data[ 'message' ] . "\n\n";
 		$copy_message .= "Il tuo indirizzo IP: " . $_SERVER[ 'REMOTE_ADDR' ] . "\n\n";
 		
-		$full_message = $data[ 'author' ] . "\n\n";
+		$full_message = 'From: ' . $data[ 'author' ] . ' <' . $data[ 'email' ] . ">\n";
+		$full_message .= 'IP: ' . $_SERVER[ 'REMOTE_ADDR' ] . "\n\n";
 		$full_message .= $data[ 'message' ] . "\n\n";
-		$full_message .= "Indirizzo IP: " . $_SERVER[ 'REMOTE_ADDR' ] . "\n\n";
 
 		if ( class_exists( 'Akismet' ) ) {
 			$akismet_request = array(
@@ -48,7 +44,7 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 				'user_ip'               => $_SERVER[ 'REMOTE_ADDR' ],
 				'user_agent'            => $_SERVER[ 'HTTP_USER_AGENT' ],
 				'referrer'              => $_SERVER[ 'HTTP_REFERER' ],
-				'comment_type'          => 'comment',
+				'comment_type'          => 'contact-form',
 				'comment_author'        => $data[ 'author' ],
 				'comment_author_email'  => $data[ 'email' ],
 				'comment_content'       => $data[ 'message' ],
@@ -59,7 +55,7 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 
 			if ( 'true' != $response[ 1 ] ) {
 				// Not spam, let's send the message
-				if ( mail( $recipient, $subject, $full_message, $headers ) ) {
+				if ( mail( get_bloginfo( 'admin_email' ), 'Contatto - ' . get_bloginfo( 'name' ), $full_message, $headers ) ) {
 					$content = '<p>Grazie per avermi contattato. Il tuo messaggio &egrave; stato inviato con successo, riceverai una mia risposta al pi&ugrave; presto.';
 					$content .= "</p><p><strong>Nome</strong>: {$data[ 'author' ]}<br>\n";
 					$content .= "<strong>Email</strong>: {$data[ 'email' ]}</p>\n";
