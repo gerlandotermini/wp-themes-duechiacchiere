@@ -1,11 +1,11 @@
 @import "abstracts/variables";
 @import "abstracts/mixins";
 
+// This library is defined as a dependency in package.json, to always have
+// the latest version available without having to manually check for updates
 @import "vendor/normalize";
 
 @import 'components/accessibility';
-@import 'components/headings';
-@import 'components/images-videos';
 @import 'components/months';
 
 @import 'layout/navigation';
@@ -13,4 +13,3 @@
 @import 'layout/main';
 @import 'layout/sidebar';
 @import 'layout/footer';
-

@@ -89,7 +89,7 @@ class duechiacchiere {
 
 	public static function print_styles() {
 		$css = file_get_contents( get_template_directory() . '/assets/css/style.css' );
-		echo '<style>' . str_replace( array( 'themeuri', 'sitedomain' ), array( get_stylesheet_directory_uri(), parse_url( get_home_url(), PHP_URL_HOST ) ), $css ) . '</style>';
+		echo '<style>' . str_replace( array( 'themeuri', 'my.site.domain' ), array( get_stylesheet_directory_uri(), parse_url( get_home_url(), PHP_URL_HOST ) ), $css ) . '</style>';
 	}
 
 	public static function print_scripts() {

@@ -8,7 +8,6 @@
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
-  scroll-behavior: smooth;
 }
 
 /* Sections
@@ -313,18 +312,14 @@ a.skip {
   height: 1px;
   left: -10000px;
   overflow: hidden;
-  position: absolute;
+  position: fixed;
   top: auto;
   width: 1px;
 }
-
-a.skip:focus {
-  font-size: 2em;
-  font-weight: 100;
+a.skip :focus {
   height: auto;
   left: 20px;
   padding: 10px;
-  position: fixed;
   text-decoration: none;
   top: 20px;
   width: auto;
@@ -338,35 +333,6 @@ a.skip:focus {
   position: absolute;
   white-space: nowrap;
   width: 1px;
-}
-
-h1 {
-  font-size: 1.4em;
-  margin-bottom: 0.3em;
-}
-
-h2 {
-  font-size: 1.3em;
-  margin-bottom: 0.3em;
-}
-
-article figure {
-  margin: 0 0 20px;
-  max-width: 100% !important;
-}
-
-article img {
-  box-sizing: border-box;
-  height: auto;
-  width: 100%;
-}
-
-article span.wp-caption-text {
-  background-color: #fff;
-  display: block;
-  margin-top: -10px;
-  padding: 10px;
-  text-align: center;
 }
 
 body.january {
@@ -586,123 +552,156 @@ body.december #backtotop::before {
 }
 
 body {
-  border-radius: 10px;
   color: #222;
   font-family: "Outfit", sans-serif;
-  font-size: 1.15em;
+  font-size: 1.15rem;
   font-weight: 300;
   line-height: 1.4;
 }
 
 #header-container {
-  background-color: rgba(255, 255, 255, 0.97);
-  padding-top: 20px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #333;
+  padding-top: 10px;
 }
-
-#header-container #branding > a {
+#header-container #branding {
   display: flex;
   align-items: flex-end;
   flex-flow: row wrap;
   justify-content: space-between;
+  margin: 0 15px;
   text-decoration: none;
 }
-
+#header-container #logo {
+  height: auto;
+  width: 100px;
+}
 #header-container #name {
   font-family: "Merriweather", serif;
-  font-size: 2rem;
-  margin: 0 20px 10px;
+  font-size: 1.5rem;
+  text-decoration: none;
 }
-
 #header-container #primary-menu {
   display: none;
 }
 
-@media only screen and (min-width: 993px) {
-  body {
-    box-shadow: 0px 0px 0px 12px rgba(255, 255, 255, 0.4);
-    margin: 40px auto;
-    max-width: 1300px;
-    width: 90%;
-  }
-  #header-container {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-  #header-container #logo {
-    padding: 10px 15px 0;
-  }
-  #header-container #name {
-    font-size: 3.4rem;
-  }
-}
-main, aside {
+main {
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 20px;
 }
-
-.post-meta time,
-.post-meta .comments-link {
+main h1 {
+  font-family: "Merriweather", serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.3em;
+}
+main h2 {
+  font-family: "Merriweather", serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.3em;
+}
+main h1 a, main h2 a, main h3 a {
+  text-decoration: none;
+}
+main article {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+main article .post-meta {
+  font-size: 0.8rem;
+}
+main article .post-meta .comments-link {
   display: block;
 }
-
-.post-meta .comment-separator {
+main article .post-meta .comment-separator {
   display: none;
 }
-
-#comments ol.children {
+main article figure {
+  margin: 0 0 20px;
+  max-width: 100% !important;
+}
+main article figure img {
+  box-sizing: border-box;
+  height: auto;
+  width: 100%;
+}
+main article figure span.wp-caption-text {
+  background-color: #fff;
+  font-size: 0.9rem;
+  display: block;
+  margin-top: -10px;
+  padding: 10px;
+  text-align: center;
+}
+main article .wp-video, main article video.wp-video-shortcode, main article .mejs-container, main article .mejs-overlay.load {
+  height: 100% !important;
+  max-width: 100% !important;
+  position: relative;
+  width: 100% !important;
+}
+main article .mejs-container.wp-video-shortcode {
+  padding-top: 56.25%;
+}
+main article .mejs-container.wp-audio-shortcode {
+  padding-top: 40px;
+}
+main article .mejs-mediaelement {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+main article .mejs-controls {
+  display: none;
+}
+main article .mejs-overlay-play {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto !important;
+  height: auto !important;
+}
+main article a[href*="wikipedia.org"]:before {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDcuMS1jMDAwIDc5LjljY2M0ZGU5MywgMjAyMi8wMy8xNC0xNDowNzoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjMgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkE3NzhBNjZDRDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkE3NzhBNjZERDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QTc3OEE2NkFEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QTc3OEE2NkJEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6xhK7YAAAALVBMVEUAAACqqqru7u6fn5/MzMxmZmaIiIgRERF3d3czMzMiIiKZmZlERETd3d3///92kDfUAAAAD3RSTlP//////////////////wDU3JihAAAAQklEQVR42jzMSQoAQQhD0WjX1NO//3ELFSobHyEoMjqBq07W4TbcXBYbF3o/iz33mv1BwaWhXjQxrUjjJ3l+bwEGAIiuAm+ewC65AAAAAElFTkSuQmCC);
+  margin: 0 5px 0 2px;
+  opacity: 0.5;
+}
+main article a[href*=".pdf"]:after {
+  content: " [pdf]";
+}
+main article a:not([href*="my.site.domain"]):not([href^="#"]):not([href^="/"]):not([href*="wikipedia.org"]):before {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: 0 5px 0 2px;
+  opacity: 0.5;
+}
+main #comments ol {
+  list-style: none;
+  padding-left: 0;
+}
+main #comments ol .comment-body a {
+  word-break: break-all;
+}
+main #comments ol .comment-body a[href*="wikipedia.org"]:before {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDcuMS1jMDAwIDc5LjljY2M0ZGU5MywgMjAyMi8wMy8xNC0xNDowNzoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjMgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkE3NzhBNjZDRDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkE3NzhBNjZERDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QTc3OEE2NkFEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QTc3OEE2NkJEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6xhK7YAAAALVBMVEUAAACqqqru7u6fn5/MzMxmZmaIiIgRERF3d3czMzMiIiKZmZlERETd3d3///92kDfUAAAAD3RSTlP//////////////////wDU3JihAAAAQklEQVR42jzMSQoAQQhD0WjX1NO//3ELFSobHyEoMjqBq07W4TbcXBYbF3o/iz33mv1BwaWhXjQxrUjjJ3l+bwEGAIiuAm+ewC65AAAAAElFTkSuQmCC);
+  margin: 0 5px 0 2px;
+  opacity: 0.5;
+}
+main #comments ol .comment-body a[href*=".pdf"]:after {
+  content: " [pdf]";
+}
+main #comments ol .comment-body a:not([href*="my.site.domain"]):not([href^="#"]):not([href^="/"]):not([href*="wikipedia.org"]):before {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: 0 5px 0 2px;
+  opacity: 0.5;
+}
+main #comments ol ol.children {
   border-left: 1px solid #ccc;
   margin-left: 5px;
   padding-left: 5px;
 }
-
-#comments a {
-  word-break: break-all;
-}
-
-#commentform .form-submit {
+main #comments #commentform .form-submit {
   padding: 0;
   width: 100%;
-}
-
-#pagination {
-  display: none;
-}
-
-/* Footer */
-footer {
-  background-color: rgba(20, 20, 20, 0.85);
-  color: #ecf7fa;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-}
-
-footer > * {
-  border-bottom: 1px solid #ccc;
-  margin: 0 0 20px;
-  padding: 0 0 20px;
-}
-
-footer > *:last-child {
-  margin-bottom: 0;
-  border-bottom: 0;
-}
-
-footer a {
-  color: #d4dee1 !important;
-}
-
-@media only screen and (min-width: 993px) {
-  footer {
-    flex-direction: row;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top: 2px solid #ccc;
-  }
-  footer > * {
-    border-bottom: 0;
-    border-bottom: 1px solid #ccc;
-  }
-  footer #mobile-toolbar {
-    display: none;
-  }
 }

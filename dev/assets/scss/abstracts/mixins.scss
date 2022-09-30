@@ -2,7 +2,37 @@
     @if $breakpoint == "large" {
         @media only screen and ( min-width: 993px ) { @content; }
     }
+    @else if $breakpoint == "print" {
+        @media only print { @content; }
+    }
     @else {
         @media only screen and ( max-width: 992px ) { @content; }
+    }
+}
+
+@mixin headings {
+    h2 {
+        font-family: $headings-font-family;
+        font-size: $h2-font-size;
+        margin-bottom: .3em;
+    }
+    h1 a, h2 a, h3 a {
+        text-decoration: none;
+    }
+}
+
+@mixin external-links {
+    a[href*="wikipedia.org"]:before {
+        content: $icon-wikipedia;
+        margin: 0 5px 0 2px;
+        opacity: 0.5;
+    }
+    a[href*='.pdf']:after {
+        content: ' [pdf]';
+    }
+    a:not( [href*="my.site.domain"] ):not( [href^='#'] ):not( [href^='/'] ):not( [href*="wikipedia.org"] ):before {
+        content: $icon-external-link;
+        margin: 0 5px 0 2px;
+        opacity: 0.5;
     }
 }

@@ -317,8 +317,8 @@
 
 	<header id="header-container">
 		<div id="branding">
-			<a href="/" title="Torna alla pagina iniziale del sito"><img id="logo" src="<?= get_template_directory_uri() ?>/assets/img/camu/<?= $default_category ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
-			<p id="name">due chiacchiere</p></a><?php if ( duechiacchiere::is_naked_day() ): ?><h3>Non preoccuparti se oggi il sito sembra diverso, sto partecipando al <a href="https://css-naked-day.github.io/" hreflang="en" lang="en">CSS Naked Day</a></h3><?php endif ?>
+			<img id="logo" src="<?= get_template_directory_uri() ?>/assets/img/camu/<?= $default_category ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
+			<a id="name" href="/" title="Torna alla pagina iniziale del sito">due chiacchiere</a>
 		</div>
 
 		<nav aria-label="Navigazione primaria" id="primary-menu">

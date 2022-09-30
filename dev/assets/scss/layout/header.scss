@@ -1,47 +1,37 @@
 body {
-    border-radius: 10px;
     color: #222;
     font-family: "Outfit", sans-serif;
-    font-size: 1.15em;
+    font-size: 1.15rem;
     font-weight: 300;
     line-height: 1.4;
 }
-
+   
 #header-container {
-    background-color: rgba(255, 255, 255, 0.97);
-    padding-top: 20px;
-}
-#header-container #branding > a {
-    display: flex;
-    align-items: flex-end;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    text-decoration: none;
-}
-#header-container #name {
-    font-family: 'Merriweather', serif;
-    font-size: 2rem;
-    margin: 0 20px 10px;
-}
-#header-container #primary-menu {
-    display: none;
-}
+    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid #333;
+    padding-top: 10px;
 
-@include media-query( large ) {
-    body {
-        box-shadow: 0px 0px 0px 12px rgb(255 255 255 / 40%);
-        margin: 40px auto;
-        max-width: 1300px;
-        width: 90%;
+    #branding {
+        display: flex;
+        align-items: flex-end;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        margin: 0 15px;
+        text-decoration: none;
     }
-    #header-container {
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+
+    #logo {
+        height: auto;
+        width: 100px;
     }
-    #header-container #logo {
-        padding: 10px 15px 0;
+
+    #name {
+        font-family: "Merriweather", serif;
+        font-size: 1.5rem;
+        text-decoration: none;
     }
-    #header-container #name {
-        font-size: 3.4rem;
-    }    
+
+    #primary-menu {
+        display: none;
+    }
 }

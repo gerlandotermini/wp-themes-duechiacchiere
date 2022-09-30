@@ -20,11 +20,17 @@ const paths = {
     styles: {
         src: {
             main: './assets/scss/style.scss',
-            all: './assets/scss/**/*.scss'
+            all: './assets/scss/**/*.?css'
         },
         dest: '../assets/css'
+    },
+    vendor: {
+        normalize: {
+            src: './node_modules/normalize.css/normalize.css',
+            dest: './assets/scss/vendor/'
+        }
     }
-};
+}
 
 exports.scripts = scripts;
 function scripts() {
@@ -62,7 +68,11 @@ function styles() {
 // $ gulp watch
 exports.watch = watch
 function watch() {
-    gulp.watch( paths.scripts.src, scripts );
-    gulp.watch( paths.styles.src.all, styles );
+    // Copy vendor files (Normalize)
+    gulp.src( paths.vendor.normalize.src ).pipe( gulp.dest( paths.vendor.normalize.dest ) );
+
+    // Watch folders
+    gulp.watch( paths.scripts.src, { awaitWriteFinish: true }, scripts );
+    gulp.watch( paths.styles.src.all, { awaitWriteFinish: true }, styles );
 }
     
