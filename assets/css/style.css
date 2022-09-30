@@ -554,9 +554,29 @@ body.december #backtotop::before {
 body {
   color: #222;
   font-family: "Outfit", sans-serif;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 300;
   line-height: 1.4;
+}
+body.april-fools {
+  animation: fadeInOut infinite linear 120s;
+}
+body.april-fools *:hover {
+  filter: none;
+}
+@keyframes fadeInOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+body a:hover, body a:focus, body a:focus-visible {
+  text-shadow: 0 0 1px #333;
 }
 
 #header-container {
@@ -581,6 +601,9 @@ body {
   font-size: 1.5rem;
   text-decoration: none;
 }
+#header-container #name:hover, #header-container #name:focus {
+  filter: brightness(50%);
+}
 #header-container #primary-menu {
   display: none;
 }
@@ -602,6 +625,9 @@ main h2 {
 main h1 a, main h2 a, main h3 a {
   text-decoration: none;
 }
+main h3 {
+  font-weight: 300;
+}
 main article {
   border-bottom: 1px solid #ccc;
   padding-bottom: 20px;
@@ -615,6 +641,19 @@ main article .post-meta .comments-link {
 }
 main article .post-meta .comment-separator {
   display: none;
+}
+main article a[href*="wikipedia.org"]:before {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDcuMS1jMDAwIDc5LjljY2M0ZGU5MywgMjAyMi8wMy8xNC0xNDowNzoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjMgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkE3NzhBNjZDRDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkE3NzhBNjZERDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QTc3OEE2NkFEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QTc3OEE2NkJEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6xhK7YAAAALVBMVEUAAACqqqru7u6fn5/MzMxmZmaIiIgRERF3d3czMzMiIiKZmZlERETd3d3///92kDfUAAAAD3RSTlP//////////////////wDU3JihAAAAQklEQVR42jzMSQoAQQhD0WjX1NO//3ELFSobHyEoMjqBq07W4TbcXBYbF3o/iz33mv1BwaWhXjQxrUjjJ3l+bwEGAIiuAm+ewC65AAAAAElFTkSuQmCC);
+  margin: 0 5px 0 2px;
+  opacity: 0.5;
+}
+main article a[href*=".pdf"]:after {
+  content: " [pdf]";
+}
+main article a:not([href*="my.site.domain"]):not([href^="#"]):not([href^="/"]):not([href*="wikipedia.org"]):before {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: 0 5px 0 2px;
+  opacity: 0.5;
 }
 main article figure {
   margin: 0 0 20px;
@@ -634,16 +673,20 @@ main article figure span.wp-caption-text {
   text-align: center;
 }
 main article .wp-video, main article video.wp-video-shortcode, main article .mejs-container, main article .mejs-overlay.load {
-  height: 100% !important;
-  max-width: 100% !important;
-  position: relative;
   width: 100% !important;
+  height: 100% !important;
 }
 main article .mejs-container.wp-video-shortcode {
   padding-top: 56.25%;
 }
 main article .mejs-container.wp-audio-shortcode {
   padding-top: 40px;
+}
+main article .wp-video, main article video.wp-video-shortcode {
+  max-width: 100% !important;
+}
+main article video.wp-video-shortcode {
+  position: relative;
 }
 main article .mejs-mediaelement {
   position: absolute;
@@ -663,45 +706,83 @@ main article .mejs-overlay-play {
   width: auto !important;
   height: auto !important;
 }
-main article a[href*="wikipedia.org"]:before {
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDcuMS1jMDAwIDc5LjljY2M0ZGU5MywgMjAyMi8wMy8xNC0xNDowNzoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjMgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkE3NzhBNjZDRDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkE3NzhBNjZERDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QTc3OEE2NkFEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QTc3OEE2NkJEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6xhK7YAAAALVBMVEUAAACqqqru7u6fn5/MzMxmZmaIiIgRERF3d3czMzMiIiKZmZlERETd3d3///92kDfUAAAAD3RSTlP//////////////////wDU3JihAAAAQklEQVR42jzMSQoAQQhD0WjX1NO//3ELFSobHyEoMjqBq07W4TbcXBYbF3o/iz33mv1BwaWhXjQxrUjjJ3l+bwEGAIiuAm+ewC65AAAAAElFTkSuQmCC);
-  margin: 0 5px 0 2px;
-  opacity: 0.5;
-}
-main article a[href*=".pdf"]:after {
-  content: " [pdf]";
-}
-main article a:not([href*="my.site.domain"]):not([href^="#"]):not([href^="/"]):not([href*="wikipedia.org"]):before {
-  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
-  margin: 0 5px 0 2px;
-  opacity: 0.5;
-}
 main #comments ol {
-  list-style: none;
+  list-style-type: none;
   padding-left: 0;
 }
-main #comments ol .comment-body a {
-  word-break: break-all;
+main #comments ol > li {
+  margin-top: 10px;
 }
-main #comments ol .comment-body a[href*="wikipedia.org"]:before {
+main #comments ol .comment-body .comment-author, main #comments ol .comment-body .comment-meta {
+  font-size: 0.9rem;
+}
+main #comments ol .comment-body .comment-author img, main #comments ol .comment-body .comment-meta img {
+  float: left;
+  margin-right: 10px;
+}
+main #comments ol .comment-body .comment-author a, main #comments ol .comment-body .comment-meta a {
+  text-decoration: none;
+}
+main #comments ol .comment-body .comment-author cite, main #comments ol .comment-body .comment-meta cite {
+  font-style: initial;
+}
+main #comments ol .comment-body p a[href*="wikipedia.org"]:before {
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDcuMS1jMDAwIDc5LjljY2M0ZGU5MywgMjAyMi8wMy8xNC0xNDowNzoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjMgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkE3NzhBNjZDRDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkE3NzhBNjZERDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QTc3OEE2NkFEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QTc3OEE2NkJEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6xhK7YAAAALVBMVEUAAACqqqru7u6fn5/MzMxmZmaIiIgRERF3d3czMzMiIiKZmZlERETd3d3///92kDfUAAAAD3RSTlP//////////////////wDU3JihAAAAQklEQVR42jzMSQoAQQhD0WjX1NO//3ELFSobHyEoMjqBq07W4TbcXBYbF3o/iz33mv1BwaWhXjQxrUjjJ3l+bwEGAIiuAm+ewC65AAAAAElFTkSuQmCC);
   margin: 0 5px 0 2px;
   opacity: 0.5;
 }
-main #comments ol .comment-body a[href*=".pdf"]:after {
+main #comments ol .comment-body p a[href*=".pdf"]:after {
   content: " [pdf]";
 }
-main #comments ol .comment-body a:not([href*="my.site.domain"]):not([href^="#"]):not([href^="/"]):not([href*="wikipedia.org"]):before {
+main #comments ol .comment-body p a:not([href*="my.site.domain"]):not([href^="#"]):not([href^="/"]):not([href*="wikipedia.org"]):before {
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
   margin: 0 5px 0 2px;
   opacity: 0.5;
 }
-main #comments ol ol.children {
+main #comments ol ol.children, main #comments ol #respond {
   border-left: 1px solid #ccc;
-  margin-left: 5px;
-  padding-left: 5px;
+  margin: 10px 0 0;
+  padding-left: 20px;
 }
-main #comments #commentform .form-submit {
+main #comments ol a {
+  word-break: break-all;
+}
+main #comments #commentform {
+  display: flex;
+  flex-wrap: wrap;
+}
+main #comments #commentform p {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+main #comments #commentform input, main #comments #commentform textarea {
+  padding: 10px;
+  font-weight: 300;
+}
+main #comments #commentform .comment-form-author, main #comments #commentform .form-submit {
+  box-sizing: border-box;
   padding: 0;
+}
+main #comments #commentform .comment-form-comment, main #comments #commentform .comment-form-url, main #comments #commentform .comment-form-subscriptions, main #comments #commentform .comment-form-manage {
   width: 100%;
+}
+main #pagination {
+  display: none;
+}
+
+aside {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+}
+aside h2 {
+  font-family: "Merriweather", serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.3em;
+}
+aside h1 a, aside h2 a, aside h3 a {
+  text-decoration: none;
+}
+aside h3 {
+  font-weight: 300;
 }

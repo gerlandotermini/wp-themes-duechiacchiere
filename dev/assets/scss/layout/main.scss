@@ -1,6 +1,6 @@
 main {
     background-color: $content-background;
-    padding: $padding;
+    padding: $padding-regular;
 
     h1 {
         font-family: $headings-font-family;
@@ -11,8 +11,8 @@ main {
 
     article {
         border-bottom: $alternate-border;
-        padding-bottom: $padding;
-        margin-bottom: $padding + 10px;
+        padding-bottom: $padding-regular;
+        margin-bottom: $padding-regular + 10px;
 
         // Post Meta
         .post-meta {
@@ -42,7 +42,7 @@ main {
             }
             span.wp-caption-text {
                 background-color: $white;
-                font-size: 0.9rem;
+                font-size: $font-size-small;
                 display: block;
                 margin-top: -10px;
                 padding: 10px;
@@ -88,23 +88,65 @@ main {
     }
    
     #comments {
-        .comment-body {
-            @include external-links;
+        ol {
+            list-style-type: none;
+            padding-left: 0;
+
+            > li {
+                margin-top: $margin-small;
+            }
+
+            .comment-body {
+                .comment-author, .comment-meta {
+                    font-size: $font-size-small;
+
+                    img {
+                        float: left;
+                        margin-right: $margin-small;
+                    }
+                    a {
+                        text-decoration: none;
+                    }
+                    cite {
+                        font-style: initial;
+                    }
+                }
+                p {
+                    @include external-links;
+                }
+            }
+    
+            ol.children, #respond {
+                border-left: $alternate-border;
+                margin: $margin-small 0 0;
+                padding-left: $padding-regular;
+            }
+                
+            a {
+                word-break: break-all;
+            }
         }
 
-        ol.children {
-            border-left: 1px solid #ccc;
-            margin-left: 5px;
-            padding-left: 5px;
-        }
-           
-        a {
-            word-break: break-all;
-        }
-           
-        #commentform .form-submit {
-            padding: 0;
-            width: 100%;
+        #commentform {
+            display: flex;
+            flex-wrap: wrap;
+
+            p {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+            }
+            input, textarea {
+                padding: 10px;
+                font-weight: 300;
+            }
+            .comment-form-author, .form-submit {
+                box-sizing: border-box;
+                padding: 0;
+            }
+            .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
+                width: 100%;
+            }
         }
     }
 

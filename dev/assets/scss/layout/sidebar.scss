@@ -1,6 +1,6 @@
 aside {
     background-color: $content-background;
-    padding: $padding;
+    padding: $padding-regular;
 
     @include headings;
 }

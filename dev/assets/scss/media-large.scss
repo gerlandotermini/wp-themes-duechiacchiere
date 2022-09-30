@@ -1,39 +1,3 @@
-html {
-    padding: 60px 0;
-}
-body {
-    border-radius: 10px;
-    box-shadow: 0px 0px 0px 12px rgb( 255 255 255 / 40% );
-    color: #222;
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.15em;
-    font-weight: 300;
-    line-height: 1.4;
-    
-}
-#content-wrapper {
-    background-color: rgba( 255 255 255 / 97% );
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-main {
-    display: flex;
-    flex: 2.5;
-    flex-direction: column;
-    padding: 20px 40px 20px 20px;
-}
-article {
-    margin-bottom: 1.5em;
-}
-aside {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    padding: 25px 20px 20px 0;
-}
-
-
 /* 2.1 Header */
 #header-container > div > a {
     display: flex;
@@ -55,9 +19,7 @@ aside {
     line-height: 1em;
     margin: 0 10px 0 auto;
 }
-#header-container a:hover #name, #header-container a:focus #name {
-    filter: brightness( 50% );
-}
+
 #header-container #mobile-menu-trigger {
     display: none;
 }
@@ -129,30 +91,7 @@ ul.sub-menu a {
 .comment-body p {
     clear: both;
 }
-#commentform {
-    display: flex;
-    flex-wrap: wrap;
-}
-#commentform p {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-}
-#commentform input, #commentform textarea {
-    padding: 10px;
-    font-weight: 300;
-}
-#commentform .comment-form-author,
-#commentform .form-submit {
-    box-sizing: border-box;
-    padding-right: 20px;
-}
-#commentform .comment-form-comment,
-#commentform .comment-form-url,
-#commentform .comment-form-subscriptions,
-#commentform .comment-form-manage {
-    width: 100%;
-}
+
 
 /* 2.3 Sidebar */
 article a:hover, article a:focus, article a:focus-visible {
@@ -354,15 +293,11 @@ header h1, header h2 {
     font-family: 'Merriweather', serif;
     font-weight: 300;
 }
-h3 {
-    font-weight: 300;
-}
+
 h1 a, h2 a, h3 a {
     text-decoration: none;
 }
-a:hover, a:focus, a:focus-visible {
-    text-shadow: 0 0 1px #444;
-}
+
 blockquote {
     border-left: 5px solid #cccd;
     padding-left: 15px;
@@ -377,55 +312,4 @@ pre {
     font-size: .9em;
     padding: 10px;
     white-space: pre-wrap;
-}
-
-/* 4. Accessibility */
-a.skip {
-    background-color: #fff;
-    height: 1px;
-    left: -10000px;
-    overflow: hidden;
-    position: absolute;
-    top: auto;
-    width: 1px;
-}
-
-a.skip:focus {
-    font-size: 2em;
-    font-weight: 100;
-    height: auto;
-    left: 20px;
-    padding: 10px;
-    position: fixed;
-    text-decoration: none;
-    top: 20px;
-    width: auto;
-}
-.visually-hidden,
-#comments .says {
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-}
-
-/* April Fool's Day */
-body.april-fools {
-    animation: fadeInOut infinite linear 120s;
-}
-body.april-fools *:hover{
-    filter: none;
-}
-@keyframes fadeInOut {
-    0% {
-    opacity: 1;
-    }
-    50% {
-    opacity: 0.7;
-    }
-    100% {
-    opacity: 1;
-    }
 }

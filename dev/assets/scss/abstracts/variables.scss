@@ -7,7 +7,10 @@
 //	4. Typography
 
 // 1. Box Model
-$padding: 20px;
+$margin-regular: 20px;
+$margin-small: 10px;
+$padding-regular: $margin-regular;
+$padding-small: $margin-small;
 
 // 2. Colors
 // ------------------------------------------------
@@ -15,7 +18,7 @@ $border: 1px solid #333;
 $alternate-border: 1px solid #ccc;
 $content-background: rgba(255, 255, 255, 0.95);
 $links: #00ff00;
-$text: #ff0000;
+$text: #222;
 $white: #fff;
 
 // 2.1 Monthly colors
@@ -45,5 +48,6 @@ $h1-font-size: 1.4rem;
 $h2-font-size: 1.2rem;
 
 $body-font-family: "Outfit", sans-serif;
-$body-font-size: 1.15rem;
+$body-font-size: 1rem;
 
+$font-size-small: 0.9rem;

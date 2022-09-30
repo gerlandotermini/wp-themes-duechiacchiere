@@ -1,15 +1,37 @@
 body {
-    color: #222;
-    font-family: "Outfit", sans-serif;
-    font-size: 1.15rem;
+    color: $text;
+    font-family: $body-font-family;
+    font-size: $body-font-size;
     font-weight: 300;
     line-height: 1.4;
+
+    &.april-fools {
+        animation: fadeInOut infinite linear 120s;
+    }
+    &.april-fools *:hover{
+        filter: none;
+    }
+    @keyframes fadeInOut {
+        0% {
+        opacity: 1;
+        }
+        50% {
+        opacity: 0.7;
+        }
+        100% {
+        opacity: 1;
+        }
+    }
+
+    a:hover, a:focus, a:focus-visible {
+        text-shadow: 0 0 1px #333;
+    }
 }
    
 #header-container {
-    background-color: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid #333;
-    padding-top: 10px;
+    background-color: $content-background;
+    border-bottom: $border;
+    padding-top: $padding-small;
 
     #branding {
         display: flex;
@@ -19,18 +41,18 @@ body {
         margin: 0 15px;
         text-decoration: none;
     }
-
     #logo {
         height: auto;
         width: 100px;
     }
-
     #name {
-        font-family: "Merriweather", serif;
+        font-family: $headings-font-family;
         font-size: 1.5rem;
         text-decoration: none;
     }
-
+    #name:hover, #name:focus {
+        filter: brightness( 50% );
+    }
     #primary-menu {
         display: none;
     }
