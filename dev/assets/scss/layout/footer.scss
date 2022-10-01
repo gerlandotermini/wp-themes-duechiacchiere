@@ -4,10 +4,12 @@ footer {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    margin-bottom: $padding-small * 4;
-    padding: $padding-regular;
+    margin-bottom: $margin-regular;
+    padding: $padding-regular $padding-regular $padding-regular*3;
 
-    @include media-query( large ) {
+    @include media-query( tablet ) {
+        border-bottom-left-radius: $padding-small;
+        border-bottom-right-radius: $padding-small;
         flex-direction: row;
         font-size: $font-size-extra-small;
         justify-content: space-between;
@@ -24,16 +26,24 @@ footer {
                 padding-right: 0;
             }
 
-            @include media-query( tablet ) {
+            @include media-query( tablet-max ) {
                 &.about-me {
                     display: none;
                 }
             }
 
             h2 {
-                margin-top: 0;
+                margin: 0 0 $margin-regular;
             }
         }
+    }
+
+    @include media-query( large ) {
+        padding: $padding-regular;
+    }
+
+    p, ul {
+        margin: 0;
     }
 
     ul {
@@ -42,6 +52,10 @@ footer {
 
         li {
             padding: 0 0 $padding-small;
+
+            &:last-child {
+                padding-bottom: 0;
+            }
         }
     }
 
@@ -89,36 +103,6 @@ footer {
     }
 }
 
-// footer > * {
-//     border-bottom: 1px solid #ccc;
-//     margin: 0 0 20px;
-//     padding: 0 0 20px;
-// }
-// footer > *:last-child {
-//     margin-bottom: 0;
-//     border-bottom: 0;
-// }
-// footer a {
-//     color: #d4dee1 !important;
-// }
-
-// @include media-query( large ) {
-//     footer {
-//         flex-direction: row;
-//         border-bottom-left-radius: 10px;
-//         border-bottom-right-radius: 10px;
-//         border-top: 2px solid #ccc;
-//     }
-//     footer > * {
-//         border-bottom: 0;
-//         border-bottom: 1px solid #ccc;
-//     }
-
-//     footer #mobile-toolbar {
-//         display: none;
-//     }
-// }
-
 #backtotop {
     background-color: $background;
     border: $border-secondary;
@@ -132,6 +116,11 @@ footer {
     top: auto;
     transition: opacity 1s ease-in-out;
     width: 40px;
+
+    @include media-query( large ) {
+        right: $padding-regular * 2;
+        bottom: $padding-regular * 2;
+    }
 }
 #backtotop::before {
     border-bottom: 11px solid transparent;

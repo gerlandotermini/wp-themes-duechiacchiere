@@ -1,9 +1,9 @@
 // Table of Contents
 // ------------------------------------------------
 //	1. Box Model
-//  2. Borders
-//	3. Colors
-//	    3.1 Monthly Color
+//	2. Colors
+//	  2.1 Monthly Color
+//  3. Borders
 //  4. Icons
 //	5. Typography
 // ------------------------------------------------
@@ -16,28 +16,20 @@ $padding-regular: $margin-regular;
 $padding-small: $margin-small;
 $body-max-width: 1300px;
 
-// 2. Borders and Shadows
-// ------------------------------------------------
-$border: 1px solid #333;
-$border-secondary: 1px solid #ccc;
-$box-shadow: 0px 0px 0px 12px rgb( 255 255 255 / 40% );
-$shadow: 0 0 2px #444;
-
-// 3. Colors
+// 2. Colors
 // ------------------------------------------------
 $background: rgba( 255 255 255 / 98% );
-$background-secondary: #ccc;
-$background-code: #282a36;
+$background-secondary: #dbd3d8;
+$background-code: #2d3142;
 $background-footer: rgba( 20 20 20 / 95% );
 $links: #00ff00;
-$links-footer: #bfc0c0;
+$links-footer: #a8dadc;
 $text: #333;
 $text-code: #ddd;
 $text-footer: #ecf7fa;
 $white: #fff;
 
-
-// 3.1 Monthly colors
+// 2.1 Monthly colors
 // ------------------------------------------------
 $months: (
     ( "january", "repeat-x fixed 0 0 #000", "#560bad" ),
@@ -53,6 +45,13 @@ $months: (
     ( "november", "repeat fixed center 0 #2d1a0b", "#664438" ),
     ( "december", "repeat fixed 0 0 #711517", "#c80000" )
 );
+
+// 3. Borders and Shadows
+// ------------------------------------------------
+$border: 1px solid #333;
+$border-secondary: 1px solid $background-secondary;
+$box-shadow: 0px 0px 0px 12px rgb( 255 255 255 / 40% );
+$shadow: 0 0 2px #555;
 
 // 4. Icons
 // ------------------------------------------------

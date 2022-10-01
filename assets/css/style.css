@@ -310,9 +310,9 @@ template {
 html {
   scroll-behavior: smooth;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   html {
-    margin: 60px 0;
+    margin: 40px 0 10px;
   }
 }
 
@@ -323,7 +323,7 @@ body {
   font-weight: 300;
   line-height: 1.4;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   body {
     border-radius: 10px;
     box-shadow: 0px 0px 0px 12px rgba(255, 255, 255, 0.4);
@@ -502,13 +502,13 @@ body h2 {
 }
 body h1, body h2, body h3 {
   font-weight: 300;
-  margin-bottom: 0;
+  margin-bottom: 0.2em;
 }
 body h1 a, body h2 a, body h3 a {
   text-decoration: none;
 }
 body a:hover, body a:focus, body a:focus-visible {
-  text-shadow: 0 0 2px #444;
+  text-shadow: 0 0 2px #555;
 }
 body a.skip {
   background-color: #fff;
@@ -539,9 +539,9 @@ body #comments .says {
 
 #header-container {
   background-color: rgba(255, 255, 255, 0.98);
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #dbd3d8;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   #header-container {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -560,7 +560,7 @@ body #comments .says {
   height: auto;
   width: 25vw;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   #header-container #logo {
     width: initial;
   }
@@ -570,7 +570,7 @@ body #comments .says {
   font-size: 6vw;
   text-decoration: none;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   #header-container #name {
     font-size: 3.5em;
   }
@@ -581,11 +581,11 @@ body #comments .says {
 #header-container #primary-menu {
   display: none;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   #header-container #primary-menu {
     display: block;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #dbd3d8;
+    border-top: 1px solid #dbd3d8;
   }
   #header-container #primary-menu ul {
     list-style-type: none;
@@ -608,7 +608,7 @@ body #comments .says {
   }
   #header-container #primary-menu ul.menu > li:hover > ul.sub-menu, #header-container #primary-menu ul.menu > li.focus > ul.sub-menu {
     background-color: rgba(255, 255, 255, 0.98);
-    border: 1px solid #ccc;
+    border: 1px solid #dbd3d8;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     left: auto;
@@ -640,20 +640,20 @@ body #comments .says {
   flex-direction: column;
   padding: 0 20px 40px;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   #content-wrapper {
     flex-direction: row;
   }
 }
 
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   main {
     flex: 2.5;
     padding: 0 40px 0 0;
   }
 }
 main article {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #dbd3d8;
   padding-bottom: 20px;
   margin-bottom: 20px;
 }
@@ -661,7 +661,7 @@ main article.last {
   border-bottom: 0;
   margin-bottom: 0;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   main article {
     border-bottom: 0;
   }
@@ -673,6 +673,7 @@ main article header h1, main article header h2 {
   font-family: "Merriweather", serif;
   font-size: 1.5em;
   font-weight: 700;
+  margin-top: 20px;
 }
 main article header .post-meta {
   font-size: 0.9em;
@@ -682,7 +683,7 @@ main article header .post-meta {
 main article header .post-meta .comments-link {
   display: table;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   main article header .post-meta .comments-link {
     display: initial;
   }
@@ -690,7 +691,7 @@ main article header .post-meta .comments-link {
 main article header .post-meta .comment-separator {
   display: none;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   main article header .post-meta .comment-separator {
     display: initial;
   }
@@ -733,6 +734,7 @@ main article .mejs-container.wp-video-shortcode {
   padding-top: 56.25%;
 }
 main article .mejs-container.wp-audio-shortcode {
+  height: auto !important;
   padding-top: 40px;
 }
 main article .wp-video, main article video.wp-video-shortcode {
@@ -757,7 +759,7 @@ main article .mejs-overlay-play {
   height: auto !important;
 }
 main article blockquote {
-  border-left: 5px solid #ccc;
+  border-left: 5px solid #dbd3d8;
   padding-left: 20px;
   margin: 10px 0 20px;
 }
@@ -765,7 +767,7 @@ main article cite {
   font-style: normal;
 }
 main article pre {
-  background-color: #282a36;
+  background-color: #2d3142;
   color: #ddd;
   font-size: 1em;
   padding: 10px;
@@ -817,7 +819,7 @@ main #comments ol .comment-body .reply {
   margin-top: -10px;
 }
 main #comments ol ol.children, main #comments ol #respond {
-  border-left: 1px solid #ccc;
+  border-left: 1px solid #dbd3d8;
   margin: 10px 0 0;
   padding-left: 20px;
 }
@@ -839,7 +841,7 @@ main #comments #commentform p.comment-form-author, main #comments #commentform p
   width: 49%;
 }
 main #comments #commentform input, main #comments #commentform textarea {
-  border: 1px solid #ccc;
+  border: 1px solid #dbd3d8;
   font-weight: 300;
   padding: 10px;
 }
@@ -852,8 +854,82 @@ main #comments #commentform .form-submit {
 main #pagination {
   display: none;
 }
+@media only screen and (min-width: 1025px) {
+  main #pagination {
+    display: initial;
+  }
+  main #pagination ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding-left: 0;
+  }
+  main #pagination ul .pagination-item {
+    background-color: rgba(255, 255, 255, 0.98);
+    border: 1px solid #dbd3d8;
+    border-right-width: 0;
+  }
+  main #pagination ul .pagination-item:last-child {
+    border-right-width: 1px;
+  }
+  main #pagination ul .pagination-item.previous-page {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  main #pagination ul .pagination-item.previous-page i, main #pagination ul .pagination-item.previous-page a {
+    position: relative;
+    width: 25px;
+  }
+  main #pagination ul .pagination-item.previous-page i:before, main #pagination ul .pagination-item.previous-page a:before {
+    border-bottom: 8px solid transparent;
+    border-top: 8px solid transparent;
+    border-right: 16px solid #464646;
+    content: "";
+    display: block;
+    left: 20px;
+    position: absolute;
+    top: 15px;
+  }
+  main #pagination ul .pagination-item.previous-page i:before {
+    border-right-color: #aaa;
+  }
+  main #pagination ul .pagination-item.next-page {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  main #pagination ul .pagination-item.next-page i, main #pagination ul .pagination-item.next-page a {
+    position: relative;
+    width: 25px;
+  }
+  main #pagination ul .pagination-item.next-page i:before, main #pagination ul .pagination-item.next-page a:before {
+    border-bottom: 8px solid transparent;
+    border-top: 8px solid transparent;
+    border-right: 16px solid #464646;
+    content: "";
+    display: block;
+    left: 20px;
+    position: absolute;
+    top: 15px;
+    transform: rotate(180deg);
+  }
+  main #pagination ul .pagination-item.next-page i:before {
+    border-right-color: #aaa;
+  }
+  main #pagination ul .pagination-item a, main #pagination ul .pagination-item i, main #pagination ul .pagination-item span {
+    display: block;
+    height: 1.3em;
+    padding: 10px 15px;
+    min-width: 1em;
+    text-align: center;
+    text-decoration: none;
+  }
+  main #pagination ul .pagination-item span.current {
+    text-shadow: 0 0 2px #222;
+  }
+}
 
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   aside {
     flex: 1;
   }
@@ -861,29 +937,56 @@ main #pagination {
 aside #search-form {
   display: none;
 }
+@media only screen and (min-width: 1025px) {
+  aside #search-form {
+    display: flex;
+  }
+  aside #search-form #search-field {
+    border: 1px solid #dbd3d8;
+    flex: 1;
+    font-weight: 300;
+    padding: 12px 10px;
+    width: 100%;
+  }
+  aside #search-form #search-field::placeholder {
+    color: #555;
+  }
+  aside #search-form #search-button {
+    align-items: center;
+    background: none;
+    border: 0;
+    display: flex;
+    margin-left: -20px;
+    padding: 0;
+    width: 20px;
+    z-index: 10;
+  }
+  aside #search-form #search-button svg {
+    position: relative;
+    left: -10px;
+  }
+}
 aside .widget {
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 aside .widget h2 {
-  background: #ccc;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  background: #dbd3d8;
   margin: 0;
   padding: 5px 10px;
 }
 aside .widget ul {
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  border-left: 1px solid #dbd3d8;
+  border-right: 1px solid #dbd3d8;
   list-style-type: none;
   margin: 0;
   padding-left: 0;
 }
 aside .widget li {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #dbd3d8;
   padding: 10px;
 }
 aside .widget li.current-post {
-  text-shadow: 0 0 2px #444;
+  text-shadow: 0 0 2px #555;
 }
 aside h3 {
   font-size: 1.25rem;
@@ -903,11 +1006,13 @@ footer {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  margin-bottom: 40px;
-  padding: 20px;
+  margin-bottom: 20px;
+  padding: 20px 20px 60px;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 768px) {
   footer {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     flex-direction: row;
     font-size: 0.9em;
     justify-content: space-between;
@@ -924,15 +1029,23 @@ footer {
     padding-right: 0;
   }
 }
-@media only screen and (min-width: 993px) and (max-width: 1200px) {
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
   footer div.about-me, footer nav.about-me {
     display: none;
   }
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 768px) {
   footer div h2, footer nav h2 {
-    margin-top: 0;
+    margin: 0 0 20px;
   }
+}
+@media only screen and (min-width: 1025px) {
+  footer {
+    padding: 20px;
+  }
+}
+footer p, footer ul {
+  margin: 0;
 }
 footer ul {
   list-style-type: none;
@@ -941,8 +1054,11 @@ footer ul {
 footer ul li {
   padding: 0 0 10px;
 }
+footer ul li:last-child {
+  padding-bottom: 0;
+}
 footer a {
-  color: #bfc0c0 !important;
+  color: #a8dadc !important;
   text-decoration: none;
 }
 
@@ -950,7 +1066,7 @@ footer a {
   display: flex;
   position: fixed;
   background-color: #fff;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #dbd3d8;
   bottom: 0;
   justify-content: space-evenly;
   left: 0;
@@ -961,13 +1077,13 @@ footer a {
   width: 100%;
   z-index: 1000;
 }
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 1025px) {
   #mobile-toolbar {
     display: none;
   }
 }
 #mobile-toolbar li {
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #dbd3d8;
   flex: 1 1 0px;
   padding: 10px 0 0;
   text-align: center;
@@ -983,7 +1099,7 @@ footer a {
 
 #backtotop {
   background-color: rgba(255, 255, 255, 0.98);
-  border: 1px solid #ccc;
+  border: 1px solid #dbd3d8;
   border-radius: 5px;
   bottom: 75px;
   height: 40px;
@@ -994,6 +1110,12 @@ footer a {
   top: auto;
   transition: opacity 1s ease-in-out;
   width: 40px;
+}
+@media only screen and (min-width: 1025px) {
+  #backtotop {
+    right: 40px;
+    bottom: 40px;
+  }
 }
 
 #backtotop::before {

@@ -43,7 +43,7 @@
 		<nav>
 			<h2>Varie ed eventuali</h2>
 			<ul>
-				<li><a href="https://www.linkedin.com/in/gerlando/" hreflang="en">Il mio profilo su LinkedIn</a></li>
+				<li><a href="https://www.linkedin.com/in/gerlando/" hreflang="en">Il mio profilo LinkedIn</a></li>
 				<li><a href="https://github.com/gerlandotermini" hreflang="en">Il codice che scrivo</a></li>
 				<li><a href="/contatto" title="lasciami un messaggio tramite il modulo di contatto">La buca delle lettere</a></li>
 				<li><a href="/feed">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> degli articoli</a></li>
