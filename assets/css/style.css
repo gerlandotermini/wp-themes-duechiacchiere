@@ -627,6 +627,7 @@ body #comments .says {
   #header-container #primary-menu ul.menu > li ul.sub-menu a {
     display: block;
     min-width: 100px;
+    padding: 5px 10px;
   }
   #header-container #primary-menu ul.menu > li ul.sub-menu a:hover, #header-container #primary-menu ul.menu > li ul.sub-menu a:focus,
 #header-container #primary-menu ul.menu > li ul.sub-menu .current-menu-item > a, #header-container #primary-menu ul.menu > li ul.sub-menu .current-menu-parent > a {

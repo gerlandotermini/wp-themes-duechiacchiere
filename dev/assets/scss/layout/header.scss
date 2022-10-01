@@ -145,6 +145,7 @@ body {
     #name:hover, #name:focus {
         filter: brightness( 50% );
     }
+
     #primary-menu {
         display: none;
 
@@ -198,6 +199,7 @@ body {
                             a {
                                 display: block;
                                 min-width: 100px;
+                                padding: calc( $padding-small / 2 ) $padding-small;
                             }
                             a:hover, a:focus,
                             .current-menu-item > a, .current-menu-parent > a {
