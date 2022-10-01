@@ -3,8 +3,38 @@ footer {
     color: $text-footer;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     margin-bottom: $padding-small * 4;
     padding: $padding-regular;
+
+    @include media-query( large ) {
+        flex-direction: row;
+        font-size: $font-size-extra-small;
+        justify-content: space-between;
+
+        div, nav {
+            border-right: $border;
+            flex: 1;
+            margin-right: $margin-regular;
+            padding-right: $padding-regular;
+            width: initial;
+
+            &:last-child {
+                border-right: 0;
+                padding-right: 0;
+            }
+
+            @include media-query( tablet ) {
+                &.about-me {
+                    display: none;
+                }
+            }
+
+            h2 {
+                margin-top: 0;
+            }
+        }
+    }
 
     ul {
         list-style-type: none;
@@ -24,6 +54,10 @@ footer {
 #mobile-toolbar {
     display: flex;
     position: fixed;
+
+    @include media-query( large ) {
+        display: none;
+    }
     
     background-color: $white;
     border-top: $border-secondary;
@@ -40,7 +74,7 @@ footer {
     li {
         border-right: $border-secondary;
         flex: 1 1 0px;
-        padding: $padding-small 0 $padding-small - 5px;
+        padding: $padding-small 0 0;
         text-align: center;
 
         &:last-child {
@@ -54,6 +88,7 @@ footer {
         }
     }
 }
+
 // footer > * {
 //     border-bottom: 1px solid #ccc;
 //     margin: 0 0 20px;

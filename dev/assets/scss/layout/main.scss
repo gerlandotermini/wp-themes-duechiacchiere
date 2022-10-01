@@ -1,32 +1,64 @@
 #content-wrapper {
+    background-color: $background;
     display: flex;
     flex-direction: column;
+    padding: 0 $padding-regular $padding-regular*2;
+
+    @include media-query( large ) {
+        flex-direction: row;
+    }
 }
 
 main {
-    background-color: $background;
-    padding: $padding-regular $padding-regular 0;
+    @include media-query( large ) {
+        flex: 2.5;
+        padding: 0 $padding-regular*2 0 0;
+    }
 
     article {
         border-bottom: $border-secondary;
         padding-bottom: $padding-regular;
-        margin-bottom: $padding-regular + 10px;
+        margin-bottom: $margin-regular;
 
         &.last {
             border-bottom: 0;
             margin-bottom: 0;
         }
 
-        // Post Meta
-        .post-meta {
-            font-size: $font-size-extra-small;
+        @include media-query( large ) {
+            border-bottom: 0;
         }
-        .post-meta {
-            .comments-link {
-                display: table;
+
+        header {
+            padding-bottom: $padding-small;
+
+            h1, h2 {
+                font-family: $headings-font-family;
+                font-size: $h1-font-size;
+                font-weight: 700;
             }
-            .comment-separator {
-                display: none;
+
+            // Post Meta
+            .post-meta {
+                font-size: $font-size-extra-small;
+                margin: 0 0 0.5em;
+                opacity: .7;
+            }
+            .post-meta {
+                .comments-link {
+                    display: table;
+
+                    @include media-query( large ) {
+                        display: initial;
+                    }
+                }
+                .comment-separator {
+                    display: none;
+
+                    @include media-query( large ) {
+                        display: initial;
+                    }
+                }
             }
         }
 
@@ -90,7 +122,7 @@ main {
         blockquote {
             border-left: 5px solid $background-secondary;
             padding-left: $padding-regular;
-            margin: $margin-small 0;
+            margin: $margin-small 0 $margin-regular;
         }
         cite {
             font-style: normal;
@@ -101,6 +133,14 @@ main {
             font-size: $font-size-small;
             padding: $padding-small;
             white-space: pre-wrap;
+        }
+
+        p {
+            margin-top: .5em;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
    
@@ -114,8 +154,10 @@ main {
             }
 
             .comment-body {
+                margin: $margin-regular 0;
+
                 .comment-author, .comment-meta {
-                    font-size: $font-size-small;
+                    font-size: $font-size-extra-small;
 
                     img {
                         float: left;
@@ -130,6 +172,9 @@ main {
                 }
                 p {
                     @include external-links;
+                }
+                .reply {
+                    margin-top: -$padding-small;
                 }
             }
 
@@ -152,7 +197,11 @@ main {
                 display: flex;
                 flex-direction: column;
                 margin: 5px 0;
-                width: 49%;
+                width: 100%;
+
+                &.comment-form-author, &.comment-form-email {
+                    width: 49%;
+                }
             }
             input, textarea {
                 border: $border-secondary;
@@ -160,12 +209,11 @@ main {
                 padding: $padding-small;
                 
             }
-            .comment-form-author, .form-submit {
-                box-sizing: border-box;
-                padding: 0;
-            }
             .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
                 width: 100%;
+            }
+            .form-submit {
+                margin-top: $margin-regular;
             }
         }
     }

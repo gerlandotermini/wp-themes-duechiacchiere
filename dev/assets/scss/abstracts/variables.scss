@@ -14,16 +14,18 @@ $margin-regular: 20px;
 $margin-small: 10px;
 $padding-regular: $margin-regular;
 $padding-small: $margin-small;
+$body-max-width: 1300px;
 
 // 2. Borders and Shadows
 // ------------------------------------------------
 $border: 1px solid #333;
 $border-secondary: 1px solid #ccc;
+$box-shadow: 0px 0px 0px 12px rgb( 255 255 255 / 40% );
 $shadow: 0 0 2px #444;
 
 // 3. Colors
 // ------------------------------------------------
-$background: rgba( 255 255 255 / 95% );
+$background: rgba( 255 255 255 / 98% );
 $background-secondary: #ccc;
 $background-code: #282a36;
 $background-footer: rgba( 20 20 20 / 95% );
@@ -60,11 +62,11 @@ $icon-wikipedia: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAA
 // 5. Typography
 // ------------------------------------------------
 $headings-font-family: "Merriweather", serif;
-$h1-font-size: 1.4rem;
-$h2-font-size: 1.2rem;
+$h1-font-size: 1.5em;
+$h2-font-size: 1.3em;
 
 $body-font-family: "Outfit", sans-serif;
 $body-font-size: 1.1rem;
 
-$font-size-small: 1rem;
-$font-size-extra-small: .9rem;
+$font-size-small: 1em;
+$font-size-extra-small: .9em;

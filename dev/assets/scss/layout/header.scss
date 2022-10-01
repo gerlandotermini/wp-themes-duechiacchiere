@@ -1,5 +1,9 @@
 html {
     scroll-behavior: smooth;
+
+    @include media-query( large ) {
+        margin: 60px 0;
+    }
 }
 
 body {
@@ -8,6 +12,32 @@ body {
     font-size: $body-font-size;
     font-weight: 300;
     line-height: 1.4;
+
+    @include media-query( large ) {
+        border-radius: $padding-small;
+        box-shadow: $box-shadow;
+        font-size: $body-font-size + 0.1;
+        margin: 0 auto;
+        max-width: $body-max-width;
+        width: 90%;
+    }
+
+    @each $month in $months {
+        &.#{ nth( $month, 1 ) } {
+            background: url( "themeuri/assets/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
+        }
+        &.#{ nth( $month, 1 ) } a, body.#{ nth( $month, 1 ) } a:visited, body.#{ nth( $month, 1 ) } a:active {
+            color: #{ nth( $month, 3 ) };
+        }
+        &.#{ nth( $month, 1 ) } svg {
+            fill: #{ nth( $month, 3 ) };
+        }
+        &.#{ nth( $month, 1 ) }.pagination-item.previous-page a::before,
+        &.#{ nth( $month, 1 ) }.pagination-item.next-page a::before,
+        &.#{ nth( $month, 1 ) } #backtotop::before {
+            border-right-color: #{ nth( $month, 3 ) };
+        }
+    }
 
     &.april-fools {
         animation: fadeInOut infinite linear 120s;
@@ -28,30 +58,64 @@ body {
     }
 
     h1 {
-        font-family: $headings-font-family;
         font-size: $h1-font-size;
-        margin-bottom: 0.3em;
     }
     h2 {
-        font-family: $headings-font-family;
         font-size: $h2-font-size;
-        margin-bottom: .3em;
     }
-    h1 a, h2 a, h3 a {
-        text-decoration: none;
-    }
-    h3 {
+    h1, h2, h3 {
         font-weight: 300;
+        margin-bottom: 0;
+
+        a {
+            text-decoration: none;
+        }
     }
 
     a:hover, a:focus, a:focus-visible {
         text-shadow: $shadow;
     }
+
+    a.skip {
+        background-color: #fff;
+        height: 1px;
+        left: -10000px;
+        overflow: hidden;
+        position: fixed;
+        top: auto;
+        width: 1px;
+    
+        :focus {
+            height: auto;
+            left: 20px;
+            padding: 10px;
+            text-decoration: none;
+            top: 20px;
+            width: auto;
+        }    
+    }
+    
+    .visually-hidden,
+    #comments .says {
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+    }
 }
    
 #header-container {
     background-color: $background;
-    border-bottom: $border;
+    border-bottom: $border-secondary;
+
+    @include media-query( large ) {
+        border-top-left-radius: $padding-small;
+        border-top-right-radius: $padding-small;
+        border-bottom: 0;
+        padding-top: $padding-regular;
+    }
 
     #branding {
         display: flex;
@@ -62,17 +126,87 @@ body {
     }
     #logo {
         height: auto;
-        width: 30vw;
+        width: 25vw;
+
+        @include media-query( large ) {
+            width: initial;
+        }
     }
+
     #name {
         font-family: $headings-font-family;
         font-size: 6vw;
         text-decoration: none;
+
+        @include media-query( large ) {
+            font-size: 3.5em;
+        }
     }
     #name:hover, #name:focus {
         filter: brightness( 50% );
     }
     #primary-menu {
         display: none;
+
+        @include media-query( large ) {
+            display: block;
+            border-bottom: $border-secondary;
+            border-top: $border-secondary;
+            
+            ul {
+            
+                list-style-type: none;
+
+                &.menu {
+                    display: flex;
+                    margin: 0;
+                    padding: 0 0 0 calc( $padding-regular / 2 );
+                    position: relative;
+
+                    > li {
+                        display: flex;
+
+                        a {
+                            padding: calc( $padding-regular / 2 ) $padding-small;
+                            text-decoration: none;
+                        }
+                        a:hover, a:focus,
+                        &.current-menu-item > a, &.current-menu-parent > a {
+                            text-shadow: 0 0 2px #444;
+                        }
+
+                        &:hover > ul.sub-menu,
+                        &.focus > ul.sub-menu {
+                            background-color: $background;
+                            border: $border-secondary;
+                            border-bottom-left-radius: $padding-small;
+                            border-bottom-right-radius: $padding-small;
+                            left: auto;
+                            margin: 47px 0 0;
+                            padding: 0;
+                            z-index: 100;
+                            transition-delay: 0.3s;
+                            visibility: visible;
+                        }
+
+                        ul.sub-menu {
+                            visibility: hidden;
+                            position: absolute;
+                            left: -99999px;
+                            transition: all 0s;
+
+                            a {
+                                display: block;
+                                min-width: 100px;
+                            }
+                            a:hover, a:focus,
+                            .current-menu-item > a, .current-menu-parent > a {
+                                text-shadow: 0 0 2px #444;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

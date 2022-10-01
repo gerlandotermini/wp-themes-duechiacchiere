@@ -26,6 +26,6 @@
 <?php foreach ( $random_posts as $a_post ): ?>
 <article>
     <header><h2><a href="<?= get_the_permalink( $a_post->ID ) ?>"><?= get_the_title( $a_post->ID ) ?></a></h2></header>
-    <?= apply_filters( 'the_content', get_the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false, $a_post->ID ) ); ?>
+    <?= apply_filters( 'the_content', get_the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false, $a_post->ID ) ); ?>    
 </article>
 <?php endforeach; wp_reset_postdata(); ?>

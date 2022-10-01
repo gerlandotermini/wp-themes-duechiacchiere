@@ -1,6 +1,7 @@
 aside {
-    background-color: $background;
-    padding: $padding-regular;
+    @include media-query( large ) {
+        flex: 1;
+    }
 
     #search-form {
         display: none;
