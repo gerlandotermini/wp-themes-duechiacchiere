@@ -2,7 +2,7 @@ html {
     scroll-behavior: smooth;
 
     @include media-query( large ) {
-        margin: $margin-regular*2 0 $margin-small;
+        margin: $margin-regular*2 0 $margin-regular;
     }
 }
 
