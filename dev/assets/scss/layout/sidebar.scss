@@ -1,6 +1,46 @@
 aside {
-    background-color: $content-background;
+    background-color: $background;
     padding: $padding-regular;
 
-    @include headings;
+    #search-form {
+        display: none;
+    }
+
+    .widget {
+        margin-bottom: 20px;
+
+        h2 {
+            background: $background-secondary;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            margin: 0;
+            padding: 5px $padding-small;
+        }
+        ul {
+            border-left: $border-secondary;
+            border-right: $border-secondary;
+            list-style-type: none;
+            margin: 0;
+            padding-left: 0;
+        }
+        li {
+            border-bottom: $border-secondary;
+            padding: $padding-small;
+        }
+        li.current-post {
+            text-shadow: $shadow;
+        }
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+        margin: 0;
+    }
+    p {
+        margin: 5px 0 0;
+        opacity: 70%;
+    }
+    a {
+        text-decoration: none;
+    }
 }

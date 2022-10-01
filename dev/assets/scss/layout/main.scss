@@ -1,26 +1,29 @@
-main {
-    background-color: $content-background;
-    padding: $padding-regular;
+#content-wrapper {
+    display: flex;
+    flex-direction: column;
+}
 
-    h1 {
-        font-family: $headings-font-family;
-        font-size: $h1-font-size;
-        margin-bottom: 0.3em;
-    }
-    @include headings;
+main {
+    background-color: $background;
+    padding: $padding-regular $padding-regular 0;
 
     article {
-        border-bottom: $alternate-border;
+        border-bottom: $border-secondary;
         padding-bottom: $padding-regular;
         margin-bottom: $padding-regular + 10px;
 
+        &.last {
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+
         // Post Meta
         .post-meta {
-            font-size: 0.8rem;
+            font-size: $font-size-extra-small;
         }
         .post-meta {
             .comments-link {
-                display: block;
+                display: table;
             }
             .comment-separator {
                 display: none;
@@ -74,9 +77,6 @@ main {
             bottom: 0;
             left: 0;
         }
-        .mejs-controls {
-            display: none;
-        }
         .mejs-overlay-play {
             top: 0;
             right: 0;
@@ -84,6 +84,23 @@ main {
             left: 0;
             width: auto !important;
             height: auto !important;
+        }
+
+        // Blockquotes, citations and pre-formatted text (code)
+        blockquote {
+            border-left: 5px solid $background-secondary;
+            padding-left: $padding-regular;
+            margin: $margin-small 0;
+        }
+        cite {
+            font-style: normal;
+        }
+        pre {
+            background-color: $background-code;
+            color: $text-code;
+            font-size: $font-size-small;
+            padding: $padding-small;
+            white-space: pre-wrap;
         }
     }
    
@@ -115,13 +132,12 @@ main {
                     @include external-links;
                 }
             }
-    
+
             ol.children, #respond {
-                border-left: $alternate-border;
+                border-left: $border-secondary;
                 margin: $margin-small 0 0;
                 padding-left: $padding-regular;
             }
-                
             a {
                 word-break: break-all;
             }
@@ -130,15 +146,19 @@ main {
         #commentform {
             display: flex;
             flex-wrap: wrap;
+            gap: 2%;
 
             p {
                 display: flex;
                 flex-direction: column;
-                width: 50%;
+                margin: 5px 0;
+                width: 49%;
             }
             input, textarea {
-                padding: 10px;
+                border: $border-secondary;
                 font-weight: 300;
+                padding: $padding-small;
+                
             }
             .comment-form-author, .form-submit {
                 box-sizing: border-box;

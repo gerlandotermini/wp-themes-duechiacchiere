@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     color: $text;
     font-family: $body-font-family;
@@ -23,13 +27,30 @@ body {
         }
     }
 
+    h1 {
+        font-family: $headings-font-family;
+        font-size: $h1-font-size;
+        margin-bottom: 0.3em;
+    }
+    h2 {
+        font-family: $headings-font-family;
+        font-size: $h2-font-size;
+        margin-bottom: .3em;
+    }
+    h1 a, h2 a, h3 a {
+        text-decoration: none;
+    }
+    h3 {
+        font-weight: 300;
+    }
+
     a:hover, a:focus, a:focus-visible {
-        text-shadow: 0 0 1px #333;
+        text-shadow: $shadow;
     }
 }
    
 #header-container {
-    background-color: $content-background;
+    background-color: $background;
     border-bottom: $border;
     padding-top: $padding-small;
 

@@ -1,11 +1,62 @@
-// /* Footer */
-// footer {
-//     background-color: rgba( 20 20 20 / 85% );
-//     color: #ecf7fa;
-//     display: flex;
-//     flex-direction: column;
-//     padding: 20px;
-// }
+footer {
+    background-color: $background-footer;
+    color: $text-footer;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $padding-small * 4;
+    padding: $padding-regular;
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+
+        li {
+            padding: 0 0 $padding-small;
+        }
+    }
+
+    a {
+        color: $links-footer !important;
+        text-decoration: none;
+    }
+}
+
+#mobile-toolbar {
+    display: flex;
+    position: fixed;
+    
+    background-color: $white;
+    border-top: $border-secondary;
+    bottom: 0;
+    justify-content: space-evenly;
+    left: 0;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+    top: auto;
+    width: 100%;
+    z-index: 1000;
+
+    li {
+        border-right: $border-secondary;
+        flex: 1 1 0px;
+        padding: $padding-regular 0 $padding-regular - 5px;
+        text-align: center;
+
+        :last-child {
+            border-right: 0;
+        }
+    
+        button {
+            align-items: center;
+            background: none;
+            border: 0;
+            padding: 0;
+            width: 20px;
+            z-index: 10;
+        }
+    }
+}
 // footer > * {
 //     border-bottom: 1px solid #ccc;
 //     margin: 0 0 20px;
@@ -35,3 +86,30 @@
 //         display: none;
 //     }
 // }
+
+#backtotop {
+    background-color: $background;
+    border: $border-secondary;
+    border-radius: 5px;
+    bottom: 65px + $padding-small;
+    height: 40px;
+    left: auto;
+    opacity: 0;
+    position: fixed;
+    right: $padding-small;
+    top: auto;
+    transition: opacity 1s ease-in-out;
+    width: 40px;
+}
+#backtotop::before {
+    border-bottom: 11px solid transparent;
+    border-top: 11px solid transparent;
+    border-right: 16px solid #222;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 11px;
+    transform: rotate(90deg);
+}
+

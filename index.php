@@ -48,7 +48,7 @@
 						$comments_html = "<span class=\"visually-hidden\">ci sono </span><a class=\"comments-link\" href=\"" . get_permalink() . "#comments\">{$comment_count} commenti</a>";
 				}
 				$comments_html .= "<span class=\"visually-hidden\"> per {$GLOBALS[ 'post' ]->post_title}</span>";
-		?><article>
+		?><article <?php if ( $GLOBALS[ 'wp_query' ]->current_post == $GLOBALS[ 'wp_query' ]->post_count - 1 ) { echo ' class="last"'; } ?>>
 			<header>
 				<<?= $title_tag ?>><?php if ( !is_single() && !is_page() ): ?><a href="<?php the_permalink() ?>"><?php endif; the_title( '', '' ); if ( !is_single() ): ?></a><?php endif ?></<?= $title_tag ?>>
 				<?php if ( $GLOBALS[ 'post' ]->post_type == 'post' ): ?>

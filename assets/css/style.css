@@ -343,14 +343,14 @@ body.january a, body.january a:visited, body.january a:active {
   color: #560bad;
 }
 
-body.january #search-button svg {
+body.january svg {
   fill: #560bad;
 }
 
 body.january.pagination-item.previous-page a::before,
 body.january.pagination-item.next-page a::before,
 body.january #backtotop::before {
-  border-right: 15px solid #560bad;
+  border-right-color: #560bad;
 }
 
 body.february {
@@ -361,14 +361,14 @@ body.february a, body.february a:visited, body.february a:active {
   color: #721620;
 }
 
-body.february #search-button svg {
+body.february svg {
   fill: #721620;
 }
 
 body.february.pagination-item.previous-page a::before,
 body.february.pagination-item.next-page a::before,
 body.february #backtotop::before {
-  border-right: 15px solid #721620;
+  border-right-color: #721620;
 }
 
 body.march {
@@ -379,14 +379,14 @@ body.march a, body.march a:visited, body.march a:active {
   color: #443796;
 }
 
-body.march #search-button svg {
+body.march svg {
   fill: #443796;
 }
 
 body.march.pagination-item.previous-page a::before,
 body.march.pagination-item.next-page a::before,
 body.march #backtotop::before {
-  border-right: 15px solid #443796;
+  border-right-color: #443796;
 }
 
 body.april {
@@ -397,14 +397,14 @@ body.april a, body.april a:visited, body.april a:active {
   color: #2c3d1d;
 }
 
-body.april #search-button svg {
+body.april svg {
   fill: #2c3d1d;
 }
 
 body.april.pagination-item.previous-page a::before,
 body.april.pagination-item.next-page a::before,
 body.april #backtotop::before {
-  border-right: 15px solid #2c3d1d;
+  border-right-color: #2c3d1d;
 }
 
 body.may {
@@ -415,14 +415,14 @@ body.may a, body.may a:visited, body.may a:active {
   color: #4f7101;
 }
 
-body.may #search-button svg {
+body.may svg {
   fill: #4f7101;
 }
 
 body.may.pagination-item.previous-page a::before,
 body.may.pagination-item.next-page a::before,
 body.may #backtotop::before {
-  border-right: 15px solid #4f7101;
+  border-right-color: #4f7101;
 }
 
 body.june {
@@ -430,17 +430,17 @@ body.june {
 }
 
 body.june a, body.june a:visited, body.june a:active {
-  color: #6494c0;
+  color: #4373a3;
 }
 
-body.june #search-button svg {
-  fill: #6494c0;
+body.june svg {
+  fill: #4373a3;
 }
 
 body.june.pagination-item.previous-page a::before,
 body.june.pagination-item.next-page a::before,
 body.june #backtotop::before {
-  border-right: 15px solid #6494c0;
+  border-right-color: #4373a3;
 }
 
 body.july {
@@ -451,14 +451,14 @@ body.july a, body.july a:visited, body.july a:active {
   color: #002868;
 }
 
-body.july #search-button svg {
+body.july svg {
   fill: #002868;
 }
 
 body.july.pagination-item.previous-page a::before,
 body.july.pagination-item.next-page a::before,
 body.july #backtotop::before {
-  border-right: 15px solid #002868;
+  border-right-color: #002868;
 }
 
 body.august {
@@ -466,17 +466,17 @@ body.august {
 }
 
 body.august a, body.august a:visited, body.august a:active {
-  color: #22868e;
+  color: #1f797f;
 }
 
-body.august #search-button svg {
-  fill: #22868e;
+body.august svg {
+  fill: #1f797f;
 }
 
 body.august.pagination-item.previous-page a::before,
 body.august.pagination-item.next-page a::before,
 body.august #backtotop::before {
-  border-right: 15px solid #22868e;
+  border-right-color: #1f797f;
 }
 
 body.september {
@@ -487,14 +487,14 @@ body.september a, body.september a:visited, body.september a:active {
   color: #994000;
 }
 
-body.september #search-button svg {
+body.september svg {
   fill: #994000;
 }
 
 body.september.pagination-item.previous-page a::before,
 body.september.pagination-item.next-page a::before,
 body.september #backtotop::before {
-  border-right: 15px solid #994000;
+  border-right-color: #994000;
 }
 
 body.october {
@@ -502,17 +502,17 @@ body.october {
 }
 
 body.october a, body.october a:visited, body.october a:active {
-  color: #dd801d;
+  color: #aa5c08;
 }
 
-body.october #search-button svg {
-  fill: #dd801d;
+body.october svg {
+  fill: #aa5c08;
 }
 
 body.october.pagination-item.previous-page a::before,
 body.october.pagination-item.next-page a::before,
 body.october #backtotop::before {
-  border-right: 15px solid #dd801d;
+  border-right-color: #aa5c08;
 }
 
 body.november {
@@ -523,14 +523,14 @@ body.november a, body.november a:visited, body.november a:active {
   color: #664438;
 }
 
-body.november #search-button svg {
+body.november svg {
   fill: #664438;
 }
 
 body.november.pagination-item.previous-page a::before,
 body.november.pagination-item.next-page a::before,
 body.november #backtotop::before {
-  border-right: 15px solid #664438;
+  border-right-color: #664438;
 }
 
 body.december {
@@ -541,20 +541,24 @@ body.december a, body.december a:visited, body.december a:active {
   color: #c80000;
 }
 
-body.december #search-button svg {
+body.december svg {
   fill: #c80000;
 }
 
 body.december.pagination-item.previous-page a::before,
 body.december.pagination-item.next-page a::before,
 body.december #backtotop::before {
-  border-right: 15px solid #c80000;
+  border-right-color: #c80000;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: #222;
+  color: #333;
   font-family: "Outfit", sans-serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 300;
   line-height: 1.4;
 }
@@ -575,8 +579,24 @@ body.april-fools *:hover {
     opacity: 1;
   }
 }
+body h1 {
+  font-family: "Merriweather", serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.3em;
+}
+body h2 {
+  font-family: "Merriweather", serif;
+  font-size: 1.2rem;
+  margin-bottom: 0.3em;
+}
+body h1 a, body h2 a, body h3 a {
+  text-decoration: none;
+}
+body h3 {
+  font-weight: 300;
+}
 body a:hover, body a:focus, body a:focus-visible {
-  text-shadow: 0 0 1px #333;
+  text-shadow: 0 0 2px #444;
 }
 
 #header-container {
@@ -608,36 +628,29 @@ body a:hover, body a:focus, body a:focus-visible {
   display: none;
 }
 
+#content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 main {
   background-color: rgba(255, 255, 255, 0.95);
-  padding: 20px;
-}
-main h1 {
-  font-family: "Merriweather", serif;
-  font-size: 1.4rem;
-  margin-bottom: 0.3em;
-}
-main h2 {
-  font-family: "Merriweather", serif;
-  font-size: 1.2rem;
-  margin-bottom: 0.3em;
-}
-main h1 a, main h2 a, main h3 a {
-  text-decoration: none;
-}
-main h3 {
-  font-weight: 300;
+  padding: 20px 20px 0;
 }
 main article {
   border-bottom: 1px solid #ccc;
   padding-bottom: 20px;
   margin-bottom: 30px;
 }
+main article.last {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
 main article .post-meta {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 main article .post-meta .comments-link {
-  display: block;
+  display: table;
 }
 main article .post-meta .comment-separator {
   display: none;
@@ -666,7 +679,7 @@ main article figure img {
 }
 main article figure span.wp-caption-text {
   background-color: #fff;
-  font-size: 0.9rem;
+  font-size: 1rem;
   display: block;
   margin-top: -10px;
   padding: 10px;
@@ -695,9 +708,6 @@ main article .mejs-mediaelement {
   bottom: 0;
   left: 0;
 }
-main article .mejs-controls {
-  display: none;
-}
 main article .mejs-overlay-play {
   top: 0;
   right: 0;
@@ -705,6 +715,21 @@ main article .mejs-overlay-play {
   left: 0;
   width: auto !important;
   height: auto !important;
+}
+main article blockquote {
+  border-left: 5px solid #ccc;
+  padding-left: 20px;
+  margin: 10px 0;
+}
+main article cite {
+  font-style: normal;
+}
+main article pre {
+  background-color: #282a36;
+  color: #ddd;
+  font-size: 1rem;
+  padding: 10px;
+  white-space: pre-wrap;
 }
 main #comments ol {
   list-style-type: none;
@@ -714,7 +739,7 @@ main #comments ol > li {
   margin-top: 10px;
 }
 main #comments ol .comment-body .comment-author, main #comments ol .comment-body .comment-meta {
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 main #comments ol .comment-body .comment-author img, main #comments ol .comment-body .comment-meta img {
   float: left;
@@ -750,15 +775,18 @@ main #comments ol a {
 main #comments #commentform {
   display: flex;
   flex-wrap: wrap;
+  gap: 2%;
 }
 main #comments #commentform p {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  margin: 5px 0;
+  width: 49%;
 }
 main #comments #commentform input, main #comments #commentform textarea {
-  padding: 10px;
+  border: 1px solid #ccc;
   font-weight: 300;
+  padding: 10px;
 }
 main #comments #commentform .comment-form-author, main #comments #commentform .form-submit {
   box-sizing: border-box;
@@ -775,14 +803,121 @@ aside {
   background-color: rgba(255, 255, 255, 0.95);
   padding: 20px;
 }
-aside h2 {
-  font-family: "Merriweather", serif;
-  font-size: 1.2rem;
-  margin-bottom: 0.3em;
+aside #search-form {
+  display: none;
 }
-aside h1 a, aside h2 a, aside h3 a {
-  text-decoration: none;
+aside .widget {
+  margin-bottom: 20px;
+}
+aside .widget h2 {
+  background: #ccc;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin: 0;
+  padding: 5px 10px;
+}
+aside .widget ul {
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+aside .widget li {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+aside .widget li.current-post {
+  text-shadow: 0 0 2px #444;
 }
 aside h3 {
-  font-weight: 300;
+  font-size: 1.25rem;
+  margin: 0;
+}
+aside p {
+  margin: 5px 0 0;
+  opacity: 70%;
+}
+aside a {
+  text-decoration: none;
+}
+
+footer {
+  background-color: rgba(20, 20, 20, 0.95);
+  color: #ecf7fa;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  padding: 20px;
+}
+footer ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+footer ul li {
+  padding: 0 0 10px;
+}
+footer a {
+  color: #bfc0c0 !important;
+  text-decoration: none;
+}
+
+#mobile-toolbar {
+  display: flex;
+  position: fixed;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  bottom: 0;
+  justify-content: space-evenly;
+  left: 0;
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+  top: auto;
+  width: 100%;
+  z-index: 1000;
+}
+#mobile-toolbar li {
+  border-right: 1px solid #ccc;
+  flex: 1 1 0px;
+  padding: 20px 0 15px;
+  text-align: center;
+}
+#mobile-toolbar li :last-child {
+  border-right: 0;
+}
+#mobile-toolbar li button {
+  align-items: center;
+  background: none;
+  border: 0;
+  padding: 0;
+  width: 20px;
+  z-index: 10;
+}
+
+#backtotop {
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  bottom: 75px;
+  height: 40px;
+  left: auto;
+  opacity: 0;
+  position: fixed;
+  right: 10px;
+  top: auto;
+  transition: opacity 1s ease-in-out;
+  width: 40px;
+}
+
+#backtotop::before {
+  border-bottom: 11px solid transparent;
+  border-top: 11px solid transparent;
+  border-right: 16px solid #222;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 7px;
+  left: 11px;
+  transform: rotate(90deg);
 }

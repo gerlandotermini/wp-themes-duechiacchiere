@@ -5,12 +5,12 @@
     body.#{ nth( $month, 1 ) } a, body.#{ nth( $month, 1 ) } a:visited, body.#{ nth( $month, 1 ) } a:active {
         color: #{ nth( $month, 3 ) };
     }
-    body.#{ nth( $month, 1 ) } #search-button svg {
+    body.#{ nth( $month, 1 ) } svg {
         fill: #{ nth( $month, 3 ) };
     }
     body.#{ nth( $month, 1 ) }.pagination-item.previous-page a::before,
     body.#{ nth( $month, 1 ) }.pagination-item.next-page a::before,
     body.#{ nth( $month, 1 ) } #backtotop::before {
-        border-right: 15px solid #{ nth( $month, 3 ) };
+        border-right-color: #{ nth( $month, 3 ) };
     }
 }
