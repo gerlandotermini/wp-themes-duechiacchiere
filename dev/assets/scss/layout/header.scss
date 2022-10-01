@@ -52,23 +52,21 @@ body {
 #header-container {
     background-color: $background;
     border-bottom: $border;
-    padding-top: $padding-small;
 
     #branding {
         display: flex;
         align-items: flex-end;
         flex-flow: row wrap;
         justify-content: space-between;
-        margin: 0 15px;
-        text-decoration: none;
+        padding: 0 $margin-regular;
     }
     #logo {
         height: auto;
-        width: 100px;
+        width: 30vw;
     }
     #name {
         font-family: $headings-font-family;
-        font-size: 1.5rem;
+        font-size: 6vw;
         text-decoration: none;
     }
     #name:hover, #name:focus {
