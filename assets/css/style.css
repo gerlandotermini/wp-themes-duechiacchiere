@@ -880,19 +880,16 @@ footer a {
 #mobile-toolbar li {
   border-right: 1px solid #ccc;
   flex: 1 1 0px;
-  padding: 20px 0 15px;
+  padding: 10px 0 5px;
   text-align: center;
 }
-#mobile-toolbar li :last-child {
+#mobile-toolbar li:last-child {
   border-right: 0;
 }
-#mobile-toolbar li button {
-  align-items: center;
-  background: none;
-  border: 0;
-  padding: 0;
-  width: 20px;
-  z-index: 10;
+#mobile-toolbar li a {
+  display: block;
+  margin: 0 auto;
+  width: 35px;
 }
 
 #backtotop {

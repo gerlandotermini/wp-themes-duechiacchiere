@@ -40,20 +40,17 @@ footer {
     li {
         border-right: $border-secondary;
         flex: 1 1 0px;
-        padding: $padding-regular 0 $padding-regular - 5px;
+        padding: $padding-small 0 $padding-small - 5px;
         text-align: center;
 
-        :last-child {
+        &:last-child {
             border-right: 0;
         }
     
-        button {
-            align-items: center;
-            background: none;
-            border: 0;
-            padding: 0;
-            width: 20px;
-            z-index: 10;
+        a {
+            display: block;
+            margin: 0 auto;
+            width: 35px;
         }
     }
 }
