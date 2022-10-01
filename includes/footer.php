@@ -114,6 +114,6 @@ $page_output = preg_replace( '/<!--(.*?)-->/', '', $page_output );
 $page_output = preg_replace( '/  +/', ' ', $page_output );
 
 // Finally, remove all the EOL characters and tabbing
-// $page_output = preg_replace( "/[\n\t]*/", "", $page_output );
+$page_output = preg_replace( "/[\n\t]*/", "", $page_output );
 
 echo $page_output;
