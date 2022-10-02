@@ -1,3 +1,11 @@
+// Table of Contents
+// ------------------------------------------------
+//	1. Media query selector
+//	2. Styles for links (wikipedia, external, PDFs)
+// ------------------------------------------------
+
+// 1. Media query selector
+// ------------------------------------------------
 @mixin media-query( $breakpoint: "large" ) {
     @if $breakpoint == "large" {
         @media only screen and ( min-width: 1025px ) { @content; }
@@ -17,6 +25,8 @@
     }
 }
 
+// 2. Styles for links (wikipedia, external, PDFs)
+// ------------------------------------------------
 @mixin external-links {
     a[href*="wikipedia.org"]:before {
         content: $icon-wikipedia;

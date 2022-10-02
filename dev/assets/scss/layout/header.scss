@@ -109,12 +109,13 @@ body {
 #header-container {
     background-color: $background;
     border-bottom: $border-secondary;
+    padding-top: $padding-regular;
 
     @include media-query( large ) {
         border-top-left-radius: $padding-small;
         border-top-right-radius: $padding-small;
         border-bottom: 0;
-        padding-top: $padding-regular;
+        
     }
 
     #branding {
@@ -147,7 +148,85 @@ body {
     }
 
     #primary-menu {
-        display: none;
+        @include media-query( mobile ) {
+            background-color: $background;
+            display: flex;
+            height: 100vh;
+            min-width: 70%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: fixed;
+            right: 0;
+            top: 0;
+            transform: translateX( 100% );
+            transition: 0.45s;
+            width: auto;
+            z-index: 500;
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding-left: 0;
+                width: 100%;
+
+                li {
+                    display: flex;
+                    justify-content: space-between;
+
+                    &:not(:last-child) {
+                        border-bottom: $border-secondary;
+                    }
+
+                    a {
+                        display: block;
+                        flex: 1;
+                        padding: $padding-regular;
+                        text-decoration: none;
+
+                        &.open-submenu{
+                            flex: 0;
+                            padding: $padding-regular;
+                            
+                            &:before {
+                                border-style: solid;
+                                border-width: 0.25em 0.25em 0 0;
+                                content: '';
+                                display: inline-block;
+                                height: 0.45em;
+                                left: 0;
+                                position: relative;
+                                top: 8px;
+                                vertical-align: top;
+                                width: 0.45em;
+                                transform: rotate(45deg);
+                            }
+                        }
+                    }
+                    ul {
+                        background-color: $background;
+                        height: 100%;
+                        left: 0;
+                        position: absolute;
+                        top: 0;
+                        transform: translateX(100%);
+                        transition: 0.3s;
+                        z-index: 501;
+                    }
+
+                    &.active > ul {
+                        transform: translateX( 0 );
+                    }
+                }
+
+                
+            }
+
+            &.active {
+                box-shadow: 0 0 10px $shadow-nav;
+                transform: translateX( 0 );
+            }
+    
+        }
 
         @include media-query( large ) {
             display: block;
@@ -155,7 +234,6 @@ body {
             border-top: $border-secondary;
             
             ul {
-            
                 list-style-type: none;
 
                 &.menu {

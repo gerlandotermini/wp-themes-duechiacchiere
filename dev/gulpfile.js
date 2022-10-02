@@ -58,7 +58,7 @@ function styles() {
             .pipe( sass() ).on( 'error', sass.logError )
 
             // Minify the output
-            // .pipe( clean_css( { level: { 1: { specialComments: 0 } } } ) ) // Remove comments
+            .pipe( clean_css( { level: { 1: { specialComments: 0 } } } ) ) // Remove comments
  
             // What is the destination for the compiled file?
             .pipe( gulp.dest( paths.styles.dest ) )

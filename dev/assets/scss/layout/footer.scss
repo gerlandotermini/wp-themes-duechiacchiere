@@ -99,6 +99,11 @@ footer {
             display: block;
             margin: 0 auto;
             width: 35px;
+            transition: 1s;
+
+            &.active {
+                transform: rotate( 90deg );
+            }
         }
     }
 }
