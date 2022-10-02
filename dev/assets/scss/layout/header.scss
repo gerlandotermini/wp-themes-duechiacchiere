@@ -283,16 +283,25 @@ body {
                             visibility: visible;
                         }
 
+                        a.open-submenu {
+                            display: none;
+                        }
+
                         ul.sub-menu {
-                            visibility: hidden;
-                            position: absolute;
                             left: -99999px;
+                            min-width: 200px;
+                            position: absolute;
                             transition: all 0s;
+                            visibility: hidden;
 
                             a {
                                 display: block;
                                 min-width: 100px;
                                 padding: calc( $padding-small / 2 ) $padding-small;
+
+                                &.close-submenu {
+                                    display: none;
+                                }
                             }
                             a:hover, a:focus,
                             .current-menu-item > a, .current-menu-parent > a {

@@ -40,6 +40,7 @@ document.querySelectorAll( '#header-container ul.menu > .menu-item > a' ).forEac
 });
 
 // Mobile Menu
+let menuElement = document.getElementById( 'primary-menu' );
 const navExpand = document.querySelectorAll('#primary-menu .menu-item-has-children');
 const openSubmenuButton = '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">visualizza menu per questa stanza</span></a>';
 const closeSubmenuButton = '<li class="menu-item"><a class="close-submenu" href="javascript:;">chiudi stanza</a></li>';
@@ -59,7 +60,6 @@ navExpand.forEach( item => {
     item.classList.remove( 'active' );
   } );
 } );
-let menuElement = document.getElementById( 'primary-menu' );
 openMenuButton.addEventListener( 'click', function( e ) {
   e.preventDefault();
   menuElement.classList.toggle( 'active' );
