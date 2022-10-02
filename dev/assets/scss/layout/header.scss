@@ -208,7 +208,7 @@ body {
                         background-color: $background;
                         height: 100%;
                         left: 0;
-                        position: fixed;
+                        position: absolute;
                         top: 0;
                         transform: translateX(100%);
                         transition: 0.3s;
