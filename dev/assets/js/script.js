@@ -39,13 +39,11 @@ document.querySelectorAll( '#header-container ul.menu > .menu-item > a' ).forEac
     });
 });
 
-
-
-
-
+// Mobile Menu
 const navExpand = document.querySelectorAll('#primary-menu .menu-item-has-children');
-const openSubmenuButton = '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">Entra nella stanza</span></a>';
-const closeSubmenuButton = '<li class="menu-item"><a class="close-submenu" href="javascript:;">Chiudi stanza</a></li>';
+const openSubmenuButton = '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">visualizza menu per questa stanza</span></a>';
+const closeSubmenuButton = '<li class="menu-item"><a class="close-submenu" href="javascript:;">chiudi stanza</a></li>';
+const openMenuButton = document.getElementById( 'mobile-nav-button' );
 
 navExpand.forEach( item => {
 	item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', openSubmenuButton );
@@ -61,18 +59,12 @@ navExpand.forEach( item => {
     item.classList.remove( 'active' );
   } );
 } );
-
-const openMenuButton = document.getElementById( 'mobile-nav-button' );
 let menuElement = document.getElementById( 'primary-menu' );
 openMenuButton.addEventListener( 'click', function( e ) {
   e.preventDefault();
   menuElement.classList.toggle( 'active' );
   openMenuButton.classList.toggle( 'active' );
 });
-
-
-
-
 
 // Display the comment form under the comment for replies
 form_container = document.querySelector( '#respond' );

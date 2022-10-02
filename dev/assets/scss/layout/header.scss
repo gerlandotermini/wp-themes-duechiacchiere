@@ -187,40 +187,53 @@ body {
 
                         &.open-submenu{
                             flex: 0;
-                            padding: $padding-regular;
+                            padding: $padding-regular $padding-regular $padding-regular $padding-regular*2;
                             
                             &:before {
                                 border-style: solid;
                                 border-width: 0.25em 0.25em 0 0;
                                 content: '';
                                 display: inline-block;
-                                height: 0.45em;
+                                height: 0.35em;
                                 left: 0;
                                 position: relative;
                                 top: 8px;
                                 vertical-align: top;
-                                width: 0.45em;
+                                width: 0.35em;
                                 transform: rotate(45deg);
                             }
                         }
                     }
                     ul {
                         background-color: $background;
-                        height: 100%;
+                        height: calc( 100% - 60px );
                         left: 0;
-                        position: absolute;
+                        position: fixed;
                         top: 0;
                         transform: translateX(100%);
                         transition: 0.3s;
                         z-index: 501;
+
+                        .close-submenu:before {
+                            border-style: solid;
+                            border-width: 0.25em 0.25em 0 0;
+                            content: '';
+                            display: inline-block;
+                            height: 0.35em;
+                            left: 0;
+                            margin-right: $margin-small;
+                            position: relative;
+                            top: 8px;
+                            vertical-align: top;
+                            width: 0.35em;
+                            transform: rotate(-135deg);
+                        }
                     }
 
                     &.active > ul {
                         transform: translateX( 0 );
                     }
                 }
-
-                
             }
 
             &.active {
