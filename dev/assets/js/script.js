@@ -42,8 +42,8 @@ document.querySelectorAll( '#header-container ul.menu > .menu-item > a' ).forEac
 // Mobile Menu
 let menuElement = document.getElementById( 'primary-menu' );
 const navExpand = document.querySelectorAll('#primary-menu .menu-item-has-children');
-const openSubmenuButton = '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">visualizza menu per questa stanza</span></a>';
-const closeSubmenuButton = '<li class="menu-item"><a class="close-submenu" href="javascript:;">chiudi stanza</a></li>';
+const openSubmenuButton = '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">visualizza il menu per questa stanza</span></a>';
+const closeSubmenuButton = '<li class="menu-item"><a class="close-submenu" href="javascript:;">esci dalla stanza</a></li>';
 const openMenuButton = document.getElementById( 'mobile-nav-button' );
 
 navExpand.forEach( item => {

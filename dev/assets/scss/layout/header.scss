@@ -174,10 +174,7 @@ body {
                 li {
                     display: flex;
                     justify-content: space-between;
-
-                    &:not(:last-child) {
-                        border-bottom: $border-secondary;
-                    }
+                    border-bottom: $border-secondary;
 
                     a {
                         display: block;

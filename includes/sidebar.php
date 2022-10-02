@@ -1,7 +1,7 @@
 <aside>
-	<div class="widget">
+	<div class="widget" id="search-form">
 		<h2 class="visually-hidden">Cerca nel sito</h2>
-		<form id="search-form" role="search" action="/" method="get">
+		<form role="search" action="/" method="get">
 			<label for="search-field">
 				<span class="visually-hidden">Digita le parole da cercare e premi enter</span>
 			</label>
