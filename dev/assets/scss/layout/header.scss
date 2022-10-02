@@ -167,9 +167,9 @@ body {
                 list-style-type: none;
                 margin: 0;
                 overflow-y: auto;
-                padding-left: 0;
-                position: absolute;
-                width: 100%;
+                padding: 0 0 $padding-regular*3 0;
+                position: relative;
+                width: 100%;    
 
                 li {
                     display: flex;
