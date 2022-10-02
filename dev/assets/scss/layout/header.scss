@@ -166,7 +166,9 @@ body {
             ul {
                 list-style-type: none;
                 margin: 0;
+                overflow-y: auto;
                 padding-left: 0;
+                position: absolute;
                 width: 100%;
 
                 li {
@@ -206,7 +208,7 @@ body {
                         background-color: $background;
                         height: 100%;
                         left: 0;
-                        position: absolute;
+                        position: fixed;
                         top: 0;
                         transform: translateX(100%);
                         transition: 0.3s;
