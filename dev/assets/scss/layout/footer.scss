@@ -89,7 +89,7 @@ footer {
     li {
         border-right: $border-secondary;
         flex: 1 1 0px;
-        padding: $padding-small 0 0;
+        padding: $padding-small+5 0 0;
         text-align: center;
 
         &:last-child {
