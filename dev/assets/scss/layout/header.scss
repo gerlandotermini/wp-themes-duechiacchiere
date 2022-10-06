@@ -159,7 +159,8 @@ body {
             right: 0;
             top: 0;
             transform: translateX( 100% );
-            transition: 0.45s;
+            transition: 0.5s;
+            transition-timing-function: ease-out;
             visibility: hidden; // to remove it from the tabbing sequence
             width: auto;
             z-index: 500;
@@ -209,7 +210,8 @@ body {
                         position: fixed;
                         top: 0;
                         transform: translateX(100%);
-                        transition: 0.3s;
+                        transition: 0.5s;
+                        transition-timing-function: ease-out;
                         z-index: 501;
 
                         .close-submenu:before {
