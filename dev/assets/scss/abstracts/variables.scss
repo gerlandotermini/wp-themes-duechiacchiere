@@ -33,18 +33,18 @@ $white: #fff;
 // 2.1 Monthly colors
 // ------------------------------------------------
 $months: (
-    ( "january", "repeat-x fixed 0 0 #000", "#560bad" ),
-    ( "february", "repeat fixed center 0 #786960", "#721620" ),
-    ( "march", "repeat fixed 0 0 #332874", "#443796" ),
-    ( "april", "repeat fixed center 0 #413D3D", "#2c3d1d" ),
-    ( "may", "repeat fixed center 0 #0d6f00", "#4f7101" ),
-    ( "june", "repeat fixed center 0 #040001", "#4373a3" ),
-    ( "july", "no-repeat fixed center 0 #f2dfb7", "#002868" ),
-    ( "august", "repeat fixed 150px center #fecc59", "#1f797f" ),
-    ( "september", "repeat fixed center 0 #ac4900", "#994000" ),
-    ( "october", "repeat fixed center 0 #000000", "#aa5c08" ),
-    ( "november", "repeat fixed center 0 #2d1a0b", "#664438" ),
-    ( "december", "repeat fixed 0 0 #711517", "#c80000" )
+    ( "january", "repeat-x fixed 0 0 #000", "#560bad", "" ),
+    ( "february", "repeat fixed center 0 #786960", "#721620", "" ),
+    ( "march", "repeat fixed 0 0 #332874", "#443796", "" ),
+    ( "april", "repeat fixed center 0 #413D3D", "#2c3d1d", "" ),
+    ( "may", "repeat fixed center 0 #0d6f00", "#4f7101", "" ),
+    ( "june", "repeat fixed center 0 #040001", "#4373a3", "" ),
+    ( "july", "no-repeat fixed center 0 #f2dfb7", "#002868", "" ),
+    ( "august", "repeat fixed 150px center #fecc59", "#1f797f", "" ),
+    ( "september", "repeat fixed center 0 #ac4900", "#994000", "" ),
+    ( "october", "repeat fixed center 0 #000000", "#aa5c08", "invert(36%) sepia(39%) saturate(5677%) hue-rotate(27deg) brightness(91%) contrast(94%);" ),
+    ( "november", "repeat fixed center 0 #2d1a0b", "#664438", "" ),
+    ( "december", "repeat fixed 0 0 #711517", "#c80000", "" )
 );
 
 // 3. Borders and Shadows
@@ -62,7 +62,7 @@ $icon-wikipedia: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAA
 // 5. Typography
 // ------------------------------------------------
 $headings-font-family: "Merriweather", serif;
-$h1-font-size: 1.5em;
+$h1-font-size: 1.4em;
 $h2-font-size: 1.3em;
 
 $body-font-family: "Outfit", sans-serif;

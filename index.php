@@ -77,7 +77,8 @@
 	<?php endwhile; ?>
 
 	<?php if ( $GLOBALS[ 'wp_query' ]->max_num_pages > 0 ): ?>
-		<nav aria-label="Sfoglia le pagine del blog" id="pagination">
+		<h2 class="visually-hidden">Sfoglia le pagine del blog</h2>
+		<nav id="pagination">
 			<ul>
 				<?php
 					$current_page = max( 1, intval( get_query_var( 'paged' ) ) );

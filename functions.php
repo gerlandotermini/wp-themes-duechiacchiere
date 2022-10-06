@@ -357,6 +357,10 @@ class duechiacchiere {
 	}
 
 	public static function is_naked_day() {
+		if ( !empty( $_GET[ 'naked' ] ) ) {
+			return true;
+		}
+
 		$start = date( 'U', mktime( -12, 0, 0, 4, 9, date( 'Y' ) ) );
 		$end = date( 'U', mktime( 36, 0, 0, 4, 9, date( 'Y' ) ) );
 		$z = date( 'Z' ) * -1;

@@ -29,8 +29,8 @@ body {
         &.#{ nth( $month, 1 ) } a, body.#{ nth( $month, 1 ) } a:visited, body.#{ nth( $month, 1 ) } a:active {
             color: #{ nth( $month, 3 ) };
         }
-        &.#{ nth( $month, 1 ) } svg {
-            fill: #{ nth( $month, 3 ) };
+        &.#{ nth( $month, 1 ) } .svg {
+            filter: #{ nth( $month, 4 ) };
         }
         &.#{ nth( $month, 1 ) }.pagination-item.previous-page a::before,
         &.#{ nth( $month, 1 ) }.pagination-item.next-page a::before,
@@ -85,7 +85,7 @@ body {
         top: auto;
         width: 1px;
     
-        :focus {
+        &:focus {
             height: auto;
             left: 20px;
             padding: 10px;
@@ -160,6 +160,7 @@ body {
             top: 0;
             transform: translateX( 100% );
             transition: 0.45s;
+            visibility: hidden; // to remove it from the tabbing sequence
             width: auto;
             z-index: 500;
 
@@ -229,6 +230,7 @@ body {
 
                     &.active > ul {
                         transform: translateX( 0 );
+                        visibility: visible;
                     }
                 }
             }
@@ -236,6 +238,7 @@ body {
             &.active {
                 box-shadow: 0 0 10px $shadow-nav;
                 transform: translateX( 0 );
+                visibility: visible;
             }
     
         }
