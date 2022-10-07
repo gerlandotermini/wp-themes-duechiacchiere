@@ -43,6 +43,10 @@ footer {
         padding: $padding-regular;
     }
 
+    @include media-query( print ) {
+        display: none;
+    }
+
     h2 {
         border-bottom: $border;
         margin-bottom: $margin-small;
@@ -77,6 +81,10 @@ footer {
     position: fixed;
 
     @include media-query( large ) {
+        display: none;
+    }
+
+    @include media-query( print ) {
         display: none;
     }
     

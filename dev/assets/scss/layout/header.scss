@@ -72,6 +72,12 @@ body {
         }
     }
 
+    @include media-query( print ) { 
+        a {
+            text-decoration: none;
+        }
+    }
+
     a:hover, a:focus, a:focus-visible {
         text-shadow: $shadow;
     }
@@ -116,6 +122,9 @@ body {
         border-top-right-radius: $padding-small;
         border-bottom: 0;
         
+    }
+    @include media-query( print ) {
+        border-bottom: 2px solid #000;
     }
 
     #branding {
@@ -311,6 +320,10 @@ body {
                     }
                 }
             }
+        }
+
+        @include media-query( print ) {
+            display: none;
         }
     }
 }

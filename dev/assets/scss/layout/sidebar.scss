@@ -3,6 +3,10 @@ aside {
         flex: 1;
     }
 
+    @include media-query( print ) {
+        display: none;
+    }
+
     #search-form form {
         display: flex;
 
