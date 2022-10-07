@@ -325,12 +325,12 @@
 		</div>
 
 		<nav aria-label="Navigazione primaria" id="primary-menu">
-			<?php
-				wp_nav_menu( array(
-					'theme_location' => 'primary',
-					'container' => '',
-					'depth' => 2
-				) );
-				?>
+		<?php
+			wp_nav_menu( array(
+				'theme_location' => 'primary',
+				'container' => '',
+				'depth' => 2
+			) );
+		?>
 		</nav>
 	</header>

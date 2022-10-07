@@ -6,6 +6,9 @@
 			if ( is_404() || !have_posts() ) {
 				include_once( 'includes/404.php' );
 			}
+			else {
+				echo $heading_title;
+			}
 
 			while ( have_posts() ):
 				the_post();
