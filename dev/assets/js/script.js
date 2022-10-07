@@ -57,9 +57,10 @@ document.querySelectorAll( '#primary-menu .menu-item-has-children' ).forEach( it
 
 // Enable the trigger to open and close the menu
 const toolbarMenuButton = document.getElementById( 'mobile-nav-button' );
+const menuOverlay = document.getElementById( 'menu-overlay' );
+
 let toggleMenu = function ( e, action ) {
-  const menu = document.getElementById( 'primary-menu' );
-  const menuOverlay = document.getElementById( 'menu-overlay' );
+  const menu = document.getElementById( 'primary-menu' );  
 
   e.preventDefault();
 
@@ -81,7 +82,12 @@ toolbarMenuButton.addEventListener( 'click', function( e ) {
   toggleMenu( e, 'toggle' );
 } );
 
-// When clicking the search button, let's make sure the navigation is closed
+// Hide the menu when tapping on the overlay
+menuOverlay.addEventListener( 'click', function( e ) {
+  toggleMenu( e, 'close' );
+} );
+
+// When tapping the search button, let's make sure the navigation is closed
 document.getElementById( 'mobile-search-button' ).addEventListener( 'click', function( e ) {
   toggleMenu( e, 'close' );
   document.getElementById( 'search-field' ).focus();

@@ -151,7 +151,7 @@ body {
         @include media-query( mobile ) {
             background-color: $background;
             display: flex;
-            height: 100vh;
+            height: calc( 100vh - $padding-regular*3 );
             min-width: 70%;
             overflow-x: hidden;
             overflow-y: auto;
@@ -159,7 +159,7 @@ body {
             right: 0;
             top: 0;
             transform: translateX( 100% );
-            transition: 0.5s;
+            transition: transform 0.5s ease-out, visibility 0.5s ease-out;
             visibility: hidden; // to remove it from the tabbing sequence
             width: auto;
             z-index: 500;
@@ -168,7 +168,7 @@ body {
                 list-style-type: none;
                 margin: 0;
                 overflow-y: auto;
-                padding: 0 0 $padding-regular*3 0;
+                padding: 0;
                 position: relative;
                 width: 100%;    
 
