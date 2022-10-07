@@ -3,7 +3,7 @@
 		<h2 class="visually-hidden">Cerca nel sito</h2>
 		<form role="search" action="/" method="get">
 			<label for="search-field">
-				<span class="visually-hidden">Digita le parole da cercare e premi enter</span>
+				<span class="visually-hidden">Digita le parole da cercare e premi invio</span>
 			</label>
 
 			<input type="text" id="search-field" autocomplete="off" name="s" placeholder="Spulcia nell'archivio...">
