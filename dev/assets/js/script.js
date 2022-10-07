@@ -39,32 +39,53 @@ document.querySelectorAll( '#header-container ul.menu > .menu-item > a' ).forEac
     });
 });
 
-// Mobile Menu
-let menuElement = document.getElementById( 'primary-menu' );
-const navExpand = document.querySelectorAll('#primary-menu .menu-item-has-children');
-const openSubmenuButton = '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">visualizza il menu per questa stanza</span></a>';
-const closeSubmenuButton = '<li class="menu-item"><a class="close-submenu" href="javascript:;">esci dalla stanza</a></li>';
-const openMenuButton = document.getElementById( 'mobile-nav-button' );
-
-navExpand.forEach( item => {
-	item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', openSubmenuButton );
-  item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', closeSubmenuButton );
+// Add elements to open and close the submenus
+document.querySelectorAll( '#primary-menu .menu-item-has-children' ).forEach( item => {
+	item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">visualizza il menu per questa stanza</span></a>' );
+  item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="javascript:;">esci dalla stanza</a></li>' );
 	
-  item.querySelector( '.open-submenu' ).addEventListener( 'click', function( e ){ 
+  item.querySelector( '.open-submenu' ).addEventListener( 'click', function( e ) { 
     e.preventDefault();
     item.classList.add( 'active' );
   } );
 
-	item.querySelector( '.close-submenu' ).addEventListener( 'click', function( e ){
+	item.querySelector( '.close-submenu' ).addEventListener( 'click', function( e ) {
     e.preventDefault();
     item.classList.remove( 'active' );
   } );
 } );
-openMenuButton.addEventListener( 'click', function( e ) {
+
+// Enable the trigger to open and close the menu
+const toolbarMenuButton = document.getElementById( 'mobile-nav-button' );
+let toggleMenu = function ( e, action ) {
+  const menu = document.getElementById( 'primary-menu' );
+  const menuOverlay = document.getElementById( 'menu-overlay' );
+
   e.preventDefault();
-  menuElement.classList.toggle( 'active' );
-  openMenuButton.classList.toggle( 'active' );
-});
+
+  if ( action == 'close' ||  toolbarMenuButton.classList.contains ( 'active' ) ) {
+    menu.classList.remove( 'active' );
+    menuOverlay.classList.remove( 'active' );
+    toolbarMenuButton.classList.remove( 'active' );
+    document.body.style.overflowY = 'visible';
+  }
+  else if ( action == 'open' || !toolbarMenuButton.classList.contains ( 'active' ) ) {
+    menu.classList.add( 'active' );
+    menuOverlay.classList.add( 'active' );
+    toolbarMenuButton.classList.add( 'active' );
+    document.body.style.overflowY = 'hidden';
+  }
+}
+
+toolbarMenuButton.addEventListener( 'click', function( e ) {
+  toggleMenu( e, 'toggle' );
+} );
+
+// When clicking the search button, let's make sure the navigation is closed
+document.getElementById( 'mobile-search-button' ).addEventListener( 'click', function( e ) {
+  toggleMenu( e, 'close' );
+  document.getElementById( 'search-field' ).focus();
+} );
 
 // Display the comment form under the comment for replies
 form_container = document.querySelector( '#respond' );
@@ -89,12 +110,14 @@ document.querySelectorAll( 'a' ).forEach( link => {
 
 // Show/hide back to top button
 window.onscroll = function() {
+  const backToTopButton = document.getElementById( 'backtotop' );
+
   if ( document.body.scrollTop > 300 || document.documentElement.scrollTop > 300 ) {
-    document.getElementById( 'backtotop' ).style.opacity = 1;
-    document.getElementById( 'backtotop' ).style.cursor = 'pointer';
+    backToTopButton.style.opacity = 1;
+    backToTopButton.style.cursor = 'pointer';
   } else {
-    document.getElementById( 'backtotop' ).style.opacity = 0;
-    document.getElementById( 'backtotop' ).style.cursor = 'initial';
+    backToTopButton.style.opacity = 0;
+    backToTopButton.style.cursor = 'initial';
   }
 }
 
@@ -102,6 +125,7 @@ window.onscroll = function() {
 let getCookie = function( name ) {
   const value = '; ' + document.cookie;
   const parts = value.split( '; ' + name + '=' );
+
   if ( parts.length === 2 ) {
     return decodeURIComponent( parts.pop().split( ';' ).shift() );
   }

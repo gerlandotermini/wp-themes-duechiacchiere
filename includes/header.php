@@ -242,20 +242,20 @@
 <html lang="it" dir="ltr">
 <head>
 	<!-- BEGIN: Technical info -->
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 <?php $parsed = parse_url( $_SERVER[ 'REQUEST_URI' ] ); if ( !empty( $parsed[ 'query' ] ) ): ?><meta name="robots" content="noindex,nofollow"><?php endif ?>
 	<!-- END: Technical info -->
 
 	<!-- BEGIN: Editorial info -->
-	<meta name="author" content="camu"/>
+	<meta name="author" content="camu">
 <?php
 	if ( !empty( $og_meta[ 'description' ] ) ) {
 		echo '<meta name="description" content="' . $og_meta[ 'description' ] . '">' . "\n";
 	}
 	foreach ( $og_meta as $meta_key => $meta_value ) {
 		if ( !empty( $meta_value ) ) {
-			echo '<meta property="og:' . $meta_key . '" content="' . $meta_value . '"/>' . "\n";
+			echo '<meta property="og:' . $meta_key . '" content="' . $meta_value . '">' . "\n";
 		}
 	}
 ?>
@@ -298,15 +298,15 @@
 	<!-- END: Google fonts -->
 
 	<!-- BEGIN: Favicon -->
-	<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+	<link rel="icon" type="image/x-icon" href="/favicon.ico">
 	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/android-chrome.png">
 	<link rel="apple-touch-icon-precomposed" sizes="180x180" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/apple-touch-icon.png">
 	<!-- END: Favicon -->
 
 	<!-- BEGIN: RSS feed -->
-	<link rel="alternate" type="application/rss+xml" title="Articoli del blog" href="<?= get_bloginfo( 'url' ) ?>/feed" />
-	<link rel="alternate" type="application/rss+xml" title="Scrissi oggi" href="<?= get_bloginfo( 'url' ) ?>/feed/scrissi-oggi" />
+	<link rel="alternate" type="application/rss+xml" title="Articoli del blog" href="<?= get_bloginfo( 'url' ) ?>/feed">
+	<link rel="alternate" type="application/rss+xml" title="Scrissi oggi" href="<?= get_bloginfo( 'url' ) ?>/feed/scrissi-oggi">
 	<!-- END: RSS feed -->
 
 	<!-- BEGIN: WP_Head -->
@@ -320,7 +320,7 @@
 
 	<header id="header-container">
 		<div id="branding">
-			<img id="logo" src="<?= get_template_directory_uri() ?>/assets/img/camu/<?= $default_category ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120" />
+			<img id="logo" src="<?= get_template_directory_uri() ?>/assets/img/camu/<?= $default_category ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120">
 			<a id="name" href="/" title="Torna alla pagina iniziale del sito">due chiacchiere</a>
 		</div>
 
