@@ -77,7 +77,7 @@
 				<a href="<?= $random_post_url ?>" class="svg toolbar-random"><span class="visually-hidden">Leggi un articolo a caso dal blog</span></a>
 			</li>
 			<li>
-				<a href="#" id="mobile-search-button" class="svg toolbar-search"><span class="visually-hidden">Vai al modulo per cercare tra gli articoli</span></a>
+				<a href="#search-field" id="mobile-search-button" class="svg toolbar-search"><span class="visually-hidden">Vai al modulo per cercare tra gli articoli</span></a>
 			</li>
 			<li>
 				<a href="#primary-menu" id="mobile-nav-button" aria-haspopup="true" class="svg toolbar-menu"><span class="visually-hidden">Apri il menu di navigazione</span></a>
@@ -113,6 +113,6 @@ $page_output = preg_replace( '/  +/', ' ', $page_output );
 $page_output = preg_replace( '/ ?\/>/', '>', $page_output );
 
 // Finally, remove all the EOL characters and tabbing
-$page_output = preg_replace( "/[\n\t]*/", "", $page_output );
+$page_output = preg_replace( "/[\r\n\t]*/", "", $page_output );
 
 echo $page_output;
