@@ -1,7 +1,9 @@
 window.addEventListener( 'load', ( event ) => {
-
   // WordPress COOKIEHASH (replaced when script is enqueued)
   const duechiacchiere = { 'COOKIEHASH': 'COOKIEHASHVALUE' };
+
+  // Prevent copy reflow issues when removing overflow-y from body
+  let bodyWidth = 0;
 
   // Keyboard-friendly Navigation
   let getSiblings = function( e ) {
@@ -71,13 +73,18 @@ window.addEventListener( 'load', ( event ) => {
       menu.classList.remove( 'active' );
       menuOverlay.classList.remove( 'active' );
       toolbarMenuButton.classList.remove( 'active' );
+
       document.body.style.overflowY = 'visible';
+      document.body.style.paddingRight = 0;
     }
     else if ( action == 'open' || !toolbarMenuButton.classList.contains ( 'active' ) ) {
       menu.classList.add( 'active' );
       menuOverlay.classList.add( 'active' );
       toolbarMenuButton.classList.add( 'active' );
+
+      bodyWidth = document.documentElement.clientWidth;
       document.body.style.overflowY = 'hidden';
+      document.body.style.paddingRight = ( document.documentElement.clientWidth - bodyWidth) + 'px';
     }
   }
 
