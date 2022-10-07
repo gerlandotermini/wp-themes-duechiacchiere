@@ -45,12 +45,12 @@
 						$comments_html = "<a class=\"comments-link\" href=\"" . get_permalink() . "#respond\">Lascia un commento</a>";
 						break;
 					case 1:
-						$comments_html = "<span class=\"visually-hidden\">c'&egrave; </span><a class=\"comments-link\" href=\"" . get_permalink() . "#comments\">1 commento</a>";
+						$comments_html = "<span class=\"visually-hidden\">C'&egrave; </span><a class=\"comments-link\" href=\"" . get_permalink() . "#comments\">1 commento</a>";
 						break;
 					default:
-						$comments_html = "<span class=\"visually-hidden\">ci sono </span><a class=\"comments-link\" href=\"" . get_permalink() . "#comments\">{$comment_count} commenti</a>";
+						$comments_html = "<span class=\"visually-hidden\">Ci sono </span><a class=\"comments-link\" href=\"" . get_permalink() . "#comments\">{$comment_count} commenti</a>";
 				}
-				$comments_html .= "<span class=\"visually-hidden\"> per {$GLOBALS[ 'post' ]->post_title}</span>";
+				$comments_html .= "<span class=\"visually-hidden\"> per \"{$GLOBALS[ 'post' ]->post_title}\"</span>";
 		?><article <?php if ( $GLOBALS[ 'wp_query' ]->current_post == $GLOBALS[ 'wp_query' ]->post_count - 1 ) { echo ' class="last"'; } ?>>
 			<header>
 				<<?= $title_tag ?>><?php if ( !is_single() && !is_page() ): ?><a href="<?php the_permalink() ?>"><?php endif; the_title( '', '' ); if ( !is_single() ): ?></a><?php endif ?></<?= $title_tag ?>>
@@ -59,7 +59,7 @@
 					<span class="visually-hidden">Scritto il giorno </span><time datetime="<?php the_time( 'Y-m-d H:i:s' ) ?>"><?= ucfirst( get_the_time('j F Y') ); ?></time>
 					<?php
 						if ( !empty( $categories_html ) ) {
-							echo '<span class="visually-hidden">Archiviato</span> in ' . $categories_html;
+							echo '<span class="visually-hidden">. Archiviato</span> in ' . $categories_html;
 						}
 						if ( !empty( $comments_html ) ) {
 							echo ' <span class="comment-separator">&mdash;</span> ' . $comments_html;

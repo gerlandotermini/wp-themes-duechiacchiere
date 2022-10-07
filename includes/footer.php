@@ -53,10 +53,6 @@
 		</nav>
 	</footer>
 
-	<button id="backtotop" onclick="window.scrollTo(0, 0);document.getElementById('page-top').focus();return false;">
-		<span class="visually-hidden">Torna in cima alla pagina</span>
-	</button>
-
 	<?php
 	// Random post
 	$random_post = new WP_Query( array ( 'orderby' => 'rand', 'posts_per_page' => '1' ) );
@@ -85,6 +81,10 @@
 		</ul>
 		<div id="menu-overlay"></div>
 	</nav>
+
+	<button id="backtotop" onclick="window.scrollTo(0, 0);document.getElementById('page-top').focus();return false;">
+		<span class="visually-hidden">Torna in cima alla pagina</span>
+	</button>
 
 	<!-- BEGIN: WP_Footer -->
 	<?php wp_footer(); ?>

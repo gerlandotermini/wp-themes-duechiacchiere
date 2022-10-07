@@ -136,7 +136,7 @@
 
 			$default_category = $category->slug;
 
-			$og_meta[ 'title' ] = "Archivio del giorno {$category->name}";
+			$og_meta[ 'title' ] = "Archivio degli articoli in {$category->name}";
 			$og_meta[ 'description' ] = "Sfoglia gli articoli conservati in {$category->name}";
 		}
 		else if ( is_date() ) {
@@ -168,6 +168,10 @@
 
 			$og_meta[ 'title' ] = "Archivio del$date_string";
 			$og_meta[ 'description' ] = "Sfoglia gli articoli del$date_string in ordine cronologico inverso";
+		}
+
+		if ( is_paged() ) {
+			$og_meta[ 'title' ] .= ", pagina " . get_query_var( 'paged' );
 		}
 
 		$heading_title = "<h1 class=\"visually-hidden\">{$og_meta[ 'title' ]}</h1>";
