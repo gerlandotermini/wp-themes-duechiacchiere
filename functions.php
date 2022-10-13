@@ -93,7 +93,7 @@ class duechiacchiere {
 	}
 
 	public static function print_scripts() {
-		$js = file_get_contents( get_template_directory() . '/assets/js/script-min.js' );
+		$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
 		echo '<script>' . str_replace( 'COOKIEHASHVALUE', COOKIEHASH, $js ) . '</script>';
 	}
 	

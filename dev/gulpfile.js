@@ -65,13 +65,19 @@ function styles() {
     );
 }
 
+// Copy vendor files (Normalize)
+// $ gulp vendor
+exports.vendor = vendor;
+function vendor() {
+    return (
+        gulp.src( paths.vendor.normalize.src ).pipe( gulp.dest( paths.vendor.normalize.dest ) )
+    );
+}
+
+// Watch folders
 // $ gulp watch
 exports.watch = watch
 function watch() {
-    // Copy vendor files (Normalize)
-    gulp.src( paths.vendor.normalize.src ).pipe( gulp.dest( paths.vendor.normalize.dest ) );
-
-    // Watch folders
     gulp.watch( paths.scripts.src, { awaitWriteFinish: true }, scripts );
     gulp.watch( paths.styles.src.all, { awaitWriteFinish: true }, styles );
 }

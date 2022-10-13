@@ -66,16 +66,16 @@
 		<h2 class="visually-hidden">Collegamenti utili</h2>
 		<ul id="mobile-toolbar">
 			<li>
-				<a href="/" class="svg toolbar-home"><span class="visually-hidden">Torna alla homepage</span></a>
+				<a href="/" class="svg icon-home"><span class="visually-hidden">Torna alla homepage</span></a>
 			</li>
 			<li>
-				<a href="<?= $random_post_url ?>" class="svg toolbar-random"><span class="visually-hidden">Leggi un articolo a caso dal blog</span></a>
+				<a href="<?= $random_post_url ?>" class="svg icon-random"><span class="visually-hidden">Leggi un articolo a caso dal blog</span></a>
 			</li>
 			<li>
-				<a href="#search-field" id="mobile-search-button" class="svg toolbar-search"><span class="visually-hidden">Vai al modulo per cercare tra gli articoli</span></a>
+				<a href="#search-field" id="mobile-search-button" class="svg icon-search"><span class="visually-hidden">Vai al modulo per cercare tra gli articoli</span></a>
 			</li>
 			<li>
-				<a href="#primary-menu" id="mobile-nav-button" aria-haspopup="true" class="svg toolbar-menu"><span class="visually-hidden">Apri il menu di navigazione</span></a>
+				<a href="#primary-menu" id="mobile-nav-button" aria-haspopup="true" class="svg icon-menu"><span class="visually-hidden">Apri il menu di navigazione</span></a>
 			</li>
 		</ul>
 		<div id="menu-overlay"></div>
@@ -112,6 +112,6 @@ $page_output = preg_replace( '/  +/', ' ', $page_output );
 $page_output = preg_replace( '/ ?\/>/', '>', $page_output );
 
 // Finally, remove all the EOL characters and tabbing
-$page_output = preg_replace( "/[\r\n\t]*/", "", $page_output );
+// $page_output = preg_replace( "/[\r\n\t]*/", "", $page_output );
 
 echo $page_output;
