@@ -7,7 +7,7 @@ if ( post_password_required() ) {
 $comment_count = get_comments_number();
 ?>
 
-<div id="comments" class="comments-area default-max-width">
+<section id="comments" class="comments-area default-max-width">
 	<?php if ( have_comments() ): ?>
 		<h2>Commenti</h2>
 
@@ -16,9 +16,11 @@ $comment_count = get_comments_number();
 			$output = wp_list_comments(
 				array(
 					'avatar_size' => 45,
-					'style' => 'ol',
+					'callback' => array( 'duechiacchiere', 'comment_callback' ),
+					'echo' => false,
+					'format' => 'html5',
 					'short_ping' => true,
-					'echo' => false
+					'style' => 'ol'
 				)
 			);
 
@@ -48,7 +50,8 @@ $comment_count = get_comments_number();
 		'logged_in_as' => null,
 		'title_reply' => 'Lascia un commento',
 		'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
-		'title_reply_after'  => '</h2>'
+		'title_reply_after'  => '</h2>',
+		'format' => 'html5'
 	) );
 	?>
-</div><!-- #comments -->
+</section><!-- #comments -->

@@ -39,7 +39,7 @@ function scripts() {
             .src( paths.scripts.src )
 
             // Minify the output
-            .pipe( clean_js( { mangle: { toplevel: true }, noSource: true } ) )
+            .pipe( clean_js( { mangle: { toplevel: true }, ext: { min: '.js' }, noSource: true } ) )
  
             // What is the destination for the compiled file?
             .pipe( gulp.dest( paths.scripts.dest ) )
