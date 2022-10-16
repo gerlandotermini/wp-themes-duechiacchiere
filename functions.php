@@ -177,7 +177,7 @@ class duechiacchiere {
 							<time datetime="<?php comment_time( 'c' ); ?>">
 								<?php
 								/* translators: 1: comment date, 2: comment time */
-								printf( __( '%1$s at %2$s' ), get_comment_date( 'd M y', $comment ), get_comment_time() );
+								printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() );
 								?>
 							</time>
 						</a>
