@@ -356,7 +356,7 @@ class duechiacchiere {
 			$args = array(
 				'id' => 'post-list',
 				'title' => __( 'Posts' ),
-				'href' => get_admin_url( 1, 'edit.php?page=cal' )
+				'href' => get_admin_url( 1, 'admin.php?page=cal' )
 			);
 			$wp_admin_bar->add_node($args);	
 		}
