@@ -168,8 +168,8 @@ class duechiacchiere {
 			<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
 				<header class="comment-meta">
 					<div class="comment-author vcard">
-						<?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args[ 'avatar_size' ] ); ?>
-						<?php printf( __( '%s <span class="says">says:</span>' ), sprintf( '<b class="fn">%s</b>', get_comment_author_link( $comment ) ) ); ?>
+						<?php if ( 0 != $args[ 'avatar_size' ] ) echo get_avatar( $comment, $args[ 'avatar_size' ] ); ?>
+						<?php echo get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span>'; ?>
 					</div>
 
 					<div class="comment-metadata">
@@ -177,15 +177,15 @@ class duechiacchiere {
 							<time datetime="<?php comment_time( 'c' ); ?>">
 								<?php
 								/* translators: 1: comment date, 2: comment time */
-								printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() );
+								printf( __( '%1$s at %2$s' ), get_comment_date( 'd M y', $comment ), get_comment_time() );
 								?>
 							</time>
 						</a>
-						<?php edit_comment_link( __( 'Edit' ), '<span class="edit-link">', '</span>' ); ?>
+						<?php edit_comment_link( 'Modifica', '<span class="edit-link">', '</span>' ); ?>
 					</div>
 
 					<?php if ( '0' == $comment->comment_approved ) : ?>
-					<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.' ); ?></p>
+						<p class="comment-awaiting-moderation">Il tuo commento &egrave; in attesa di essere moderato.</p>
 					<?php endif; ?>
 				</header>
 
@@ -199,11 +199,14 @@ class duechiacchiere {
 						'depth' => $depth,
 						'max_depth' => $args['max_depth'],
 						'before' => '<div class="reply">',
-						'after' => '</div>'
+						'after' => ' <span class="visually-hidden">al commento di ' . $comment->comment_author . '</span></div>'
 					) ) );
 				?>
 			</article>
-		 <?php echo ( $args[ 'has_children' ] ) ? 'giggino' : 'no';
+			<?php
+			if ( $args[ 'has_children' ] ) {
+				echo '<h' . ( intval( $depth ) + 1 ) . ' class="visually-hidden">Risposte al commento di ' . $comment->comment_author . '</h' . ( intval( $depth ) + 1 ) . '>';
+			}
 	}
 
 	public static function responsive_youtube_embed( $html, $url, $attr, $post_ID ) {

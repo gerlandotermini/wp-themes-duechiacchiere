@@ -15,7 +15,7 @@ $comment_count = get_comments_number();
 		<?php
 			$output = wp_list_comments(
 				array(
-					'avatar_size' => 45,
+					'avatar_size' => 40,
 					'callback' => array( 'duechiacchiere', 'comment_callback' ),
 					'echo' => false,
 					'format' => 'html5',
