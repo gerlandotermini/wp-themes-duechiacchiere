@@ -148,7 +148,7 @@ window.addEventListener( 'load', ( event ) => {
 
   // Add elements to open and close the submenus
   document.querySelectorAll( '#primary-menu .menu-item-has-children' ).forEach( item => {
-    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">visualizza il menu per questa stanza</span></a>' );
+    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">entra in questa stanza</span></a>' );
     item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="javascript:;">esci dalla stanza</a></li>' );
     
     item.querySelector( '.open-submenu' ).addEventListener( 'click', function( e ) { 
