@@ -204,8 +204,9 @@ body {
                         text-decoration: none;
 
                         &.open-submenu{
+                            border-left: $border-secondary;
                             flex: 0;
-                            padding: $padding-regular $padding-regular $padding-regular $padding-regular*2;
+                            padding: $padding-regular;
                             
                             &:before {
                                 border-style: solid;
