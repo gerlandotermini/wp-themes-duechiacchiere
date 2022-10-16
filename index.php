@@ -44,10 +44,10 @@
 					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comment" title="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
 					break;
 				case 1:
-					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments" title="Leggi il commento per '. $GLOBALS[ 'post' ]->post_title . '">1 commento</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment">Lascia un commento</a>';
+					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments" title="Leggi il commento per '. $GLOBALS[ 'post' ]->post_title . '">1 commento</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment" title="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
 					break;
 				default:
-					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments" title="Leggi i ' . $comment_count . ' commenti per ' . $GLOBALS[ 'post' ]->post_title . '">' . $comment_count . ' commenti</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment">Lascia un commento</a>';
+					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments" title="Leggi i ' . $comment_count . ' commenti per ' . $GLOBALS[ 'post' ]->post_title . '">' . $comment_count . ' commenti</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment" title="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
 			}
 			?>
 
