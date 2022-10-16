@@ -100,6 +100,17 @@ body {
             width: auto;
         }    
     }
+    a.skip-inline {
+        left: -10000px;
+        overflow: hidden;
+        position: fixed;
+
+        &:focus {
+            left: initial;
+            margin-left: $margin-small;
+            position: relative;
+        }
+    }
     
     .visually-hidden,
     #comments .says {

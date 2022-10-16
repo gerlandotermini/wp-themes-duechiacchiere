@@ -166,11 +166,8 @@ main {
             .comment-body {
                 margin: 0 0 $margin-regular*2;
                 padding-bottom: 0;
-                position: relative;
 
                 .comment-author, .comment-meta {
-                    font-size: $font-size-extra-small;
-
                     img {
                         float: left;
                         margin-right: $margin-small;
@@ -186,12 +183,6 @@ main {
                     @include external-links;
                 }
                 .reply {
-                    @include media-query( large ) {
-                        position: absolute;
-                        right: 0;
-                        top: calc( -1 * $margin-small/2 );
-                    }
-
                     a {
                         background-color: $white;
                         border: $border-secondary;

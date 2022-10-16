@@ -10,12 +10,11 @@ $comment_count = get_comments_number();
 <section id="comments" class="comments-area default-max-width">
 	<?php if ( have_comments() ): ?>
 		<h2>Commenti</h2>
-
 		<ol>
 		<?php
 			$output = wp_list_comments(
 				array(
-					'avatar_size' => 40,
+					'avatar_size' => 45,
 					'callback' => array( 'duechiacchiere', 'comment_callback' ),
 					'echo' => false,
 					'format' => 'html5',
