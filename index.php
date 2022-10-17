@@ -1,6 +1,6 @@
 <?php include_once( 'includes/header.php' ) ?>
 
-<section id="main-wrapper">
+<div id="main-wrapper">
 	<main id="content"><?php
 		if ( is_404() || !have_posts() ) {
 			include_once( 'includes/404.php' );
@@ -127,6 +127,6 @@
 	</main>
 
 	<?php include_once( 'includes/sidebar.php' ) ?>
-</section>
+</div>
 
 <?php include_once( 'includes/footer.php' ) ?>
