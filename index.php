@@ -1,12 +1,9 @@
-<?php echo 'a'.get_page_template_slug( get_the_ID() ); include_once( 'includes/header.php' );  ?>
+<?php include_once( 'includes/header.php' ) ?>
 
 <div id="main-wrapper">
 	<main id="content"><?php
 		if ( is_404() || !have_posts() ) {
 			include_once( 'includes/404.php' );
-		}
-		else if ( is_page_template( 'includes/contact_form.php' ) ) {
-			echo 'gigi';
 		}
 		else {
 			echo $heading_title;

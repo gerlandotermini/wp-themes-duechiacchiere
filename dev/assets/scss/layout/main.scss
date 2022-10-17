@@ -82,7 +82,6 @@ main {
         // Videos
         .wp-video, video.wp-video-shortcode, .mejs-container, .mejs-overlay.load {
             width: 100% !important;
-            height: 100% !important;
 
             @include media-query( print ) {
                 display: none;
