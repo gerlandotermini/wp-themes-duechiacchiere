@@ -106,7 +106,7 @@ $page_output = str_replace( ' type="text/javascript"', '', $page_output );
 $page_output = preg_replace( '/<!--(.*?)-->/', '', $page_output );
 
 // ... or Javascript/CSS comments
-$page_output = preg_replace( '/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\'|\")\/\/.*))/', '', $page_output );
+$page_output = preg_replace( '/(\s+)(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/', '', $page_output );
 
 // ... or multiple spaces
 $page_output = preg_replace( '/  +/', ' ', $page_output );
