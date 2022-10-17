@@ -68,17 +68,25 @@ window.addEventListener( 'load', ( event ) => {
   // ----------------------------------------------------------------
 
   // Show/Hide the "Rispondi" button after it's been clicked
-  document.querySelectorAll( '.comment-reply-link' ).forEach( link => {
-    link.addEventListener( 'click', function( e ) {
-      this.setAttribute( 'id', 'restore-reply-link' );
-      this.classList.add( 'visually-hidden' );
-    });
-  });
-  document.getElementById( 'cancel-comment-reply-link' ).addEventListener( 'click', function( e ) {
-    let reply_button = document.getElementById( 'restore-reply-link' )
-    reply_button.classList.remove( 'visually-hidden' );
-    reply_button.removeAttribute( 'id' );
-  } );
+  if ( document.body.classList.contains( 'single' ) ) {
+    document.querySelectorAll( '.comment-reply-link' ).forEach( link => {
+      link.addEventListener( 'click', function( e ) {
+        this.setAttribute( 'id', 'restore-reply-link' );
+        this.classList.add( 'visually-hidden' );
+      } );
+    } );
+
+    const cancel_comment_reply_link = document.getElementById( 'cancel-comment-reply-link' );
+    if ( cancel_comment_reply_link !== null ) {
+      cancel_comment_reply_link.addEventListener( 'click', function( e ) {
+        const reply_button = document.getElementById( 'restore-reply-link' );
+        if ( reply_button !== null ) {
+          reply_button.classList.remove( 'visually-hidden' );
+          reply_button.removeAttribute( 'id' );    
+        }
+      } );
+    }
+  }
 
   // Populate comment fields with cookie values, if available
   let getCookie = function( name ) {
@@ -91,7 +99,7 @@ window.addEventListener( 'load', ( event ) => {
 
     return '';
   }
-  if ( typeof( duechiacchiere.COOKIEHASH ) != 'undefined' && document.querySelector( '#commentform #author' ) != null ) {
+  if ( typeof( duechiacchiere.COOKIEHASH ) != 'undefined' && document.querySelector( '#commentform #author' ) !== null ) {
     document.querySelector( '#commentform #author' ).value = getCookie( 'comment_author_' + duechiacchiere.COOKIEHASH );
     document.querySelector( '#commentform #email' ).value = getCookie( 'comment_author_email_' + duechiacchiere.COOKIEHASH );
     document.querySelector( '#commentform #url' ).value = getCookie( 'comment_author_url_' + duechiacchiere.COOKIEHASH );
@@ -109,6 +117,10 @@ window.addEventListener( 'load', ( event ) => {
     const menu = document.getElementById( 'primary-menu' );  
 
     e.preventDefault();
+
+    if ( menu === null || menuOverlay === null || toolbarMenuButton === null ) {
+      return false;
+    }
 
     if ( action == 'close' ||  toolbarMenuButton.classList.contains( 'active' ) ) {
       menu.classList.remove( 'active' );
