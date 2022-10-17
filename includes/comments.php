@@ -50,7 +50,7 @@ $comment_count = get_comments_number();
 		'title_reply' => 'Lascia un commento',
 		'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
 		'title_reply_after'  => '</h2>',
-		'submit_field' => '<p class="form-submit">%1$s <button rel="nofollow" id="cancel-comment-reply-link" href="#respond" style="display:none">Annulla risposta</button> %2$s</p>',
+		'submit_field' => '<p class="form-submit">%1$s <button rel="nofollow" id="cancel-comment-reply-link" style="display:none">Annulla risposta</button> %2$s</p>',
 		'format' => 'html5'
 	) );
 	?>
