@@ -248,19 +248,21 @@ main {
                     width: 100%;
                 }
                 .form-submit {
+                    align-items: flex-start;
                     flex-direction: row;
+                    flex-wrap: wrap;
+                    font-size: $font-size-extra-small;
                     margin-top: $margin-regular;
 
                     .submit {
-                        padding: $padding-small $padding-regular;
+                        margin: 0 $margin-regular $margin-regular 0;
+                        padding: $padding-small;
                     }
                     #cancel-comment-reply-link {
-                        background-color: #fff;
-                        border: 1px solid #dbd3d8;
-                        display: block;
-                        margin-left: 20px;
-                        padding: 10px 20px;
-                        text-decoration: none;
+                        background-color: $white;
+                        border: $border-secondary;
+                        font-weight: 300;
+                        padding: $padding-small;
                     }
 
                     @include media-query( large ) {
