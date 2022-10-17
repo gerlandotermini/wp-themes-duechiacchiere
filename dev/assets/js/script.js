@@ -67,18 +67,18 @@ window.addEventListener( 'load', ( event ) => {
   // 2. Comments
   // ----------------------------------------------------------------
 
-  // Display the comment form under the comment for replies
-  form_container = document.querySelector( '#respond' );
+  // Show/Hide the "Rispondi" button after it's been clicked
   document.querySelectorAll( '.comment-reply-link' ).forEach( link => {
-      link.addEventListener( 'click', function( e ) {
-          e.preventDefault();
-          comment_container = this.closest( '.comment-body' );
-          form_container.querySelector( '#reply-title' ).classList.add( 'visually-hidden' );
-          form_container.querySelector( '#comment_parent' ).setAttribute( 'value', comment_container.getAttribute( 'id' ).replace(/\D/g, '') );
-          comment_container.append( form_container );
-          form_container.querySelector( '#comment' ).focus();
-      });
+    link.addEventListener( 'click', function( e ) {
+      this.setAttribute( 'id', 'restore-reply-link' );
+      this.classList.add( 'visually-hidden' );
+    });
   });
+  document.getElementById( 'cancel-comment-reply-link' ).addEventListener( 'click', function( e ) {
+    let reply_button = document.getElementById( 'restore-reply-link' )
+    reply_button.classList.remove( 'visually-hidden' );
+    reply_button.removeAttribute( 'id' );
+  } );
 
   // Populate comment fields with cookie values, if available
   let getCookie = function( name ) {

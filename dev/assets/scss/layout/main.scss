@@ -163,51 +163,55 @@ main {
             list-style-type: none;
             padding-left: 0;
 
-            .comment-body {
-                margin: 0 0 $margin-regular*2;
-                padding-bottom: 0;
+            li {
+                margin: $margin-regular 0;
 
-                .comment-author, .comment-meta {
-                    img {
-                        float: left;
-                        margin-right: $margin-small;
+                .comment-body {
+                
+                    padding-bottom: 0;
+    
+                    .comment-author, .comment-meta {
+                        img {
+                            float: left;
+                            margin-right: $margin-small;
+                        }
+                        a {
+                            text-decoration: none;
+                        }
+                        cite {
+                            font-style: initial;
+                        }
                     }
-                    a {
-                        text-decoration: none;
+                    p {
+                        @include external-links;
                     }
-                    cite {
-                        font-style: initial;
+                    .reply {
+                        a {
+                            background-color: $white;
+                            border: $border-secondary;
+                            display: block;
+                            font-size: $font-size-extra-small;
+                            margin-top: $margin-small;
+                            padding: calc( $padding-small/2 ) $padding-small;
+                            text-decoration: none;
+                            width: fit-content;
+                        }
                     }
                 }
-                p {
-                    @include external-links;
+
+                ol.children, #respond {
+                    border-left: $border-secondary;
+                    margin: $margin-small 0 0;
+                    padding-left: $padding-regular;
                 }
-                .reply {
-                    a {
-                        background-color: $white;
-                        border: $border-secondary;
-                        display: block;
-                        font-size: $font-size-extra-small;
-                        margin-top: $margin-small;
-                        padding: calc( $padding-small/2 ) $padding-small;
-                        text-decoration: none;
-                        width: fit-content;
-                    }
-                }
-            }
-
-            ol.children, #respond {
-                border-left: $border-secondary;
-                margin: $margin-small 0 0;
-                padding-left: $padding-regular;
-            }
-
-            a {
-                word-break: break-all;
-
-                @include media-query( print ) { 
-                    &.comment-reply-link {
-                        display: none;
+    
+                a {
+                    word-break: break-all;
+    
+                    @include media-query( print ) { 
+                        &.comment-reply-link {
+                            display: none;
+                        }
                     }
                 }
             }
@@ -243,8 +247,21 @@ main {
                 .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
                     width: 100%;
                 }
-                .form-submit .submit {
+                .form-submit {
+                    flex-direction: row;
                     margin-top: $margin-regular;
+
+                    .submit {
+                        padding: $padding-small $padding-regular;
+                    }
+                    #cancel-comment-reply-link {
+                        background-color: #fff;
+                        border: 1px solid #dbd3d8;
+                        display: block;
+                        margin-left: 20px;
+                        padding: 10px 20px;
+                        text-decoration: none;
+                    }
 
                     @include media-query( large ) {
                         width: fit-content;

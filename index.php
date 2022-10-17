@@ -59,7 +59,7 @@
 						<span class="visually-hidden">Scritto il giorno </span><time datetime="<?php the_time( 'Y-m-d H:i:s' ) ?>"><?= ucfirst( get_the_time('j F Y') ); ?></time>
 						<?php
 							if ( !empty( $categories_html ) ) {
-								echo '<span class="visually-hidden">. Archiviato</span> in ' . $categories_html;
+								echo '<span class="visually-hidden">&ordm; Archiviato</span> in ' . $categories_html;
 							}
 							if ( !empty( $comments_html ) ) {
 								echo ' <span class="comment-separator">&mdash;</span> ' . $comments_html;

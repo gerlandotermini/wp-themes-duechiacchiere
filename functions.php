@@ -37,6 +37,9 @@ class duechiacchiere {
 		// Filter really long comments (spam)
 		add_filter( 'preprocess_comment' , array( __CLASS__, 'preprocess_comment' ) );
 
+		// Move the 'Cancel reply' link next to the button to submit a comment
+		add_filter( 'cancel_comment_reply_link', '__return_empty_string' );
+
 		// Don't generate thumbnails, this theme only uses full size
 		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
 
@@ -85,6 +88,8 @@ class duechiacchiere {
 		wp_dequeue_style( 'wp-block-library-theme' );
 		wp_dequeue_style( 'wc-block-style' );
 		wp_dequeue_style( 'global-styles' );
+
+		wp_enqueue_script( 'comment-reply' );
 	}
 
 	public static function print_styles() {
@@ -194,13 +199,13 @@ class duechiacchiere {
 				</div>
 					
 				<?php
-					comment_reply_link( array_merge( $args, array(
+					echo str_replace( 'aria-label', 'title', get_comment_reply_link( array_merge( $args, array(
 						'add_below' => 'div-comment',
 						'depth' => $depth,
-						'max_depth' => $args['max_depth'],
+						'max_depth' => $args[ 'max_depth' ],
 						'before' => '<div class="reply">',
-						'after' => ' <span class="visually-hidden">al commento di ' . $comment->comment_author . '</span></div>'
-					) ) );
+						'after' => '</div>'
+					) ) ) );
 				?>
 			</article>
 			<?php
