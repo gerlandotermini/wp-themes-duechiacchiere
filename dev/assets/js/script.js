@@ -99,10 +99,16 @@ window.addEventListener( 'load', ( event ) => {
 
     return '';
   }
-  if ( typeof( duechiacchiere.COOKIEHASH ) != 'undefined' && document.querySelector( '#commentform #author' ) !== null ) {
-    document.querySelector( '#commentform #author' ).value = getCookie( 'comment_author_' + duechiacchiere.COOKIEHASH );
-    document.querySelector( '#commentform #email' ).value = getCookie( 'comment_author_email_' + duechiacchiere.COOKIEHASH );
-    document.querySelector( '#commentform #url' ).value = getCookie( 'comment_author_url_' + duechiacchiere.COOKIEHASH );
+  if ( typeof( duechiacchiere.COOKIEHASH ) != 'undefined' ) {
+    if ( document.getElementById( 'author' ) !== null ) {
+      document.getElementById( 'author' ).value = getCookie( 'comment_author_' + duechiacchiere.COOKIEHASH );
+    }
+    if ( document.getElementById( 'email' ) !== null ) {
+      document.getElementById( 'email' ).value = getCookie( 'comment_author_email_' + duechiacchiere.COOKIEHASH );
+    }
+    if ( document.getElementById( 'url' ) !== null ) {
+      document.getElementById( 'url' ).value = getCookie( 'comment_author_url_' + duechiacchiere.COOKIEHASH );
+    }
   }
 
   // 3. Menu
