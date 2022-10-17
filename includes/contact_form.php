@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Contact Form
+Template Name: Modulo di contatto
 */
 
 $data = array(
@@ -61,10 +61,10 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 	}
 }
 
-get_header() ?>
+include_once( 'header.php' ) ?>
 
-<div id="content-wrapper">
-	<main id="contenuto">
+<div id="main-wrapper">
+	<main id="content">
 		<article>
 			<header>
 				<h1><?php the_title( '', '' ) ?></h1>
@@ -79,14 +79,14 @@ get_header() ?>
 					<p class="comment-form-author"><label for="author">Nome</label><input type="text" name="author" id="author" size="5" maxlength="250" value="<?php echo isset( $_COOKIE[ 'comment_author_' . COOKIEHASH ] ) ? $_COOKIE[ 'comment_author_' . COOKIEHASH ] : ''; ?>"></p>
 					<p class="comment-form-email"><label for="email">Email</label> <input type="text" name="email" id="email" size="5" maxlength="250" value="<?php echo isset($_COOKIE['comment_author_email_'.COOKIEHASH])?$_COOKIE['comment_author_email_'.COOKIEHASH]:''; ?>"></p>
 					<p class="comment-form-comment"><label for="message">Messaggio</label> <textarea name="message" id="message" cols="15" rows="7"></textarea></p>
-					<p><input class="button" type="submit" name="Submit" value="Invia il messaggio" id="contact_submit"></p>
+					<p class="form-submit"><input class="submit" type="submit" name="submit" value="Invia il messaggio" id="contact_submit"></p>
 					<input type="hidden" name="control" value="<?= md5( date( 'His' ) ) ?>" />
 				</form>
 			<?php else: echo $content; endif; ?>
 		</article>
 	</main>
 
-	<?php get_sidebar() ?>
+	<?php include_once( 'sidebar.php' ) ?>
 </div>
 
-<?php get_footer() ?>
+<?php include_once( 'footer.php' ) ?>

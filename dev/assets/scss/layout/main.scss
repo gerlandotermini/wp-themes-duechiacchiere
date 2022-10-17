@@ -16,18 +16,12 @@ main {
     }
 
     > article {
-        border-bottom: $border-secondary;
+        @include media-query( mobile ) {
+            border-bottom: $border-secondary;
+        }
+
         padding-bottom: $padding-regular;
         margin-bottom: $margin-regular;
-
-        &.last {
-            border-bottom: 0;
-            margin-bottom: 0;
-        }
-
-        @include media-query( large ) {
-            border-bottom: 0;
-        }
 
         header {
             padding-bottom: $padding-small;
@@ -159,6 +153,10 @@ main {
     #comments {
         font-size: $font-size-extra-small;
 
+        @include media-query( mobile ) {
+            border-bottom: $border-secondary;
+        }
+
         ol {
             list-style-type: none;
             padding-left: 0;
@@ -221,54 +219,54 @@ main {
             @include media-query( print ) {
                 display: none;
             }
+        }
+    }
 
-            #commentform {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 2%;
-    
-                p {
-                    display: flex;
-                    flex-direction: column;
-                    margin: 5px 0;
-                    width: 100%;
-    
-                    &.comment-form-author, &.comment-form-email {
-                        width: 49%;
-                    }
-                }
-                input, textarea {
-                    background-color: $white;
-                    border: $border-secondary;
-                    font-weight: 300;
-                    padding: $padding-small;
-                    
-                }
-                .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
-                    width: 100%;
-                }
-                .form-submit {
-                    align-items: flex-start;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-                    font-size: $font-size-extra-small;
-                    margin-top: $margin-regular;
+    #commentform {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2%;
 
-                    .submit {
-                        margin: 0 $margin-regular $margin-regular 0;
-                        padding: $padding-small;
-                    }
-                    #cancel-comment-reply-link {
-                        background-color: $white;
-                        border: $border-secondary;
-                        font-weight: 300;
-                        padding: $padding-small;
-                    }
+        p {
+            display: flex;
+            flex-direction: column;
+            margin: 5px 0;
+            width: 100%;
 
-                    @include media-query( large ) {
-                        width: fit-content;
-                    }
-                }
+            &.comment-form-author, &.comment-form-email {
+                width: 49%;
+            }
+        }
+        input, textarea {
+            background-color: $white;
+            border: $border-secondary;
+            font-weight: 300;
+            padding: $padding-small;
+            
+        }
+        .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
+            width: 100%;
+        }
+        .form-submit {
+            align-items: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+            font-size: $font-size-extra-small;
+            margin-top: $margin-regular;
+
+            .submit {
+                margin: 0 $margin-regular $margin-regular 0;
+                padding: $padding-small;
+            }
+            #cancel-comment-reply-link {
+                background-color: $white;
+                border: $border-secondary;
+                font-weight: 300;
+                padding: $padding-small;
+            }
+
+            @include media-query( large ) {
+                width: fit-content;
             }
         }
     }
