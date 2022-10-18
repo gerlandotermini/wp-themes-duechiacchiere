@@ -98,8 +98,9 @@ class duechiacchiere {
 	}
 
 	public static function print_scripts() {
-		$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
-		echo '<script>' . str_replace( 'COOKIEHASHVALUE', COOKIEHASH, $js ) . '</script>';
+		$core_js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
+		$vendor_js = file_get_contents( get_template_directory() . '/assets/js/vendor/core.js' );
+		echo '<script>' . str_replace( 'COOKIEHASHVALUE', COOKIEHASH, $core_js ) . $vendor_js . '</script>';
 	}
 	
 	public static function nav_menu_link_attributes( $atts, $item, $args, $depth ) {
@@ -394,7 +395,26 @@ class duechiacchiere {
 			'/mime\-version\:/i' 
 		);
 	
-	 return stripslashes( strip_tags( urldecode( preg_replace( $headers_to_remove, '', $header ) ) ) );
+	 	return stripslashes( strip_tags( urldecode( preg_replace( $headers_to_remove, '', $header ) ) ) );
+	}
+
+	public static function minify_output( $html = '' ) {
+		// No need to have type defined in the script tag anymore
+		$html = str_replace( array( " type='text/javascript'", ' type="text/javascript"' ), '', $html );
+
+		// ... or trailing slashes in tags
+		$html = preg_replace( '/ ?\/>/', '>', $html );
+
+		// or HTML or Javascript comments
+		$html = preg_replace( array( '/<!--(.*?)-->/', '/(\s+)(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/' ), '', $html );
+
+		// ... or multiple spaces
+		$html = preg_replace( '/  +/', ' ', $html );
+
+		// Finally, remove all the line breaks and tabs
+		$html = preg_replace( "/[\r\n\t]*/", '', $html );
+
+		return $html;
 	}
 
 	public static function first_post_image( $post_content ) {

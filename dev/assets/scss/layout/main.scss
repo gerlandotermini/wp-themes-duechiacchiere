@@ -127,15 +127,14 @@ main {
         }
         code {
             font-weight: 700;
-
-            &.block {
-                background-color: $background-code;
-                color: $text-code;
-                display: block;
-                font-weight: 400;
-                font-size: $font-size-extra-small;
-                padding: $padding-small $padding-regular;
-            }
+        }
+        pre code {
+            background-color: $background-code;
+            color: $text-code;
+            display: block;
+            font-weight: 400;
+            font-size: $font-size-extra-small;
+            padding: $padding-small $padding-regular;
         }
         p {
             margin-top: .5em;

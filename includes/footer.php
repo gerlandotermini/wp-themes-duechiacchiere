@@ -94,33 +94,31 @@
 
 <?php
 // Minify the output
-$page_output = ob_get_contents();
+$html = ob_get_contents();
 
 ob_end_clean();
 
-// No need to have type defined in the script tag anymore
-$page_output = str_replace( " type='text/javascript'", '', $page_output );
-$page_output = str_replace( ' type="text/javascript"', '', $page_output );
+// Remove line breaks and multiple spaces everywhere except inside <pre> tags
+if ( strpos( $html, '<pre>' ) !== false ) {
+	// Find the code blocks and put them aside
+	$blocks = preg_split('/(<\/?pre>)/', $html, null, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY );
+	$html = '';
 
-// No need for HTML comments...
-$page_output = preg_replace( '/<!--(.*?)-->/', '', $page_output );
+	// var_dump($blocks);exit;
 
-// if (preg_match_all('/\<\>(.*?)\<\/pre\>/s', $page_output, $matches)) {
-//     foreach($matches[1] as $a) {
-//         $page_output = str_replace($a, str_replace("\r\n", '<br>', $a), $page_output);
-//     }
-// }
+	// Minify what can be minified
+	$i = 0;
+	while ( !empty( $blocks[ $i ] ) ) {
+		if ( $blocks[ $i ] == '<pre>' ) {
+			$html .= '<pre>' . preg_replace( array( "/[\r\n]+/", '/ /' ), array( '<br>', '&nbsp;' ), $blocks[ $i + 1 ] ) . '</pre>';
+			$i = $i + 3;
+		}
+		else {
+			$html .= $blocks[ $i ];
+			$i++;
+		}
+	}
+}
 
-// ... or Javascript/CSS comments
-$page_output = preg_replace( '/(\s+)(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/', '', $page_output );
-
-// ... or multiple spaces
-$page_output = preg_replace( '/  +/', ' ', $page_output );
-
-// ... or trailing slashes in tags
-$page_output = preg_replace( '/ ?\/>/', '>', $page_output );
-
-// Finally, remove all the EOL characters and tabbing
-$page_output = preg_replace( "/[\r\n\t]*/", "", $page_output );
-
-echo $page_output;
+echo duechiacchiere::minify_output( $html );
+// echo $html;
