@@ -135,6 +135,7 @@ main {
             font-weight: 400;
             font-size: $font-size-extra-small;
             padding: $padding-small $padding-regular;
+            word-break: break-all;
         }
         p {
             margin-top: .5em;
