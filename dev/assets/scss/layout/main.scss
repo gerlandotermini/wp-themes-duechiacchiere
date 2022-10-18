@@ -170,37 +170,33 @@ main {
 
             li {
                 margin: $margin-regular 0;
+                padding-bottom: 0;
 
-                .comment-body {
-                
-                    padding-bottom: 0;
-    
-                    .comment-author, .comment-meta {
-                        img {
-                            float: left;
-                            margin-right: $margin-small;
-                        }
-                        a {
-                            text-decoration: none;
-                        }
-                        cite {
-                            font-style: initial;
-                        }
+                .comment-author, .comment-meta {
+                    img {
+                        float: left;
+                        margin-right: $margin-small;
                     }
-                    p {
-                        @include external-links;
+                    a {
+                        text-decoration: none;
                     }
-                    .reply {
-                        a {
-                            background-color: $white;
-                            border: $border-secondary;
-                            display: block;
-                            font-size: $font-size-extra-small;
-                            margin-top: $margin-small;
-                            padding: calc( $padding-small/2 ) $padding-small;
-                            text-decoration: none;
-                            width: fit-content;
-                        }
+                    cite {
+                        font-style: initial;
+                    }
+                }
+                p {
+                    @include external-links;
+                }
+                .reply {
+                    a {
+                        background-color: $white;
+                        border: $border-secondary;
+                        display: block;
+                        font-size: $font-size-extra-small;
+                        margin-top: $margin-small;
+                        padding: calc( $padding-small/2 ) $padding-small;
+                        text-decoration: none;
+                        width: fit-content;
                     }
                 }
 

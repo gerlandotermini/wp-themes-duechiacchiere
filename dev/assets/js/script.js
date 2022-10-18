@@ -69,8 +69,18 @@ window.addEventListener( 'load', ( event ) => {
 
   // Show/Hide the "Rispondi" button after it's been clicked
   if ( document.body.classList.contains( 'single' ) ) {
+    let showReplyButton = function() {
+      let reply_button = document.getElementById( 'restore-reply-link' );
+        if ( reply_button !== null ) {
+          reply_button.classList.remove( 'visually-hidden' );
+          reply_button.removeAttribute( 'id' );
+        }
+    }
+
     document.querySelectorAll( '.comment-reply-link' ).forEach( link => {
       link.addEventListener( 'click', function( e ) {
+        showReplyButton();
+
         this.setAttribute( 'id', 'restore-reply-link' );
         this.classList.add( 'visually-hidden' );
       } );
@@ -79,11 +89,7 @@ window.addEventListener( 'load', ( event ) => {
     const cancel_comment_reply_link = document.getElementById( 'cancel-comment-reply-link' );
     if ( cancel_comment_reply_link !== null ) {
       cancel_comment_reply_link.addEventListener( 'click', function( e ) {
-        const reply_button = document.getElementById( 'restore-reply-link' );
-        if ( reply_button !== null ) {
-          reply_button.classList.remove( 'visually-hidden' );
-          reply_button.removeAttribute( 'id' );    
-        }
+        showReplyButton();
       } );
     }
   }

@@ -170,7 +170,7 @@ class duechiacchiere {
 
 	public static function comment_callback( $comment, $args, $depth ) { ?>
 		<li id="comment-<?php comment_ID(); ?>" <?php comment_class( $args[ 'has_children' ] ? 'parent' : '', $comment ); ?>>
-			<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
+			<div id="div-comment-<?php comment_ID(); ?>" class="comment-body">
 				<header class="comment-meta">
 					<div class="comment-author vcard">
 						<?php if ( 0 != $args[ 'avatar_size' ] ) echo get_avatar( $comment, $args[ 'avatar_size' ] ); ?>
@@ -207,7 +207,7 @@ class duechiacchiere {
 						'after' => '</div>'
 					) ) ) );
 				?>
-			</article>
+			</div>
 			<?php
 			if ( $args[ 'has_children' ] ) {
 				echo '<h' . ( intval( $depth ) + 1 ) . ' class="visually-hidden">Risposte al commento di ' . $comment->comment_author . '</h' . ( intval( $depth ) + 1 ) . '>';
@@ -403,6 +403,25 @@ class duechiacchiere {
 
 		// ... or trailing slashes in tags
 		$html = preg_replace( '/ ?\/>/', '>', $html );
+
+		if ( strpos( $html, '<pre>' ) !== false ) {
+			// Find the code blocks and put them aside
+			$blocks = preg_split( '/(<\/?pre>)/', $html, null, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY );
+			$html = '';
+		
+			// Minify what can be minified
+			$i = 0;
+			while ( !empty( $blocks[ $i ] ) ) {
+				if ( $blocks[ $i ] == '<pre>' ) {
+					$html .= '<pre>' . preg_replace( array( "/[\r\n]+/", '/ /' ), array( '<br>', '&nbsp;' ), $blocks[ $i + 1 ] ) . '</pre>';
+					$i = $i + 3;
+				}
+				else {
+					$html .= $blocks[ $i ];
+					$i++;
+				}
+			}
+		}
 
 		// or HTML or Javascript comments
 		$html = preg_replace( array( '/<!--(.*?)-->/', '/(\s+)(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/' ), '', $html );

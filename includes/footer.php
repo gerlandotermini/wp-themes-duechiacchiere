@@ -99,26 +99,5 @@ $html = ob_get_contents();
 ob_end_clean();
 
 // Remove line breaks and multiple spaces everywhere except inside <pre> tags
-if ( strpos( $html, '<pre>' ) !== false ) {
-	// Find the code blocks and put them aside
-	$blocks = preg_split('/(<\/?pre>)/', $html, null, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY );
-	$html = '';
-
-	// var_dump($blocks);exit;
-
-	// Minify what can be minified
-	$i = 0;
-	while ( !empty( $blocks[ $i ] ) ) {
-		if ( $blocks[ $i ] == '<pre>' ) {
-			$html .= '<pre>' . preg_replace( array( "/[\r\n]+/", '/ /' ), array( '<br>', '&nbsp;' ), $blocks[ $i + 1 ] ) . '</pre>';
-			$i = $i + 3;
-		}
-		else {
-			$html .= $blocks[ $i ];
-			$i++;
-		}
-	}
-}
-
 echo duechiacchiere::minify_output( $html );
 // echo $html;
