@@ -186,7 +186,7 @@ class duechiacchiere {
 								?>
 							</time>
 						</a>
-						<?php edit_comment_link( 'Modifica', '<span class="edit-link">', '</span>' ); ?>
+						<?php edit_comment_link( '[M]', ' <span class="edit-link">', '</span>' ); ?>
 					</div>
 
 					<?php if ( '0' == $comment->comment_approved ) : ?>

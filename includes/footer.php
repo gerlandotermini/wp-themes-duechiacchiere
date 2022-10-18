@@ -105,6 +105,12 @@ $page_output = str_replace( ' type="text/javascript"', '', $page_output );
 // No need for HTML comments...
 $page_output = preg_replace( '/<!--(.*?)-->/', '', $page_output );
 
+// if (preg_match_all('/\<\>(.*?)\<\/pre\>/s', $page_output, $matches)) {
+//     foreach($matches[1] as $a) {
+//         $page_output = str_replace($a, str_replace("\r\n", '<br>', $a), $page_output);
+//     }
+// }
+
 // ... or Javascript/CSS comments
 $page_output = preg_replace( '/(\s+)(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/', '', $page_output );
 
