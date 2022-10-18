@@ -10,7 +10,7 @@ body {
     color: $text;
     font-family: $body-font-family;
     font-size: $body-font-size;
-    font-weight: 300;
+    font-weight: $body-font-weight;
     line-height: 1.4;
 
     @include media-query( large ) {

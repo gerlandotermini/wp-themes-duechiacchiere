@@ -98,9 +98,8 @@ class duechiacchiere {
 	}
 
 	public static function print_scripts() {
-		$core_js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
-		$vendor_js = file_get_contents( get_template_directory() . '/assets/js/vendor/core.js' );
-		echo '<script>' . str_replace( 'COOKIEHASHVALUE', COOKIEHASH, $core_js ) . $vendor_js . '</script>';
+		$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
+		echo '<script>' . str_replace( 'COOKIEHASHVALUE', COOKIEHASH, $js ) . '</script>';
 	}
 	
 	public static function nav_menu_link_attributes( $atts, $item, $args, $depth ) {
