@@ -1,9 +1,10 @@
 // Table of Contents
 //
-// 1. Back to Top
-// 2. Comments
-// 3. Menu
-// 4. User Experience
+// 1. Utilities
+// 2. Back to Top
+// 3. Comments
+// 4. Menu
+// 5. User Experience
 
 window.addEventListener( 'load', ( event ) => {
   // WordPress COOKIEHASH (replaced when script is enqueued)
@@ -48,7 +49,29 @@ window.addEventListener( 'load', ( event ) => {
   //     });
   // });
 
-  // 1. Back to Top
+  // 1. Utilities
+  // ----------------------------------------------------------------
+
+  // Function to attach multiple event listeners to an element
+  let addMultiEventListener = function( element, listener ) {
+    element.addEventListener( 'click', listener, false );
+    element.addEventListener( 'touchstart', listener, false );
+
+    // Prevent touch event from triggering a fake 'click' event
+    element.addEventListener('touchend', event => { event.preventDefault(); });
+  }
+  let getCookie = function( name ) {
+    const value = '; ' + document.cookie;
+    const parts = value.split( '; ' + name + '=' );
+
+    if ( parts.length === 2 ) {
+      return decodeURIComponent( parts.pop().split( ';' ).shift() );
+    }
+
+    return '';
+  }
+
+  // 2. Back to Top
   // ----------------------------------------------------------------
 
   // Show/hide back to top button
@@ -64,47 +87,40 @@ window.addEventListener( 'load', ( event ) => {
     }
   }
 
-  // 2. Comments
+  // 3. Comments
   // ----------------------------------------------------------------
 
   // Show/Hide the "Rispondi" button after it's been clicked
   if ( document.body.classList.contains( 'single' ) ) {
-    let showReplyButton = function() {
+    let showReplyButton = function( e ) {
+      // e.preventDefault();
+
       let reply_button = document.getElementById( 'restore-reply-link' );
-        if ( reply_button !== null ) {
-          reply_button.classList.remove( 'visually-hidden' );
-          reply_button.removeAttribute( 'id' );
-        }
+      if ( reply_button !== null ) {
+        reply_button.classList.remove( 'visually-hidden' );
+        reply_button.removeAttribute( 'id' );
+      }
+    }
+
+    let hideReplyButton = function( e ) {
+      showReplyButton();
+
+      e.currentTarget.setAttribute( 'id', 'restore-reply-link' );
+      e.currentTarget.classList.add( 'visually-hidden' );
     }
 
     document.querySelectorAll( '.comment-reply-link' ).forEach( link => {
-      link.addEventListener( 'click', function( e ) {
-        showReplyButton();
-
-        this.setAttribute( 'id', 'restore-reply-link' );
-        this.classList.add( 'visually-hidden' );
-      } );
+      addMultiEventListener( link, hideReplyButton );
     } );
 
     const cancel_comment_reply_link = document.getElementById( 'cancel-comment-reply-link' );
     if ( cancel_comment_reply_link !== null ) {
-      cancel_comment_reply_link.addEventListener( 'click', function( e ) {
-        showReplyButton();
-      } );
+      addMultiEventListener( cancel_comment_reply_link, showReplyButton );
     }
   }
 
   // Populate comment fields with cookie values, if available
-  let getCookie = function( name ) {
-    const value = '; ' + document.cookie;
-    const parts = value.split( '; ' + name + '=' );
-
-    if ( parts.length === 2 ) {
-      return decodeURIComponent( parts.pop().split( ';' ).shift() );
-    }
-
-    return '';
-  }
+  
   if ( typeof( duechiacchiere.COOKIEHASH ) != 'undefined' ) {
     if ( document.getElementById( 'author' ) !== null ) {
       document.getElementById( 'author' ).value = getCookie( 'comment_author_' + duechiacchiere.COOKIEHASH );
@@ -117,7 +133,7 @@ window.addEventListener( 'load', ( event ) => {
     }
   }
 
-  // 3. Menu
+  // 4. Menu
   // ----------------------------------------------------------------
 
   // Enable the trigger to open and close the menu
@@ -154,17 +170,17 @@ window.addEventListener( 'load', ( event ) => {
   }
 
   // Attach the appropriate event handler to the mobile menu button
-  toolbarMenuButton.addEventListener( 'click', function( e ) {
+  addMultiEventListener( toolbarMenuButton, function( e ) {
     toggleMenu( e, 'toggle' );
   } );
 
   // Hide the menu when tapping on the overlay. We had to use an actual DIV because we cannot attach event handlers to pseudo elements
-  menuOverlay.addEventListener( 'click', function( e ) {
+  addMultiEventListener( menuOverlay, function( e ) {
     toggleMenu( e, 'close' );
   } );
 
   // When tapping the search button, let's make sure the navigation is closed
-  document.getElementById( 'mobile-search-button' ).addEventListener( 'click', function( e ) {
+  addMultiEventListener( document.getElementById( 'mobile-search-button' ), function( e ) {
     toggleMenu( e, 'close' );
     document.getElementById( 'search-field' ).focus();
     document.getElementById( 'search-field' ).closest( '.widget' ).scrollIntoView();
@@ -175,18 +191,18 @@ window.addEventListener( 'load', ( event ) => {
     item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">entra in questa stanza</span></a>' );
     item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="javascript:;">esci dalla stanza</a></li>' );
     
-    item.querySelector( '.open-submenu' ).addEventListener( 'click', function( e ) { 
+    addMultiEventListener( item.querySelector( '.open-submenu' ), function( e ) {
       e.preventDefault();
       item.classList.add( 'active' );
     } );
 
-    item.querySelector( '.close-submenu' ).addEventListener( 'click', function( e ) {
+    addMultiEventListener( item.querySelector( '.close-submenu' ), function( e ) {
       e.preventDefault();
       item.classList.remove( 'active' );
     } );
   } );
 
-  // 4. User Experience
+  // 5. User Experience
   // ----------------------------------------------------------------
 
   // Open external links in a new tab/window
