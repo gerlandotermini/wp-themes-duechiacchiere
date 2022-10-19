@@ -12,19 +12,15 @@ $comment_count = get_comments_number();
 		<h2>Commenti</h2>
 		<ol>
 		<?php
-			$output = wp_list_comments(
+			wp_list_comments(
 				array(
 					'avatar_size' => 45,
 					'callback' => array( 'duechiacchiere', 'comment_callback' ),
-					'echo' => false,
 					'format' => 'html5',
 					'short_ping' => true,
 					'style' => 'ol'
 				)
 			);
-
-			$output = str_replace( '<img ', '<img aria-hidden="true" ', $output );
-			echo str_replace( "alt=''", 'alt="avatar utente"', $output );
 		?>
 		</ol><!-- .comment-list -->
 

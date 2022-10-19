@@ -173,8 +173,13 @@ class duechiacchiere {
 			<div id="div-comment-<?php comment_ID(); ?>" class="comment-body">
 				<header class="comment-meta">
 					<div class="comment-author vcard">
-						<?php if ( 0 != $args[ 'avatar_size' ] ) echo get_avatar( $comment, $args[ 'avatar_size' ] ); ?>
-						<?php echo get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span>'; ?>
+					<?php 
+						if ( 0 != $args[ 'avatar_size' ] ) {
+							echo get_avatar( $comment, $args[ 'avatar_size' ], 'mystery', 'Avatar di ' . $comment->comment_author, array( 'extra_attr' => 'aria-hidden="true"' ) );
+						}
+						
+						echo get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span>';
+					?>
 					</div>
 
 					<div class="comment-metadata">
