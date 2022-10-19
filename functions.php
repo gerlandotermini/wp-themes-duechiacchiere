@@ -210,7 +210,7 @@ class duechiacchiere {
 			</div>
 			<?php
 			if ( $args[ 'has_children' ] ) {
-				echo '<h' . ( intval( $depth ) + 1 ) . ' class="visually-hidden">Risposte al commento di ' . $comment->comment_author . '</h' . ( intval( $depth ) + 1 ) . '>';
+				echo '<h' . ( intval( $depth ) + 2 ) . ' class="visually-hidden">Risposte al commento di ' . $comment->comment_author . '</h' . ( intval( $depth ) + 2 ) . '>';
 			}
 	}
 
