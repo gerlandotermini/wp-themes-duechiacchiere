@@ -78,6 +78,20 @@ main {
                 text-align: center;
             }
         }
+        // WordPress styles for image alignment
+        img {
+
+            &.alignright {
+                float:right;
+            }
+            &.alignleft {
+                float:left;
+            }
+            &.aligncenter {
+                display: block;
+                margin: 0 auto;
+            }
+        }
         
         // Videos
         .wp-video, video.wp-video-shortcode, .mejs-container, .mejs-overlay.load {
