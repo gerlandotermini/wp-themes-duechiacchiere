@@ -200,11 +200,17 @@ body {
                     justify-content: space-between;
                     border-bottom: $border-secondary;
 
+                    &.current-menu-item > a, &.current-menu-parent > a {
+                        text-shadow: 0 0 2px #444;
+                    }
+
                     a {
                         display: block;
                         flex: 1;
                         padding: $padding-regular;
                         text-decoration: none;
+
+                        
 
                         &.open-submenu{
                             flex: 0;
