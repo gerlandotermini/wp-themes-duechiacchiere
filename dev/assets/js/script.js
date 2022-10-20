@@ -188,8 +188,22 @@ window.addEventListener( 'load', ( event ) => {
 
   // Add elements to open and close the submenus
   document.querySelectorAll( '#primary-menu .menu-item-has-children' ).forEach( item => {
-    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">entra in questa stanza</span></a>' );
-    item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="javascript:;">esci dalla stanza</a></li>' );
+    // Use Italian grammar to determine which preposition to use
+    let room_name = item.childNodes[0].textContent;
+
+    let preposition = 'dal';
+    if ( [ 'a', 'e', 'i', 'o', 'u' ].indexOf( room_name.charAt(0) ) != -1 ) { // word starts with a vowel
+      preposition += "l'";
+    }
+    else if ( room_name.slice(-1) == 'a' ) { // word ends with 'a'
+      preposition += 'la ';
+    }
+    else {
+      preposition += ' ';
+    }
+
+    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">entra in ' + room_name + '</span></a>' );
+    item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="javascript:;">esci ' + preposition + room_name + '</a></li>' );
     
     addMultiEventListener( item.querySelector( '.open-submenu' ), function( e ) {
       e.preventDefault();
