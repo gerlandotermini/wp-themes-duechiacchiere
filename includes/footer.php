@@ -32,9 +32,9 @@
 			<ul>
 				<li><a href="https://supporthost.com/it/a340" title="il fornitore di hosting italiano che ospita dal 2005 queste pagine">Il servizio che mi ospita</a></li>
 				<li><a href="https://it.wordpress.org/" title="sito italiano del sistema WordPress per la gestione dei contenuti">Il sistema di gestione</a></li>
-				<li><a href="/accessibile" title="leggi le informazioni sul livello di accessibilit&agrave; di queste pagine">Un sito accessibile a tutti</a></li>
-				<li><a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fduechiacchiere.it%2F" rel="nofollow" hreflang="en" title="pagina in inglese per verificare la correttezza semantica di un sito">Un codice impeccabile</a></li>
+				<li><a href="https://github.com/gerlandotermini/wp-themes-duechiacchiere" title="L'archivio dove scaricare una copia del mio tema">Il vestito del blog</a></li>
 				<li><a href="http://www.rxstrip.it/">L'artista del ragazzo</a></li>
+				<li><a href="/accessibile" title="leggi le informazioni sul livello di accessibilit&agrave; di queste pagine">Un sito accessibile a tutti</a></li>
 				<li><a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" rel="nofollow" title="pagina in italiano che descrive la licenza per i contenuti">La licenza di attribuzione</a></li>
 			</ul>
 		</nav>
@@ -43,11 +43,13 @@
 			<h2>Varie ed eventuali</h2>
 			<ul>
 				<li><a href="https://www.linkedin.com/in/gerlando/" hreflang="en">Il mio profilo LinkedIn</a></li>
-				<li><a href="https://github.com/gerlandotermini" hreflang="en">Il codice che scrivo</a></li>
 				<li><a href="/contatto" title="lasciami un messaggio tramite il modulo di contatto">La buca delle lettere</a></li>
-				<li><a href="/feed">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> degli articoli</a></li>
-				<li><a href="/privacy">La tua <span lang="en">privacy</span> al sicuro</a></li>
 				<li><a href="/moderazione" title="domande e risposte sulle mie regole di moderazione dei commenti">Le regole per i commenti</a></li>
+				<li><a href="/privacy">La tua <span lang="en">privacy</span> al sicuro</a></li>
+				<li><a href="https://512kb.club/" hreflang="en">Membro del club dei 512KB</a></li>
+				<li><a href="/feed">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> degli articoli</a></li>
+				
+				
 			</ul>
 		</nav>
 	</footer>
