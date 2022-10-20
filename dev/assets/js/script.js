@@ -202,8 +202,8 @@ window.addEventListener( 'load', ( event ) => {
       preposition += ' ';
     }
 
-    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu" href="javascript:;"><span class="visually-hidden">entra in ' + room_name + '</span></a>' );
-    item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="javascript:;">esci ' + preposition + room_name + '</a></li>' );
+    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu" href="#"><span class="visually-hidden">entra in ' + room_name + '</span></a>' );
+    item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="#">esci ' + preposition + room_name + '</a></li>' );
     
     addMultiEventListener( item.querySelector( '.open-submenu' ), function( e ) {
       e.preventDefault();
