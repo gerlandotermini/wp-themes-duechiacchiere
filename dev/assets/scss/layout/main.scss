@@ -152,7 +152,7 @@ main {
                 font-weight: 400;
                 font-size: $font-size-extra-small;
                 padding: $padding-small $padding-regular;
-                word-break: break-all;
+                word-break: break-word;
             }
         }
         p {
@@ -166,7 +166,7 @@ main {
             .entry a::after{
                 color: #888;
                 content: " [ " attr(href) " ]";
-                word-break: break-all;
+                word-break: break-word;
             }
         }
     }
@@ -221,7 +221,7 @@ main {
                 }
     
                 a {
-                    word-break: break-all;
+                    word-break: break-word;
     
                     @include media-query( print ) { 
                         &.comment-reply-link {
