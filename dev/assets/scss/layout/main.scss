@@ -94,7 +94,10 @@ main {
         }
         
         // Videos
-        .wp-video, video.wp-video-shortcode, .mejs-container, .mejs-overlay.load {
+        .wp-video, .mejs-container, .mejs-overlay.load {
+            margin-bottom: $margin-regular;
+            max-width: 100% !important;
+            position: relative;
             width: 100% !important;
 
             @include media-query( print ) {
@@ -107,12 +110,6 @@ main {
         .mejs-container.wp-audio-shortcode {
             height: auto !important;
             padding-top: 40px;
-        }
-        .wp-video, video.wp-video-shortcode {
-            max-width: 100% !important;
-        }
-        video.wp-video-shortcode {
-            position: relative;
         }
         .mejs-mediaelement {
             position: absolute;
