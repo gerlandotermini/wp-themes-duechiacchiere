@@ -293,14 +293,6 @@
 	</script>
 	<!-- END: Schema.org definitions -->
 
-	<!-- BEGIN: Google fonts -->
-	<?php if ( !duechiacchiere::is_naked_day() ): ?>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="preload" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Outfit:wght@300;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-	<?php endif ?>
-	<!-- END: Google fonts -->
-
 	<!-- BEGIN: Favicon -->
 	<link rel="icon" type="image/x-icon" href="/favicon.ico">
 	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/favicon-32x32.png">
