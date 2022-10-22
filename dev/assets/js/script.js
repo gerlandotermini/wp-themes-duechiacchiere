@@ -55,7 +55,7 @@ window.addEventListener( 'load', ( event ) => {
   // Function to attach multiple event listeners to an element
   let addMultiEventListener = function( element, listener ) {
     element.addEventListener( 'click', listener, false );
-    element.addEventListener( 'touchstart', listener, false );
+    element.addEventListener( 'touchstart', listener, {passive: true} ); // Passive listeners: https://web.dev/uses-passive-event-listeners/
 
     // Prevent touch event from triggering a fake 'click' event
     element.addEventListener('touchend', event => { event.preventDefault(); });
