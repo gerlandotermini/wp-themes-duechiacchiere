@@ -1,53 +1,39 @@
 	<footer aria-label="Collegamenti utili">
 		<div class="about-me">
-			<h2>L'inquilino</h2>
-			<p>Sono un <a href="correva-lanno" title="una biografia non autorizzata dell'autore del blog">eterno adolescente</a>. Nel 2008 mi sono trasferito negli Stati Uniti, alla ricerca del mio equilibrio interno. In questa casetta virtuale sperduta nella rete condivido i miei pensieri, con l'auspicio che possano tornare utili a qualche navigante smarrito.</p>
+			<h2>Due Chiacchiere</h2>
+			<p>
+				L'arte di scrivere sta nel saper tirar fuori da quel nulla che si &egrave; capito della vita tutto il resto. Poi, finita la pagina, ti accorgi che quel che avevi capito &egrave; proprio un nulla.
+			</p>
 		</div>
-
-		<nav>
-			<h2>Indietro nel tempo</h2>
-			<ul>
-				<?php 
-					$month_links = explode( '</li>', str_replace( array( '<li>', "\n" ), '', wp_get_archives( 'type=monthly&limit=120&echo=0' ) ) ); 
-					$count_links = 0;
-
-					foreach ( $month_links as $a_month_link ) {
-						if ( $count_links > 4 ) {
-							break;
-						}
-						if ( strpos( $a_month_link, date_i18n( 'F Y' ) ) !== false ) {
-							continue;
-						}
-						
-						echo '<li>' . trim( $a_month_link ) . "</li>";
-						$count_links++;
-					}
-				?>
-				<li><a href="/?day=<?= date_i18n( 'd' ) ?>&monthnum=<?= date_i18n( 'm' ) ?>&year=0" rel="nofollow">Oggi nel passato</a> [<a href="/feed/scrissi-oggi"><abbr title="really simple syndication" lang="en">RSS</abbr></a>]
-			</ul>
-		</nav>
 
 		<nav>
 			<h2>Calce e mattoni</h2>
 			<ul>
-				<li><a href="https://supporthost.com/it/a340" title="il fornitore di hosting italiano che ospita dal 2005 queste pagine">Il servizio che mi ospita</a></li>
-				<li><a href="https://it.wordpress.org/" title="sito italiano del sistema WordPress per la gestione dei contenuti">Il sistema di gestione</a></li>
-				<li><a href="https://github.com/gerlandotermini/wp-themes-duechiacchiere" title="L'archivio dove scaricare una copia del mio tema">Il vestito del blog</a></li>
+				<li><a href="https://supporthost.com/it/a340" title="Il fornitore di hosting italiano che ospita dal 2005 queste pagine">Il servizio che mi ospita</a></li>
+				<li><a href="https://it.wordpress.org/" title="Sito italiano del sistema WordPress per la gestione dei contenuti">Il sistema di gestione</a></li>
+				<li><a href="https://github.com/gerlandotermini/wp-themes-duechiacchiere" title="L'archivio dove scaricare una copia del mio tema" hreflang="en">Il vestito del blog</a></li>
 				<li><a href="http://www.rxstrip.it/">L'artista del ragazzo</a></li>
-				<li><a href="/accessibile" title="leggi le informazioni sul livello di accessibilit&agrave; di queste pagine">Un sito accessibile a tutti</a></li>
+			</ul>
+		</nav>
+
+		<nav>
+			<h2>Collegamenti utili</h2>
+			<ul>
 				<li><a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" rel="nofollow" title="pagina in italiano che descrive la licenza per i contenuti">La licenza di attribuzione</a></li>
+				<li><a href="/accessibile" title="leggi le informazioni sul livello di accessibilit&agrave; di queste pagine">Un sito accessibile a tutti</a></li>
+				<li><a href="/moderazione" title="domande e risposte sulle mie regole di moderazione dei commenti">Le regole per i commenti</a></li>
+				<li><a href="/privacy">La tua <span lang="en">privacy</span> al sicuro</a></li>
+				
 			</ul>
 		</nav>
 
 		<nav>
 			<h2>Varie ed eventuali</h2>
 			<ul>
-				<li><a href="https://www.linkedin.com/in/gerlando/" hreflang="en">Il mio profilo LinkedIn</a></li>
-				<li><a href="/contatto" title="lasciami un messaggio tramite il modulo di contatto">La buca delle lettere</a></li>
-				<li><a href="/moderazione" title="domande e risposte sulle mie regole di moderazione dei commenti">Le regole per i commenti</a></li>
-				<li><a href="/privacy">La tua <span lang="en">privacy</span> al sicuro</a></li>
-				<li><a href="https://512kb.club/" hreflang="en">Membro del club dei 512KB</a></li>
+				<li><a href="/chi-sono" hreflang="en">Ti presento l'inquilino</a></li>
+				<li><a href="/contatto" title="lasciami un messaggio tramite il modulo di contatto">Lascia un messaggio</a></li>
 				<li><a href="/feed">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> degli articoli</a></li>
+				<li><a href="/feed/scrissi-oggi">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> di oggi</a></li>
 				
 				
 			</ul>
@@ -99,13 +85,7 @@ $html = ob_get_contents();
 ob_end_clean();
 
 // Remove line breaks and multiple spaces everywhere except inside <pre> tags
-// $html = duechiacchiere::minify_output( $html );
+$html = duechiacchiere::minify_output( $html );
 echo $html;
 
-// echo dirname( $_SERVER[ 'REQUEST_URI' ] ); exit;
-
-// Save a copy in the cache
-if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/' ) !== false && !is_dir( WP_CONTENT_DIR . '/cache' . dirname( $_SERVER[ 'REQUEST_URI' ] ) ) ) {
-  mkdir( WP_CONTENT_DIR . '/cache' . dirname( $_SERVER[ 'REQUEST_URI' ] ), 0777, true );
-}
-file_put_contents( WP_CONTENT_DIR . '/cache' . $_SERVER[ 'REQUEST_URI' ] . '.html', $html );
+duechiacchiere::add_to_cache( $html );

@@ -53,29 +53,32 @@
 		}
 	}
 
-	$how_many = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
-	$comments_list = get_comments( array(
-		'status' => 'approve',
-		'orderby' => 'comment_date',
-		'number' => $how_many,
-		'type' => 'comment',
-		'author__not_in' => array( 1 ) 
-	) );
+	// Single posts don't have this list because of the cache
+	if ( !is_single() ) {
+		$comments_list = get_comments( array(
+			'status' => 'approve',
+			'orderby' => 'comment_date',
+			'number' => 5,
+			'type' => 'comment',
+			'author__not_in' => array( 1 ) 
+		) );
 
-	if ( !empty( $comments_list ) ) {
-		echo '<div class="widget"><h2>Commenti recenti</h2><ul>';
+		if ( !empty( $comments_list ) ) {
+			echo '<div class="widget"><h2>Commenti recenti</h2><ul>';
 
-		foreach ( $comments_list as $a_comment ) {
-			$comment_post_title = get_the_title( $a_comment->comment_post_ID );
-			$comment_permalink = get_comment_link( $a_comment->comment_ID );
-			$comment_excerpt = duechiacchiere::get_substr_words( $a_comment->comment_content, 150 );
-			echo '<li><h3><a title="Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title . '" href="' . $comment_permalink .'">' . $a_comment->comment_author . ' su ' . $comment_post_title . '</a></h3>' . apply_filters( 'comment_text', $comment_excerpt ) . '</li>';
+			foreach ( $comments_list as $a_comment ) {
+				$comment_post_title = get_the_title( $a_comment->comment_post_ID );
+				$comment_permalink = get_comment_link( $a_comment->comment_ID );
+				$comment_excerpt = duechiacchiere::get_substr_words( $a_comment->comment_content, 150 );
+				echo '<li><h3><a title="Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title . '" href="' . $comment_permalink .'">' . $a_comment->comment_author . ' su ' . $comment_post_title . '</a></h3>' . apply_filters( 'comment_text', $comment_excerpt ) . '</li>';
+			}
+
+			echo '</ul></div>';
 		}
-
-		echo '</ul></div>';
 	}
 
 	if ( !is_404() ) {
+		$how_many = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
 		if ( !is_single() ) {
 			$heading = 'Articoli a casaccio';
 			$list_posts = get_posts( array(
@@ -122,6 +125,26 @@
 
 			echo '</ul></div>';
 		}
+	}
+
+	if ( !is_front_page() ) {
+		echo '<div class="widget"><h2>Indietro nel tempo</h2><ul class="plain-list">';
+
+		$month_links = explode( '</li>', str_replace( array( '<li>', "\n" ), '', wp_get_archives( 'type=monthly&limit=120&echo=0' ) ) ); 
+		$count_links = 0;
+
+		foreach ( $month_links as $a_month_link ) {
+			if ( $count_links > 4 ) {
+				break;
+			}
+			if ( strpos( $a_month_link, date_i18n( 'F Y' ) ) !== false ) {
+				continue;
+			}
+			
+			echo '<li>' . trim( $a_month_link ) . "</li>";
+			$count_links++;
+		}
+		echo '<li><a href="/?day='. date_i18n( 'd' ) . '&monthnum=' . date_i18n( 'm' ) . '&year=0" rel="nofollow">Oggi nel passato</a></li></ul>';
 	}
 
 	if ( is_front_page() && !is_paged() ) {

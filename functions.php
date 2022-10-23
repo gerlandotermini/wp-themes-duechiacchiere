@@ -37,6 +37,11 @@ class duechiacchiere {
 		// Filter really long comments (spam)
 		add_filter( 'preprocess_comment' , array( __CLASS__, 'preprocess_comment' ) );
 
+		// Update cache after a comment is posted or edited or deleted
+		add_action( 'comment_post', array( __CLASS__, 'comment_post' ), 10, 3 );
+		add_action( 'edit_comment', array( __CLASS__, 'edit_comment' ), 10, 2 );
+		add_action( 'trash_comment', array( __CLASS__, 'edit_comment' ), 10, 2 );
+
 		// Move the 'Cancel reply' link next to the button to submit a comment
 		add_filter( 'cancel_comment_reply_link', '__return_empty_string' );
 
@@ -48,9 +53,8 @@ class duechiacchiere {
 		add_filter( 'style_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 		add_filter( 'script_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 
-		// Update the Google Sitemap file whenever a new post is published
-		add_action( 'post_updated', array( __CLASS__, 'xml_sitemap' ) );
-		add_action( 'publish_page', array( __CLASS__, 'xml_sitemap' ) );
+		// Update the sitemap file whenever a new post is published
+		add_action( 'transition_post_status', array( __CLASS__, 'transition_post_status' ), 10, 3 );
 
 		// Generate a today's posts feed
 		add_feed( 'scrissi-oggi', array( __CLASS__, 'feed_today_in_the_past' ) );
@@ -164,8 +168,20 @@ class duechiacchiere {
 		if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 ) {
 			die( 'Pussa via brutta bertuccia' );
 		};
-		
+
 		return $commentdata;
+	}
+
+	public static function comment_post( $comment_id = 0, $comment_approved = 0, $commentdata = array() ) {
+		// Delete cached version of this page (footer will regenerate it) and refresh homepage
+		if ( !empty( $commentdata[ 'comment_post_ID' ] ) ) {
+			$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
+			duechiacchiere::delete_from_cache( $permalink_path );
+		}
+	}
+
+	public static function edit_comment( $comment_id = 0, $comment = '' ) {
+		duechiacchiere::comment_post( $comment_id, 1, array( 'comment_post_ID' => $comment->comment_post_ID ) );
 	}
 
 	public static function comment_callback( $comment, $args, $depth ) { ?>
@@ -228,12 +244,38 @@ class duechiacchiere {
 		return str_replace( get_site_url(), get_home_url() . '/wp', $src );
 	}
 
-	public static function xml_sitemap() {
+	public static function transition_post_status( $new_status = '', $old_status = '', $post = 0 ) {
+		// Cache
+
+		// Bail if we're not dealing with a published post, which shouldn't be cached anyway
+		if ( $old_status != 'publish' && $new_status != 'publish' ) {
+			return 0;
+		}
+
+		// Note: get_sample_permalink doesn't add a leading slash to the permalink, and returns an array
+		$permalink = get_sample_permalink( $post->ID );
+		$permalink_path = '/' . $permalink[ 1 ];
+
+		// Delete the old version from the cache
+		duechiacchiere::delete_from_cache( $permalink_path );
+
+		// If the new status is publish, generate a new cached version by pinging the page itself
+		if ( $new_status == 'publish' ) {
+			file_get_contents( home_url() . $permalink_path );
+		}
+
+		// Sitemap
+
+		// Bail if the status didn't change (like saving a new version of a draft)
+		if ( $old_status == $new_status ) {
+			return 0;
+		}
+
 		$sitemap_file = '';
 		if ( !empty( $_SERVER[ 'DOCUMENT_ROOT' ] ) ) {
 			if ( file_exists( $_SERVER[ 'DOCUMENT_ROOT' ] . '/wp-config.php' ) ) {
 				$sitemap_file = $_SERVER[ 'DOCUMENT_ROOT' ] . '/sitemap.xml';
-			} else if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/../wp-config.php')) {
+			} else if ( file_exists( $_SERVER['DOCUMENT_ROOT'] . '/../wp-config.php' ) ) {
 				$sitemap_file = $_SERVER[ 'DOCUMENT_ROOT' ] . '/../sitemap.xml';
 			}
 		}
@@ -242,25 +284,26 @@ class duechiacchiere {
 			return 0;
 		}
 
-		// Don't generate the sitemap file more than once every hour
+		// Don't generate the sitemap more than once every hour
 		if ( file_exists( $sitemap_file ) && ( date( 'U' ) - date( 'U', filemtime( $sitemap_file ) ) < 3600 ) ) {
-			return false;
+			return 0;
 		}
-		
+
 		$posts = get_posts( array(
 			'numberposts' => -1,
 			'orderby' => 'modified',
-			'post_type' => array( 'post','page' ),
-			'order' => 'DESC'
+			'order' => 'DESC',
+			'post_status' => 'publish',
+			'post_type' => array( 'post' )
 		) );
 	
 		$sitemap = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-			
+
 		foreach ( $posts as $a_post ) {
 			$postdate = explode( ' ', $a_post->post_modified );
 			$sitemap .= '<url><loc>' . get_permalink( $a_post->ID ) . '</loc><lastmod>' . $postdate[ 0 ] . '</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>';
 		}
-	
+
 		$sitemap .= '</urlset>';
 		file_put_contents( $sitemap_file, $sitemap );
 	}
@@ -438,6 +481,45 @@ class duechiacchiere {
 		$html = preg_replace( "/[\r\n\t]*/", '', $html );
 
 		return $html;
+	}
+
+	public static function get_cache_path( $permalink = '' ) {
+		// Is this the homepage?
+		if ( $permalink == '/' ) {
+			return WP_CONTENT_DIR . '/cache/index.html';
+		}
+		else {
+			return WP_CONTENT_DIR . '/cache' . $permalink . '.html';
+		}
+	}
+
+	// Save a copy of a page in the cache
+	public static function add_to_cache( $html = '' ) {
+		// Please add the following lines to your .htaccess, inside a mod_rewrite block:
+		// 	RewriteCond %{DOCUMENT_ROOT}/content/cache/$1.html -f
+		//  RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC] # no cache if user is logged in
+		//  RewriteRule (.*) /content/cache/$1.html [L]
+
+		// Cache only individual posts and the homepage, not categories or other archives, or 404s, and don't cache pages with a query string
+		if ( ( !is_single() && !is_front_page() ) || substr_count( $_SERVER[ 'REQUEST_URI' ], '/' ) != 1 || substr_count( $_SERVER[ 'REQUEST_URI' ], '?' ) != 0 || is_user_logged_in() ) {
+			return false;
+		}
+
+		// In case I change my mind, this is the code to create all the subfolders
+		// if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/' ) !== false && !is_dir( dirname( $target ) ) ) {
+		// 	mkdir( dirname( $target ), 0755, true );
+		// }
+
+		file_put_contents( duechiacchiere::get_cache_path( $_SERVER[ 'REQUEST_URI' ] ), $html . '<!--' . date( DATE_RFC2822 ) . '-->' );
+	}
+
+	// Delete a page from the cache and refresh the homepage
+	public static function delete_from_cache( $permalink_path = '' ) {
+		@unlink( duechiacchiere::get_cache_path( $permalink_path ) );
+
+		// Homepage
+		@unlink( duechiacchiere::get_cache_path( '/' ) );
+		file_get_contents( home_url() );
 	}
 
 	public static function first_post_image( $post_content ) {

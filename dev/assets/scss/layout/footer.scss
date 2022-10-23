@@ -62,7 +62,8 @@ footer {
         padding-left: 0;
 
         li {
-            padding: 0 0 $padding-small;
+            line-height: 1em;
+            padding-bottom: 16px;
 
             &:last-child {
                 padding-bottom: 0;
