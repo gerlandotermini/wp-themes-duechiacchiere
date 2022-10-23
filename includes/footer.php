@@ -92,13 +92,20 @@
 
 	<!-- END: WP_Footer -->
 </body>
-</html>
-
-<?php
+</html><?php
 // Minify the output
 $html = ob_get_contents();
 
 ob_end_clean();
 
 // Remove line breaks and multiple spaces everywhere except inside <pre> tags
-echo duechiacchiere::minify_output( $html );
+// $html = duechiacchiere::minify_output( $html );
+echo $html;
+
+// echo dirname( $_SERVER[ 'REQUEST_URI' ] ); exit;
+
+// Save a copy in the cache
+if ( strpos( $_SERVER[ 'REQUEST_URI' ], '/' ) !== false && !is_dir( WP_CONTENT_DIR . '/cache' . dirname( $_SERVER[ 'REQUEST_URI' ] ) ) ) {
+  mkdir( WP_CONTENT_DIR . '/cache' . dirname( $_SERVER[ 'REQUEST_URI' ] ), 0777, true );
+}
+file_put_contents( WP_CONTENT_DIR . '/cache' . $_SERVER[ 'REQUEST_URI' ] . '.html', $html );
