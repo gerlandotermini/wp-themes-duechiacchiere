@@ -496,9 +496,18 @@ class duechiacchiere {
 	// Save a copy of a page in the cache
 	public static function add_to_cache( $html = '' ) {
 		// Please add the following lines to your .htaccess, inside a mod_rewrite block:
-		// 	RewriteCond %{DOCUMENT_ROOT}/content/cache/$1.html -f
-		//  RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC] # no cache if user is logged in
-		//  RewriteRule (.*) /content/cache/$1.html [L]
+		// # Homepage
+		// RewriteCond %{REQUEST_URI} ^/$
+		// RewriteCond %{DOCUMENT_ROOT}/content/cache/index.html -f
+		// RewriteCond %{REQUEST_URI} !^/content/cache/ [NC]
+		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC]
+		// RewriteRule .* /content/cache/index.html [L]
+
+		// # All other pages
+		// RewriteCond %{DOCUMENT_ROOT}/content/cache/$1.html -f
+		// RewriteCond %{REQUEST_URI} !^/content/cache/ [NC]
+		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC]
+		// RewriteRule (.*) /content/cache/$1.html [L]    
 
 		// Cache only individual posts and the homepage, not categories or other archives, or 404s, and don't cache pages with a query string
 		if ( ( !is_single() && !is_front_page() ) || substr_count( $_SERVER[ 'REQUEST_URI' ], '/' ) != 1 || substr_count( $_SERVER[ 'REQUEST_URI' ], '?' ) != 0 || is_user_logged_in() ) {
