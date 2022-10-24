@@ -498,12 +498,14 @@ class duechiacchiere {
 		// Please add the following lines to your .htaccess, inside a mod_rewrite block:
 		// # Homepage
 		// RewriteCond %{REQUEST_URI} ^/$
+		// RewriteCond %{QUERY_STRING} !.+ # if there's a query string, don't use cached version
 		// RewriteCond %{DOCUMENT_ROOT}/content/cache/index.html -f
 		// RewriteCond %{REQUEST_URI} !^/content/cache/ [NC]
 		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC]
 		// RewriteRule .* /content/cache/index.html [L]
 
 		// # All other pages
+		// RewriteCond %{QUERY_STRING} !.+ # if there's a query string, don't use cached version
 		// RewriteCond %{DOCUMENT_ROOT}/content/cache/$1.html -f
 		// RewriteCond %{REQUEST_URI} !^/content/cache/ [NC]
 		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC]
@@ -512,7 +514,10 @@ class duechiacchiere {
 		// Then create a 'cache' folder under wp-content, writeable to the web server
 
 		// Cache only individual posts and the homepage, not categories or other archives, or 404s, and don't cache pages with a query string
-		if ( ( !is_single() && !is_front_page() ) || substr_count( $_SERVER[ 'REQUEST_URI' ], '/' ) != 1 || substr_count( $_SERVER[ 'REQUEST_URI' ], '?' ) != 0 || is_user_logged_in() ) {
+		if ( ( !is_single() && !is_front_page() ) || 
+			substr_count( $_SERVER[ 'REQUEST_URI' ], '/' ) != 1 ||
+			!empty( $_GET ) ||
+			is_user_logged_in() ) {
 			return false;
 		}
 
