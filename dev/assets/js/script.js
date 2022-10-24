@@ -6,7 +6,7 @@
 // 4. Menu
 // 5. User Experience
 
-window.addEventListener( 'load', ( event ) => {
+window.addEventListener( 'DOMContentLoaded', ( event ) => {
   // WordPress COOKIEHASH (replaced when script is enqueued)
   const duechiacchiere = { 'COOKIEHASH': 'COOKIEHASHVALUE' };
 
@@ -60,6 +60,8 @@ window.addEventListener( 'load', ( event ) => {
     // Prevent touch event from triggering a fake 'click' event
     element.addEventListener('touchend', event => { event.preventDefault(); });
   }
+
+  // Function to retrieve a cookie's value
   let getCookie = function( name ) {
     const value = '; ' + document.cookie;
     const parts = value.split( '; ' + name + '=' );
@@ -90,32 +92,78 @@ window.addEventListener( 'load', ( event ) => {
   // 3. Comments
   // ----------------------------------------------------------------
 
-  // Show/Hide the "Rispondi" button after it's been clicked
+  // Reattach the comment form as needed
   if ( document.body.classList.contains( 'single' ) ) {
-    let showReplyButton = function( e ) {
-      // e.preventDefault();
-
-      let reply_button = document.getElementById( 'restore-reply-link' );
+    let showOtherReplyButton = function() {
+      let reply_button = document.getElementById( 'restore-reply-button' );
       if ( reply_button !== null ) {
         reply_button.classList.remove( 'visually-hidden' );
         reply_button.removeAttribute( 'id' );
       }
     }
 
-    let hideReplyButton = function( e ) {
-      showReplyButton();
+    let commentReply = function( e ) {
+      e.preventDefault();
 
-      e.currentTarget.setAttribute( 'id', 'restore-reply-link' );
+      // If the user had clicked on another reply button, restore its original state
+      showOtherReplyButton();
+
+      // Hide the reply button
+      e.currentTarget.setAttribute( 'id', 'restore-reply-button' );
       e.currentTarget.classList.add( 'visually-hidden' );
+      
+      // Set aside the original reply title
+      const replyTitle = document.getElementById( 'reply-title' );
+      if ( !replyTitle.hasAttribute( 'data-original-title' ) ) {
+        replyTitle.setAttribute( 'data-original-title', replyTitle.textContent );
+      }
+
+      // Update the heading
+      replyTitle.textContent = e.currentTarget.getAttribute( 'data-replyto' );
+
+      // Set the value of the hidden field for the parent comment
+      document.getElementById( 'comment_parent' ).value = e.currentTarget.getAttribute( 'data-commentid' );
+
+      // Move the comment form
+      e.currentTarget.closest( 'li' ).appendChild( document.getElementById( 'commentform' ).parentElement );
+
+      // Show the 'cancel' button
+      document.getElementById( 'cancel-comment-reply' ).style.display = 'block';
+
+      // Focus on the comment field
+      document.getElementById( 'comment' ).focus();
+    }
+
+    let commentCancelReply = function( e ) {
+      e.preventDefault();
+
+      // If the user had clicked on another reply button, restore its original state
+      showOtherReplyButton();
+
+      // Hide the 'cancel' button
+      document.getElementById( 'cancel-comment-reply' ).style.display = 'none';
+
+      // Reset the heading
+      const replyTitle = document.getElementById( 'reply-title' );
+      replyTitle.textContent = replyTitle.getAttribute( 'data-original-title' );
+
+      // Reset the value of the hidden field for the parent comment
+      document.getElementById( 'comment_parent' ).value = 0;
+
+      // Move the form back
+      document.getElementById( 'comments' ).appendChild( document.getElementById( 'commentform' ).parentElement );
+
+      // Focus on the comment field
+      document.getElementById( 'comment' ).focus();
     }
 
     document.querySelectorAll( '.comment-reply-link' ).forEach( link => {
-      addMultiEventListener( link, hideReplyButton );
+      addMultiEventListener( link, commentReply );
     } );
 
-    const cancel_comment_reply_link = document.getElementById( 'cancel-comment-reply-link' );
-    if ( cancel_comment_reply_link !== null ) {
-      addMultiEventListener( cancel_comment_reply_link, showReplyButton );
+    const cancel_comment_reply = document.getElementById( 'cancel-comment-reply' );
+    if ( cancel_comment_reply !== null ) {
+      addMultiEventListener( cancel_comment_reply, commentCancelReply );
     }
   }
 

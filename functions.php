@@ -93,7 +93,7 @@ class duechiacchiere {
 		wp_dequeue_style( 'wc-block-style' );
 		wp_dequeue_style( 'global-styles' );
 
-		wp_enqueue_script( 'comment-reply' );
+		wp_deregister_script( 'comment-reply' );
 	}
 
 	public static function print_styles() {
@@ -498,14 +498,14 @@ class duechiacchiere {
 		// Please add the following lines to your .htaccess, inside a mod_rewrite block:
 		// # Homepage
 		// RewriteCond %{REQUEST_URI} ^/$
-		// RewriteCond %{QUERY_STRING} !.+ # if there's a query string, don't use cached version
+		// RewriteCond %{QUERY_STRING} !.+
 		// RewriteCond %{DOCUMENT_ROOT}/content/cache/index.html -f
 		// RewriteCond %{REQUEST_URI} !^/content/cache/ [NC]
 		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC]
 		// RewriteRule .* /content/cache/index.html [L]
 
 		// # All other pages
-		// RewriteCond %{QUERY_STRING} !.+ # if there's a query string, don't use cached version
+		// RewriteCond %{QUERY_STRING} !.+
 		// RewriteCond %{DOCUMENT_ROOT}/content/cache/$1.html -f
 		// RewriteCond %{REQUEST_URI} !^/content/cache/ [NC]
 		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC]

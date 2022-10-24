@@ -42,12 +42,15 @@ $comment_count = get_comments_number();
 			'url' => '<p class="comment-form-url"><label for="url">Sito Web</label> <input id="url" name="url" type="text" value="" size="5" maxlength="200"></p>',
 			'cookies' => '<input type="hidden" value="1" name="wp-comment-cookies-consent">'
 		),
+		'format' => 'html5',
+		'id_form' => 'commentform', // let's make sure this matches what the JS code is looking for (when attaching the form around)
 		'logged_in_as' => null,
 		'title_reply' => 'Lascia un commento',
 		'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
 		'title_reply_after'  => '</h2>',
-		'submit_field' => '<p class="form-submit">%1$s <button rel="nofollow" id="cancel-comment-reply-link" style="display:none">Annulla risposta</button> %2$s</p>',
-		'format' => 'html5'
+		'submit_field' => '<p class="form-submit">%1$s <button rel="nofollow" id="cancel-comment-reply" style="display:none">Annulla risposta</button> %2$s</p>',
+		
+
 	) );
 	?>
 </section><!-- #comments -->
