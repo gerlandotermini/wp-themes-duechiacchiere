@@ -507,7 +507,9 @@ class duechiacchiere {
 		// RewriteCond %{DOCUMENT_ROOT}/content/cache/$1.html -f
 		// RewriteCond %{REQUEST_URI} !^/content/cache/ [NC]
 		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC]
-		// RewriteRule (.*) /content/cache/$1.html [L]    
+		// RewriteRule (.*) /content/cache/$1.html [L]
+		//
+		// Then create a 'cache' folder under wp-content, writeable to the web server
 
 		// Cache only individual posts and the homepage, not categories or other archives, or 404s, and don't cache pages with a query string
 		if ( ( !is_single() && !is_front_page() ) || substr_count( $_SERVER[ 'REQUEST_URI' ], '/' ) != 1 || substr_count( $_SERVER[ 'REQUEST_URI' ], '?' ) != 0 || is_user_logged_in() ) {
