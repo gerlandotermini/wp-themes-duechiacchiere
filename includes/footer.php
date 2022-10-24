@@ -88,4 +88,4 @@ ob_end_clean();
 $html = duechiacchiere::minify_output( $html );
 echo $html;
 
-// duechiacchiere::add_to_cache( $html );
+duechiacchiere::add_to_cache( $html );
