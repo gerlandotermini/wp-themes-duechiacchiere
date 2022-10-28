@@ -316,7 +316,10 @@
 
 	<header id="header-container">
 		<div id="branding">
-			<img id="logo" src="<?= get_template_directory_uri() ?>/assets/img/camu/<?= $default_category ?>.webp" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120">
+			<?php
+			$b64_image = base64_encode( file_get_contents( get_template_directory() . '/assets/img/camu/' . $default_category . '.webp' ) );
+			?>
+			<img id="logo" src="data:image/webp;base64,<?= $b64_image ?>" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120">
 			<a id="name" href="/" title="Torna alla pagina iniziale del sito">due chiacchiere</a>
 		</div>
 
