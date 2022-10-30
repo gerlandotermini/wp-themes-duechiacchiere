@@ -108,7 +108,7 @@
 							foreach ( $pages as $a_page_html ) {
 								$loop_page = trim( strip_tags( $a_page_html ) );
 								if ( $loop_page != 'prev_placeholder' && $loop_page != 'next_placeholder' ) {
-									echo '<li class="pagination-item">' . str_replace( 'href=', "title=\"Vai alla pagina $loop_page dell'archivio\" href=", $a_page_html ) . '</li>';
+									echo '<li class="pagination-item number">' . str_replace( 'href=', "title=\"Vai alla pagina $loop_page dell'archivio\" href=", $a_page_html ) . '</li>';
 								}
 							}
 

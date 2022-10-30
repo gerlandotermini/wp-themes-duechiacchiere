@@ -285,90 +285,89 @@ main {
         }
     }
 
-    #pagination {
-        display: none;
+    #pagination ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        list-style: none;
+        margin: 0;
+        padding-left: 0;
 
-        @include media-query( large ) {
-            display: initial;
-            
-            ul {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                list-style: none;
-                padding-left: 0;
+        .pagination-item {
+            background-color: $background;
+            border: $border-secondary;
+            border-right-width: 0;
 
-                .pagination-item {
-                    background-color: $background;
-                    border: $border-secondary;
-                    border-right-width: 0;
+            &:last-child {
+                border-right-width: 1px;
+            }
+            &.previous-page {
+                border-top-left-radius: $padding-small;
+                border-bottom-left-radius: $padding-small;
 
-                    &:last-child {
-                        border-right-width: 1px;
-                    }
-                    &.previous-page {
-                        border-top-left-radius: $padding-small;
-                        border-bottom-left-radius: $padding-small;
+                i, a {
+                    position: relative;
+                    width: 25px;
 
-                        i, a {
-                            position: relative;
-                            width: 25px;
-
-                            &:before {
-                                border-bottom: 8px solid transparent;
-                                border-top: 8px solid transparent;
-                                border-right: 16px solid #464646;
-                                content: '';
-                                display: block;
-                                left: 20px;
-                                position: absolute;
-                                top: 15px;
-                            }
-                        }
-
-                        i:before {
-                            border-right-color: #aaa;
-                        }
-                    }
-                    &.next-page {
-                        border-top-right-radius: $padding-small;
-                        border-bottom-right-radius: $padding-small;
-
-                        i, a {
-                            position: relative;
-                            width: 25px;
-
-                            &:before {
-                                border-bottom: 8px solid transparent;
-                                border-top: 8px solid transparent;
-                                border-right: 16px solid #464646;
-                                content: '';
-                                display: block;
-                                left: 20px;
-                                position: absolute;
-                                top: 15px;
-                                transform: rotate( 180deg );
-                            }
-                        }
-
-                        i:before {
-                            border-right-color: #aaa;
-                        }
-                    }
-
-                    a, i, span {
+                    &:before {
+                        border-bottom: 8px solid transparent;
+                        border-top: 8px solid transparent;
+                        border-right: 16px solid #464646;
+                        content: '';
                         display: block;
-                        height: 1.3em;
-                        padding: 10px 15px;
-                        min-width: 1em;
-                        text-align: center  ;
-                        text-decoration: none;
-                    }
-
-                    span.current {
-                        text-shadow: 0 0 2px #222;
+                        left: 20px;
+                        position: absolute;
+                        top: 15px;
                     }
                 }
+
+                i:before {
+                    border-right-color: #aaa;
+                }
+            }
+            &.next-page {
+                border-top-right-radius: $padding-small;
+                border-bottom-right-radius: $padding-small;
+
+                i, a {
+                    position: relative;
+                    width: 25px;
+
+                    &:before {
+                        border-bottom: 8px solid transparent;
+                        border-top: 8px solid transparent;
+                        border-right: 16px solid #464646;
+                        content: '';
+                        display: block;
+                        left: 20px;
+                        position: absolute;
+                        top: 15px;
+                        transform: rotate( 180deg );
+                    }
+                }
+
+                i:before {
+                    border-right-color: #aaa;
+                }
+            }
+
+            @include media-query( mobile ) {
+                &.number {
+                    display: none;
+                }
+            }
+
+            a, i, span {
+                display: block;
+                height: 1.3em;
+                padding: 10px 15px;
+                min-width: 1em;
+                text-align: center  ;
+                text-decoration: none;
+            }
+
+            span.current {
+                text-shadow: 0 0 2px #222;
             }
         }
     }

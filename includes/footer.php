@@ -88,6 +88,6 @@ ob_end_clean();
 $html = duechiacchiere::minify_output( $html );
 echo $html;
 
-if ( !defined( 'WP_DEBUG' || !WP_DEBUG ) {
+if ( !defined( 'WP_DEBUG' || !WP_DEBUG ) ) {
 	duechiacchiere::add_to_cache( $html );	
 }

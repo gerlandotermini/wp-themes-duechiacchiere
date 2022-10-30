@@ -12,6 +12,7 @@
 	);
 
 	$heading_title = '';
+	$heading_hidden = true;
 	$schema_code = '';
 
 	if ( is_single() ) {
@@ -169,57 +170,62 @@
 			$og_meta[ 'title' ] = "Archivio del$date_string";
 			$og_meta[ 'description' ] = "Sfoglia gli articoli del$date_string in ordine cronologico inverso";
 		}
-
-		if ( is_paged() ) {
-			$og_meta[ 'title' ] .= ", pagina " . get_query_var( 'paged' );
-		}
-
-		$heading_title = "<h1 class=\"visually-hidden\">{$og_meta[ 'title' ]}</h1>";
-		$og_meta[ 'type' ] = 'website';
-
-		if ( home_url( $GLOBALS[ 'wp' ]->request ) != get_bloginfo( 'url' ) ) {
-			$schema_code = ',
-				{
-					"@type": "CollectionPage",
-					"@id": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '#contenuto",
-					"url": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '",
-					"name": "' . ucfirst( strip_tags( get_the_archive_title() ) ) . '",
-					"isPartOf": {
-						"@id": "' . get_bloginfo( 'url' ) . '#contenuto"
-					},
-					"inLanguage": "it-IT",
-					"potentialAction": [
-						{
-							"@type": "ReadAction",
-							"target": [
-								"' . home_url( $GLOBALS[ 'wp' ]->request ) . '"
-							]
-						}
-					]
-				}';
-		}
 	}
 	else if ( is_404() ) {
-		$heading_title = '<h1 class="visually-hidden">Pagina non trovata</h1>';
+		$og_meta[ 'title' ] = 'Pagina non trovata';
 		$default_category = '404';
 	}
 	else if ( is_front_page() ) {
-		$heading_title = '<h1 class="visually-hidden">Articoli recenti</h1>';
+		$og_meta[ 'title' ] = 'Articoli recenti';
 	}
 	else if ( is_page() ) {
 		$title_tag = 'h1';
+		$og_meta[ 'title' ] = get_the_title();
 
 		if ( !empty( $GLOBALS[ 'post' ]->post_excerpt ) ) {
 			$og_meta[ 'description' ] = str_replace( '"', "'", strip_tags( $GLOBALS[ 'post' ]->post_excerpt ) );
 		}
 	}
 	else if ( is_search() ) {
-		$search_keywords = duechiacchiere::scrub_field( $_GET[ 's' ] );
-		$heading_title = "<h1 class=\"visually-hidden\">Risultati della ricerca per: $search_keywords</h1>";
+		$search_keywords = duechiacchiere::scrub_field( $_GET[ 's' ], false );
+		$og_meta[ 'title' ] = "Risultati della ricerca per: <strong>$search_keywords</strong>";
+		$heading_hidden = false;
 
 		if ( !have_posts() ) {
 			$default_category = '404';
 		}
+	}
+
+	if ( is_paged() ) {
+		$og_meta[ 'title' ] .= ", pagina " . get_query_var( 'paged' );
+	}
+
+	if ( $title_tag != 'h1' ) {
+		$heading_title = '<h1' . ( $heading_hidden ? ' class="visually-hidden"' : '' ) .'>' . $og_meta[ 'title' ] . '</h1>';
+	}
+
+	$og_meta[ 'type' ] = 'website';
+
+	if ( home_url( $GLOBALS[ 'wp' ]->request ) != get_bloginfo( 'url' ) ) {
+		$schema_code = ',
+			{
+				"@type": "CollectionPage",
+				"@id": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '#contenuto",
+				"url": "' . home_url( $GLOBALS[ 'wp' ]->request ) . '",
+				"name": "' . ucfirst( strip_tags( get_the_archive_title() ) ) . '",
+				"isPartOf": {
+					"@id": "' . get_bloginfo( 'url' ) . '#contenuto"
+				},
+				"inLanguage": "it-IT",
+				"potentialAction": [
+					{
+						"@type": "ReadAction",
+						"target": [
+							"' . home_url( $GLOBALS[ 'wp' ]->request ) . '"
+						]
+					}
+				]
+			}';
 	}
 
 	$bg_month = isset( $_GET[ 'colors' ] ) ? duechiacchiere::scrub_field( $_GET[ 'colors' ] ) : strtolower( date( 'F' ) );

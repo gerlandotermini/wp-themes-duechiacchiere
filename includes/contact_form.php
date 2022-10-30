@@ -18,7 +18,7 @@ if ( !empty( $_POST[ 'control' ] ) ) {
 			break;
 		}
 
-		$data[ $a_key ] = duechiacchiere::scrub_field( $_POST[ $a_key ] );
+		$data[ $a_key ] = duechiacchiere::scrub_field( $_POST[ $a_key ], true );
 	}
 
 	if ( empty( $error_message ) && filter_var( $data [ 'email' ], FILTER_VALIDATE_EMAIL ) ) {

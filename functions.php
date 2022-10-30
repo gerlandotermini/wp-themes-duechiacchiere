@@ -431,7 +431,7 @@ class duechiacchiere {
 		return implode( array_slice( $parts, 0, $last_part ) ) . ( ( $parts_count > $last_part) ? '...' : '' );
 	}
 
-	public static function scrub_field( $header ) {
+	public static function scrub_field( $header, $strip_tags = true ) {
 		$headers_to_remove = array(
 			'/to\:/i',
 			'/from\:/i',
@@ -442,7 +442,13 @@ class duechiacchiere {
 			'/mime\-version\:/i' 
 		);
 	
-	 	return stripslashes( strip_tags( urldecode( preg_replace( $headers_to_remove, '', $header ) ) ) );
+		$clean_string = stripslashes( urldecode( preg_replace( $headers_to_remove, '', $header ) ) );
+
+		if ( $strip_tags ) {
+			return strip_tags( $clean_string );
+		}
+		
+	 	return htmlspecialchars( $clean_string );
 	}
 
 	public static function minify_output( $html = '' ) {
