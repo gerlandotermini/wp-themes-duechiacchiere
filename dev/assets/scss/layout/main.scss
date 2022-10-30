@@ -268,6 +268,10 @@ main {
             font-size: $font-size-extra-small;
             margin-top: $margin-regular;
 
+            @include media-query( large ) {
+                width: fit-content;
+            }
+
             .submit {
                 margin: 0 $margin-regular 0 0;
                 padding: $padding-small;
@@ -279,9 +283,6 @@ main {
                 padding: $padding-small;
             }
 
-            @include media-query( large ) {
-                width: fit-content;
-            }
         }
     }
 
@@ -293,81 +294,63 @@ main {
         margin: 0;
         padding-left: 0;
 
-        .pagination-item {
-            background-color: $background;
-            border: $border-secondary;
-            border-right-width: 0;
-
-            &:last-child {
-                border-right-width: 1px;
-            }
-            &.previous-page {
+        &.round-edges {
+            .pagination-item:nth-child(2) a {
                 border-top-left-radius: $padding-small;
                 border-bottom-left-radius: $padding-small;
+            }
+        }
 
-                i, a {
-                    position: relative;
-                    width: 25px;
+        .pagination-item {
+            &:first-child  {
+                a, span {
+                    border-top-left-radius: $padding-small;
+                    border-bottom-left-radius: $padding-small;
+                    display: block;
 
-                    &:before {
-                        border-bottom: 8px solid transparent;
-                        border-top: 8px solid transparent;
-                        border-right: 16px solid #464646;
-                        content: '';
-                        display: block;
-                        left: 20px;
-                        position: absolute;
-                        top: 15px;
+                    &.prev {
+                        @include media-query( large ) {
+                            display: none;
+                        }
                     }
                 }
-
-                i:before {
-                    border-right-color: #aaa;
-                }
+                
             }
-            &.next-page {
-                border-top-right-radius: $padding-small;
-                border-bottom-right-radius: $padding-small;
 
-                i, a {
-                    position: relative;
-                    width: 25px;
+            &:last-child {
+                a {
+                    border-top-right-radius: $padding-small;
+                    border-bottom-right-radius: $padding-small;
+                    border-right-width: 1px;
+                    display: block;
 
-                    &:before {
-                        border-bottom: 8px solid transparent;
-                        border-top: 8px solid transparent;
-                        border-right: 16px solid #464646;
-                        content: '';
-                        display: block;
-                        left: 20px;
-                        position: absolute;
-                        top: 15px;
-                        transform: rotate( 180deg );
+                    &.next {
+                        @include media-query( large ) {
+                            display: none;
+                        }
                     }
                 }
-
-                i:before {
-                    border-right-color: #aaa;
-                }
             }
 
-            @include media-query( mobile ) {
-                &.number {
-                    display: none;
-                }
-            }
+            a, span {
 
-            a, i, span {
-                display: block;
-                height: 1.3em;
+                background-color: $background;
+                border: $border-secondary;
+                border-right-width: 0;
+                display: none;
                 padding: 10px 15px;
                 min-width: 1em;
-                text-align: center  ;
+                text-align: center;
                 text-decoration: none;
+                
+                @include media-query( large ) {
+                    display: block;
+                }
+
             }
 
             span.current {
-                text-shadow: 0 0 2px #222;
+                display: block;
             }
         }
     }

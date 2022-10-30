@@ -85,7 +85,7 @@ $html = ob_get_contents();
 ob_end_clean();
 
 // Remove line breaks and multiple spaces everywhere except inside <pre> tags
-$html = duechiacchiere::minify_output( $html );
+// $html = duechiacchiere::minify_output( $html );
 echo $html;
 
 if ( !defined( 'WP_DEBUG' || !WP_DEBUG ) ) {

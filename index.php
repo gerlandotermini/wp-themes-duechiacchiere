@@ -82,46 +82,47 @@
 		<?php if ( $GLOBALS[ 'wp_query' ]->max_num_pages > 0 ): ?>
 			<nav id="pagination">
 				<h2 class="visually-hidden">Sfoglia le pagine del blog</h2>
-				<ul>
-					<?php
-						$current_page = max( 1, intval( get_query_var( 'paged' ) ) );
+				<?php
+					$current_page = max( 1, intval( get_query_var( 'paged' ) ) );
 
-						$pages = paginate_links( array(
-							'base' => str_replace( 99999, '%#%', esc_url( get_pagenum_link( 99999 ) ) ), 
-							'current' => $current_page,
-							'format' => '?paged=%#%',
-							'prev_text' => 'prev_placeholder',
-							'next_text' => 'next_placeholder',
-							'total' => $GLOBALS[ 'wp_query' ]->max_num_pages,
-							'type'  => 'array'
-						) );
+					$pages = paginate_links( array(
+						'base' => str_replace( 99999, '%#%', esc_url( get_pagenum_link( 99999 ) ) ), 
+						'current' => $current_page,
+						'format' => '?paged=%#%',
+						'prev_text' => '<span class="visually-hidden">Pagina precedente</span>',
+						'next_text' => '<span class="visually-hidden">Pagina successiva</span>',
+						'before_page_number' => '<span class="visually-hidden">Pagina </span>',
+						'total' => $GLOBALS[ 'wp_query' ]->max_num_pages,
+						'type'  => 'array'
+					) );
 
-						if ( is_array( $pages ) ) {
+					if ( is_array( $pages ) ) {
+						// Remove first and last from the array
+						$prev_page = array_shift( $pages );
+						$next_page = array_pop( $pages );
+						$ul_class = '';
 
-							if ( $current_page <= 2 ) {
-								echo '<li class="pagination-item previous-page"><i></i></li>';
-							}
-							else {
-								echo '<li class="pagination-item previous-page">' . str_replace( array( 'href=', 'prev_placeholder' ), array( "title=\"Vai alla pagina precedente dell'archivio\" href=", '' ), $pages[ 0 ] ) . '</li>';
-							}
-
-							foreach ( $pages as $a_page_html ) {
-								$loop_page = trim( strip_tags( $a_page_html ) );
-								if ( $loop_page != 'prev_placeholder' && $loop_page != 'next_placeholder' ) {
-									echo '<li class="pagination-item number">' . str_replace( 'href=', "title=\"Vai alla pagina $loop_page dell'archivio\" href=", $a_page_html ) . '</li>';
-								}
-							}
-
-							if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
-								echo '<li class="pagination-item next-page"><i></i></li>';
-							}
-							else {
-								echo '<li class="pagination-item next-page">' . str_replace( array( 'href=', 'next_placeholder' ), array( "title=\"Vai alla pagina successiva dell'archivio\" href=", '' ), $pages[ count( $pages ) - 1 ] ) . '</li>';
-							}
+						// No "previous" arrow on page 2 (to make WAVE happy about adjacent identical links)
+						if ( $current_page == 2 ) {
+							$prev_page = array_shift( $pages );
 						}
-					?>
-					
-				</ul>
+						else if ( $current_page == $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
+							$next_page = array_pop( $pages );
+						}
+
+						if ( $current_page > 2 && $current_page < $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
+							$ul_class = ' class="round-edges"';
+						}
+
+						echo '<ul' . $ul_class . '><li class="pagination-item">' . $prev_page . '</li>';
+
+						foreach ( $pages as $a_page_html ) {
+							echo '<li class="pagination-item">' . $a_page_html . '</li>';
+						}
+
+						echo '<li class="pagination-item">' . $next_page . '</li></ul>';
+					}
+				?>
 			</nav>
 		<?php endif ?>
 	</main>
