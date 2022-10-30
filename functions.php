@@ -8,14 +8,17 @@ class duechiacchiere {
 			'sidebar' => 'External Links'
 		) );
 
+		// Add excerpt to pages
+		add_post_type_support( 'page', 'excerpt' );
+
 		// Redirect shortlinks (with post id) to the actual canonical URLs
 		add_filter( 'template_redirect', array( __CLASS__, 'redirect_post_id_to_canonical_url' ) );
 
-		// Sorry, no Gutenberg allowed
+		// Sorry, no Gutenberg for you
 		add_filter( 'use_block_editor_for_post_type', '__return_false' );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ), 100 );
 
-		// Enqueue styles and scripts, except on CSS Naked Day - https://css-naked-day.github.io/
+		// Insert inline styles and scripts, except on CSS Naked Day - https://css-naked-day.github.io/
 		if ( !self::is_naked_day() ) {
 			add_action( 'wp_head', array( __CLASS__, 'print_styles' ) );
 			add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
@@ -25,25 +28,8 @@ class duechiacchiere {
 		add_filter( 'nav_menu_link_attributes', array( __CLASS__, 'nav_menu_link_attributes' ), 10, 4 );
 		add_filter( 'walker_nav_menu_start_el', array( __CLASS__, 'walker_nav_menu_start_el' ), 10, 4 );
 
-		// Add nofollow to the monthly archive links in the footer
-		add_filter( 'get_archives_link', array( __CLASS__, 'get_archives_link' ) );
-
 		// Customize image HTML wrappers
 		add_shortcode( 'caption', array( __CLASS__, 'img_caption_html' ) );
-
-		// Add excerpt to pages
-		add_post_type_support( 'page', 'excerpt' );
-
-		// Filter really long comments (spam)
-		add_filter( 'preprocess_comment' , array( __CLASS__, 'preprocess_comment' ) );
-
-		// Update cache after a comment is posted or edited or deleted
-		add_action( 'comment_post', array( __CLASS__, 'comment_post' ), 10, 3 );
-		add_action( 'edit_comment', array( __CLASS__, 'edit_comment' ), 10, 2 );
-		add_action( 'trash_comment', array( __CLASS__, 'edit_comment' ), 10, 2 );
-
-		// Move the 'Cancel reply' link next to the button to submit a comment
-		add_filter( 'cancel_comment_reply_link', '__return_empty_string' );
 
 		// Don't generate thumbnails, this theme only uses full size
 		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
@@ -56,6 +42,19 @@ class duechiacchiere {
 		// Update the sitemap file whenever a new post is published
 		add_action( 'transition_post_status', array( __CLASS__, 'transition_post_status' ), 10, 3 );
 
+		// Update cache after a comment is posted or edited or deleted
+		add_action( 'comment_post', array( __CLASS__, 'comment_post' ), 10, 3 );
+		add_action( 'transition_comment_status', array( __CLASS__, 'transition_comment_status' ), 10, 3 );
+
+		// Filter really long comments (spam)
+		add_filter( 'preprocess_comment' , array( __CLASS__, 'preprocess_comment' ) );
+
+		// Move the 'Cancel reply' link next to the button to submit a comment
+		add_filter( 'cancel_comment_reply_link', '__return_empty_string' );
+
+		// Add nofollow to the monthly archive links in the footer
+		add_filter( 'get_archives_link', array( __CLASS__, 'get_archives_link' ) );
+
 		// Generate a today's posts feed
 		add_feed( 'scrissi-oggi', array( __CLASS__, 'feed_today_in_the_past' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ) );
@@ -64,7 +63,6 @@ class duechiacchiere {
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'mce_external_plugins' ) );
 		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
 		add_filter( 'tiny_mce_before_init', array( __CLASS__, 'tiny_mce_before_init' ) );
-
 		add_action( 'admin_head-post.php', array( __CLASS__, 'admin_head_post' ) );
 		add_action( 'admin_head-post-new.php', array( __CLASS__, 'admin_head_post' ) );
 		
@@ -110,8 +108,8 @@ class duechiacchiere {
 		// Add [aria-haspopup] and [aria-expanded] to menu items that have children
 		$item_has_children = in_array( 'menu-item-has-children', $item->classes );
 		if ( $item_has_children ) {
-				$atts[ 'aria-haspopup' ] = 'true';
-				$atts[ 'aria-expanded' ] = 'false';
+			$atts[ 'aria-haspopup' ] = 'true';
+			$atts[ 'aria-expanded' ] = 'false';
 		}
 	
 		return $atts;
@@ -123,10 +121,6 @@ class duechiacchiere {
 		}
 	
 		return $item_output;
-	}
-
-	public static function get_archives_link( $link_html = '' ) {
-		return str_replace( '<a href=', '<a rel="nofollow" href=',  $link_html );
 	}
 
 	public static function img_caption_html( $attr, $content = null ) {
@@ -164,77 +158,6 @@ class duechiacchiere {
 		return "<figure $id class=\"wp-caption $align\" style=\"max-width:{$width}px\">$image$separator <span class=\"wp-caption-text\" aria-hidden=\"true\">$caption</span></figure>";
 	}
 
-	public static function preprocess_comment( $commentdata = array() ) {
-		if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 ) {
-			die( 'Pussa via brutta bertuccia' );
-		};
-
-		return $commentdata;
-	}
-
-	public static function comment_post( $comment_id = 0, $comment_approved = 0, $commentdata = array() ) {
-		// Delete cached version of this page (footer will regenerate it) and refresh homepage
-		if ( !empty( $commentdata[ 'comment_post_ID' ] ) ) {
-			$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
-			duechiacchiere::delete_from_cache( $permalink_path );
-		}
-	}
-
-	public static function edit_comment( $comment_id = 0, $comment = '' ) {
-		duechiacchiere::comment_post( $comment_id, 1, array( 'comment_post_ID' => $comment->comment_post_ID ) );
-	}
-
-	public static function comment_callback( $comment, $args, $depth ) { ?>
-		<li id="comment-<?php comment_ID(); ?>" <?php comment_class( $args[ 'has_children' ] ? 'parent' : '', $comment ); ?>>
-			<div id="div-comment-<?php comment_ID(); ?>" class="comment-body">
-				<header class="comment-meta">
-					<div class="comment-author vcard">
-					<?php 
-						if ( 0 != $args[ 'avatar_size' ] ) {
-							echo get_avatar( $comment, $args[ 'avatar_size' ], 'mystery', 'Avatar di ' . $comment->comment_author, array( 'extra_attr' => 'aria-hidden="true"' ) );
-						}
-						
-						echo get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span>';
-					?>
-					</div>
-
-					<div class="comment-metadata">
-						<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
-							<time datetime="<?php comment_time( 'c' ); ?>">
-								<?php
-								/* translators: 1: comment date, 2: comment time */
-								printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() );
-								?>
-							</time>
-						</a>
-						<?php edit_comment_link( '[M]', ' <span class="edit-link">', '</span>' ); ?>
-					</div>
-
-					<?php if ( '0' == $comment->comment_approved ) : ?>
-						<p class="comment-awaiting-moderation">Il tuo commento &egrave; in attesa di essere moderato.</p>
-					<?php endif; ?>
-				</header>
-
-				<div class="comment-content">
-					<?php comment_text(); ?>
-				</div>
-					
-				<?php
-					echo str_replace( 'aria-label', 'title', get_comment_reply_link( array_merge( $args, array(
-						'add_below' => 'div-comment',
-						'depth' => $depth,
-						'max_depth' => $args[ 'max_depth' ],
-						'before' => '<div class="reply">',
-						'after' => '</div>'
-					) ) ) );
-				?>
-			</div>
-			<?php
-			if ( $args[ 'has_children' ] ) {
-				echo '<h' . ( intval( $depth ) + 2 ) . ' class="visually-hidden">Risposte al commento di ' . $comment->comment_author . '</h' . ( intval( $depth ) + 2 ) . '>';
-			}
-	}
-
 	public static function responsive_youtube_embed( $html, $url, $attr, $post_ID ) {
 		return '<p class="video-container">' . $html . '</p>';
 	}
@@ -244,6 +167,7 @@ class duechiacchiere {
 		return str_replace( get_site_url(), get_home_url() . '/wp', $src );
 	}
 
+	// Handle cache and sitemap generation
 	public static function transition_post_status( $new_status = '', $old_status = '', $post = 0 ) {
 		// Cache
 
@@ -308,6 +232,41 @@ class duechiacchiere {
 		file_put_contents( $sitemap_file, $sitemap );
 	}
 
+	// Refresh the cache whenever a comment is submitted or changes status
+	public static function comment_post( $comment_id = 0, $comment_approved = 0, $commentdata = array() ) {
+
+		// Delete cached version of this page (footer will regenerate it) and refresh homepage
+		if ( !empty( $commentdata[ 'comment_post_ID' ] ) && $comment_approved ) {
+			$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
+			duechiacchiere::delete_from_cache( $permalink_path );
+		}
+	}
+
+	public static function transition_comment_status( $new_status = '', $old_status = '', $comment = 0 ) {
+
+		// Bail if we're not dealing with a published post, which shouldn't be cached anyway
+		if ( $old_status != 'approved' && $new_status != 'approved' ) {
+			return 0;
+		}
+
+		$permalink_path = str_replace( home_url(), '', get_permalink( $comment->comment_post_ID ) );
+
+		// Delete the old version from the cache
+		duechiacchiere::delete_from_cache( $permalink_path );
+	}
+
+	public static function preprocess_comment( $commentdata = array() ) {
+		if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 ) {
+			die( 'Pussa via brutta bertuccia' );
+		};
+
+		return $commentdata;
+	}
+
+	public static function get_archives_link( $link_html = '' ) {
+		return str_replace( '<a href=', '<a rel="nofollow" href=',  $link_html );
+	}
+
 	// Make sure to save the Permalinks settings for WP to add this feed to its rewrite rules
 	public static function feed_today_in_the_past() {
 		load_template( ABSPATH . WPINC . '/feed-rss2.php' );
@@ -340,28 +299,6 @@ class duechiacchiere {
 		return date( 'D, d M Y H:i:s +0000' );
 	}
 
-	// Add custom styles to TinyMCE
-	public static function tiny_mce_before_init( $settings ) {
-		// Only show the block elements that we should use
-		$settings[ 'block_formats' ] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Code=code;Preformatted=pre';
-
-		// Insert the array, JSON ENCODED, into 'style_formats'
-		$settings[ 'style_formats' ] = json_encode( array(
-			array(
-				'title' => 'lang="en"',
-				'selector' => '*',
-				'attributes' => array( 'lang' => 'en' )
-			),
-			array(
-				'title' => 'hreflang="en"',
-				'selector' => 'a',
-				'attributes' => array( 'hreflang' => 'en' )
-			)
-		) );
-
-		return $settings;
-	}
-
 	public static function mce_external_plugins( $plugin_array ) {
 		$plugin_array[ 'tinymce_duechiacchiere' ] = get_template_directory_uri() . '/assets/js/tinymce.js';
 		return $plugin_array;
@@ -390,6 +327,28 @@ class duechiacchiere {
 		return $buttons;
 	}
 
+	// Add custom styles to TinyMCE
+	public static function tiny_mce_before_init( $settings ) {
+		// Only show the block elements that we should use
+		$settings[ 'block_formats' ] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Code=code;Preformatted=pre';
+
+		// Insert the array, JSON ENCODED, into 'style_formats'
+		$settings[ 'style_formats' ] = json_encode( array(
+			array(
+				'title' => 'lang="en"',
+				'selector' => '*',
+				'attributes' => array( 'lang' => 'en' )
+			),
+			array(
+				'title' => 'hreflang="en"',
+				'selector' => 'a',
+				'attributes' => array( 'hreflang' => 'en' )
+			)
+		) );
+
+		return $settings;
+	}
+
 	public static function admin_head_post(){
 		if ( 'page' != get_post_type() ) {
 			echo '
@@ -413,6 +372,59 @@ class duechiacchiere {
 			);
 			$wp_admin_bar->add_node($args);	
 		}
+	}
+
+	// Used in comments.php to customize each comment's structure
+	public static function comment_callback( $comment, $args, $depth ) { 
+		if ( '0' == $comment->comment_approved ) {
+			return '';
+		}
+		?>
+
+		<li id="comment-<?php comment_ID(); ?>" <?php comment_class( $args[ 'has_children' ] ? 'parent' : '', $comment ); ?>>
+			<div id="div-comment-<?php comment_ID(); ?>" class="comment-body">
+				<header class="comment-meta">
+					<div class="comment-author vcard">
+					<?php 
+						if ( 0 != $args[ 'avatar_size' ] ) {
+							echo get_avatar( $comment, $args[ 'avatar_size' ], 'mystery', 'Avatar di ' . $comment->comment_author, array( 'extra_attr' => 'aria-hidden="true"' ) );
+						}
+						
+						echo get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span>';
+					?>
+					</div>
+
+					<div class="comment-metadata">
+						<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
+							<time datetime="<?php comment_time( 'c' ); ?>">
+								<?php
+								/* translators: 1: comment date, 2: comment time */
+								printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() );
+								?>
+							</time>
+						</a>
+						<?php edit_comment_link( '[M]', ' <span class="edit-link">', '</span>' ); ?>
+					</div>
+				</header>
+
+				<div class="comment-content">
+					<?php comment_text(); ?>
+				</div>
+					
+				<?php
+					echo str_replace( 'aria-label', 'title', get_comment_reply_link( array_merge( $args, array(
+						'add_below' => 'div-comment',
+						'depth' => $depth,
+						'max_depth' => $args[ 'max_depth' ],
+						'before' => '<div class="reply">',
+						'after' => '</div>'
+					) ) ) );
+				?>
+			</div>
+			<?php
+			if ( $args[ 'has_children' ] ) {
+				echo '<h' . ( intval( $depth ) + 2 ) . ' class="visually-hidden">Risposte al commento di ' . $comment->comment_author . '</h' . ( intval( $depth ) + 2 ) . '>';
+			}
 	}
 
 	public static function get_substr_words( $string, $desired_length ) {
