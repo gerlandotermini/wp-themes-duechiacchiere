@@ -12,7 +12,7 @@
 				<li><a href="https://supporthost.com/it/a340" title="Il fornitore di hosting italiano che ospita dal 2005 queste pagine">Il servizio che mi ospita</a></li>
 				<li><a href="https://it.wordpress.org/" title="Sito italiano del sistema WordPress per la gestione dei contenuti">Il sistema di gestione</a></li>
 				<li><a href="https://github.com/gerlandotermini/wp-themes-duechiacchiere" title="L'archivio dove scaricare una copia del mio tema" hreflang="en">Il vestito del blog</a></li>
-				<li><a href="http://www.rxstrip.it/">L'artista del ragazzo</a></li>
+				<li><a href="https://www.rxstrip.it/">L'artista del ragazzo</a></li>
 			</ul>
 		</nav>
 
@@ -88,4 +88,6 @@ ob_end_clean();
 $html = duechiacchiere::minify_output( $html );
 echo $html;
 
-duechiacchiere::add_to_cache( $html );
+if ( !defined( 'WP_DEBUG' || !WP_DEBUG ) {
+	duechiacchiere::add_to_cache( $html );	
+}
