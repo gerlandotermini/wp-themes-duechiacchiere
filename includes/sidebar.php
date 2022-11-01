@@ -144,7 +144,7 @@
 			echo '<li>' . trim( $a_month_link ) . "</li>";
 			$count_links++;
 		}
-		echo '<li><a href="/?day='. date_i18n( 'd' ) . '&monthnum=' . date_i18n( 'm' ) . '&year=0" rel="nofollow">Oggi nel passato</a></li></ul>';
+		echo '<li><a href="/?day='. date_i18n( 'd' ) . '&monthnum=' . date_i18n( 'm' ) . '&year=0" rel="nofollow">Oggi nel passato</a></li></ul></div>';
 	}
 
 	if ( is_front_page() && !is_paged() ) {
