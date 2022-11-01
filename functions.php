@@ -375,7 +375,8 @@ class duechiacchiere {
 	}
 
 	// Used in comments.php to customize each comment's structure
-	public static function comment_callback( $comment, $args, $depth ) { 
+	public static function comment_callback( $comment, $args, $depth ) {
+		// Don't show pending comments
 		if ( '0' == $comment->comment_approved ) {
 			return '';
 		}

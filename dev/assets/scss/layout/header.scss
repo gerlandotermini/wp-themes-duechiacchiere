@@ -29,13 +29,8 @@ body {
         &.#{ nth( $month, 1 ) } a, &.#{ nth( $month, 1 ) } a:visited, &.#{ nth( $month, 1 ) } a:active, &.#{ nth( $month, 1 ) } input.submit {
             color: #{ nth( $month, 3 ) };
         }
-        &.#{ nth( $month, 1 ) } .svg {
+        &.#{ nth( $month, 1 ) } .svg:before {
             filter: #{ nth( $month, 4 ) };
-        }
-        &.#{ nth( $month, 1 ) }.pagination-item.previous-page a::before,
-        &.#{ nth( $month, 1 ) }.pagination-item.next-page a::before,
-        &.#{ nth( $month, 1 ) } #backtotop::before {
-            border-right-color: #{ nth( $month, 3 ) };
         }
     }
 
@@ -117,12 +112,13 @@ body {
     
     .visually-hidden,
     #comments .says {
+        background-color: $background; // Avoid contrast issues with WAVE
         clip-path: inset(50%);
-        height: 1px;
+        color: $text;
+        left: -1000vw;
         overflow: hidden;
         position: absolute;
         white-space: nowrap;
-        width: 1px;
     }
 
     b, strong {

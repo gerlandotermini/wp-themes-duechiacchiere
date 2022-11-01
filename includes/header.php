@@ -317,8 +317,7 @@
 </head>
 
 <body <?= body_class( $bg_month ) ?>>
-	<a class="visually-hidden" id="page-top" href="#">Sei all'inizio della pagina</a>
-	<a class="skip" href="#content">Salta al contenuto</a>
+	<a class="skip" id="page-top" href="#content">Salta al contenuto</a>
 
 	<header id="header-container">
 		<div id="branding">

@@ -100,7 +100,6 @@
 						// Remove first and last from the array
 						$prev_page = array_shift( $pages );
 						$next_page = array_pop( $pages );
-						$ul_class = '';
 
 						// No "previous" arrow on page 2 (to make WAVE happy about adjacent identical links)
 						if ( $current_page == 2 ) {
@@ -110,11 +109,20 @@
 							$next_page = array_pop( $pages );
 						}
 
-						if ( $current_page > 2 && $current_page < $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
-							$ul_class = ' class="round-edges"';
+						if ( $current_page <= 2 ) {
+							$ul_class = 'prev ';
+							$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
+						}
+						else if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
+							$ul_class = 'next';
+							$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
+						}
+						else {
+							$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
+							$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
 						}
 
-						echo '<ul' . $ul_class . '><li class="pagination-item">' . $prev_page . '</li>';
+						echo '<ul' . ( !empty( $ul_class ) ? ' class="' . trim( $ul_class ) . '"' : '' ) . '><li class="pagination-item">' . $prev_page . '</li>';
 
 						foreach ( $pages as $a_page_html ) {
 							echo '<li class="pagination-item">' . $a_page_html . '</li>';

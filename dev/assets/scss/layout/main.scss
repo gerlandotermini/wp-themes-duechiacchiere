@@ -173,6 +173,7 @@ main {
 
         @include media-query( mobile ) {
             border-bottom: $border-secondary;
+            padding-bottom: $padding-regular;
         }
 
         ol {
@@ -294,64 +295,76 @@ main {
         margin: 0;
         padding-left: 0;
 
-        &.round-edges {
-            .pagination-item:nth-child(2) a {
-                border-top-left-radius: $padding-small;
-                border-bottom-left-radius: $padding-small;
+        &.prev {
+            .pagination-item:first-child {
+                display: block;
+            }
+        }
+        &.next {
+            .pagination-item:last-child {
+                display: block;
             }
         }
 
         .pagination-item {
-            &:first-child  {
-                a, span {
-                    border-top-left-radius: $padding-small;
-                    border-bottom-left-radius: $padding-small;
-                    display: block;
+            border: $border-secondary;
+            border-right-width: 0;
+            display: none;
 
-                    &.prev {
-                        @include media-query( large ) {
-                            display: none;
-                        }
-                    }
-                }
+            &:first-child  {
+                border-top-left-radius: $padding-small;
+                border-bottom-left-radius: $padding-small;
                 
+                @include media-query( mobile ) {
+                    display: block;
+                }
             }
 
             &:last-child {
-                a {
-                    border-top-right-radius: $padding-small;
-                    border-bottom-right-radius: $padding-small;
-                    border-right-width: 1px;
-                    display: block;
+                border-top-right-radius: $padding-small;
+                border-bottom-right-radius: $padding-small;
+                border-right-width: 1px;
 
-                    &.next {
-                        @include media-query( large ) {
-                            display: none;
-                        }
-                    }
+                @include media-query( mobile ) {
+                    display: block;
                 }
             }
 
-            a, span {
-
-                background-color: $background;
-                border: $border-secondary;
-                border-right-width: 0;
-                display: none;
-                padding: 10px 15px;
-                min-width: 1em;
-                text-align: center;
-                text-decoration: none;
-                
-                @include media-query( large ) {
-                    display: block;
-                }
-
-            }
-
-            span.current {
+            @include media-query( large ) {
                 display: block;
             }
         }
+    
+        a, span {
+            display: block;
+            line-height: 1;
+            min-width: .6em;
+            padding: $padding-small $padding-regular calc($padding-small * 0.8);
+            text-align: center;
+            text-decoration: none;
+        }
+
+
+
+
+
+
+
+
+
+        // &.round-edges {
+        //     .pagination-item:nth-child(2) {
+        //         border-top-left-radius: $padding-small;
+        //         border-bottom-left-radius: $padding-small;
+        //     }
+
+        //     .pagination-item:nth-last-child(2) {
+        //         border-top-right-radius: $padding-small;
+        //         border-bottom-right-radius: $padding-small;
+        //         border-right-width: 1px;
+        //     }
+        // }
+
+
     }
 }

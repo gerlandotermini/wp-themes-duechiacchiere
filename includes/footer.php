@@ -69,9 +69,9 @@
 		<div id="menu-overlay"></div>
 	</nav>
 
-	<button id="backtotop" onclick="window.scrollTo(0, 0);document.getElementById('page-top').focus();return false;">
+	<a id="backtotop" href="#header-container" class="svg icon-chevron-up">
 		<span class="visually-hidden">Torna in cima alla pagina</span>
-	</button>
+	</a>
 
 	<!-- BEGIN: WP_Footer -->
 	<?php wp_footer(); ?>
@@ -85,7 +85,8 @@ $html = ob_get_contents();
 ob_end_clean();
 
 // Remove line breaks and multiple spaces everywhere except inside <pre> tags
-echo duechiacchiere::minify_output( $html );
+// echo duechiacchiere::minify_output( $html );
+echo $html;
 
 if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ) {
 	duechiacchiere::add_to_cache( $html );	

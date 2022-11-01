@@ -40,7 +40,7 @@ footer {
     }
 
     @include media-query( large ) {
-        padding: $padding-regular;
+        padding: calc( $padding-regular*2 ) $padding-regular;
     }
 
     @include media-query( print ) {
@@ -124,7 +124,6 @@ footer {
                     transform: rotate( 0deg );
                 }
             }
-            
 
             svg {
                 width: 35px;
@@ -150,48 +149,22 @@ footer {
 }
 
 #backtotop {
-    background-color: $background;
+    background-color: $white;
     border: $border-secondary;
-    border-radius: 5px;
+    border-radius: $padding-small;
     bottom: 65px + $padding-small;
     height: 40px;
-    left: auto;
     opacity: 0;
+    padding: calc( $padding-small / 2 );
     position: fixed;
     right: $padding-small;
     top: auto;
     transition: opacity 1s ease-in-out;
     width: 40px;
+    z-index: 100;
 
     @include media-query( large ) {
         right: $padding-regular * 2;
         bottom: $padding-regular * 2;
-    }
-
-    &:before {
-        border-bottom: 11px solid transparent;
-        border-top: 11px solid transparent;
-        border-right: 16px solid #222;
-        content: "";
-        display: block;
-        position: absolute;
-        top: 7px;
-        left: 11px;
-        transform: rotate(90deg);
-    }    
-}
-
-.icon {
-    &-home:before {
-        content: $icon-home;
-    }
-    &-menu:before {
-        content: $icon-menu;
-    }
-    &-random:before {
-        content: $icon-random;
-    }
-    &-search:before {
-        content: $icon-search;
     }
 }
