@@ -100,25 +100,37 @@
 						// Remove first and last from the array
 						$prev_page = array_shift( $pages );
 						$next_page = array_pop( $pages );
+						$ul_class = '';
 
 						// No "previous" arrow on page 2 (to make WAVE happy about adjacent identical links)
-						if ( $current_page == 2 ) {
+						if ( $current_page == 2 && count( $pages ) > 3 ) {
 							$prev_page = array_shift( $pages );
 						}
-						else if ( $current_page == $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
+						else if ( $current_page == $GLOBALS[ 'wp_query' ]->max_num_pages - 1 && count( $pages ) > 3 ) {
 							$next_page = array_pop( $pages );
 						}
 
 						if ( $current_page <= 2 ) {
 							$ul_class = 'prev ';
-							$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
-						}
-						else if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
-							$ul_class = 'next';
-							$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
+
+							if ( count( $pages ) > 2 ) {
+								$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
+							}
 						}
 						else {
 							$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
+						}
+
+						if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
+							$ul_class .= 'next';
+
+							if ( count( $pages ) > 2 ) {
+								$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
+							}
+							
+						}
+						else {
+							
 							$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
 						}
 
