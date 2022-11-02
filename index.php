@@ -79,7 +79,7 @@
 			<?php if ( is_single() && !post_password_required() && !is_attachment() ) comments_template( '/includes/comments.php' ); ?>
 		<?php endwhile; ?>
 
-		<?php if ( $GLOBALS[ 'wp_query' ]->max_num_pages > 0 ): ?>
+		<?php if ( $GLOBALS[ 'wp_query' ]->max_num_pages > 1 ): ?>
 			<nav id="pagination">
 				<h2 class="visually-hidden">Sfoglia le pagine del blog</h2>
 				<?php
@@ -95,49 +95,50 @@
 						'total' => $GLOBALS[ 'wp_query' ]->max_num_pages,
 						'type'  => 'array'
 					) );
-
+// var_dump($pages);exit;
 					if ( is_array( $pages ) ) {
 						// Remove first and last from the array
 						$prev_page = array_shift( $pages );
 						$next_page = array_pop( $pages );
-						$ul_class = '';
-
-						// No "previous" arrow on page 2 (to make WAVE happy about adjacent identical links)
-						if ( $current_page == 2 && count( $pages ) > 3 ) {
+						// $ul_class = '';
+// var_dump($GLOBALS[ 'wp_query' ]->max_num_pages);exit;
+						// No "previous" link on page 2 and no "next" link on previous to last page (to make WAVE happy about adjacent identical links)
+						if ( $current_page == 2 ) {
 							$prev_page = array_shift( $pages );
+
+							if ( $GLOBALS[ 'wp_query' ]->max_num_pages == 3 ) {
+								$next_page = array_pop( $pages );
+							}
 						}
-						else if ( $current_page == $GLOBALS[ 'wp_query' ]->max_num_pages - 1 && count( $pages ) > 3 ) {
+						else if ( $current_page == $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
 							$next_page = array_pop( $pages );
 						}
-
-						if ( $current_page <= 2 ) {
-							$ul_class = 'prev ';
-
-							if ( count( $pages ) > 2 ) {
-								$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
-							}
-						}
-						else {
+// var_dump($pages);exit;
+						if ( stripos( $prev_page, 'precedente' ) !== false ) {
 							$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
 						}
-
-						if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
-							$ul_class .= 'next';
-
-							if ( count( $pages ) > 2 ) {
-								$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
-							}
-							
-						}
-						else {
-							
+						if ( stripos( $next_page, 'successiva' ) !== false ) {
 							$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
 						}
+						
 
-						echo '<ul' . ( !empty( $ul_class ) ? ' class="' . trim( $ul_class ) . '"' : '' ) . '><li class="pagination-item">' . $prev_page . '</li>';
+						// if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 && $GLOBALS[ 'wp_query' ]->max_num_pages > 2 ) {
+						// 	// $ul_class .= 'show-last';
+
+						// 	// if ( count( $pages ) > 0 ) {
+						// 		$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
+						// 	// }
+							
+						// }
+						// else {
+							
+						// 	$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
+						// }
+
+						echo '<ul><li class="pagination-item">' . $prev_page . '</li>';
 
 						foreach ( $pages as $a_page_html ) {
-							echo '<li class="pagination-item">' . $a_page_html . '</li>';
+							echo '<li class="pagination-item' . ( stripos( $a_page_html, 'current' ) !== false ? ' current-item' : '' ) . '">' . $a_page_html . '</li>';
 						}
 
 						echo '<li class="pagination-item">' . $next_page . '</li></ul>';
