@@ -152,6 +152,8 @@ main {
                 word-break: break-word;
             }
         }
+
+        // Paragraphs and lists
         p {
             margin-top: .5em;
 
@@ -159,6 +161,12 @@ main {
                 margin-bottom: 0;
             }
         }
+        ul, ol {
+            li {
+                padding-bottom: $padding-small;
+            }
+        }
+
         @include media-query( print ) {
             .entry a::after{
                 color: #888;
