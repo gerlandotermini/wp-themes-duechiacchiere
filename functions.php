@@ -1,6 +1,8 @@
 <?php
 
 class duechiacchiere {
+	public static $comment_edited = false;
+
 	public static function init() {
 		// This theme uses wp_nav_menu() above and below the main page header
 		register_nav_menus( array(
@@ -39,11 +41,12 @@ class duechiacchiere {
 		add_filter( 'style_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 		add_filter( 'script_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 
-		// Update the sitemap file whenever a new post is published
+		// Update the sitemap file and the cache whenever a post is added or modified
 		add_action( 'transition_post_status', array( __CLASS__, 'transition_post_status' ), 10, 3 );
 
 		// Update cache after a comment is posted or edited or deleted
 		add_action( 'comment_post', array( __CLASS__, 'comment_post' ), 10, 3 );
+		add_action( 'edit_comment', array( __CLASS__, 'edit_comment' ), 10, 2 );
 		add_action( 'transition_comment_status', array( __CLASS__, 'transition_comment_status' ), 10, 3 );
 
 		// Filter really long comments (spam)
@@ -242,10 +245,22 @@ class duechiacchiere {
 		}
 	}
 
+	// Refresh the cache whenever a comment is edited or changes status
+	public static function edit_comment( $comment_id = 0, $commentdata = array() ) {
+
+		// Delete cached version of this page (footer will regenerate it) and refresh homepage
+		if ( !empty( $commentdata[ 'comment_post_ID' ] ) ) {
+			$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
+			duechiacchiere::delete_from_cache( $permalink_path );
+			self::$comment_edited = true;
+		}
+	}
+
+	// Refresh the cache if a comment is deleted or restored from the trash, or changes status
 	public static function transition_comment_status( $new_status = '', $old_status = '', $comment = 0 ) {
 
-		// Bail if we're not dealing with a published post, which shouldn't be cached anyway
-		if ( $old_status != 'approved' && $new_status != 'approved' ) {
+		// Bail if we're not dealing with an approved comment, which shouldn't be cached anyway, or if we already cleared the cache in edit_comment
+		if ( ( $old_status != 'approved' && $new_status != 'approved' ) || self::$comment_edited ) {
 			return 0;
 		}
 
