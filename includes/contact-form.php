@@ -73,13 +73,12 @@ include_once( 'header.php' ) ?>
 
 			<?php if ( empty( $content ) ): ?>
 				<p>Usa il modulo qui di seguito se vuoi metterti in contatto con me. In genere rispondo in tempi brevi, ma se vedi che ci metto troppo, puoi lasciare un commento a qualche articolo. Chiss&agrave;, magari la mail &egrave; stata mangiata dal filtro antispam.</p>
-				<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" id="commentform"
-					onsubmit='if ( ( this.message.value == "" ) || ( this.author.value == "" ) || !( /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( this.email.value ) ) ) { alert( "Magari prova ad impegnarti di pi&ugrave;, che dici?" ); return false; }'>
+				<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post" id="comment-form">
 					<legend class="visually-hidden">Modulo di contatto: nome, email, messaggio</legend>
-					<p class="comment-form-author"><label for="author">Nome</label><input type="text" name="author" id="author" size="5" maxlength="250" value="<?php echo isset( $_COOKIE[ 'comment_author_' . COOKIEHASH ] ) ? $_COOKIE[ 'comment_author_' . COOKIEHASH ] : ''; ?>"></p>
-					<p class="comment-form-email"><label for="email">Email</label> <input type="text" name="email" id="email" size="5" maxlength="250" value="<?php echo isset($_COOKIE['comment_author_email_'.COOKIEHASH])?$_COOKIE['comment_author_email_'.COOKIEHASH]:''; ?>"></p>
-					<p class="comment-form-comment"><label for="message">Messaggio</label> <textarea name="message" id="message" cols="15" rows="7"></textarea></p>
-					<p class="form-submit"><input class="submit" type="submit" name="submit" value="Invia il messaggio" id="contact_submit"></p>
+					<p class="comment-form-author"><label for="author">Nome</label><input type="text" name="author" id="author" size="5" maxlength="250" required="required" value="<?php echo isset( $_COOKIE[ 'comment_author_' . COOKIEHASH ] ) ? $_COOKIE[ 'comment_author_' . COOKIEHASH ] : ''; ?>"></p>
+					<p class="comment-form-email"><label for="email">Email</label> <input type="text" name="email" id="email" size="5" maxlength="250" required="required" value="<?php echo isset($_COOKIE['comment_author_email_'.COOKIEHASH])?$_COOKIE['comment_author_email_'.COOKIEHASH]:''; ?>"></p>
+					<p class="comment-form-comment"><label for="message">Messaggio</label> <textarea name="message" id="message" cols="15" rows="7" required="required"></textarea></p>
+					<p class="form-submit"><input class="comment-submit" type="submit" name="comment-submit" value="Invia il messaggio" id="contact-submit"></p>
 					<input type="hidden" name="control" value="<?= md5( date( 'His' ) ) ?>" />
 				</form>
 			<?php else: echo $content; endif; ?>
