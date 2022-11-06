@@ -9,20 +9,20 @@
 		<nav aria-labelledby="brick-mortar">
 			<h2 id="brick-mortar">Calce e mattoni</h2>
 			<ul>
-				<li><a href="https://supporthost.com/it/a340" title="Il fornitore di hosting italiano che ospita dal 2005 queste pagine">Il servizio che mi ospita</a></li>
+				<li><a href="https://supporthost.com/it/a340" title="Il fornitore di hosting che ospita queste pagine">Il servizio che mi ospita</a></li>
 				<li><a href="https://it.wordpress.org/" title="Sito italiano del sistema WordPress per la gestione dei contenuti">Il sistema di gestione</a></li>
 				<li><a href="https://github.com/gerlandotermini/wp-themes-duechiacchiere" title="L'archivio dove scaricare una copia del mio tema" hreflang="en">Il vestito del blog</a></li>
-				<li><a href="https://www.rxstrip.it/">L'artista del ragazzo</a></li>
+				<li><a href="https://www.rxstrip.it/" title="Sito del disegnatore che ha donato un corpo virtuale a camu">L'artista del ragazzo</a></li>
 			</ul>
 		</nav>
 
 		<nav aria-labelledby="useful-links">
 			<h2 id="useful-links">Collegamenti utili</h2>
 			<ul>
-				<li><a href="/licenza" rel="nofollow" title="pagina in italiano che descrive la licenza per i contenuti">La licenza di attribuzione</a></li>
-				<li><a href="/accessibile" title="leggi le informazioni sul livello di accessibilit&agrave; di queste pagine">Un sito accessibile a tutti</a></li>
-				<li><a href="/moderazione" title="domande e risposte sulle mie regole di moderazione dei commenti">Le regole per i commenti</a></li>
-				<li><a href="/privacy">La tua <span lang="en">privacy</span> al sicuro</a></li>
+				<li><a href="/licenza" rel="nofollow" title="Pagina in italiano che descrive la licenza per i contenuti">La licenza di attribuzione</a></li>
+				<li><a href="/accessibile" title="Leggi le informazioni sul livello di accessibilit&agrave; di queste pagine">Un sito accessibile a tutti</a></li>
+				<li><a href="/moderazione" title="Domande e risposte sulle mie regole di moderazione dei commenti">Le regole per i commenti</a></li>
+				<li><a href="/privacy" title="Tutte le regole per il trattamento dei dati applicate su queste pagine">La tua <span lang="en">privacy</span> al sicuro</a></li>
 				
 			</ul>
 		</nav>
@@ -30,8 +30,8 @@
 		<nav aria-labelledby="misc-links">
 			<h2 id="misc-links">Varie ed eventuali</h2>
 			<ul>
-				<li><a href="/chi-sono" hreflang="en">Ti presento l'inquilino</a></li>
-				<li><a href="/contatto" title="lasciami un messaggio tramite il modulo di contatto">Lascia un messaggio</a></li>
+				<li><a href="/chi-sono">Ti presento l'inquilino</a></li>
+				<li><a href="/contatto">Lascia un messaggio</a></li>
 				<li><a href="/feed">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> degli articoli</a></li>
 				<li><a href="/feed/scrissi-oggi">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> di oggi</a></li>
 				
