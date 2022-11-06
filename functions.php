@@ -36,8 +36,7 @@ class duechiacchiere {
 		// Don't generate thumbnails, this theme only uses full size
 		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
 
-		// Tweak the YouTube and Video oEmbed code
-		add_filter( 'embed_oembed_html', array( __CLASS__, 'responsive_youtube_embed' ), 10, 4 );
+		// Append the CSS inline
 		add_filter( 'style_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 		add_filter( 'script_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 
@@ -161,8 +160,8 @@ class duechiacchiere {
 		return "<figure $id class=\"wp-caption $align\" style=\"max-width:{$width}px\">$image$separator <span class=\"wp-caption-text\" aria-hidden=\"true\">$caption</span></figure>";
 	}
 
-	public static function responsive_youtube_embed( $html, $url, $attr, $post_ID ) {
-		return '<p class="video-container">' . $html . '</p>';
+	public static function wp_video_shortcode( $html = '' ) {
+		return str_replace( '<video', '<video crossorigin="anonymous"', $html );
 	}
 
 	// This function assumes that WordPress is installed in the 'wp' subfolder
@@ -315,7 +314,7 @@ class duechiacchiere {
 	}
 
 	public static function mce_external_plugins( $plugin_array ) {
-		$plugin_array[ 'tinymce_duechiacchiere' ] = get_template_directory_uri() . '/assets/js/tinymce.js';
+		$plugin_array[ 'tinymce_duechiacchiere' ] = str_replace( get_site_url(), get_home_url(), get_template_directory_uri() ) . '/assets/js/tinymce.js';
 		return $plugin_array;
 	}
 
