@@ -43,14 +43,14 @@ $comment_count = get_comments_number();
 			'cookies' => '<input type="hidden" value="1" name="wp-comment-cookies-consent">'
 		),
 		'format' => 'html5',
-		'id_form' => 'commentform', // let's make sure this matches what the JS code is looking for (when attaching the form around)
+		'id_form' => 'comment-form', // let's make sure this matches what the JS code is looking for (when attaching the form around)
 		'logged_in_as' => null,
 		'title_reply' => 'Lascia un commento',
 		'title_reply_before' => '<h2 id="reply-title" class="comment-reply-title">',
 		'title_reply_after'  => '</h2>',
-		'submit_field' => '<p class="form-submit">%1$s <button rel="nofollow" id="cancel-comment-reply" style="display:none">Annulla risposta</button> %2$s</p>',
-		
-
+		'id_submit' => 'comment-submit',
+		'name_submit' => 'comment-submit',
+		'submit_field' => '<p class="form-submit">%1$s <button rel="nofollow" id="cancel-comment-reply" style="display:none">Annulla risposta</button> %2$s</p>'
 	) );
 	?>
 </section><!-- #comments -->

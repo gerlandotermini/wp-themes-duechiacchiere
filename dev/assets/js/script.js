@@ -58,7 +58,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     element.addEventListener( 'touchstart', listener, {passive: true} ); // Passive listeners: https://web.dev/uses-passive-event-listeners/
 
     // Prevent touch event from triggering a fake 'click' event
-    element.addEventListener('touchend', event => { event.preventDefault(); });
+    element.addEventListener( 'touchend', event => { event.preventDefault(); } );
   }
 
   // Function to retrieve a cookie's value
@@ -125,7 +125,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       document.getElementById( 'comment_parent' ).value = e.currentTarget.getAttribute( 'data-commentid' );
 
       // Move the comment form
-      e.currentTarget.closest( 'li' ).appendChild( document.getElementById( 'commentform' ).parentElement );
+      e.currentTarget.closest( 'li' ).appendChild( document.getElementById( 'comment-form' ).parentElement );
 
       // Show the 'cancel' button
       document.getElementById( 'cancel-comment-reply' ).style.display = 'block';
@@ -151,7 +151,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       document.getElementById( 'comment_parent' ).value = 0;
 
       // Move the form back
-      document.getElementById( 'comments' ).appendChild( document.getElementById( 'commentform' ).parentElement );
+      document.getElementById( 'comments' ).appendChild( document.getElementById( 'comment-form' ).parentElement );
 
       // Focus on the comment field
       document.getElementById( 'comment' ).focus();
@@ -165,6 +165,26 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     if ( cancel_comment_reply !== null ) {
       addMultiEventListener( cancel_comment_reply, commentCancelReply );
     }
+
+    // Make sure that the comment is not empty
+    document.getElementById( 'comment-form' ).addEventListener( 'submit', function( e ) {
+      e.preventDefault();
+      
+      let submitForm = true;
+      e.target.querySelectorAll( '[required]' ).forEach( node => {
+        submitForm = submitForm && ( node.value != '' );
+      } );
+
+      if ( !submitForm ) {
+        document.getElementById( 'comment-submit' ).classList.add( 'shake' );
+        setTimeout( function() {
+          document.getElementById( 'comment-submit' ).classList.remove( 'shake' );
+        }, 500 );
+      }
+      else {
+        e.target.submit();
+      }
+    } );
   }
 
   // Populate comment fields with cookie values, if available

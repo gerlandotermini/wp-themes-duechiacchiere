@@ -245,7 +245,7 @@ main {
         }
     }
 
-    #commentform {
+    #comment-form {
         display: flex;
         flex-wrap: wrap;
         gap: 2%;
@@ -281,9 +281,25 @@ main {
                 width: fit-content;
             }
 
-            .submit {
+            #comment-submit {
                 margin: 0 $margin-regular 0 0;
                 padding: $padding-small;
+
+                @keyframes spaceboots {
+                    0% { transform: translate(10px, 0); }
+                    25% { transform: translate(-10px, 0); }
+                    50% { transform: translate(5px, 0); }
+                    75% { transform: translate(-5px, 0); }
+                    100% { transform: translate(0, 0); }
+                    
+                }
+                &.shake {
+                    display: inline-block;
+                    animation-name: spaceboots;
+                    animation-duration: 0.5s;
+                    transform-origin: 50% 50%;
+                    animation-timing-function: linear
+                }
             }
             #cancel-comment-reply {
                 background-color: $white;
@@ -291,7 +307,6 @@ main {
                 font-weight: 300;
                 padding: $padding-small;
             }
-
         }
     }
 
