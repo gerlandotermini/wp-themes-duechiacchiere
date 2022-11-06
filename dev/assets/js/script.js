@@ -269,7 +269,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
 
   // Open external links in a new tab/window
   document.querySelectorAll( 'a' ).forEach( link => {
-    if ( link.getAttribute( 'href' ) && link.hostname !== location.hostname ) {
+    if ( link.getAttribute( 'href' ) && link.hostname.indexOf( location.hostname ) == -1 ) {
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
     }
