@@ -6,8 +6,8 @@
 			</p>
 		</div>
 
-		<nav>
-			<h2>Calce e mattoni</h2>
+		<nav aria-labelledby="brick-mortar">
+			<h2 id="brick-mortar">Calce e mattoni</h2>
 			<ul>
 				<li><a href="https://supporthost.com/it/a340" title="Il fornitore di hosting italiano che ospita dal 2005 queste pagine">Il servizio che mi ospita</a></li>
 				<li><a href="https://it.wordpress.org/" title="Sito italiano del sistema WordPress per la gestione dei contenuti">Il sistema di gestione</a></li>
@@ -16,8 +16,8 @@
 			</ul>
 		</nav>
 
-		<nav>
-			<h2>Collegamenti utili</h2>
+		<nav aria-labelledby="useful-links">
+			<h2 id="useful-links">Collegamenti utili</h2>
 			<ul>
 				<li><a href="/licenza" rel="nofollow" title="pagina in italiano che descrive la licenza per i contenuti">La licenza di attribuzione</a></li>
 				<li><a href="/accessibile" title="leggi le informazioni sul livello di accessibilit&agrave; di queste pagine">Un sito accessibile a tutti</a></li>
@@ -27,8 +27,8 @@
 			</ul>
 		</nav>
 
-		<nav>
-			<h2>Varie ed eventuali</h2>
+		<nav aria-labelledby="misc-links">
+			<h2 id="misc-links">Varie ed eventuali</h2>
 			<ul>
 				<li><a href="/chi-sono" hreflang="en">Ti presento l'inquilino</a></li>
 				<li><a href="/contatto" title="lasciami un messaggio tramite il modulo di contatto">Lascia un messaggio</a></li>
@@ -50,8 +50,8 @@
 	wp_reset_postdata();
 	?>
 
-	<nav>
-		<h2 class="visually-hidden">Collegamenti utili</h2>
+	<nav aria-labelledby="mobile-toolbar-label">
+		<h2 id="mobile-toolbar-label" class="visually-hidden">Navigazione mobile</h2>
 		<ul id="mobile-toolbar">
 			<li>
 				<a href="/" class="svg icon-home"><span class="visually-hidden">Torna alla homepage</span></a>

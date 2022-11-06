@@ -82,10 +82,8 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
 
     if ( document.body.scrollTop > 300 || document.documentElement.scrollTop > 300 ) {
       backToTopButton.style.opacity = 1;
-      backToTopButton.style.cursor = 'pointer';
     } else {
       backToTopButton.style.opacity = 0;
-      backToTopButton.style.cursor = 'initial';
     }
   }
 
