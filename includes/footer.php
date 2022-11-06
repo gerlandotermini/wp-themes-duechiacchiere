@@ -1,4 +1,4 @@
-	<footer aria-label="Collegamenti utili">
+	<footer>
 		<div class="about-me">
 			<h2>Due Chiacchiere</h2>
 			<p>
