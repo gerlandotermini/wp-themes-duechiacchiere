@@ -271,7 +271,17 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   document.querySelectorAll( 'a' ).forEach( link => {
     if ( link.getAttribute( 'href' ) && link.hostname.indexOf( location.hostname ) == -1 ) {
       link.target = '_blank';
-      link.rel = 'noopener noreferrer';
+
+      if ( !link.querySelector( '.visually-hidden' ) ) {
+        link.insertAdjacentHTML( 'beforeend', ' <span class="visually-hidden">(apre una nuova tab)</span>');
+      }
+
+      // See https://codersblock.com/blog/external-links-new-tabs-and-accessibility/
+      let linkTypes = ( link.getAttribute( 'rel' ) || '' ).split(' ');
+      if ( !linkTypes.includes( 'noopener' ) ) {
+        linkTypes.push( 'noopener' );
+      }
+      link.setAttribute('rel', linkTypes.join(' ').trim());
     }
   });
 } );
