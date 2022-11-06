@@ -273,7 +273,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       link.target = '_blank';
 
       if ( !link.querySelector( '.visually-hidden' ) ) {
-        link.insertAdjacentHTML( 'beforeend', ' <span class="visually-hidden">(apre una nuova tab)</span>');
+        link.insertAdjacentHTML( 'beforeend', '<span class="visually-hidden"> (apri link in una nuova tab)</span>');
       }
 
       // See https://codersblock.com/blog/external-links-new-tabs-and-accessibility/
