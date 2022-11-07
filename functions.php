@@ -190,6 +190,10 @@ class duechiacchiere {
 			file_get_contents( home_url() . $permalink_path );
 		}
 
+		// Refresh the homepage, just in case this new post is listed there as well
+		@unlink( duechiacchiere::get_cache_path( '/' ) );
+		file_get_contents( home_url() );
+
 		// Sitemap
 
 		// Bail if the status didn't change (like saving a new version of a draft)
@@ -559,12 +563,6 @@ class duechiacchiere {
 		// }
 
 		file_put_contents( duechiacchiere::get_cache_path( $_SERVER[ 'REQUEST_URI' ] ), $html . '<!--' . date( DATE_RFC2822 ) . '-->' );
-
-		// Refresh the homepage, just in case this new post is listed there as well
-		if ( is_single() ) {
-			@unlink( duechiacchiere::get_cache_path( '/' ) );
-			file_get_contents( home_url() );
-		}
 	}
 
 	// Delete a page from the cache and refresh the homepage
