@@ -560,7 +560,7 @@ class duechiacchiere {
 
 		file_put_contents( duechiacchiere::get_cache_path( $_SERVER[ 'REQUEST_URI' ] ), $html . '<!--' . date( DATE_RFC2822 ) . '-->' );
 
-		// Refresh the homepage, as it's probable that this new post will be visible there as well
+		// Refresh the homepage, just in case this new post is listed there as well
 		if ( is_single() ) {
 			@unlink( duechiacchiere::get_cache_path( '/' ) );
 			file_get_contents( home_url() );
