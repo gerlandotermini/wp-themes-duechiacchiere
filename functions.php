@@ -533,7 +533,6 @@ class duechiacchiere {
 		// RewriteCond %{REQUEST_URI} ^/$
 		// RewriteCond %{QUERY_STRING} !.+
 		// RewriteCond %{DOCUMENT_ROOT}/content/cache/index.html -f
-		// RewriteCond %{REQUEST_URI} !^/content/cache/ [NC]
 		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC]
 		// RewriteRule .* /content/cache/index.html [L]
 
@@ -560,6 +559,12 @@ class duechiacchiere {
 		// }
 
 		file_put_contents( duechiacchiere::get_cache_path( $_SERVER[ 'REQUEST_URI' ] ), $html . '<!--' . date( DATE_RFC2822 ) . '-->' );
+
+		// Refresh the homepage, as it's probable that this new post will be visible there as well
+		if ( is_single() ) {
+			@unlink( duechiacchiere::get_cache_path( '/' ) );
+			file_get_contents( home_url() );
+		}
 	}
 
 	// Delete a page from the cache and refresh the homepage
