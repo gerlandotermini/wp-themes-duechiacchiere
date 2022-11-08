@@ -157,7 +157,7 @@ class duechiacchiere {
 		}
 		$caption = trim( $caption );
 
-		return "<figure $id class=\"wp-caption $align\" style=\"max-width:{$width}px\">$image$separator <span class=\"wp-caption-text\" aria-hidden=\"true\">$caption</span></figure>";
+		return "<figure $id class=\"wp-caption $align\">$image$separator <span class=\"wp-caption-text\" aria-hidden=\"true\">$caption</span></figure>";
 	}
 
 	public static function wp_video_shortcode( $html = '' ) {
