@@ -80,8 +80,8 @@
 		<?php endwhile; ?>
 
 		<?php if ( $GLOBALS[ 'wp_query' ]->max_num_pages > 1 ): ?>
-			<nav id="pagination">
-				<h2 class="visually-hidden">Sfoglia le pagine del blog</h2>
+			<nav id="pagination" aria-labelledby="pagination-title">
+				<h2 class="visually-hidden" id="pagination-title">Sfoglia le pagine del blog</h2>
 				<?php
 					$current_page = max( 1, intval( get_query_var( 'paged' ) ) );
 
@@ -95,13 +95,13 @@
 						'total' => $GLOBALS[ 'wp_query' ]->max_num_pages,
 						'type'  => 'array'
 					) );
-// var_dump($pages);exit;
+
 					if ( is_array( $pages ) ) {
 						// Remove first and last from the array
 						$prev_page = array_shift( $pages );
 						$next_page = array_pop( $pages );
 						// $ul_class = '';
-// var_dump($GLOBALS[ 'wp_query' ]->max_num_pages);exit;
+
 						// No "previous" link on page 2 and no "next" link on previous to last page (to make WAVE happy about adjacent identical links)
 						if ( $current_page == 2 ) {
 							$prev_page = array_shift( $pages );
@@ -113,27 +113,13 @@
 						else if ( $current_page == $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
 							$next_page = array_pop( $pages );
 						}
-// var_dump($pages);exit;
+
 						if ( stripos( $prev_page, 'precedente' ) !== false ) {
 							$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
 						}
 						if ( stripos( $next_page, 'successiva' ) !== false ) {
 							$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
 						}
-						
-
-						// if ( $current_page >= $GLOBALS[ 'wp_query' ]->max_num_pages - 1 && $GLOBALS[ 'wp_query' ]->max_num_pages > 2 ) {
-						// 	// $ul_class .= 'show-last';
-
-						// 	// if ( count( $pages ) > 0 ) {
-						// 		$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
-						// 	// }
-							
-						// }
-						// else {
-							
-						// 	$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
-						// }
 
 						echo '<ul><li class="pagination-item">' . $prev_page . '</li>';
 
