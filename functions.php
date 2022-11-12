@@ -187,12 +187,12 @@ class duechiacchiere {
 
 		// If the new status is publish, generate a new cached version by pinging the page itself
 		if ( $new_status == 'publish' ) {
-			file_get_contents( home_url() . $permalink_path );
+			@file_get_contents( home_url() . $permalink_path );
 		}
 
 		// Refresh the homepage, just in case this new post is listed there as well
 		@unlink( duechiacchiere::get_cache_path( '/' ) );
-		file_get_contents( home_url() );
+		@file_get_contents( home_url() );
 
 		// Sitemap
 
@@ -571,7 +571,7 @@ class duechiacchiere {
 
 		// Homepage
 		@unlink( duechiacchiere::get_cache_path( '/' ) );
-		file_get_contents( home_url() );
+		@file_get_contents( home_url() );
 	}
 
 	public static function first_post_image( $post_content ) {

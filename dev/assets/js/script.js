@@ -90,7 +90,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   // 3. Comments
   // ----------------------------------------------------------------
 
-  // Reattach the comment form as needed
+  // Move the comment form closer to the comment someone is replying to
   if ( document.body.classList.contains( 'single' ) ) {
     let showOtherReplyButton = function() {
       let reply_button = document.getElementById( 'restore-reply-button' );
@@ -210,7 +210,9 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   let toggleMenu = function ( e, action ) {
     const menu = document.getElementById( 'primary-menu' );  
 
-    e.preventDefault();
+    if ( e.type != 'touchstart' ) {
+      e.preventDefault();
+    }
 
     if ( menu === null || menuOverlay === null || toolbarMenuButton === null ) {
       return false;
@@ -257,28 +259,39 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     // Use Italian grammar to determine which preposition to use
     let room_name = item.childNodes[0].textContent;
 
-    let preposition = 'dal';
+    let enter_preposition = 'il';
+    let exit_preposition = 'dal';
+
     if ( [ 'a', 'e', 'i', 'o', 'u' ].indexOf( room_name.charAt(0) ) != -1 ) { // word starts with a vowel
-      preposition += "l'";
+      enter_preposition = "l'";
+      exit_preposition += "l'";
     }
     else if ( room_name.slice(-1) == 'a' ) { // word ends with 'a'
-      preposition += 'la ';
+      enter_preposition = 'la';
+      exit_preposition += 'la ';
     }
     else {
-      preposition += ' ';
+      exit_preposition += ' ';
     }
 
-    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu" href="#"><span class="visually-hidden">entra in ' + room_name + '</span></a>' );
-    item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="#">esci ' + preposition + room_name + '</a></li>' );
+    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu svg icon-chevron-right" href="#"><span class="visually-hidden">apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
+    item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a href="#" class="close-submenu svg icon-chevron-left"></a> <a class="close-submenu" href="#">esci ' + exit_preposition + room_name + '</a></li>' );
     
     addMultiEventListener( item.querySelector( '.open-submenu' ), function( e ) {
-      e.preventDefault();
+      if ( e.type != 'touchstart' ) {
+        e.preventDefault();
+      }
       item.classList.add( 'active' );
     } );
 
-    addMultiEventListener( item.querySelector( '.close-submenu' ), function( e ) {
-      e.preventDefault();
-      item.classList.remove( 'active' );
+    item.querySelectorAll( '.close-submenu' ).forEach( link => {
+      addMultiEventListener( link, function( e ) {
+        if ( e.type != 'touchstart' ) {
+          e.preventDefault();
+        }
+        
+        item.classList.remove( 'active' );
+      } );
     } );
   } );
 
