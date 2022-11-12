@@ -200,6 +200,7 @@ body {
                     align-items: center;
                     border-bottom: $border-secondary;
                     justify-content: space-between;
+                    position: relative;
 
                     &.current-menu-item > a, &.current-menu-parent > a {
                         text-shadow: 0 0 2px #444;
@@ -252,65 +253,79 @@ body {
             border-bottom: $border-secondary;
             border-top: $border-secondary;
             
-            ul {
+            ul.menu {
+                display: flex;
                 list-style-type: none;
+                margin: 0;
+                padding: 0 0 0 calc( $padding-regular / 2 );
 
-                &.menu {
+                > li {
                     display: flex;
-                    margin: 0;
-                    padding: 0 0 0 calc( $padding-regular / 2 );
                     position: relative;
 
-                    > li {
-                        display: flex;
-
-                        a {
-                            padding: calc( $padding-regular / 2 ) $padding-small;
-                            text-decoration: none;
-                        }
-                        a:hover, a:focus,
-                        &.current-menu-item > a, &.current-menu-parent > a {
+                    &.current-menu-item, &.current-menu-parent {
+                        > a {
                             text-shadow: 0 0 2px #444;
                         }
+                    }
 
-                        &:hover > ul.sub-menu,
-                        &.focus > ul.sub-menu {
-                            background-color: $background;
-                            border: $border-secondary;
-                            border-bottom-left-radius: $padding-small;
-                            border-bottom-right-radius: $padding-small;
-                            left: auto;
-                            margin: 47px 0 0;
-                            padding: 0;
-                            z-index: 100;
-                            transition-delay: 0.3s;
-                            visibility: visible;
+                    &:hover > ul.sub-menu,
+                    &.active > ul.sub-menu {
+                        transition-delay: 0.3s;
+                        visibility: visible;
+                    }
+
+                    &.active ul.sub-menu .close-submenu {
+                        display: block !important;
+                    }
+                    &:hover ul.sub-menu .close-submenu {
+                        display: none;
+                    }
+
+                    a {
+                        padding: calc( $padding-regular / 2 ) $padding-small;
+                        text-decoration: none;
+
+                        &.open-submenu {
+                            left: -10000vh;
+                            padding: 0 !important;
+                            position: absolute;
+                            top: 32px;
+                            transform: rotate(90deg);
+                            width: 10px;
+
+                            &:hover, &:focus-visible {
+                                left: 45%;
+                            }
+                        }
+                    }
+
+                    ul.sub-menu {
+                        background-color: $background;
+                        border: $border-secondary;
+                        border-bottom-left-radius: $padding-small;
+                        border-bottom-right-radius: $padding-small;
+                        list-style-type: none;
+                        margin: 47px 0 0;
+                        min-width: 200px;
+                        padding: 0;
+                        position: absolute;
+                        transition: all 0s ease-in-out;
+                        visibility: hidden;
+                        z-index: 100;
+
+                        a {
+                            display: block;
+                            min-width: 100px;
+                            padding: calc( $padding-small / 2 ) $padding-small;
+
+                            &.close-submenu.svg {
+                                display: none !important;
+                            }
                         }
 
-                        // a.open-submenu {
-                        //     display: none;
-                        // }
-
-                        ul.sub-menu {
-                            left: -99999px;
-                            min-width: 200px;
-                            position: absolute;
-                            transition: all 0s;
-                            visibility: hidden;
-
-                            a {
-                                display: block;
-                                min-width: 100px;
-                                padding: calc( $padding-small / 2 ) $padding-small;
-
-                                &.close-submenu {
-                                    display: none;
-                                }
-                            }
-                            a:hover, a:focus,
-                            .current-menu-item > a, .current-menu-parent > a {
-                                text-shadow: 0 0 2px #444;
-                            }
+                        .current-menu-item > a, .current-menu-parent > a {
+                            text-shadow: 0 0 2px #444;
                         }
                     }
                 }

@@ -10,59 +10,44 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   // WordPress COOKIEHASH (replaced when script is enqueued)
   const duechiacchiere = { 'COOKIEHASH': 'COOKIEHASHVALUE' };
 
-  // // Keyboard-friendly Navigation
-  // let getSiblings = function( e ) {
-  //   let siblings = []; 
-
-  //   // If no parent, return no sibling
-  //   if( !e.parentNode ) {
-  //       return siblings;
-  //   }
-    
-  //   // First child of the parent node
-  //   let sibling  = e.parentNode.firstChild;
-    
-  //   // Find siblings
-  //   while ( sibling ) {
-  //       if ( sibling.nodeType === 1 && sibling !== e ) {
-  //           siblings.push( sibling );
-  //       }
-  //       sibling = sibling.nextSibling;
-  //   }
-  //   return siblings;
-  // }
-
-  // document.querySelectorAll( '#header-container ul.menu > .menu-item > a' ).forEach( link => {
-  //     // Add a 'focus' event handler to each top level link
-  //     link.addEventListener( 'focus', function() {
-  //       // Append a class 'focus' to the parent li
-  //       this.parentElement.classList.add( 'focus' );
-
-  //       // Change the aria label
-  //       this.setAttribute( 'aria-expanded', 'true' );
-
-  //       // Remove class and aria label from all the siblings
-  //       getSiblings( this.parentElement ).forEach( sibling => {
-  //         sibling.classList.remove( 'focus' );
-  //         sibling.firstChild.setAttribute( 'aria-expanded', 'false' );
-  //       });
-  //     });
-  // });
-
   // 1. Utilities
   // ----------------------------------------------------------------
 
+  // Find all the siblings of a given node
+  let getSiblings = ( el, withClass ) => {
+    let siblings = []; 
+
+    // If no parent, return no sibling
+    if( !el.parentNode ) {
+        return siblings;
+    }
+    
+    // First child of the parent node
+    let sibling  = el.parentNode.firstChild;
+    
+    // Find siblings
+    while ( sibling ) {
+        if ( sibling.nodeType === 1 && sibling !== el && ( !withClass || sibling.classList.contains( withClass ) ) ) {
+          siblings.push( sibling );
+        }
+
+        sibling = sibling.nextSibling;
+    }
+
+    return siblings;
+  }
+
   // Function to attach multiple event listeners to an element
-  let addMultiEventListener = function( element, listener ) {
+  let addMultiEventListener = ( element, listener ) => {
     element.addEventListener( 'click', listener, false );
-    element.addEventListener( 'touchstart', listener, {passive: true} ); // Passive listeners: https://web.dev/uses-passive-event-listeners/
+    element.addEventListener( 'touchstart', listener, { passive: true } ); // Passive listeners: https://web.dev/uses-passive-event-listeners/
 
     // Prevent touch event from triggering a fake 'click' event
-    element.addEventListener( 'touchend', event => { event.preventDefault(); } );
+    element.addEventListener( 'touchend', ( event ) => { event.preventDefault(); } );
   }
 
   // Function to retrieve a cookie's value
-  let getCookie = function( name ) {
+  let getCookie = ( name ) => {
     const value = '; ' + document.cookie;
     const parts = value.split( '; ' + name + '=' );
 
@@ -77,7 +62,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   // ----------------------------------------------------------------
 
   // Show/hide back to top button
-  window.onscroll = function() {
+  window.onscroll = () => {
     const backToTopButton = document.getElementById( 'backtotop' );
 
     if ( document.body.scrollTop > 300 || document.documentElement.scrollTop > 300 ) {
@@ -92,7 +77,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
 
   // Move the comment form closer to the comment someone is replying to
   if ( document.body.classList.contains( 'single' ) ) {
-    let showOtherReplyButton = function() {
+    let showOtherReplyButton = () => {
       let reply_button = document.getElementById( 'restore-reply-button' );
       if ( reply_button !== null ) {
         reply_button.classList.remove( 'visually-hidden' );
@@ -100,7 +85,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       }
     }
 
-    let commentReply = function( e ) {
+    let commentReply = ( e ) => {
       e.preventDefault();
 
       // If the user had clicked on another reply button, restore its original state
@@ -132,7 +117,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       document.getElementById( 'comment' ).focus();
     }
 
-    let commentCancelReply = function( e ) {
+    let commentCancelReply = ( e ) => {
       e.preventDefault();
 
       // If the user had clicked on another reply button, restore its original state
@@ -165,7 +150,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     }
 
     // Make sure that the comment is not empty
-    document.getElementById( 'comment-form' ).addEventListener( 'submit', function( e ) {
+    document.getElementById( 'comment-form' ).addEventListener( 'submit', ( e ) => {
       e.preventDefault();
       
       let submitForm = true;
@@ -175,7 +160,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
 
       if ( !submitForm ) {
         document.getElementById( 'comment-submit' ).classList.add( 'shake' );
-        setTimeout( function() {
+        setTimeout( () => {
           document.getElementById( 'comment-submit' ).classList.remove( 'shake' );
         }, 500 );
       }
@@ -207,7 +192,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   const menuOverlay = document.getElementById( 'menu-overlay' );
   let bodyWidth = 0;
 
-  let toggleMenu = function ( e, action ) {
+  let toggleMenu = ( e, action ) => {
     const menu = document.getElementById( 'primary-menu' );  
 
     if ( e.type != 'touchstart' ) {
@@ -238,17 +223,17 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   }
 
   // Attach the appropriate event handler to the mobile menu button
-  addMultiEventListener( toolbarMenuButton, function( e ) {
+  addMultiEventListener( toolbarMenuButton, ( e ) => {
     toggleMenu( e, 'toggle' );
   } );
 
   // Hide the menu when tapping on the overlay. We had to use an actual DIV because we cannot attach event handlers to pseudo elements
-  addMultiEventListener( menuOverlay, function( e ) {
+  addMultiEventListener( menuOverlay, ( e ) => {
     toggleMenu( e, 'close' );
   } );
 
   // When tapping the search button, let's make sure the navigation is closed
-  addMultiEventListener( document.getElementById( 'mobile-search-button' ), function( e ) {
+  addMultiEventListener( document.getElementById( 'mobile-search-button' ), ( e ) => {
     toggleMenu( e, 'close' );
     document.getElementById( 'search-field' ).focus();
     document.getElementById( 'search-field' ).closest( '.widget' ).scrollIntoView();
@@ -259,7 +244,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     // Use Italian grammar to determine which preposition to use
     let room_name = item.childNodes[0].textContent;
 
-    let enter_preposition = 'il';
+    let enter_preposition = 'il ';
     let exit_preposition = 'dal';
 
     if ( [ 'a', 'e', 'i', 'o', 'u' ].indexOf( room_name.charAt(0) ) != -1 ) { // word starts with a vowel
@@ -267,33 +252,69 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       exit_preposition += "l'";
     }
     else if ( room_name.slice(-1) == 'a' ) { // word ends with 'a'
-      enter_preposition = 'la';
+      enter_preposition = 'la ';
       exit_preposition += 'la ';
     }
     else {
       exit_preposition += ' ';
     }
 
-    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu svg icon-chevron-right" href="#"><span class="visually-hidden">apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
+    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu svg icon-chevron-right" href="#" aria-expanded="false"><span class="visually-hidden">apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
     item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a href="#" class="close-submenu svg icon-chevron-left"></a> <a class="close-submenu" href="#">esci ' + exit_preposition + room_name + '</a></li>' );
     
-    addMultiEventListener( item.querySelector( '.open-submenu' ), function( e ) {
+    addMultiEventListener( item.querySelector( '.open-submenu' ), ( e ) => {
       if ( e.type != 'touchstart' ) {
         e.preventDefault();
       }
+
       item.classList.add( 'active' );
+      item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'true' );
     } );
 
     item.querySelectorAll( '.close-submenu' ).forEach( link => {
-      addMultiEventListener( link, function( e ) {
+      addMultiEventListener( link, ( e ) => {
         if ( e.type != 'touchstart' ) {
           e.preventDefault();
         }
         
         item.classList.remove( 'active' );
+        item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'false' );
       } );
     } );
+
+    let is_sibling_selected = false;
+    item.querySelector( '.sub-menu' ).addEventListener( 'focusout', ( e ) => { 
+      
+      // This only applies to the desktop version on the menu
+      // For more info: https://www.w3.org/WAI/tutorials/menus/flyout/
+      if ( parseInt( window.getComputedStyle( document.getElementById( 'primary-menu' ) ).getPropertyValue( 'border-top' ) ) === 0 ) {
+        return;
+      }
+
+      // We need the setTimeout to give time to the browser to focus the next element
+      setTimeout( () => {
+        is_sibling_selected = false;
+        getSiblings( e.target.parentElement ).forEach( ( sibling ) => {
+          is_sibling_selected = is_sibling_selected || ( document.activeElement.parentElement === sibling );
+        });
+
+        if ( !is_sibling_selected ) {
+          item.classList.remove( 'active' );
+          item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'false' );
+        }
+      }, 1);
+    } );
   } );
+
+  // Close all the flyouts on Esc key
+  document.body.addEventListener( 'keyup', ( e ) => {
+    if ( e.key == "Escape" ) {
+      document.querySelectorAll( '.menu-item-has-children' ).forEach( item => {
+        item.classList.remove( 'active' );
+        item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'false' );
+      } );
+    }
+  });
 
   // 5. User Experience
   // ----------------------------------------------------------------

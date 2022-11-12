@@ -27,7 +27,6 @@ class duechiacchiere {
 		}
 
 		// Make the main menu more accessible
-		add_filter( 'nav_menu_link_attributes', array( __CLASS__, 'nav_menu_link_attributes' ), 10, 4 );
 		add_filter( 'walker_nav_menu_start_el', array( __CLASS__, 'walker_nav_menu_start_el' ), 10, 4 );
 
 		// Customize image HTML wrappers
@@ -104,17 +103,6 @@ class duechiacchiere {
 	public static function print_scripts() {
 		$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
 		echo '<script>' . str_replace( 'COOKIEHASHVALUE', COOKIEHASH, $js ) . '</script>';
-	}
-	
-	public static function nav_menu_link_attributes( $atts, $item, $args, $depth ) {
-		// Add [aria-haspopup] and [aria-expanded] to menu items that have children
-		$item_has_children = in_array( 'menu-item-has-children', $item->classes );
-		if ( $item_has_children ) {
-			$atts[ 'aria-haspopup' ] = 'true';
-			$atts[ 'aria-expanded' ] = 'false';
-		}
-	
-		return $atts;
 	}
 
 	public static function walker_nav_menu_start_el( $item_output, $item, $depth, $args ) {
@@ -431,13 +419,13 @@ class duechiacchiere {
 				</div>
 					
 				<?php
-					echo str_replace( 'aria-label', 'title', get_comment_reply_link( array_merge( $args, array(
+					echo get_comment_reply_link( array_merge( $args, array(
 						'add_below' => 'div-comment',
 						'depth' => $depth,
 						'max_depth' => $args[ 'max_depth' ],
 						'before' => '<div class="reply">',
 						'after' => '</div>'
-					) ) ) );
+					) ) );
 				?>
 			</div>
 			<?php

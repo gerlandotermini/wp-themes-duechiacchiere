@@ -323,7 +323,7 @@
 				$b64_image = base64_encode( file_get_contents( get_template_directory() . '/assets/img/camu/' . $default_category . '.webp' ) );
 			?>
 			<img id="logo" src="data:image/webp;base64,<?= $b64_image ?>" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120">
-			<a id="name" href="/" title="Torna alla pagina principale del sito">due chiacchiere</a>
+			<a id="name" href="/" aria-label="Torna alla pagina iniziale del sito">due chiacchiere</a>
 			<a class="skip" id="page-top" href="#content">Salta al contenuto</a>
 		</div>
 

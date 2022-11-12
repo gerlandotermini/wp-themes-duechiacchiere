@@ -2,12 +2,8 @@
 	<div class="widget" id="search-form">
 		<h2 class="visually-hidden">Cerca nel sito</h2>
 		<form role="search" action="/" method="get">
-			<label for="search-field">
-				<span class="visually-hidden">Digita le parole da cercare e premi invio</span>
-			</label>
-
+			<label for="search-field" class="visually-hidden">Digita le parole da cercare e premi invio</label>
 			<input type="text" id="search-field" autocomplete="off" name="s" required="required" placeholder="Spulcia nell'archivio...">
-
 			<button type='submit' id="search-button" class="svg icon-search"><span class="visually-hidden">Avvia la ricerca</span></button>
 		</form>
 	</div>
