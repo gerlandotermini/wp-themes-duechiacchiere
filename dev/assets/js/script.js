@@ -65,7 +65,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   window.onscroll = () => {
     const backToTopButton = document.getElementById( 'backtotop' );
 
-    if ( document.body.scrollTop > 300 || document.documentElement.scrollTop > 300 ) {
+    if ( document.body.scrollTop > 900 || document.documentElement.scrollTop > 900 ) {
       backToTopButton.style.opacity = 1;
     } else {
       backToTopButton.style.opacity = 0;
