@@ -282,28 +282,24 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       } );
     } );
 
-    let is_sibling_selected = false;
-    item.querySelector( '.sub-menu' ).addEventListener( 'focusout', ( e ) => { 
-      
-      // This only applies to the desktop version on the menu
-      // For more info: https://www.w3.org/WAI/tutorials/menus/flyout/
-      if ( parseInt( window.getComputedStyle( document.getElementById( 'primary-menu' ) ).getPropertyValue( 'border-top' ) ) === 0 ) {
-        return;
-      }
-
-      // We need the setTimeout to give time to the browser to focus the next element
-      setTimeout( () => {
-        is_sibling_selected = false;
-        getSiblings( e.target.parentElement ).forEach( ( sibling ) => {
-          is_sibling_selected = is_sibling_selected || ( document.activeElement.parentElement === sibling );
-        });
-
-        if ( !is_sibling_selected ) {
-          item.classList.remove( 'active' );
-          item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'false' );
-        }
-      }, 1);
-    } );
+    // This only applies to the desktop version on the menu (menu is 'flex')
+    if ( window.getComputedStyle( document.getElementById( 'menu-primary-menu' ) ).getPropertyValue( 'display' ) === 'flex' ) {
+      let is_sibling_selected = false;
+      item.querySelector( '.sub-menu' ).addEventListener( 'focusout', ( e ) => {
+        // We need the setTimeout to give time to the browser to focus the next element
+        setTimeout( () => {
+          is_sibling_selected = false;
+          getSiblings( e.target.parentElement ).forEach( ( sibling ) => {
+            is_sibling_selected = is_sibling_selected || ( document.activeElement.parentElement === sibling );
+          });
+  
+          if ( !is_sibling_selected ) {
+            item.classList.remove( 'active' );
+            item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'false' );
+          }
+        }, 10);
+      } );
+    };
   } );
 
   // Close all the flyouts on Esc key
