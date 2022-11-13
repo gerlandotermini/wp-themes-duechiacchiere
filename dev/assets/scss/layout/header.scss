@@ -13,6 +13,12 @@ body {
     font-weight: $body-font-weight;
     line-height: 1.4;
 
+    // Pass media query info to Javascript
+    &::before {
+        display: none;
+        padding: 0;
+    }
+
     @include media-query( large ) {
         border-radius: $padding-small;
         box-shadow: $box-shadow;
@@ -20,6 +26,10 @@ body {
         margin: 0 auto;
         max-width: $body-max-width;
         width: 90%;
+
+        &::before {
+            padding: 1px;
+        }
     }
 
     @each $month in $months {
@@ -29,7 +39,7 @@ body {
         &.#{ nth( $month, 1 ) } a, &.#{ nth( $month, 1 ) } a:visited, &.#{ nth( $month, 1 ) } a:active, &.#{ nth( $month, 1 ) } input.submit {
             color: #{ nth( $month, 3 ) };
         }
-        &.#{ nth( $month, 1 ) } .svg:before {
+        &.#{ nth( $month, 1 ) } .svg::before {
             filter: #{ nth( $month, 4 ) };
         }
     }

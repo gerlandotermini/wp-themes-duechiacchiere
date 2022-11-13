@@ -282,8 +282,8 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       } );
     } );
 
-    // This only applies to the desktop version on the menu (menu is 'flex')
-    if ( window.getComputedStyle( document.getElementById( 'menu-primary-menu' ) ).getPropertyValue( 'display' ) === 'flex' ) {
+    // This only applies to the desktop version on the menu (we use a pseudoelement to convey info)
+    if ( window.getComputedStyle( document.body, ':before' ).getPropertyValue( 'padding' ) === '1px' ) {
       let is_sibling_selected = false;
       item.querySelector( '.sub-menu' ).addEventListener( 'focusout', ( e ) => {
         // We need the setTimeout to give time to the browser to focus the next element
