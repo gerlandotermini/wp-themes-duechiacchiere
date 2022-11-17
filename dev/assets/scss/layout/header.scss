@@ -226,10 +226,10 @@ body {
                             flex: 0 0 auto;
                             width: $padding-small;
                         }
-                        &.close-submenu.svg {
-                            flex: 0 0 auto;
-                            width: 10px;
-                            padding: 20px 0 20px 20px;
+                        &.close-submenu .svg {
+                            display: inline-block;
+                            margin-right: $margin-small;
+                            width: 8px;
                         }
                     }
                     ul {
