@@ -279,6 +279,11 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
         
         item.classList.remove( 'active' );
         item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'false' );
+    
+        // On desktop, focus the parent
+        if ( window.getComputedStyle( document.body, ':before' ).getPropertyValue( 'padding' ) === '1px' ) {
+          item.querySelector( 'a' ).focus();
+        }
       } );
     } );
 
