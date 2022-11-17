@@ -316,7 +316,8 @@
 	<!-- END: WP_Head -->
 </head>
 
-<body <?= body_class( $bg_month ) ?>>
+<body <?= body_class( $bg_month ) ?> id="body">
+	<a class="skip" id="page-top" href="#content">salta al contenuto</a>
 	<header id="header-container">
 		<div id="branding">
 			<?php
@@ -324,7 +325,6 @@
 			?>
 			<img id="logo" src="data:image/webp;base64,<?= $b64_image ?>" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120">
 			<a id="name" href="/" aria-label="Torna alla pagina iniziale del sito">due chiacchiere</a>
-			<a class="skip" id="page-top" href="#content">Salta al contenuto</a>
 		</div>
 
 		<nav aria-label="Navigazione primaria" id="primary-menu">
