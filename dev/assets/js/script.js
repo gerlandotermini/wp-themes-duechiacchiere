@@ -259,7 +259,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       exit_preposition += ' ';
     }
 
-    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu svg icon-chevron-right" href="#" aria-expanded="false"><span class="visually-hidden">apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
+    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu svg icon-chevron-right" href="#" aria-expanded="false"><span class="visually-hidden"> apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
     item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="#"><span class="svg icon-chevron-left"></span> esci ' + exit_preposition + room_name + '</a></li>' );
     
     addMultiEventListener( item.querySelector( '.open-submenu' ), ( e ) => {
