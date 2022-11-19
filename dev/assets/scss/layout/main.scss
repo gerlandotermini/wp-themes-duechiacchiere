@@ -211,12 +211,11 @@ main {
                     a {
                         background-color: $white;
                         border: $border-secondary;
-                        display: block;
+                        display: inline-block;
                         font-size: $font-size-extra-small;
                         margin-top: $margin-small;
                         padding: calc( $padding-small/2 ) $padding-small;
                         text-decoration: none;
-                        width: fit-content;
                     }
                 }
 
@@ -276,10 +275,6 @@ main {
             flex-wrap: wrap;
             font-size: $font-size-extra-small;
             margin-top: $margin-regular;
-
-            @include media-query( large ) {
-                width: fit-content;
-            }
 
             #comment-submit {
                 margin: 0 $margin-regular 0 0;
