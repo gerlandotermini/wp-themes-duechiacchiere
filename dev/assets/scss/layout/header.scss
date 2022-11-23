@@ -213,7 +213,7 @@ body {
                     position: relative;
 
                     &.current-menu-item > a, &.current-menu-parent > a {
-                        text-shadow: 0 0 2px #444;
+                        text-shadow: $shadow;
                     }
 
                     a {
@@ -275,7 +275,7 @@ body {
 
                     &.current-menu-item, &.current-menu-parent {
                         > a {
-                            text-shadow: 0 0 2px #444;
+                            text-shadow: $shadow;
                         }
                     }
 
@@ -340,7 +340,7 @@ body {
                         }
 
                         .current-menu-item > a, .current-menu-parent > a {
-                            text-shadow: 0 0 2px #444;
+                            text-shadow: $shadow;
                         }
                     }
                 }

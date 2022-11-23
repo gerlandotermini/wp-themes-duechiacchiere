@@ -280,7 +280,12 @@ main {
                 margin: 0 $margin-regular 0 0;
                 padding: $padding-small;
 
-                @keyframes spaceboots {
+                &:hover {
+                    cursor: pointer;
+                    text-shadow: $shadow;
+                }
+
+                @keyframes shakeme {
                     0% { transform: translate(10px, 0); }
                     25% { transform: translate(-10px, 0); }
                     50% { transform: translate(5px, 0); }
@@ -290,7 +295,7 @@ main {
                 }
                 &.shake {
                     display: inline-block;
-                    animation-name: spaceboots;
+                    animation-name: shakeme;
                     animation-duration: 0.5s;
                     transform-origin: 50% 50%;
                     animation-timing-function: linear
@@ -301,6 +306,11 @@ main {
                 border: $border-secondary;
                 font-weight: 300;
                 padding: $padding-small;
+
+                &:hover {
+                    cursor: pointer;
+                    text-shadow: $shadow;
+                }
             }
         }
     }
