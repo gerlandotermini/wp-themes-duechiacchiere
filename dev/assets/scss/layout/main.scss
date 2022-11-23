@@ -280,7 +280,7 @@ main {
                 margin: 0 $margin-regular 0 0;
                 padding: $padding-small;
 
-                &:hover {
+                &:hover, &:focus {
                     cursor: pointer;
                     text-shadow: $shadow;
                 }
@@ -307,7 +307,7 @@ main {
                 font-weight: 300;
                 padding: $padding-small;
 
-                &:hover {
+                &:hover, &:focus {
                     cursor: pointer;
                     text-shadow: $shadow;
                 }
