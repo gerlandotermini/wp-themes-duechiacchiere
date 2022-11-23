@@ -155,8 +155,12 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       
       let submitForm = true;
       e.target.querySelectorAll( '[required]' ).forEach( node => {
-        submitForm = submitForm && ( node.value != '' );
+        submitForm = submitForm && ( node.value.trim() != '' );
       } );
+
+      if ( e.target.querySelector( '#email' ).value.toLowerCase().match( /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ) == null ) {
+        submitForm = false;
+      }
 
       if ( !submitForm ) {
         document.getElementById( 'comment-submit' ).classList.add( 'shake' );
