@@ -54,6 +54,7 @@ $border: 1px solid #333;
 $border-secondary: 1px solid $background-secondary;
 $box-shadow: 0px 0px 0px 12px rgb( 255 255 255 / 40% );
 $shadow: 0 0 2px #555;
+$shadow-light: 0 0 2px #fff;
 
 // 4. Icons
 // ------------------------------------------------
@@ -65,7 +66,9 @@ $icon-wikipedia: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAA
 
 [class*="icon-"]:before {
     display: block;
-    line-height: 0;
+}
+[class*="icon-"]:hover {
+    filter: drop-shadow($shadow);
 }
 .icon {
     &-chevron-left:before {

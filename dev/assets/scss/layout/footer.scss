@@ -74,6 +74,10 @@ footer {
     a {
         color: $links-footer !important;
         text-decoration: none;
+
+        &:focus, &:focus-visible, &:hover {
+            text-shadow: $shadow-light;
+        }
     }
 }
 
