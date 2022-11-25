@@ -4,7 +4,7 @@
 
 // These libraries are defined as dependencies in package.json, to always have
 // the latest version available without having to manually check for updates
-@import "vendor/normalize";
+@import "vendor/reset";
 
 @import 'layout/header';
 @import 'layout/main';

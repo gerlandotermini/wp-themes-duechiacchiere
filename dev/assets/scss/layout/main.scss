@@ -192,7 +192,9 @@ main {
                 margin: $margin-regular 0;
                 padding-bottom: 0;
 
-                .comment-author, .comment-meta {
+                .comment-meta {
+                    margin-bottom: $margin-small;
+
                     img {
                         float: left;
                         margin-right: $margin-small;
@@ -358,7 +360,7 @@ main {
             a, span {
                 display: block;
                 line-height: 1;
-                min-width: .6em;
+                min-width: 50px;
                 padding: $padding-small $padding-regular;
                 text-align: center;
                 text-decoration: none;

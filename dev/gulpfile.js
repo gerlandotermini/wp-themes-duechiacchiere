@@ -23,12 +23,6 @@ const paths = {
             all: './assets/scss/**/*.?css'
         },
         dest: '../assets/css'
-    },
-    vendor: {
-        normalize: {
-            src: './node_modules/normalize.css/normalize.css',
-            dest: './assets/scss/vendor/'
-        }
     }
 }
 
@@ -62,15 +56,6 @@ function styles() {
  
             // What is the destination for the compiled file?
             .pipe( gulp.dest( paths.styles.dest ) )
-    );
-}
-
-// Copy vendor files (Normalize)
-// $ gulp vendor
-exports.vendor = vendor;
-function vendor() {
-    return (
-        gulp.src( paths.vendor.normalize.src ).pipe( gulp.dest( paths.vendor.normalize.dest ) )
     );
 }
 
