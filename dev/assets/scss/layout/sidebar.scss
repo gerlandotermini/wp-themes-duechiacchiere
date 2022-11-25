@@ -64,12 +64,13 @@ aside {
     
     h3 {
         font-family: $headings-font-family;
-        font-size: 1.2rem;
+        font-size: 1.05rem;
         margin: 0;
     }
     p {
+        font-size: 1.1rem;
         margin: $margin-small 0 0;
-        opacity: 70%;
+        opacity: 85%;
     }
     a {
         text-decoration: none;
