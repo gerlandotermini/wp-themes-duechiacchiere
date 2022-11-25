@@ -33,7 +33,7 @@
 				<li><a href="/chi-sono">Ti presento l'inquilino</a></li>
 				<li><a href="/contatto">Lascia un messaggio</a></li>
 				<li><a href="/feed">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> degli articoli</a></li>
-				<li><a href="/feed/scrissi-oggi">Il <span lang="en">feed</span> <abbr title="really simple syndication" lang="en">RSS</abbr> di oggi</a></li>
+				<li><a href="/feed/scrissi-oggi">Il <span lang="en">feed</span> di oggi nel passato</a></li>
 				
 				
 			</ul>
