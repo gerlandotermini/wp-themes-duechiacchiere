@@ -33,8 +33,10 @@ body {
     }
 
     @each $month in $months {
-        &.#{ nth( $month, 1 ) } {
-            background: url( "themeuri/assets/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
+        @include media-query( large ) {
+            &.#{ nth( $month, 1 ) } {
+                background: url( "themeuri/assets/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
+            }
         }
         &.#{ nth( $month, 1 ) } a, &.#{ nth( $month, 1 ) } a:visited, &.#{ nth( $month, 1 ) } a:active, &.#{ nth( $month, 1 ) } input.submit {
             color: #{ nth( $month, 3 ) };
