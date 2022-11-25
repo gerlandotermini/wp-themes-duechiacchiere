@@ -61,7 +61,7 @@ main {
         
         // Images
         figure {
-            margin: 0 0 20px;
+            margin: $margin-regular 0;
             max-width: 100% !important;
 
             img {
@@ -155,7 +155,7 @@ main {
 
         // Paragraphs and lists
         p {
-            margin: .5em 0 1em;
+            margin: 0 0 $margin-small;
 
             &:last-child {
                 margin-bottom: 0;
