@@ -66,7 +66,7 @@
 				$comment_post_title = get_the_title( $a_comment->comment_post_ID );
 				$comment_permalink = get_comment_link( $a_comment->comment_ID );
 				$comment_excerpt = duechiacchiere::get_substr_words( $a_comment->comment_content, 150 );
-				echo '<li><h3><a title="Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title . '" href="' . $comment_permalink .'">' . $a_comment->comment_author . ' su ' . $comment_post_title . '</a></h3>' . apply_filters( 'comment_text', $comment_excerpt ) . '</li>';
+				echo '<li><h3><a aria-label="Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title . '" href="' . $comment_permalink .'">' . $a_comment->comment_author . ' su ' . $comment_post_title . '</a></h3>' . apply_filters( 'comment_text', $comment_excerpt ) . '</li>';
 			}
 
 			echo '</ul></div>';

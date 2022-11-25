@@ -33,7 +33,7 @@
 
 			$categories_html = array();
 			foreach ( $categories as $a_category ) {
-				$categories_html[] = '<a href="' . get_category_link( $a_category->term_id ). '" aria-label="Vai all\'archivio degli articoli per la categoria ' . $a_category->name . '">' . $a_category->name . '</a>';
+				$categories_html[] = '<a href="' . get_category_link( $a_category->term_id ). '">' . $a_category->name . '</a>';
 			}
 			$categories_html = implode( ', ', $categories_html );
 
@@ -59,7 +59,7 @@
 						<span class="visually-hidden">Scritto il giorno </span><time datetime="<?php the_time( 'Y-m-d H:i:s' ) ?>"><?= ucfirst( get_the_time('j F Y') ); ?></time>
 						<?php
 							if ( !empty( $categories_html ) ) {
-								echo '<span class="visually-hidden">&ordm; Archiviato</span> in ' . $categories_html;
+								echo '<span class="visually-hidden">, archiviato</span> in ' . $categories_html;
 							}
 							if ( !empty( $comments_html ) ) {
 								echo ' <span class="comment-separator">&mdash;</span> ' . $comments_html;
