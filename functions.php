@@ -50,6 +50,9 @@ class duechiacchiere {
 		// Filter really long comments (spam)
 		add_filter( 'preprocess_comment' , array( __CLASS__, 'preprocess_comment' ) );
 
+		// Remove attribute nofollow from comment author link, if present
+		add_filter( 'get_comment_author_link', array( __CLASS__, 'get_comment_author_link' ), 10, 3 );
+
 		// Move the 'Cancel reply' link next to the button to submit a comment
 		add_filter( 'cancel_comment_reply_link', '__return_empty_string' );
 
@@ -267,6 +270,20 @@ class duechiacchiere {
 		};
 
 		return $commentdata;
+	}
+
+	public static function get_comment_author_link( $link, $author, $comment_ID ) {
+        $comment_url = get_comment_author_url( $comment_ID );
+
+		if ( !empty( $comment_url ) ) {
+			return sprintf(
+				'<a href="%s" rel="external ugc" class="url">%s</a>',
+				get_comment_author_url( $comment_ID ),
+				$author
+			);
+		}
+
+		return $link;
 	}
 
 	public static function get_archives_link( $link_html = '' ) {
