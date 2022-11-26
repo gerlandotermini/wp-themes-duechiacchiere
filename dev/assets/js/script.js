@@ -263,16 +263,31 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       exit_preposition += ' ';
     }
 
+    item.querySelector( 'a' ).setAttribute( 'aria-expanded', 'false' );
     item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu svg icon-chevron-right" href="#" aria-expanded="false"><span class="visually-hidden"> apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
     item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="#"><span class="svg icon-chevron-left"></span> esci ' + exit_preposition + room_name + '</a></li>' );
-    
+
+    item.addEventListener( 'mouseover', ( e ) => {
+      item.querySelectorAll( ':scope > a' ).forEach( link => {
+        link.setAttribute( 'aria-expanded', 'true' );
+      } );
+    } );
+
+    item.addEventListener( 'mouseout', ( e ) => {
+      item.querySelectorAll( ':scope > a' ).forEach( link => {
+        link.setAttribute( 'aria-expanded', 'false' );
+      } );
+    } );
+
     addMultiEventListener( item.querySelector( '.open-submenu' ), ( e ) => {
       if ( e.type != 'touchstart' ) {
         e.preventDefault();
       }
 
       item.classList.add( 'active' );
-      item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'true' );
+      item.querySelectorAll( ':scope > a' ).forEach( link => {
+        link.setAttribute( 'aria-expanded', 'true' );
+      } );
     } );
 
     item.querySelectorAll( '.close-submenu' ).forEach( link => {
@@ -282,7 +297,10 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
         }
         
         item.classList.remove( 'active' );
-        item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'false' );
+
+        item.querySelectorAll( ':scope > a' ).forEach( link => {
+          link.setAttribute( 'aria-expanded', 'false' );
+        } );
     
         // On desktop, focus the parent
         if ( window.getComputedStyle( document.body, ':before' ).getPropertyValue( 'padding' ) === '1px' ) {
@@ -291,7 +309,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       } );
     } );
 
-    // This only applies to the desktop version on the menu (we use a pseudoelement to convey info)
+    // This only applies to the desktop version on the menu (we use a pseudoelement to determine which layout is being displayed)
     if ( window.getComputedStyle( document.body, ':before' ).getPropertyValue( 'padding' ) === '1px' ) {
       let is_sibling_selected = false;
       item.querySelector( '.sub-menu' ).addEventListener( 'focusout', ( e ) => {
@@ -304,7 +322,9 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   
           if ( !is_sibling_selected ) {
             item.classList.remove( 'active' );
-            item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'false' );
+            item.querySelectorAll( ':scope > a' ).forEach( link => {
+              link.setAttribute( 'aria-expanded', 'false' );
+            } );
           }
         }, 10);
       } );
