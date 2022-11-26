@@ -140,6 +140,7 @@ main {
         }
         pre {
             white-space: pre-wrap;
+            margin-bottom: $margin-regular;
 
             code {
                 background-color: $background-code;
