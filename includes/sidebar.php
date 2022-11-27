@@ -124,7 +124,7 @@
 	}
 
 	if ( !is_front_page() ) {
-		echo '<nav aria-labelledby="back-in-time" class="widget"><h2 id="back-in-time">Indietro nel tempo</h2><ul class="plain-list">';
+		echo '<nav aria-labelledby="back-in-time" class="widget" id="widget-back-in-time"><h2 id="back-in-time">Indietro nel tempo</h2><ul class="plain-list">';
 
 		$month_links = explode( '</li>', str_replace( array( '<li>', "\n" ), '', wp_get_archives( 'type=monthly&limit=120&echo=0' ) ) ); 
 		$count_links = 0;
@@ -140,7 +140,6 @@
 			echo '<li>' . trim( $a_month_link ) . "</li>";
 			$count_links++;
 		}
-		echo '<li><a href="/?day='. date_i18n( 'd' ) . '&monthnum=' . date_i18n( 'm' ) . '&year=0" rel="nofollow">Oggi nel passato</a></li></ul></nav>';
 	}
 
 	if ( is_front_page() && !is_paged() ) {

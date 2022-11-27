@@ -4,7 +4,7 @@
 // 2. Back to Top
 // 3. Comments
 // 4. Menu
-// 5. User Experience
+// 5. Miscellaneous
 
 window.addEventListener( 'DOMContentLoaded', ( event ) => {
   // WordPress COOKIEHASH (replaced when script is enqueued)
@@ -341,7 +341,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     }
   });
 
-  // 5. User Experience
+  // 5. Miscellaneous
   // ----------------------------------------------------------------
 
   // Open external links in a new tab/window
@@ -361,4 +361,11 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       link.setAttribute('rel', linkTypes.join(' ').trim());
     }
   });
+
+  // Add link to read today's posts in the past (dynamic because of caching)
+  const today = new Date();
+  const back_in_time = document.querySelector( '#widget-back-in-time ul' );
+  if ( back_in_time ) {
+    back_in_time.insertAdjacentHTML( 'beforeend', '<li><a href="/?day=' + String( today.getDate() ) + '&amp;monthnum=' + String( today.getMonth() + 1 ) + '&amp;year=0" rel="nofollow">Oggi nel passato</a></li>' );
+  }
 } );
