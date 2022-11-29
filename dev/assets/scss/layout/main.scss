@@ -207,6 +207,8 @@ main {
                     }
                 }
                 p {
+                    margin-bottom: $margin-small;
+
                     @include external-links;
                 }
                 .reply {
