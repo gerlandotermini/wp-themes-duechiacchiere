@@ -12,6 +12,7 @@ body {
     font-size: $body-font-size;
     font-weight: $body-font-weight;
     line-height: 1.4;
+    word-break: break-word;
 
     // Pass media query info to Javascript
     &::before {

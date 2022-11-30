@@ -230,8 +230,6 @@ main {
                 }
     
                 a {
-                    word-break: break-word;
-    
                     @include media-query( print ) { 
                         &.comment-reply-link {
                             display: none;
