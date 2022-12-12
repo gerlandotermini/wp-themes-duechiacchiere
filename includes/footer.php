@@ -73,8 +73,6 @@
 		<span class="visually-hidden">Torna in cima alla pagina</span>
 	</a>
 
-	<script async defer src="https://scripts.withcabin.com/hello.js"></script>
-
 	<!-- BEGIN: WP_Footer -->
 	<?php wp_footer(); ?>
 
