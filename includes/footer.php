@@ -73,6 +73,8 @@
 		<span class="visually-hidden">Torna in cima alla pagina</span>
 	</a>
 
+	<script async defer src="https://scripts.withcabin.com/hello.js"></script>
+
 	<!-- BEGIN: WP_Footer -->
 	<?php wp_footer(); ?>
 
@@ -89,5 +91,5 @@ $html = duechiacchiere::minify_output( $html );
 echo $html;
 
 if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ) {
-	duechiacchiere::add_to_cache( $html );	
+	duechiacchiere::add_to_cache( $html );
 }
