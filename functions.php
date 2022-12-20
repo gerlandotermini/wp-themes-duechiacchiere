@@ -21,9 +21,12 @@ class duechiacchiere {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ), 100 );
 
 		// Insert inline styles and scripts, except on CSS Naked Day - https://css-naked-day.github.io/
+		// If constant is not defined, wp_enqueue_scripts will take care of adding the external reference as needed
 		if ( !self::is_naked_day() ) {
-			add_action( 'wp_head', array( __CLASS__, 'print_styles' ) );
-			add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
+			if ( defined( 'USE_INLINE_STYLES_SCRIPTS' ) && USE_INLINE_STYLES_SCRIPTS ) {
+				add_action( 'wp_head', array( __CLASS__, 'print_styles' ) );
+				add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
+			}
 		}
 
 		// Make the main menu more accessible
@@ -90,6 +93,16 @@ class duechiacchiere {
 	}
 
 	public static function wp_enqueue_scripts() {
+		if ( !defined( 'USE_INLINE_STYLES_SCRIPTS' ) || !USE_INLINE_STYLES_SCRIPTS ) {
+			wp_enqueue_style( 'duechiacchiere', get_template_directory_uri() . '/assets/css/style.css' );
+			wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/assets/js/script.js', array(), '1.0.0', true );
+			wp_localize_script( 'duechiacchiere', 'duechiacchiere',
+				array( 
+					'COOKIEHASH' => COOKIEHASH
+				)
+			);
+		}
+
 		wp_dequeue_style( 'wp-block-library' );
 		wp_dequeue_style( 'wp-block-library-theme' );
 		wp_dequeue_style( 'wc-block-style' );
@@ -100,12 +113,12 @@ class duechiacchiere {
 
 	public static function print_styles() {
 		$css = file_get_contents( get_template_directory() . '/assets/css/style.css' );
-		echo '<style>' . str_replace( array( 'themeuri', 'my.site.domain' ), array( get_stylesheet_directory_uri(), parse_url( get_home_url(), PHP_URL_HOST ) ), $css ) . '</style>';
+		echo "<style>$css</style>";
 	}
 
 	public static function print_scripts() {
 		$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
-		echo '<script>' . str_replace( 'COOKIEHASHVALUE', COOKIEHASH, $js ) . '</script>';
+		echo "<script>const duechiacchiere={'COOKIEHASH':'" . COOKIEHASH . "'};$js</script>";
 	}
 
 	public static function walker_nav_menu_start_el( $item_output, $item, $depth, $args ) {
@@ -487,7 +500,7 @@ class duechiacchiere {
 	 	return htmlspecialchars( $clean_string );
 	}
 
-	public static function minify_output( $html = '' ) {
+	public static function scrub_output( $html = '' ) {
 		// No need to have type defined in the script tag anymore
 		$html = str_replace( array( " type='text/javascript'", ' type="text/javascript"' ), '', $html );
 

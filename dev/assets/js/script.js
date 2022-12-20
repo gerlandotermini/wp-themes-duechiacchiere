@@ -7,9 +7,6 @@
 // 5. Miscellaneous
 
 window.addEventListener( 'DOMContentLoaded', ( event ) => {
-  // WordPress COOKIEHASH (replaced when script is enqueued)
-  const duechiacchiere = { 'COOKIEHASH': 'COOKIEHASHVALUE' };
-
   // 1. Utilities
   // ----------------------------------------------------------------
 
@@ -358,7 +355,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       if ( !linkTypes.includes( 'noopener' ) ) {
         linkTypes.push( 'noopener' );
       }
-      link.setAttribute('rel', linkTypes.join(' ').trim());
+      link.setAttribute( 'rel', linkTypes.join(' ').trim() );
     }
   });
 
