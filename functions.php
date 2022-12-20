@@ -94,8 +94,8 @@ class duechiacchiere {
 
 	public static function wp_enqueue_scripts() {
 		if ( !defined( 'USE_INLINE_STYLES_SCRIPTS' ) || !USE_INLINE_STYLES_SCRIPTS ) {
-			wp_enqueue_style( 'duechiacchiere', get_template_directory_uri() . '/assets/css/style.css' );
-			wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/assets/js/script.js', array(), '1.0.0', true );
+			wp_enqueue_style( 'duechiacchiere', get_template_directory_uri() . '/assets/css/style.css', array(), null, 'all' );
+			wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/assets/js/script.js', array(), null, true );
 			wp_localize_script( 'duechiacchiere', 'duechiacchiere',
 				array( 
 					'COOKIEHASH' => COOKIEHASH
