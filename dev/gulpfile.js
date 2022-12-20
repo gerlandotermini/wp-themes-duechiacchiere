@@ -6,7 +6,7 @@ const gulp = require( 'gulp' ),
     clean_css = require( 'gulp-clean-css' ),
 
     // Minify JS
-    clean_js = require( 'gulp-minify' ),
+    clean_js = require('gulp-uglify'),
 
     // Compile SCSS
     sass = require( 'gulp-sass' )( require( 'sass' ) );
@@ -33,7 +33,7 @@ function scripts() {
             .src( paths.scripts.src )
 
             // Minify the output
-            .pipe( clean_js( { mangle: { toplevel: true }, ext: { min: '.js' }, noSource: true } ) )
+            .pipe( clean_js( { mangle: { toplevel: true } } ) )
  
             // What is the destination for the compiled file?
             .pipe( gulp.dest( paths.scripts.dest ) )
