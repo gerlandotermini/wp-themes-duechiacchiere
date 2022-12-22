@@ -35,7 +35,7 @@
     a[href*='.pdf']::after {
         content: ' [pdf]';
     }
-    a:target:not( [href^='#'] ):not( [href^='/'] ):not( [href*="wikipedia.org"] )::before {
+    a[target]:not( [href^='#'] ):not( [href^='/'] ):not( [href*="wikipedia.org"] )::before {
         content: $icon-external-link;
         margin: 0 5px 0 2px;
         opacity: 0.5;
