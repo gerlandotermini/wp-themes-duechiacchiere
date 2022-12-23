@@ -94,7 +94,7 @@ main {
         
         // Videos
         .wp-video, .mejs-container, .mejs-overlay.load {
-            margin-bottom: $margin-regular;
+            margin: $margin-regular 0;
             max-width: 100% !important;
             position: relative;
             width: 100% !important;
