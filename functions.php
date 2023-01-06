@@ -178,7 +178,7 @@ class duechiacchiere {
 		// Cache
 
 		// Bail if we're not dealing with a published post, which shouldn't be cached anyway
-		if ( $old_status != 'publish' && $new_status != 'publish' ) {
+		if ( ( $old_status != 'publish' && $new_status != 'publish' ) || !function_exists( 'get_sample_permalink' ) ) {
 			return 0;
 		}
 
