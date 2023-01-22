@@ -140,6 +140,8 @@
 			echo '<li>' . trim( $a_month_link ) . "</li>";
 			$count_links++;
 		}
+
+		echo '</ul></nav>';
 	}
 
 	if ( is_front_page() && !is_paged() ) {
