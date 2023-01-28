@@ -1,6 +1,6 @@
 {
   "name": "duechiacchiere",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "My personal blog's minimalistic theme. Highly optimized, accessible and easy to use.",
   "main": "gulpfile.js",
   "repository": {

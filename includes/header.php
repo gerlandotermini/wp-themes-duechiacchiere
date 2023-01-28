@@ -321,9 +321,14 @@
 	<header id="header-container">
 		<div id="branding">
 			<?php
-				$b64_image = base64_encode( file_get_contents( get_template_directory() . '/assets/img/camu/' . $default_category . '.webp' ) );
+				if ( defined( 'USE_INLINE_STYLES_SCRIPTS' ) && USE_INLINE_STYLES_SCRIPTS ) {
+					$b64_image = 'data:image/webp;base64,' . file_get_contents( get_template_directory() . '/assets/img/camu/' . $default_category . '.base64' );
+				}
+				else {
+					$b64_image = get_template_directory_uri() . '/assets/img/camu/' . $default_category . '.webp';
+				}
 			?>
-			<img id="logo" src="data:image/webp;base64,<?= $b64_image ?>" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120">
+			<img id="logo" src="<?= $b64_image ?>" alt="un ragazzo con la testa appoggiata in avanti sulle braccia conserte" width="200" height="120">
 			<a id="name" href="/" aria-label="Torna alla pagina iniziale del sito">due chiacchiere</a>
 		</div>
 
