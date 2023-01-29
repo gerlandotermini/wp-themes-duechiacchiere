@@ -188,7 +188,7 @@ class duechiacchiere {
 		$permalink_path = '/' . $permalink[ 1 ];
 
 		// Delete the old version from the cache
-		duechiacchiere::delete_from_cache( $permalink_path, ( $new_status == 'publish' ) );
+		duechiacchiere::delete_from_cache( $permalink_path );
 
 		// Sitemap
 		// -------------------------------------------------------------------------------
@@ -241,7 +241,7 @@ class duechiacchiere {
 		// Delete cached version of this page (footer will regenerate it) and refresh homepage
 		if ( !empty( $commentdata[ 'comment_post_ID' ] ) && $comment_approved ) {
 			$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
-			duechiacchiere::delete_from_cache( $permalink_path, false );
+			duechiacchiere::delete_from_cache( $permalink_path );
 		}
 	}
 
@@ -251,7 +251,7 @@ class duechiacchiere {
 		// Delete cached version of this page (footer will regenerate it) and refresh homepage
 		if ( !empty( $commentdata[ 'comment_post_ID' ] ) ) {
 			$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
-			duechiacchiere::delete_from_cache( $permalink_path, false );
+			duechiacchiere::delete_from_cache( $permalink_path );
 			self::$comment_edited = true;
 		}
 	}
@@ -267,7 +267,7 @@ class duechiacchiere {
 		$permalink_path = str_replace( home_url(), '', get_permalink( $comment->comment_post_ID ) );
 
 		// Delete the old version from the cache
-		duechiacchiere::delete_from_cache( $permalink_path, false );
+		duechiacchiere::delete_from_cache( $permalink_path );
 	}
 
 	public static function preprocess_comment( $commentdata = array() ) {
@@ -577,17 +577,11 @@ class duechiacchiere {
 	}
 
 	// Delete a page from the cache and refresh the homepage
-	public static function delete_from_cache( $permalink_path = '', $regenerate_page = false ) {
+	public static function delete_from_cache( $permalink_path = '' ) {
 		@unlink( duechiacchiere::get_cache_path( $permalink_path ) );
-
-		// If the new status is publish, generate a new cached version by pinging the page itself
-		if ( $regenerate_page ) {
-			@file_get_contents( home_url() . $permalink_path );
-		}
 
 		// Refresh the homepage, just in case this new post is listed there as well
 		@unlink( duechiacchiere::get_cache_path( '/' ) );
-		@file_get_contents( home_url() );
 	}
 
 	public static function first_post_image( $post_content ) {
