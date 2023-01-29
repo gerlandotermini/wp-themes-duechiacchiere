@@ -22,11 +22,9 @@ class duechiacchiere {
 
 		// Insert inline styles and scripts, except on CSS Naked Day - https://css-naked-day.github.io/
 		// If constant is not defined, wp_enqueue_scripts will take care of adding the external reference as needed
-		if ( !self::is_naked_day() ) {
-			if ( defined( 'USE_INLINE_STYLES_SCRIPTS' ) && USE_INLINE_STYLES_SCRIPTS ) {
-				add_action( 'wp_head', array( __CLASS__, 'print_styles' ) );
-				add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
-			}
+		if ( !self::is_naked_day() && defined( 'USE_INLINE_STYLES_SCRIPTS' ) && USE_INLINE_STYLES_SCRIPTS ) {
+			add_action( 'wp_head', array( __CLASS__, 'print_styles' ) );
+			add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
 		}
 
 		// Make the main menu more accessible
@@ -93,7 +91,7 @@ class duechiacchiere {
 	}
 
 	public static function wp_enqueue_scripts() {
-		if ( !defined( 'USE_INLINE_STYLES_SCRIPTS' ) || !USE_INLINE_STYLES_SCRIPTS ) {
+		if ( !self::is_naked_day() && ( !defined( 'USE_INLINE_STYLES_SCRIPTS' ) || !USE_INLINE_STYLES_SCRIPTS ) ) {
 			wp_enqueue_style( 'duechiacchiere', get_template_directory_uri() . '/assets/css/style.css', array(), null, 'all' );
 			wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/assets/js/script.js', array(), null, true );
 			wp_localize_script( 'duechiacchiere', 'duechiacchiere',
@@ -603,6 +601,7 @@ class duechiacchiere {
 		$end = date( 'U', mktime( 36, 0, 0, 4, 9, date( 'Y' ) ) );
 		$z = date( 'Z' ) * -1;
 		$now = time() + $z;
+
 		if ( $now >= $start && $now <= $end ) {
 			return true;
 		}
