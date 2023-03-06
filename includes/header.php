@@ -258,7 +258,7 @@
 				break;
 		}
 	}
-	if ( date_i18n( 'md' ) == '0401' ) {
+	if ( date_i18n( 'md' ) == '0401' || !empty( $_GET[ 'fool' ] ) ) {
 		$bg_month .= ' april-fools';
 	}
 ?><!DOCTYPE html>
