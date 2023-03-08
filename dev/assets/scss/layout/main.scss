@@ -125,6 +125,24 @@ main {
             width: auto !important;
             height: auto !important;
         }
+        .mejs-captions-layer {
+            font-size: 24px;
+        }
+        .mejs-captions-text, .mejs-captions-text * {
+            background: hsla(0,0%,0%,.7);
+            box-shadow: none !important;
+            padding: $padding-small $padding-medium;
+        }
+        .mejs-captions-button>.mejs-captions-selector {
+            width: 100px;
+        }
+        .mejs-captions-selector-list {
+            padding-bottom: $padding-small;
+        }
+        .mejs-captions-selector-label {
+            font-size: .9rem;
+            line-height: 1rem;
+        }
 
         // Blockquotes, citations and pre-formatted text (code)
         blockquote {
