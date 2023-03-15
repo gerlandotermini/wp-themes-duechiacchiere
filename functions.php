@@ -269,7 +269,7 @@ class duechiacchiere {
 	}
 
 	public static function preprocess_comment( $commentdata = array() ) {
-		if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 ) {
+		if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 || preg_match( '/\s/', $commentdata[ 'comment_content' ] ) === 0 ) {
 			die( 'Pussa via brutta bertuccia' );
 		};
 
