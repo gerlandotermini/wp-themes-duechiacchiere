@@ -36,9 +36,10 @@ class duechiacchiere {
 		// Don't generate thumbnails, this theme only uses full size
 		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
 
-		// Append the CSS inline
+		// Tweak style and script HTML tags
 		add_filter( 'style_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 		add_filter( 'script_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
+		add_filter( 'script_loader_tag', array( __CLASS__, 'script_loader_tag'), 20, 2 );
 
 		// Update the sitemap file and the cache whenever a post is added or modified
 		add_action( 'transition_post_status', array( __CLASS__, 'transition_post_status' ), 10, 3 );
@@ -169,6 +170,11 @@ class duechiacchiere {
 	// This function assumes that WordPress is installed in the 'wp' subfolder
 	public static function script_loader_src( $src, $handle ) {
 		return str_replace( get_site_url(), get_home_url() . '/wp', $src );
+	}
+
+	// Defer loading of the Javascript code
+	public static function script_loader_tag( $tag, $handle ) {
+		return str_replace( ' src', ' async defer src', $tag );
 	}
 
 	// Handle cache and sitemap generation
