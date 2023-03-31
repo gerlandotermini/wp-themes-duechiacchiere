@@ -174,10 +174,9 @@ class duechiacchiere {
 
 	// Defer loading of the Javascript code
 	public static function script_loader_tag( $tag, $handle ) {
-		// These libraries cannot be deferred
-		// if ( in_array( $handle, array( 'jquery-core', 'mediaelement-core' ) ) ) {
-		// 	return $tag;
-		// }
+		if ( 'duechiacchiere' !== $handle ) {
+			return $tag;
+		}
 
 		return str_replace( ' src', ' defer src', $tag );
 	}
