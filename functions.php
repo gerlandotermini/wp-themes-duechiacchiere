@@ -183,20 +183,22 @@ class duechiacchiere {
 
 	// Handle cache and sitemap generation
 	public static function transition_post_status( $new_status = '', $old_status = '', $post = 0 ) {
-		// Cache
-		// -------------------------------------------------------------------------------
-
-		// Bail if we're not dealing with a published post, which shouldn't be cached anyway
-		if ( ( $old_status != 'publish' && $new_status != 'publish' ) || !function_exists( 'get_sample_permalink' ) ) {
+		// Bail if we're not dealing with a published post, which shouldn't be cached or listed in the sitemap anyway
+		if ( ( $old_status != 'publish' && $new_status != 'publish' ) ) {
 			return 0;
 		}
 
-		// Note: get_sample_permalink doesn't add a leading slash to the permalink, and returns an array
-		$permalink = get_sample_permalink( $post->ID );
-		$permalink_path = '/' . $permalink[ 1 ];
+		// Cache
+		// -------------------------------------------------------------------------------
 
-		// Delete the old version from the cache
-		duechiacchiere::delete_from_cache( $permalink_path );
+		if ( function_exists( 'get_sample_permalink' ) ) {
+			// Note: get_sample_permalink doesn't add a leading slash to the permalink, and returns an array
+			$permalink = get_sample_permalink( $post->ID );
+			$permalink_path = '/' . $permalink[ 1 ];
+
+			// Delete the old version from the cache
+			duechiacchiere::delete_from_cache( $permalink_path );
+		}
 
 		// Sitemap
 		// -------------------------------------------------------------------------------
@@ -216,11 +218,6 @@ class duechiacchiere {
 		}
 
 		if ( empty( $sitemap_file ) ) {
-			return 0;
-		}
-
-		// Don't generate the sitemap more than once every hour
-		if ( file_exists( $sitemap_file ) && ( date( 'U' ) - date( 'U', filemtime( $sitemap_file ) ) < 3600 ) ) {
 			return 0;
 		}
 
@@ -588,7 +585,7 @@ class duechiacchiere {
 	public static function delete_from_cache( $permalink_path = '' ) {
 		@unlink( duechiacchiere::get_cache_path( $permalink_path ) );
 
-		// Refresh the homepage, just in case this new post is listed there as well
+		// Refresh the homepage, just in case this post is listed there as well
 		@unlink( duechiacchiere::get_cache_path( '/' ) );
 	}
 
