@@ -267,7 +267,12 @@
 	<!-- BEGIN: Technical info -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<?php $parsed = parse_url( $_SERVER[ 'REQUEST_URI' ] ); if ( !empty( $parsed[ 'query' ] ) ): ?><meta name="robots" content="noindex,nofollow"><?php endif ?>
+<?php 
+	$parsed_url = parse_url( $_SERVER[ 'REQUEST_URI' ] );
+	if ( !empty( $parsed_url[ 'query' ] ) ) {
+		echo '<meta name="robots" content="noindex,nofollow">';
+	}
+?>
 	<!-- END: Technical info -->
 
 	<!-- BEGIN: Editorial info -->

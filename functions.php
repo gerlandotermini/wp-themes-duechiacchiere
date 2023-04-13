@@ -184,7 +184,7 @@ class duechiacchiere {
 	// Handle cache and sitemap generation
 	public static function transition_post_status( $new_status = '', $old_status = '', $post = 0 ) {
 		// Bail if we're not dealing with a published post, which shouldn't be cached or listed in the sitemap anyway
-		if ( ( $old_status != 'publish' && $new_status != 'publish' ) ) {
+		if ( $old_status != 'publish' && $new_status != 'publish' ) {
 			return 0;
 		}
 
