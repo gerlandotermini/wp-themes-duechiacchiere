@@ -42,10 +42,10 @@
 		<nav aria-labelledby="misc-links">
 			<h2 id="misc-links">Varie ed eventuali</h2>
 			<ul>
-				<li><a href="/contatto">Lascia un messaggio</a></li>
 				<li><a href="/feed">Il <span lang="en">feed</span> degli articoli</a></li>
 				<li><a href="/comments/feed">Il <span lang="en">feed</span> dei commenti</a></li>
 				<li><a href="/feed/scrissi-oggi">Il <span lang="en">feed</span> di oggi nel passato</a></li>
+				<li><a href="/contatto">Lascia un messaggio</a></li>
 				<li><a href="<?= $random_post_url ?>">Leggi un post a caso</a></li>
 			</ul>
 		</nav>
