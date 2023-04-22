@@ -3,7 +3,7 @@
 <article>
     <header><h1>Pagina non trovata</h1></header>
     <p>
-        C'era una volta una pagina, diranno subito i miei piccoli lettori. 
+        "C'era una volta una pagina...", diranno subito i piccoli lettori di questo blog. 
         Era una pagina graziosa, rifinita in tutti i particolari, davvero adorabile. 
         Poi deve essere successo qualcosa di terribile, qualcosa che non oso neppure immaginare.
         Un lampo di luce, un suono assordante, l'odore acre del codice <abbr title="hypertext markup language">HTML</abbr>
@@ -18,8 +18,8 @@
         <p>E cos&igrave; eccoci qui. Che si fa adesso? Beh, personalmente ti consiglierei di dare
         un'occhiata alla navigazione in alto, chiss&agrave; che non noti qualche indicazione
         utile a ritrovare la retta via. Se proprio non riesci a scovare quello che stavi cercando, ti consiglio di
-        contattarmi tramite l'<a href="/contatto" title="scrivimi un messaggio">apposito modulo</a>.
-        Nel frattempo, ti propongo qui sotto alcuni articoli dal mio archivio che potrebbero stuzzicare la tua curiosit&agrave;.
+        contattare l'autore del blog tramite <a href="/contatto">l'apposito modulo</a>.
+        Nel frattempo, ti propongo qui di seguito alcuni post che potrebbero stuzzicare la tua curiosit&agrave;.
     </p>
 </article>
 
