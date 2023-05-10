@@ -72,7 +72,7 @@
 					<?php endif // is post ?>
 				</header>
 				<div class="entry">
-					<?php the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false ); ?>
+					<?php the_content( 'Leggi il resto <span aria-hidden="true">&raquo;</span> <span class="visually-hidden">di ' . the_title( '', '', false ) . '</span>', false ); ?>
 				</div>
 			</article>
 
