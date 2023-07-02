@@ -75,6 +75,9 @@ class duechiacchiere {
 		// Add a Post List button to the admin bar
 		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_menu' ), 100 );
 
+		// Disable built-in sitemap
+		add_filter( 'wp_sitemaps_enabled', '__return_false' );
+
 		// Miscellaneous clean up
 		self::_remove_emoji_hooks();
 		self::_remove_wp_headers();
