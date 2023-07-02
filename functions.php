@@ -194,12 +194,12 @@ class duechiacchiere {
 		// Cache
 		// -------------------------------------------------------------------------------
 
-		if ( function_exists( 'get_sample_permalink' ) ) {
+		if ( function_exists( 'get_sample_permalink' ) && $new_status != 'publish' ) {
 			// Note: get_sample_permalink doesn't add a leading slash to the permalink, and returns an array
 			$permalink = get_sample_permalink( $post->ID );
 			$permalink_path = '/' . $permalink[ 1 ];
 
-			// Delete the old version from the cache
+			// Delete this post from the cache
 			duechiacchiere::delete_from_cache( $permalink_path );
 		}
 
@@ -207,40 +207,11 @@ class duechiacchiere {
 		// -------------------------------------------------------------------------------
 
 		// Bail if the status didn't change (like saving a new version of a draft)
-		if ( $old_status == $new_status ) {
+		if ( $old_status === $new_status ) {
 			return 0;
 		}
 
-		$sitemap_file = '';
-		if ( !empty( $_SERVER[ 'DOCUMENT_ROOT' ] ) ) {
-			if ( file_exists( $_SERVER[ 'DOCUMENT_ROOT' ] . '/wp-config.php' ) ) {
-				$sitemap_file = $_SERVER[ 'DOCUMENT_ROOT' ] . '/sitemap.xml';
-			} else if ( file_exists( $_SERVER['DOCUMENT_ROOT'] . '/../wp-config.php' ) ) {
-				$sitemap_file = $_SERVER[ 'DOCUMENT_ROOT' ] . '/../sitemap.xml';
-			}
-		}
-
-		if ( empty( $sitemap_file ) ) {
-			return 0;
-		}
-
-		$posts = get_posts( array(
-			'numberposts' => -1,
-			'orderby' => 'modified',
-			'order' => 'DESC',
-			'post_status' => 'publish',
-			'post_type' => array( 'post' )
-		) );
-	
-		$sitemap = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-
-		foreach ( $posts as $a_post ) {
-			$postdate = explode( ' ', $a_post->post_modified );
-			$sitemap .= '<url><loc>' . get_permalink( $a_post->ID ) . '</loc><lastmod>' . $postdate[ 0 ] . '</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>';
-		}
-
-		$sitemap .= '</urlset>';
-		file_put_contents( $sitemap_file, $sitemap );
+		self::_generate_sitemap();
 	}
 
 	// Refresh the cache whenever a comment is submitted or changes status
@@ -617,6 +588,39 @@ class duechiacchiere {
 		}
 
 		return false;
+	}
+
+	private static function _generate_sitemap() {
+		$sitemap_file = '';
+		if ( !empty( ABSPATH ) ) {
+			if ( file_exists( ABSPATH . 'wp-config.php' ) ) {
+				$sitemap_file = ABSPATH . 'sitemap.xml';
+			} else if ( file_exists( ABSPATH . '../wp-config.php' ) ) {
+				$sitemap_file = ABSPATH . '../sitemap.xml';
+			}
+		}
+
+		if ( empty( $sitemap_file ) ) {
+			return 0;
+		}
+
+		$posts = get_posts( array(
+			'numberposts' => -1,
+			'orderby' => 'modified',
+			'order' => 'DESC',
+			'post_status' => 'publish',
+			'post_type' => array( 'post' )
+		) );
+	
+		$sitemap = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+		foreach ( $posts as $a_post ) {
+			$postdate = explode( ' ', $a_post->post_modified );
+			$sitemap .= '<url><loc>' . get_permalink( $a_post->ID ) . '</loc><lastmod>' . $postdate[ 0 ] . '</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>';
+		}
+
+		$sitemap .= '</urlset>';
+		file_put_contents( $sitemap_file, $sitemap );
 	}
 
 	private static function _remove_emoji_hooks() {
