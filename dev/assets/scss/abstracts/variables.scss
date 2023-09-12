@@ -103,11 +103,11 @@ $icon-wikipedia-link: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAK
 
 // 5. Typography
 // ------------------------------------------------
-$headings-font-family: "Merriweather", serif;
+$headings-font-family: "Merriweather", "MerriweatherLocal", serif;
 $h1-font-size: 1.4em;
 $h2-font-size: 1.3em;
 
-$body-font-family: "Outfit", sans-serif;
+$body-font-family: "Outfit", "OutfitLocal", sans-serif;
 $body-font-size: 1.1rem;
 $body-font-weight: 300;
 
