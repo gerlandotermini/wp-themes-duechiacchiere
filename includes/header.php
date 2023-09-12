@@ -326,7 +326,7 @@
 
 	<!-- BEGIN: Google Fonts -->
 	<link rel="preload" href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/merriweather-v30-latin-300.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/outfit-v6-latin-300.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/poppins-v20-latin-300.woff2" as="font" type="font/woff2" crossorigin>
 	<!-- END: Google Fonts -->
 
 	<!-- BEGIN: RSS feed -->

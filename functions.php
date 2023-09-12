@@ -33,6 +33,9 @@ class duechiacchiere {
 		// Customize image HTML wrappers
 		add_shortcode( 'caption', array( __CLASS__, 'img_caption_html' ) );
 
+		// Add appropriate classes to external links
+		add_filter( 'the_content', array( __CLASS__, 'the_content' ) );
+
 		// Don't generate thumbnails, this theme only uses full size
 		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
 
@@ -140,20 +143,8 @@ class duechiacchiere {
 		), $attr ) );
 		
 		// New approach implemented in WP 3.4: caption is not an attribute anymore
-		if ( empty( $caption ) ) {
-			if ( substr( $content, 0, 2 ) == '<i' ) {
-				list( $image, $caption ) = explode( '/>', $content );
-				$separator = "/>";
-			}
-			else {
-				list( $image, $caption ) = explode( '/a>', $content );
-				$separator = 'span></span></a>';
-			}
-		}
-		else {
-			$image = $content;
-			$separator = '';
-		}
+		$caption = trim( strip_tags( $content ) );
+		$image = trim( str_replace( $caption, '', $content ) );
 	
 		if ( 1 > (int) $width || empty( $caption ) )
 			return $content;
@@ -161,9 +152,43 @@ class duechiacchiere {
 		if ( $id ) {
 			$id = 'id="' . esc_attr( $id ) . '" ';
 		}
-		$caption = trim( $caption );
 
-		return "<figure $id class=\"wp-caption $align\">$image$separator <span class=\"wp-caption-text\" aria-hidden=\"true\">$caption</span></figure>";
+		return "<figure {$id}class=\"wp-caption $align\">$image<span class=\"wp-caption-text\" aria-hidden=\"true\">$caption</span></figure>";
+	}
+
+	public static function the_content( $html = '' ) {
+		// Add appropriate classes to certain links
+		$dom = new DomDocument();
+		$dom->loadHTML( '<?xml encoding="utf-8" ?>' . $html, LIBXML_NOERROR );
+		$xpath = new DOMXpath( $dom );
+		$links = $xpath->evaluate( '//a[@href]' );
+
+		foreach( $links as $a_link ) {
+			$class_attr = $a_link->getAttribute('class');
+			$link_attr = $a_link->getAttribute('href');
+
+			if ( !empty( $class_attr ) ) {
+				$class_attr .= ' ';
+			}
+
+			if ( stripos( $link_attr, '.pdf' ) !== false ) {
+				if ( stripos( $class_attr, 'pdf') === false ) {
+					$a_link->setAttribute( 'class', $class_attr . 'pdf' );
+				}
+			}
+			else if ( stripos( $link_attr, get_bloginfo( 'url' ) ) === false && stripos( $link_attr, 'http' ) !== false ) {
+				if ( stripos( $link_attr, 'wikipedia.org' ) !== false ) {
+					if ( stripos( $class_attr, 'wikipedia') === false ) {
+						$a_link->setAttribute( 'class', $class_attr . 'wikipedia' );
+					}
+				}
+				else if ( stripos( $class_attr, 'external') === false ) {
+					$a_link->setAttribute( 'class', $class_attr . 'external' );
+				}
+			}
+		}
+
+		return wp_kses_post($dom->saveHTML());
 	}
 
 	public static function wp_video_shortcode( $html = '' ) {

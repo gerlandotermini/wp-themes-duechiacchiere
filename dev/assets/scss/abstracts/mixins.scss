@@ -27,16 +27,18 @@
 // 2. Styles for links (wikipedia, external, PDFs)
 // ------------------------------------------------
 @mixin external-links {
-    a[href*="wikipedia.org"]::before {
-        content: $icon-wikipedia;
+    a.external::before {
+        content: $icon-external-link;
         margin: 0 5px 0 2px;
         opacity: 0.5;
     }
-    a[href*='.pdf']::after {
-        content: ' [pdf]';
+    a.pdf::before {
+        content: $icon-pdf-link;
+        margin: 0 4px 0 2px;
+        opacity: 0.5;
     }
-    a[target]:not( [href^='#'] ):not( [href^='/'] ):not( [href*="wikipedia.org"] )::before {
-        content: $icon-external-link;
+    a.wikipedia::before {
+        content: $icon-wikipedia-link;
         margin: 0 5px 0 2px;
         opacity: 0.5;
     }
