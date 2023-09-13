@@ -34,7 +34,8 @@ class duechiacchiere {
 		add_shortcode( 'caption', array( __CLASS__, 'img_caption_html' ) );
 
 		// Add appropriate classes to external links
-		add_filter( 'the_content', array( __CLASS__, 'the_content' ) );
+		add_filter( 'the_content', array( __CLASS__, 'mark_external_links' ) );
+		add_filter( 'comment_text', array( __CLASS__, 'mark_external_links' ) );
 
 		// Don't generate thumbnails, this theme only uses full size
 		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
@@ -156,7 +157,7 @@ class duechiacchiere {
 		return "<figure {$id}class=\"wp-caption $align\">$image<span class=\"wp-caption-text\" aria-hidden=\"true\">$caption</span></figure>";
 	}
 
-	public static function the_content( $html = '' ) {
+	public static function mark_external_links( $html = '' ) {
 		// Add appropriate classes to certain links
 		$dom = new DomDocument();
 		$dom->loadHTML( '<?xml encoding="utf-8" ?>' . $html, LIBXML_NOERROR );

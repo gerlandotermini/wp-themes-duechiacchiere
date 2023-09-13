@@ -27,19 +27,19 @@
 // 2. Styles for links (wikipedia, external, PDFs)
 // ------------------------------------------------
 @mixin external-links {
-    a.external::before {
+    a.external::after {
         content: $icon-external-link;
-        margin: 0 5px 0 2px;
+        margin: 0 2px 0 5px;
         opacity: 0.5;
     }
-    a.pdf::before {
+    a.pdf::after {
         content: $icon-pdf-link;
-        margin: 0 4px 0 2px;
+        margin: 0 2px 0 4px;
         opacity: 0.5;
     }
-    a.wikipedia::before {
+    a.wikipedia::after {
         content: $icon-wikipedia-link;
-        margin: 0 5px 0 2px;
+        margin: 0 2px 0 5px;
         opacity: 0.5;
     }
 }
