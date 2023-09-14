@@ -324,11 +324,6 @@
 	<link rel="apple-touch-icon-precomposed" sizes="180x180" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/apple-touch-icon.png">
 	<!-- END: Favicon -->
 
-	<!-- BEGIN: Google Fonts -->
-	<link rel="preload" href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/merriweather-v30-latin-300.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/poppins-v20-latin-300.woff2" as="font" type="font/woff2" crossorigin>
-	<!-- END: Google Fonts -->
-
 	<!-- BEGIN: RSS feed -->
 	<link rel="alternate" type="application/rss+xml" title="Articoli del blog" href="<?= get_bloginfo( 'url' ) ?>/feed">
 	<link rel="alternate" type="application/rss+xml" title="Scrissi oggi" href="<?= get_bloginfo( 'url' ) ?>/feed/scrissi-oggi">
