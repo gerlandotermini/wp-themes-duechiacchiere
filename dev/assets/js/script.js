@@ -172,7 +172,6 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   }
 
   // Populate comment fields with cookie values, if available
-  
   if ( typeof( duechiacchiere.COOKIEHASH ) != 'undefined' ) {
     if ( document.getElementById( 'author' ) !== null ) {
       document.getElementById( 'author' ).value = getCookie( 'comment_author_' + duechiacchiere.COOKIEHASH );

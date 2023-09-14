@@ -29,8 +29,8 @@
 @mixin links {
     a {
         text-decoration: none;
-        border-bottom: 2px solid;
-        padding-bottom: .2vh;
+        border-bottom: 1px solid;
+        padding-bottom: .1vh;
     }
     a.external::after {
         content: $icon-external-link;
