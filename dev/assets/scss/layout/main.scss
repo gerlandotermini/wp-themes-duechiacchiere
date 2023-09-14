@@ -39,6 +39,9 @@ main {
                 opacity: .7;
             }
             .post-meta {
+                a {
+                    text-decoration: none;
+                }
                 .comments-link {
                     display: table;
 
@@ -56,140 +59,142 @@ main {
             }
         }
 
-        // Links
-        @include external-links;
-        
-        // Images
-        figure {
-            margin: $margin-regular 0;
-            max-width: 100% !important;
+        .entry {
+            // Links
+            @include links;
+            
+            // Images
+            figure {
+                margin: $margin-regular 0;
+                max-width: 100% !important;
 
+                img {
+                    box-sizing: border-box;
+                    height: auto;
+                    width: 100%;
+                }
+                span.wp-caption-text {
+                    background-color: $background-caption;
+                    font-size: $font-size-small;
+                    display: block;
+                    padding: $padding-small;
+                    text-align: center;
+                }
+            }
+            // WordPress styles for image alignment
             img {
-                box-sizing: border-box;
-                height: auto;
-                width: 100%;
-            }
-            span.wp-caption-text {
-                background-color: $background-caption;
-                font-size: $font-size-small;
-                display: block;
-                padding: $padding-small;
-                text-align: center;
-            }
-        }
-        // WordPress styles for image alignment
-        img {
 
-            &.alignright {
-                float:right;
+                &.alignright {
+                    float:right;
+                }
+                &.alignleft {
+                    float:left;
+                }
+                &.aligncenter {
+                    display: block;
+                    margin: 0 auto;
+                }
             }
-            &.alignleft {
-                float:left;
-            }
-            &.aligncenter {
-                display: block;
-                margin: 0 auto;
-            }
-        }
-        
-        // Videos
-        .wp-video, .mejs-container, .mejs-overlay.load {
-            margin: $margin-regular 0;
-            max-width: 100% !important;
-            position: relative;
-            width: 100% !important;
+            
+            // Videos
+            .wp-video, .mejs-container, .mejs-overlay.load {
+                margin: $margin-regular 0;
+                max-width: 100% !important;
+                position: relative;
+                width: 100% !important;
 
-            @include media-query( print ) {
-                display: none;
+                @include media-query( print ) {
+                    display: none;
+                }
+            }   
+            .mejs-container.wp-video-shortcode {
+                padding-top: 56.25%;
             }
-        }   
-        .mejs-container.wp-video-shortcode {
-            padding-top: 56.25%;
-        }
-        .mejs-container.wp-audio-shortcode {
-            height: auto !important;
-            padding-top: 40px;
-        }
-        .mejs-mediaelement {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-        .mejs-overlay-play {
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: auto !important;
-            height: auto !important;
-        }
-        .mejs-captions-layer {
-            font-size: 24px;
-        }
-        .mejs-captions-text, .mejs-captions-text * {
-            background: hsla(0,0%,0%,.7);
-            box-shadow: none !important;
-            padding: $padding-small $padding-medium;
-        }
-        .mejs-captions-button>.mejs-captions-selector {
-            width: 100px;
-        }
-        .mejs-captions-selector-list {
-            padding-bottom: $padding-small;
-        }
-        .mejs-captions-selector-label {
-            font-size: .9rem;
-            line-height: 1rem;
-        }
-
-        // Blockquotes, citations and pre-formatted text (code)
-        blockquote {
-            border-left: 5px solid $background-secondary;
-            padding-left: $padding-regular;
-            margin: $margin-small 0 $margin-regular;
-        }
-        cite {
-            font-style: normal;
-        }
-        code {
-            font-weight: 700;
-        }
-        pre {
-            white-space: pre-wrap;
-            margin-bottom: $margin-regular;
-
-            code {
-                background-color: $background-code;
-                color: $text-code;
-                display: block;
-                font-weight: 400;
-                font-size: $font-size-extra-small;
-                padding: $padding-small $padding-regular;
-                word-break: break-word;
+            .mejs-container.wp-audio-shortcode {
+                height: auto !important;
+                padding-top: 40px;
             }
-        }
-
-        // Paragraphs and lists
-        p {
-            margin: 0 0 $margin-small;
-
-            &:last-child {
-                margin-bottom: 0;
+            .mejs-mediaelement {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
             }
-        }
-        ul, ol {
-            li {
+            .mejs-overlay-play {
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                width: auto !important;
+                height: auto !important;
+            }
+            .mejs-captions-layer {
+                font-size: 24px;
+            }
+            .mejs-captions-text, .mejs-captions-text * {
+                background: hsla(0,0%,0%,.7);
+                box-shadow: none !important;
+                padding: $padding-small $padding-medium;
+            }
+            .mejs-captions-button>.mejs-captions-selector {
+                width: 100px;
+            }
+            .mejs-captions-selector-list {
                 padding-bottom: $padding-small;
             }
-        }
+            .mejs-captions-selector-label {
+                font-size: .9rem;
+                line-height: 1rem;
+            }
 
-        @include media-query( print ) {
-            .entry a::after{
-                color: #888;
-                content: " [ " attr(href) " ]";
-                word-break: break-word;
+            // Blockquotes, citations and pre-formatted text (code)
+            blockquote {
+                border-left: 5px solid $background-secondary;
+                padding-left: $padding-regular;
+                margin: $margin-small 0 $margin-regular;
+            }
+            cite {
+                font-style: normal;
+            }
+            code {
+                font-weight: 700;
+            }
+            pre {
+                white-space: pre-wrap;
+                margin-bottom: $margin-regular;
+
+                code {
+                    background-color: $background-code;
+                    color: $text-code;
+                    display: block;
+                    font-weight: 400;
+                    font-size: $font-size-extra-small;
+                    padding: $padding-small $padding-regular;
+                    word-break: break-word;
+                }
+            }
+
+            // Paragraphs and lists
+            p {
+                margin: 0 0 $margin-small;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+            ul, ol {
+                li {
+                    padding-bottom: $padding-small;
+                }
+            }
+
+            @include media-query( print ) {
+                a::after{
+                    color: #888;
+                    content: " [ " attr(href) " ]";
+                    word-break: break-word;
+                }
             }
         }
     }
@@ -227,7 +232,7 @@ main {
                 p {
                     margin-bottom: $margin-small;
 
-                    @include external-links;
+                    @include links;
                 }
                 .reply {
                     a {
