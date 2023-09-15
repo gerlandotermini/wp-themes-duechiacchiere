@@ -41,18 +41,18 @@ $white: #fff;
 // ------------------------------------------------
 // SVG Filter Calculator: https://codepen.io/sosuke/pen/Pjoqqp - https://css-tricks.com/change-color-of-svg-on-hover/
 $months: (
-    ( "january", "repeat-x fixed 0 0 #000", "#560bad", "invert(10%) sepia(80%) saturate(6469%) hue-rotate(270deg) brightness(84%) contrast(106%)" ),
-    ( "february", "repeat fixed center 0 #993947", "#694d21", "invert(28%) sepia(17%) saturate(1723%) hue-rotate(357deg) brightness(96%) contrast(86%)" ),
-    ( "march", "repeat fixed 0 0 #332874", "#443796", "invert(17%) sepia(91%) saturate(1556%) hue-rotate(233deg) brightness(96%) contrast(92%)" ),
-    ( "april", "repeat fixed center 0 #B3212C", "#135180", "invert(13%) sepia(81%) saturate(3639%) hue-rotate(193deg) brightness(96%) contrast(85%)" ),
+    ( "jan", "repeat-x fixed 0 0 #000", "#560bad", "invert(10%) sepia(80%) saturate(6469%) hue-rotate(270deg) brightness(84%) contrast(106%)" ),
+    ( "feb", "repeat fixed center 0 #993947", "#694d21", "invert(28%) sepia(17%) saturate(1723%) hue-rotate(357deg) brightness(96%) contrast(86%)" ),
+    ( "mar", "repeat fixed 0 0 #332874", "#443796", "invert(17%) sepia(91%) saturate(1556%) hue-rotate(233deg) brightness(96%) contrast(92%)" ),
+    ( "apr", "repeat fixed center 0 #B3212C", "#135180", "invert(13%) sepia(81%) saturate(3639%) hue-rotate(193deg) brightness(96%) contrast(85%)" ),
     ( "may", "repeat fixed center 0 #0d6f00", "#4f7101", "invert(32%) sepia(65%) saturate(997%) hue-rotate(44deg) brightness(98%) contrast(99%)" ),
-    ( "june", "no-repeat fixed center bottom #0062AD", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
-    ( "july", "repeat fixed center 0 #040001", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
-    ( "august", "repeat fixed 0 center #fecc59", "#1f797f", "invert(38%) sepia(16%) saturate(1829%) hue-rotate(135deg) brightness(97%) contrast(87%)" ),
-    ( "september", "repeat fixed center 0 #ac4900", "#994000", "invert(19%) sepia(68%) saturate(6317%) hue-rotate(41deg) brightness(94%) contrast(101%)" ),
-    ( "october", "repeat fixed center 0 #000000", "#aa5c08", "invert(36%) sepia(39%) saturate(5677%) hue-rotate(27deg) brightness(91%) contrast(94%)" ),
-    ( "november", "repeat fixed center 0 #2d1a0b", "#664438", "invert(26%) sepia(48%) saturate(395%) hue-rotate(330deg) brightness(95%) contrast(90%)" ),
-    ( "december", "repeat fixed 0 0 #711517", "#b30000", "invert(9%) sepia(100%) saturate(6904%) hue-rotate(20deg) brightness(81%) contrast(119%)" )
+    ( "jun", "no-repeat fixed center bottom #0062AD", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
+    ( "jul", "repeat fixed center 0 #040001", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
+    ( "aug", "repeat fixed 0 center #fecc59", "#1f797f", "invert(38%) sepia(16%) saturate(1829%) hue-rotate(135deg) brightness(97%) contrast(87%)" ),
+    ( "sep", "repeat fixed center 0 #ac4900", "#994000", "invert(19%) sepia(68%) saturate(6317%) hue-rotate(41deg) brightness(94%) contrast(101%)" ),
+    ( "oct", "repeat fixed center 0 #000000", "#aa5c08", "invert(36%) sepia(39%) saturate(5677%) hue-rotate(27deg) brightness(91%) contrast(94%)" ),
+    ( "nov", "repeat fixed center 0 #2d1a0b", "#664438", "invert(26%) sepia(48%) saturate(395%) hue-rotate(330deg) brightness(95%) contrast(90%)" ),
+    ( "dec", "repeat fixed 0 0 #711517", "#b30000", "invert(9%) sepia(100%) saturate(6904%) hue-rotate(20deg) brightness(81%) contrast(119%)" )
 );
 
 // 3. Borders and Shadows
