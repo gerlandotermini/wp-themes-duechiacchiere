@@ -158,17 +158,23 @@ footer {
     border-radius: $padding-small;
     bottom: 65px + $padding-small;
     height: 40px;
-    opacity: 0;
     padding: calc( $padding-small / 2 );
     position: fixed;
-    right: $padding-small;
+    right: -100px;
     top: auto;
-    transition: opacity 1s ease-in-out;
+    transition: right 1.5s ease-in-out;
     width: 40px;
     z-index: 100;
 
+    &.active {
+        right: $padding-small;
+
+        @include media-query( large ) {
+            right: $padding-regular * 2;
+        }
+    }
+
     @include media-query( large ) {
-        right: $padding-regular * 2;
         bottom: $padding-regular * 2;
     }
 }

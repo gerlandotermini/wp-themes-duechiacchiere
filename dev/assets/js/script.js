@@ -59,13 +59,12 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   // ----------------------------------------------------------------
 
   // Show/hide back to top button
+  const backToTopButton = document.getElementById( 'backtotop' );
   window.onscroll = () => {
-    const backToTopButton = document.getElementById( 'backtotop' );
-
     if ( document.body.scrollTop > 900 || document.documentElement.scrollTop > 900 ) {
-      backToTopButton.style.opacity = 1;
+      backToTopButton.classList.add( 'active' );
     } else {
-      backToTopButton.style.opacity = 0;
+      backToTopButton.classList.remove( 'active' );
     }
   }
 
