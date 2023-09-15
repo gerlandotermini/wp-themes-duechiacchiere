@@ -338,7 +338,7 @@
 	<!-- END: WP_Head -->
 </head>
 
-<body <?= body_class( $bg_month ) ?> id="body">
+<body <?= body_class( 'theme-' . $bg_month ) ?> id="body">
 	<a class="skip" id="page-top" href="#content">salta al contenuto</a>
 	<header id="header-container">
 		<div id="branding">

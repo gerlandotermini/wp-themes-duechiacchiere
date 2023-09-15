@@ -35,14 +35,14 @@ body {
 
     @each $month in $months {
         @include media-query( large ) {
-            &.#{ nth( $month, 1 ) } {
+            &.theme-#{ nth( $month, 1 ) } {
                 background: url( "#{$assets}/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
             }
         }
-        &.#{ nth( $month, 1 ) } a, &.#{ nth( $month, 1 ) } a:visited, &.#{ nth( $month, 1 ) } a:active, &.#{ nth( $month, 1 ) } input.submit {
+        &.theme-#{ nth( $month, 1 ) } a, &.#{ nth( $month, 1 ) } a:visited, &.#{ nth( $month, 1 ) } a:active, &.#{ nth( $month, 1 ) } input.submit {
             color: #{ nth( $month, 3 ) };
         }
-        &.#{ nth( $month, 1 ) } .svg::before {
+        &.theme-#{ nth( $month, 1 ) } .svg::before {
             filter: #{ nth( $month, 4 ) };
         }
     }
