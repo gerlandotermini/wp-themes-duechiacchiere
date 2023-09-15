@@ -132,9 +132,17 @@ main {
             .mejs-captions-layer {
                 font-size: 24px;
             }
-            .mejs-captions-text, .mejs-captions-text * {
+            .mejs-captions-position {
                 background: hsla(0,0%,0%,.7);
+                bottom: 0;
+            }
+            .mejs-captions-position-hover {
+                bottom: 40px;
+            }
+            .mejs-captions-text, .mejs-captions-text * {
+                background-color: transparent;
                 box-shadow: none !important;
+                line-height: 1.4em;
                 padding: $padding-small $padding-medium;
             }
             .mejs-captions-button>.mejs-captions-selector {
