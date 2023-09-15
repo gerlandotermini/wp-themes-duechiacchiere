@@ -118,7 +118,7 @@ footer {
             display: block;
             margin: 0 auto;
             padding: 15px;
-            transition: 1.5s;
+            transition: .7s;
             width: 60px;
             
             &.icon-menu {
@@ -142,7 +142,7 @@ footer {
     position: fixed;
     top: 0;
     opacity: 0;
-    transition: opacity .7s ease-out, z-index .7s ease-in;
+    transition: opacity 1s ease-out, z-index 1s ease-in;
     width: 100vw;
     z-index: -1;
 
