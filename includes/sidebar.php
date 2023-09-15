@@ -74,7 +74,7 @@
 	}
 
 	if ( !is_404() ) {
-		$how_many = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 5 ) ? 5 : 3;
+		$how_many = ( ( !is_single() && !is_page() ) || strlen( $GLOBALS[ 'post' ]->post_content ) > 4000 || get_comments_number( $post->ID ) > 4 ) ? 4 : 3;
 		if ( !is_single() ) {
 			$heading = 'Articoli a casaccio';
 			$list_posts = get_posts( array(
