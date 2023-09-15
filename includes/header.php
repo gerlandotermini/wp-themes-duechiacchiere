@@ -241,15 +241,8 @@
 			}';
 	}
 
-	$bg_month = strtolower( isset( $_GET[ 'colors' ] ) ? duechiacchiere::scrub_field( $_GET[ 'colors' ] ) : ( isset( $_COOKIE[ 'theme-color' ] ) ? $_COOKIE[ 'theme-color' ] : date( 'M' ) ) );
-	if ( !in_array( $bg_month, array( 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec', 'cur' ) ) ) {
-		$bg_month = strtolower( date( 'M' ) );
-	}
-	else if ( $bg_month != 'cur' ) {
-		setcookie( 'theme-color', $bg_month, time() + 31536000 );
-	}
-	else {
-		setcookie( 'theme-color', $bg_month, time() - 3600 );
+	$bg_month = strtolower( isset( $_GET[ 'colors' ] ) ? duechiacchiere::scrub_field( $_GET[ 'colors' ] ) : date( 'M' ) );
+	if ( !in_array( $bg_month, array( 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec' ) ) ) {
 		$bg_month = strtolower( date( 'M' ) );
 	}
 
