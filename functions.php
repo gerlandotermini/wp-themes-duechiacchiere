@@ -220,7 +220,7 @@ class duechiacchiere {
 		// Cache
 		// -------------------------------------------------------------------------------
 
-		if ( function_exists( 'get_sample_permalink' ) && $new_status != 'publish' ) {
+		if ( function_exists( 'get_sample_permalink' ) ) {
 			// Note: get_sample_permalink doesn't add a leading slash to the permalink, and returns an array
 			$permalink = get_sample_permalink( $post->ID );
 			$permalink_path = '/' . $permalink[ 1 ];
