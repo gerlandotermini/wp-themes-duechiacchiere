@@ -160,6 +160,6 @@
 			echo '</div>';
 		}
 
-		echo '<div class="widget"><h2>In diretta dalla casa</h2><p style="margin-top:0"><a href="/diretta" title="Vai alla pagina con la foto scattata in diretta dal mio studio"><img src="https://duechiacchiere.it/content/uploads/webcam/live.jpg" alt="Una casa con degli alberi in sottofondo" width="1280" height="720"></a></p></div>';
+		echo '<div class="widget"><h2>In diretta dalla casa</h2><p style="margin-top:0"><a href="/diretta" title="Vai alla pagina con la foto scattata in diretta dal mio studio"><img src="https://duechiacchiere.it/content/uploads/webcam/live.jpg" alt="Una casa con degli alberi in sottofondo" width="1280" height="720" style="height:auto"></a></p></div>';
 	} ?>
 </aside>
