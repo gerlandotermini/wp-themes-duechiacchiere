@@ -665,6 +665,7 @@ class duechiacchiere {
 		// Remove the REST API lines from the HTML Header
 		remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
 		remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
+		remove_action( 'wp_head', '_wp_render_title_tag', 1 );
 	
 		// Remove WLW Manifest and Generator
 		remove_action( 'wp_head', 'wlwmanifest_link' );

@@ -189,7 +189,8 @@
 		$default_category = '404';
 	}
 	else if ( is_front_page() ) {
-		$og_meta[ 'title' ] = 'Articoli recenti';
+		$heading_title = 'Articoli recenti';
+		$og_meta[ 'title' ] = 'Due chiacchiere, la dimora virtuale di Camu';
 	}
 	else if ( is_page() ) {
 		$title_tag = 'h1';
@@ -214,7 +215,7 @@
 	}
 
 	if ( $title_tag != 'h1' ) {
-		$heading_title = '<h1' . ( $heading_hidden ? ' class="visually-hidden"' : '' ) .'>' . $og_meta[ 'title' ] . '</h1>';
+		$heading_title = '<h1' . ( $heading_hidden ? ' class="visually-hidden"' : '' ) .'>' . ( !empty( $heading_title ) ? $heading_title : $og_meta[ 'title' ] ) . '</h1>';
 	}
 
 	$og_meta[ 'type' ] = 'website';
@@ -280,6 +281,7 @@
 	<!-- END: Technical info -->
 
 	<!-- BEGIN: Editorial info -->
+	<title><?= $og_meta[ 'title' ]; ?></title>
 	<meta name="author" content="camu">
 <?php
 	if ( !empty( $og_meta[ 'description' ] ) ) {
