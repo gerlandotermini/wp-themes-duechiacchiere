@@ -145,10 +145,12 @@
 
 			// If this category has ancestors, use the topmost ancestor for the boy
 			if ( !empty( $ancestors ) ) {
-				$category = get_category( $ancestors[ count( $ancestors ) - 1 ] );
+				$ancestor_category = get_category( $ancestors[ count( $ancestors ) - 1 ] );
+				$default_category = $ancestor_category->slug;
 			}
-
-			$default_category = $category->slug;
+			else {
+				$default_category = $category->slug;
+			}
 
 			$og_meta[ 'title' ] = "Archivio degli articoli in {$category->name}";
 			$og_meta[ 'description' ] = "Sfoglia gli articoli conservati in {$category->name}";
