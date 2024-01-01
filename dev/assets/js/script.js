@@ -340,7 +340,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   // ----------------------------------------------------------------
 
   // Open external links in a new tab/window
-  document.querySelectorAll( 'a' ).forEach( link => {
+  document.querySelectorAll( '#main-wrapper a' ).forEach( link => {
     if ( link.getAttribute( 'href' ) && link.hostname.indexOf( location.hostname.replace( 'www.', '' ) ) == -1 ) {
       link.target = '_blank';
 
