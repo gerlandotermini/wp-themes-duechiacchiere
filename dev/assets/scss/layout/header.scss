@@ -137,6 +137,25 @@ body {
     b, strong {
         font-weight: 700;
     }
+
+    // Admin Bar to the bottom
+    &.admin-bar {
+        margin-bottom: 50px;
+
+        #wpadminbar {
+            bottom: 0;
+            top: auto !important;
+            
+            .quicklinks .menupop {
+                .ab-sub-wrapper {
+                    bottom: 32px;
+                }
+                ul {
+                    bottom: 0;
+                }
+            }
+        }
+    }
 }
    
 #header-container {
