@@ -380,10 +380,6 @@ main {
                 }
             }
 
-            &.current-item {
-                display: block;
-            }
-
             @include media-query( large ) {
                 display: block;
             }
@@ -395,6 +391,11 @@ main {
                 padding: $padding-small $padding-regular;
                 text-align: center;
                 text-decoration: none;
+            }
+
+            .current {
+                color: $white;
+                font-weight: 700;
             }
         }
     }
