@@ -110,6 +110,8 @@ main {
                 }
             }   
             .mejs-container.wp-video-shortcode {
+                border-radius: $border-radius;
+                overflow: hidden;
                 padding-top: 56.25%;
             }
             .mejs-container.wp-audio-shortcode {
