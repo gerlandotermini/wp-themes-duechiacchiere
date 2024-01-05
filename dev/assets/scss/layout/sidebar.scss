@@ -12,6 +12,7 @@ aside {
 
         #search-field {
             border: $border-secondary;
+            border-radius: $border-radius;
             flex: 1;
             font-weight: 300;
             padding: 12px 10px;
@@ -43,6 +44,8 @@ aside {
 
         h2 {
             background: $background-secondary;
+            border-top-left-radius: $border-radius;
+            border-top-right-radius: $border-radius;
             margin: 0;
             padding: 5px $padding-small;
         }

@@ -6,8 +6,58 @@
 		$random_post_url = get_permalink( $random_post->posts[ 0 ]->ID );
 	}
 	wp_reset_postdata();
-	?>
+	if ( $GLOBALS[ 'wp_query' ]->max_num_pages > 1 ): ?>
+		<nav id="pagination" aria-labelledby="pagination-title">
+			<h2 class="visually-hidden" id="pagination-title">Sfoglia le pagine del blog</h2>
+			<?php
+				$current_page = max( 1, intval( get_query_var( 'paged' ) ) );
 
+				$pages = paginate_links( array(
+					'base' => str_replace( 99999, '%#%', esc_url( get_pagenum_link( 99999 ) ) ), 
+					'current' => $current_page,
+					'format' => '?paged=%#%',
+					'prev_text' => '<span class="visually-hidden">Pagina precedente</span>',
+					'next_text' => '<span class="visually-hidden">Pagina successiva</span>',
+					'before_page_number' => '<span class="visually-hidden">Pagina </span>',
+					'total' => $GLOBALS[ 'wp_query' ]->max_num_pages,
+					'type'  => 'array'
+				) );
+
+				if ( is_array( $pages ) ) {
+					// Remove first and last from the array
+					$prev_page = array_shift( $pages );
+					$next_page = array_pop( $pages );
+
+					// No "previous" link on page 2 and no "next" link on previous to last page (to make WAVE happy about adjacent identical links)
+					if ( $current_page == 2 ) {
+						$prev_page = array_shift( $pages );
+
+						if ( $GLOBALS[ 'wp_query' ]->max_num_pages == 3 ) {
+							$next_page = array_pop( $pages );
+						}
+					}
+					else if ( $current_page == $GLOBALS[ 'wp_query' ]->max_num_pages - 1 ) {
+						$next_page = array_pop( $pages );
+					}
+
+					if ( stripos( $prev_page, 'precedente' ) !== false ) {
+						$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
+					}
+					if ( stripos( $next_page, 'successiva' ) !== false ) {
+						$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
+					}
+
+					echo '<ul><li class="pagination-item' . ( ( $current_page == 1 ) ? ' current-item' : '' ) . '">' . $prev_page . '</li>';
+
+					foreach ( $pages as $a_page_html ) {
+						echo '<li class="pagination-item' . ( stripos( $a_page_html, 'current' ) !== false ? ' current-item' : '' ) . '">' . $a_page_html . '</li>';
+					}
+
+					echo '<li class="pagination-item' . ( ( $current_page == $GLOBALS[ 'wp_query' ]->max_num_pages ) ? ' current-item' : '' ) . '">' . $next_page . '</li></ul>';
+				}
+			?>
+		</nav>
+	<?php endif ?>
 	<footer>
 		<div class="about-me">
 			<h2>Due Chiacchiere</h2>

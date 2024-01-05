@@ -65,8 +65,10 @@ main {
             
             // Images
             figure {
+                border-radius: $border-radius;
                 margin: $margin-regular 0;
                 max-width: 100% !important;
+                overflow: hidden;
 
                 img {
                     box-sizing: border-box;
@@ -227,6 +229,7 @@ main {
                     margin-bottom: $margin-small;
 
                     img {
+                        border-radius: $border-radius;
                         float: left;
                         margin-right: $margin-small;
                     }
@@ -246,6 +249,7 @@ main {
                     a {
                         background-color: $white;
                         border: $border-secondary;
+                        border-radius: $border-radius;
                         display: inline-block;
                         font-size: $font-size-extra-small;
                         margin-top: $margin-small;
@@ -292,9 +296,10 @@ main {
                 width: 49%;
             }
         }
-        input, textarea {
+        input, textarea, button {
             background-color: $white;
             border: $border-secondary;
+            border-radius: $border-radius;
             font-weight: 300;
             padding: $padding-small;
             
@@ -344,58 +349,6 @@ main {
                     cursor: pointer;
                     text-shadow: $shadow;
                 }
-            }
-        }
-    }
-
-    #pagination ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        list-style: none;
-        margin: 0;
-        padding-left: 0;
-
-        .pagination-item {
-            border: $border-secondary;
-            border-right-width: 0;
-            display: none;
-
-            &:first-child  {
-                border-top-left-radius: $padding-small;
-                border-bottom-left-radius: $padding-small;
-                
-                @include media-query( mobile ) {
-                    display: block;
-                }
-            }
-
-            &:last-child {
-                border-top-right-radius: $padding-small;
-                border-bottom-right-radius: $padding-small;
-                border-right-width: 1px;
-
-                @include media-query( mobile ) {
-                    display: block;
-                }
-            }
-
-            @include media-query( large ) {
-                display: block;
-            }
-
-            a, span {
-                display: block;
-                line-height: 1;
-                min-width: 50px;
-                padding: $padding-small $padding-regular;
-                text-align: center;
-                text-decoration: none;
-            }
-
-            .current {
-                color: $white;
-                font-weight: 700;
             }
         }
     }

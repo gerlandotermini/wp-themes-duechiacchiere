@@ -14,19 +14,20 @@ $assets: '/content/themes/duechiacchiere/assets';
 
 // 1. Box Model
 // ------------------------------------------------
+$body-max-width: 1300px;
+$border-radius: 5px;
 $margin-regular: 20px;
 $margin-medium: 15px;
 $margin-small: 10px;
 $padding-regular: $margin-regular;
 $padding-medium: $margin-medium;
 $padding-small: $margin-small;
-$body-max-width: 1300px;
 
 // 2. Colors
 // ------------------------------------------------
 $background: rgba( 255 255 255 / 97% );
 $background-secondary: #e5e1e3;
-$background-caption: #eee;
+$background-caption: #e4e4e4;
 $background-code: #2d3142;
 $background-footer: rgba( 20 20 20 / 95% );
 $links: #00ff00;
@@ -111,5 +112,6 @@ $body-font-family: "Outfit", "OutfitLocal", sans-serif;
 $body-font-size: 1.1rem;
 $body-font-weight: 300;
 
+$font-size-large: 1.6em;
 $font-size-small: 1em;
 $font-size-extra-small: .9em;
