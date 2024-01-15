@@ -72,8 +72,8 @@
 				<li><a href="https://supporthost.com/it/a340" title="Il fornitore di hosting che ospita queste pagine">Il servizio che mi ospita</a></li>
 				<li><a href="https://it.wordpress.org/" title="Sito italiano del sistema WordPress per la gestione dei contenuti">Il sistema di gestione</a></li>
 				<li><a href="https://github.com/gerlandotermini/wp-themes-duechiacchiere" title="L'archivio dove scaricare una copia del mio tema" hreflang="en">Il vestito del blog</a></li>
-				<li><a href="https://akismet.com/" title="Sito del plugin per WordPress per filtrare lo spam nei commenti" hreflang="en">Il guardiano dei commenti</a></li>
 				<li><a href="https://www.rxstrip.it/" title="Sito del disegnatore che ha donato un corpo virtuale a camu">Il disegnatore di camu</a></li>
+				<li><a href="https://akismet.com/" title="Sito del plugin per WordPress per filtrare lo spam nei commenti" hreflang="en">Il guardiano dei commenti</a></li>
 			</ul>
 		</nav>
 
