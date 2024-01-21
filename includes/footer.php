@@ -54,9 +54,9 @@
 	elseif ( is_single() ): ?>
 		<nav id="pagination" aria-labelledby="pagination-title">
 			<h2 class="visually-hidden" id="pagination-title">Navigazione cronologica</h2>
-			<ul>
-				<li class="pagination-flex prev"><?php previous_post_link( '<i class="svg icon-chevron-left"></i> %link' ); ?></li>
-				<li class="pagination-flex next"><?php next_post_link( '%link  <i class="svg icon-chevron-right"></i>' ); ?></li>
+			<ul class="pagination-flex">
+				<li class="prev"><?php previous_post_link( '<i class="svg icon-chevron-left"></i> %link' ); ?></li>
+				<li class="next"><?php next_post_link( '%link  <i class="svg icon-chevron-right"></i>' ); ?></li>
 			</ul>
 		</nav>
 	<?php
