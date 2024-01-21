@@ -703,6 +703,9 @@ class duechiacchiere {
 		remove_action( 'wp_head', 'feed_links_extra', 3 ); // Display the links to the extra feeds such as category feeds
 		remove_action( 'wp_head', 'feed_links', 2 );
 		remove_action( 'wp_head', 'index_rel_link' );
+
+		// Remove WP's built-in ob_end_flush, since it conflicts with what we do in footer.php, if zlib compression is enabled
+		remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
 	}
 }
 

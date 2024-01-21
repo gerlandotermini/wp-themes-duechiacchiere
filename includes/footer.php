@@ -1,11 +1,4 @@
 	<?php
-	// Random post
-	$random_post = new WP_Query( array ( 'orderby' => 'rand', 'posts_per_page' => '1' ) );
-	$random_post_url = '/';
-	if ( !empty( $random_post->posts ) ) {
-		$random_post_url = get_permalink( $random_post->posts[ 0 ]->ID );
-	}
-	wp_reset_postdata();
 	if ( $GLOBALS[ 'wp_query' ]->max_num_pages > 1 ): ?>
 		<nav id="pagination" aria-labelledby="pagination-title">
 			<h2 class="visually-hidden" id="pagination-title">Sfoglia le pagine del blog</h2>
@@ -57,7 +50,26 @@
 				}
 			?>
 		</nav>
-	<?php endif ?>
+	<?php
+	elseif ( is_single() ): ?>
+		<nav id="pagination" aria-labelledby="pagination-title">
+			<h2 class="visually-hidden" id="pagination-title">Navigazione cronologica</h2>
+			<ul>
+				<li class="pagination-flex prev"><?php previous_post_link( '<i class="svg icon-chevron-left"></i> %link' ); ?></li>
+				<li class="pagination-flex next"><?php next_post_link( '%link  <i class="svg icon-chevron-right"></i>' ); ?></li>
+			</ul>
+		</nav>
+	<?php
+	endif;
+
+	// Random post
+	$random_post = new WP_Query( array ( 'orderby' => 'rand', 'posts_per_page' => '1' ) );
+	$random_post_url = '/';
+	if ( !empty( $random_post->posts ) ) {
+		$random_post_url = get_permalink( $random_post->posts[ 0 ]->ID );
+	}
+	wp_reset_postdata();
+	?>
 	<footer>
 		<div class="about-me">
 			<h2>Due Chiacchiere</h2>
@@ -130,6 +142,7 @@
 	<!-- END: WP_Footer -->
 </body>
 </html><?php
+
 // Minify the output
 $html = ob_get_contents();
 ob_end_clean();

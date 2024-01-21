@@ -42,6 +42,31 @@
             font-weight: 700;
         }
     }
+
+    .pagination-flex {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        margin: 0 $margin-regular;
+        a {
+            text-decoration: none;
+        }
+
+        .svg::before {
+            width: $padding-small;
+        }
+
+        &.prev .svg {
+            margin-right: $margin-small;
+        }
+        &.next {
+            justify-content: end;
+
+            .svg {
+                margin-left: $margin-small;
+            }
+        }
+    }
 }
 footer {
     background-color: $background-footer;
