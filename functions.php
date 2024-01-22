@@ -65,7 +65,7 @@ class duechiacchiere {
 		// Add nofollow to the monthly archive links in the footer
 		add_filter( 'get_archives_link', array( __CLASS__, 'get_archives_link' ) );
 
-		// Generate a today's posts feed
+		// Generate today's posts feed
 		add_feed( 'scrissi-oggi', array( __CLASS__, 'feed_today_in_the_past' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ) );
 
