@@ -1,9 +1,5 @@
 <?php
-	// ob_start should be called by the main index.php in the document_root folder, to catch possible fatal errors
-	if ( !ob_get_level() ) {
-		ob_start();
-	}
-
+	ob_start();
 	$default_category = 'ingresso';
 	$title_tag = 'h2';
 	$camu_base64 = array(
