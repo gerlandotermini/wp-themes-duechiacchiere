@@ -51,7 +51,7 @@ body {
     }
 
     &.april-fools {
-        animation: fadeInOut infinite linear 120s;
+        animation: fadeInOut infinite linear 60s;
     }
     &.april-fools *:hover{
         filter: none;
@@ -61,7 +61,7 @@ body {
         opacity: 1;
         }
         50% {
-        opacity: 0.7;
+        opacity: 0.2;
         }
         100% {
         opacity: 1;
