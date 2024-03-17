@@ -230,6 +230,13 @@ main {
                 .comment-meta {
                     margin-bottom: $margin-small;
 
+                    .comment-author-name {
+                        line-height: 1.2rem;
+                    }
+                    .comment-metadata {
+                        font-size: $font-size-extra-small;
+                    }
+
                     img {
                         border-radius: $border-radius;
                         float: left;

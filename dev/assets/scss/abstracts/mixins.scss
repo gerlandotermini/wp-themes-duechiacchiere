@@ -32,6 +32,9 @@
         border-bottom: 1px solid;
         padding-bottom: .1vh;
     }
+    a:hover {
+        border-bottom: 2px solid;
+    }
     a.external::after {
         content: $icon-external-link;
         margin: 0 2px 0 5px;

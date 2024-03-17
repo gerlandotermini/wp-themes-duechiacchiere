@@ -425,7 +425,7 @@ class duechiacchiere {
 							echo get_avatar( $comment, $args[ 'avatar_size' ], 'mystery', 'Avatar di ' . $comment->comment_author, array( 'extra_attr' => 'aria-hidden="true"' ) );
 						}
 						
-						echo get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span>';
+						echo '<div class="comment-author-name">' . get_comment_author_link( $comment ) . '</div> <span class="says">ha scritto:</span>';
 					?>
 					</div>
 
