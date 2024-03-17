@@ -261,8 +261,8 @@ main {
                 }
 
                 ol.children, #respond {
-                    border-left: $border-secondary;
-                    margin: $margin-small 0 0;
+                    border-left: 3px solid $background-secondary;
+                    margin: $margin-small 0 0 3px;
                     padding-left: $padding-regular;
                 }
     
@@ -300,7 +300,7 @@ main {
         }
         input, textarea, button {
             background-color: $white;
-            border: $border-secondary;
+            border: $border-input-fields;
             border-radius: $border-radius;
             font-weight: 300;
             padding: $padding-small;
