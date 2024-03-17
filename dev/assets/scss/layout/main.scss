@@ -255,7 +255,7 @@ main {
                         display: inline-block;
                         font-size: $font-size-extra-small;
                         margin-top: $margin-small;
-                        padding: calc( $padding-small/2 ) $padding-small;
+                        padding: 0 calc( $padding-small/2 );
                         text-decoration: none;
                     }
                 }
