@@ -352,7 +352,7 @@ main {
                 background-color: $white;
                 border: $border-secondary;
                 font-weight: 300;
-                padding: $padding-small;
+                padding: $padding-extra-extra-small $padding-small;
 
                 &:hover, &:focus {
                     cursor: pointer;
