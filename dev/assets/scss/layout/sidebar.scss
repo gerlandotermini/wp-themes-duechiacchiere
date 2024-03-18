@@ -15,7 +15,7 @@ aside {
             border-radius: $border-radius;
             flex: 1;
             font-weight: 300;
-            padding: 12px 10px;
+            padding: $padding-small;
             width: 100%;
         }
         #search-field::placeholder {

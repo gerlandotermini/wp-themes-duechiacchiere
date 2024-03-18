@@ -262,7 +262,7 @@ main {
                         display: inline-block;
                         font-size: $font-size-extra-small;
                         margin-top: $margin-small;
-                        padding: 0 calc( $padding-small/2 );
+                        padding: 0 calc( $padding-extra-small );
                         text-decoration: none;
                     }
                 }
@@ -310,7 +310,7 @@ main {
             border: $border-input-fields;
             border-radius: $border-radius;
             font-weight: 300;
-            padding: $padding-small;
+            padding: $padding-extra-extra-small $padding-small;
             
         }
         .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
@@ -325,7 +325,7 @@ main {
 
             #comment-submit {
                 margin: 0 $margin-regular 0 0;
-                padding: $padding-small;
+                padding: $padding-extra-extra-small $padding-small;
 
                 &:hover, &:focus {
                     cursor: pointer;
