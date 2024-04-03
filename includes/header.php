@@ -327,10 +327,15 @@
 
 	<!-- BEGIN: Favicon -->
 	<link rel="icon" type="image/x-icon" href="/favicon.ico">
-	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/android-chrome.png">
-	<link rel="apple-touch-icon-precomposed" sizes="180x180" href="<?php echo get_stylesheet_directory_uri() ?>/img/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_stylesheet_directory_uri() ?>/assets/img/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="<?php echo get_stylesheet_directory_uri() ?>/assets/img/favicon/android-chrome.png">
+	<link rel="apple-touch-icon-precomposed" sizes="180x180" href="<?php echo get_stylesheet_directory_uri() ?>/assets/img/favicon/apple-touch-icon.png">
 	<!-- END: Favicon -->
+
+	<!-- BEGIN: Font Preloading -->
+	<link rel="preload" href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/merriweather-v30-latin-300.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/outfit-v6-latin-300.woff2" as="font" type="font/woff2" crossorigin />
+	<!-- END: Font Preloading -->
 
 	<!-- BEGIN: RSS feed -->
 	<link rel="alternate" type="application/rss+xml" title="Articoli del blog" href="<?= get_bloginfo( 'url' ) ?>/feed">
