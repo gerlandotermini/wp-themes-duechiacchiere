@@ -50,16 +50,23 @@ body {
         }
     }
 
-    &.april-fools::after {
-        background: url( "#{$assets}/img/polvere.webp") -50px -50px repeat;
-        content: '';
-        display: block;
-        height: 100vh;
-        left: 0;
-        position: fixed;
-        top: 0;
-        width: 100vw;
-        z-index: 100;
+    &.april-fools {
+
+        &::after {
+            background: url( "#{$assets}/img/polvere.webp") -50px -50px repeat;
+            content: '';
+            display: block;
+            height: 100vh;
+            left: 0;
+            position: fixed;
+            top: 0;
+            width: 100vw;
+            z-index: 1;
+        }
+        a, button, input, textarea {
+            position: relative;
+            z-index: 2;
+        }
     }
 
     h1 {
