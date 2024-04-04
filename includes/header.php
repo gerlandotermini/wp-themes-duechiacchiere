@@ -202,7 +202,7 @@
 			$og_meta[ 'description' ] = str_replace( '"', "'", strip_tags( $GLOBALS[ 'post' ]->post_excerpt ) );
 		}
 	}
-	else if ( is_search() ) {
+	else if ( is_search() && !empty( $_GET[ 's' ] ) ) {
 		$search_keywords = duechiacchiere::scrub_field( $_GET[ 's' ], false );
 		$og_meta[ 'title' ] = "Risultati della ricerca per: <strong>$search_keywords</strong>";
 		$heading_hidden = false;
