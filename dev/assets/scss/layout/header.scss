@@ -50,22 +50,16 @@ body {
         }
     }
 
-    &.april-fools {
-        animation: fadeInOut infinite linear 60s;
-    }
-    &.april-fools *:hover{
-        filter: none;
-    }
-    @keyframes fadeInOut {
-        0% {
-        opacity: 1;
-        }
-        50% {
-        opacity: 0.2;
-        }
-        100% {
-        opacity: 1;
-        }
+    &.april-fools::after {
+        background: url( "#{$assets}/img/polvere.webp") -50px -50px repeat;
+        content: '';
+        display: block;
+        height: 100vh;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        z-index: 100;
     }
 
     h1 {
