@@ -604,16 +604,13 @@ class duechiacchiere {
 			return true;
 		}
 
-		$start = date( 'U', mktime( -12, 0, 0, 4, 9, date( 'Y' ) ) );
-		$end = date( 'U', mktime( 36, 0, 0, 4, 9, date( 'Y' ) ) );
+		// CSS Naked Day lasts 50 hours, from 10am on 4/8 to noon on 4/10
+		$start = date( 'U', mktime( 10, 0, 0, 4, 8, date( 'Y' ) ) );
+		$end = date( 'U', mktime( 12, 0, 0, 4, 10, date( 'Y' ) ) );
 		$z = date( 'Z' ) * -1;
 		$now = time() + $z;
 
-		if ( $now >= $start && $now <= $end ) {
-			return true;
-		}
-
-		return false;
+		return ( $now >= $start && $now <= $end );
 	}
 
 	private static function _generate_sitemap() {
