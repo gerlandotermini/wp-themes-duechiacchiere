@@ -91,7 +91,7 @@ body {
     }
 
     a:hover, a:focus, a:focus-visible {
-        text-shadow: $shadow;
+        filter: drop-shadow($shadow);
     }
 
     a.skip {

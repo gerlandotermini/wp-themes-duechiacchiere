@@ -601,7 +601,7 @@ class duechiacchiere {
 
 	public static function is_naked_day() {
 		if ( !empty( $_GET[ 'naked' ] ) ) {
-			return true;
+			return filter_var( $_GET[ 'naked' ], FILTER_VALIDATE_BOOLEAN );
 		}
 
 		// CSS Naked Day lasts 50 hours, from 10am on 4/8 to noon on 4/10
