@@ -607,7 +607,7 @@ class duechiacchiere {
 		// CSS Naked Day lasts 50 hours, from 10am on 4/8 to noon on 4/10
 		$start = date( 'U', mktime( 10, 0, 0, 4, 8, date( 'Y' ) ) );
 		$end = date( 'U', mktime( 12, 0, 0, 4, 10, date( 'Y' ) ) );
-		$now = time();
+		$now = time() + 7200; // For some reason our server is returning the wrong value for date('Z'). Italy is GMT+2.
 
 		return ( $now >= $start && $now <= $end );
 	}
