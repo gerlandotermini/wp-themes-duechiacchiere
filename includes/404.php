@@ -1,4 +1,18 @@
-<?php $random_posts = get_posts( "numberposts=5&orderby=rand" ) ?>
+<?php
+if ( is_search() ) {
+    $related_posts = get_posts( "numberposts=5&orderby=rand" );
+}
+else {
+    $uri_404 = str_replace( '-', '+', str_replace( '/', '', $_SERVER[ 'REQUEST_URI' ] ) );
+    $search_related = new WP_Query( [
+        'post_type' => 'post',
+        'posts_per_page' => 5,
+        'orderby' => 'post_date',
+        's' => $uri_404
+    ] );
+    $related_posts = $search_related->posts;
+}
+?>
 
 <article>
     <header><h1>Pagina non trovata</h1></header>
@@ -23,7 +37,7 @@
     </p>
 </article>
 
-<?php foreach ( $random_posts as $a_post ): ?>
+<?php foreach ( $related_posts as $a_post ): ?>
 <article>
     <header><h2><a href="<?= get_the_permalink( $a_post->ID ) ?>"><?= get_the_title( $a_post->ID ) ?></a></h2></header>
     <?= apply_filters( 'the_content', get_the_content( '<span class="visually-hidden">' . the_title( '', '', false ) . ': </span>Leggi il resto &raquo;', false, $a_post->ID ) ); ?>    

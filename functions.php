@@ -45,6 +45,9 @@ class duechiacchiere {
 		add_filter( 'script_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 		add_filter( 'script_loader_tag', array( __CLASS__, 'script_loader_tag'), 20, 2 );
 
+		// Improve the built-in search a bit
+		add_filter( 'posts_clauses', array( __CLASS__, 'post_clauses' ), 10, 2 );
+
 		// Update the sitemap file and the cache whenever a post is added or modified
 		add_action( 'transition_post_status', array( __CLASS__, 'transition_post_status' ), 10, 3 );
 
@@ -88,12 +91,13 @@ class duechiacchiere {
 	}
 
 	public static function redirect_post_id_to_canonical_url() {
-		if ( is_404() ) {
-			$canonical = get_permalink( intval( str_replace( '/', '', $_SERVER[ 'REQUEST_URI' ] ) ) );
+		$requested_url = str_replace( '/', '', $_SERVER[ 'REQUEST_URI' ] );
+
+		if ( is_404() && is_numeric( $requested_url ) ) {
+			$canonical = get_permalink( intval( $requested_url ) );
 
 			if ( !empty( $canonical ) ) {
 				wp_redirect( $canonical, 301 );
-				return;
 			}
 		}
 	}
@@ -208,6 +212,36 @@ class duechiacchiere {
 		}
 
 		return str_replace( ' src', ' defer src', $tag );
+	}
+
+	public static function post_clauses( $clauses, $query ) {
+		// Do something only if this is a search request
+		if ( !$query->is_search && !$query->is_404 ) {
+				return $clauses;
+		}
+
+		// Get the search term
+		if ( !empty( $query->query_vars[ 'search_terms' ] ) ) {
+			$search_terms = $query->query_vars[ 'search_terms' ];
+		}
+		else {
+			return $clauses;
+		}
+
+		// Build the query
+		$search_query = array();
+		foreach ( $search_terms as $a_term ) {
+			$search_query[] = $GLOBALS[ 'wpdb' ]->prepare( " ({$GLOBALS[ 'wpdb' ]->posts}.post_title LIKE %s OR {$GLOBALS[ 'wpdb' ]->posts}.post_content LIKE %s)", '%' . $a_term . '%', '%' . $a_term . '%' );
+		}
+		$clauses[ 'where' ] = ' AND (' . implode( ' OR ', $search_query ) . ')';
+		
+		// Restrict search to only published posts
+		$clauses[ 'where' ] .= " AND ({$GLOBALS[ 'wpdb' ]->posts}.post_type = 'post' AND {$GLOBALS[ 'wpdb' ]->posts}.post_status = 'publish')";
+
+		// Show the most recent first
+		$clauses[ 'orderby' ] = "{$GLOBALS['wpdb']->posts}.post_date DESC";
+
+		return $clauses;
 	}
 
 	// Handle cache and sitemap generation
