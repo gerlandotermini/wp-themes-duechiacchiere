@@ -13,7 +13,13 @@ else {
         'orderby' => 'post_date',
         's' => $uri_404
     ] );
-    $related_posts = $search_related->posts;
+
+    if ( !empty( $search_related->posts ) ) {
+        $related_posts = $search_related->posts;
+    }
+    else {
+        $related_posts = get_posts( "numberposts=5&orderby=rand" );
+    }
 }
 ?>
 
