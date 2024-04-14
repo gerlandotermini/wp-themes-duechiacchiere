@@ -1,8 +1,11 @@
 <?php
 if ( is_search() ) {
+    // If we are here after searching, it means that no posts matched the search string
+    // Let's show a list of random posts
     $related_posts = get_posts( "numberposts=5&orderby=rand" );
 }
 else {
+    // Use the URL as keywords, maybe we'll find something there
     $uri_404 = str_replace( '-', '+', str_replace( '/', '', $_SERVER[ 'REQUEST_URI' ] ) );
     $search_related = new WP_Query( [
         'post_type' => 'post',
