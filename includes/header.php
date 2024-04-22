@@ -157,18 +157,18 @@
 		}
 		else if ( is_date() ) {
 			$month_names = array(
-				'Gennaio',
-				'Febbraio',
-				'Marzo',
-				'Aprile',
-				'Maggio',
-				'Giugno',
-				'Luglio',
-				'Agosto',
-				'Settembre',
-				'Ottobre',
-				'Novembre',
-				'Dicembre'
+				'gennaio',
+				'febbraio',
+				'marzo',
+				'aprile',
+				'maggio',
+				'giugno',
+				'luglio',
+				'agosto',
+				'settembre',
+				'ottobre',
+				'novembre',
+				'dicembre'
 			);
 		
 			$date_string = '';
@@ -185,7 +185,7 @@
 					$date_string .= ' ' . $date_year;
 				}
 				else {
-					$date_string .= ': post scritti in questa data negli anni precedenti';
+					$heading_title = 'Post scritti il ' . intval( get_query_var( 'day' ) ) . ' ' . $month_names[ intval( get_query_var( 'monthnum' ) ) - 1 ] . ' negli anni precedenti';
 				}
 			}
 

@@ -200,6 +200,7 @@ body {
 
         @include media-query( large ) {
             font-size: 3em;
+            line-height: 1.2em;
         }
     }
     #name:hover, #name:focus {
