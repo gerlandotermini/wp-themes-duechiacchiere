@@ -179,7 +179,14 @@
 				$date_string = ' mese di ' . $month_names[ intval( get_query_var( 'monthnum' ) ) - 1 ] . ' ' . get_query_var( 'year' );
 			}
 			else if ( is_day() && !empty( $month_names[ intval( get_query_var( 'monthnum' ) ) - 1 ] ) ) {
-				$date_string = ' ' . intval( get_query_var( 'day' ) ) . ' ' . $month_names[ intval( get_query_var( 'monthnum' ) ) - 1 ] . ' ' . intval( get_query_var( 'year' ) );
+				$date_string = ' ' . intval( get_query_var( 'day' ) ) . ' ' . $month_names[ intval( get_query_var( 'monthnum' ) ) - 1 ];
+				$date_year = intval( get_query_var( 'year' ) );
+				if ( !empty( $date_year ) ) {
+					$date_string .= ' ' . $date_year;
+				}
+				else {
+					$date_string .= ': post scritti in questa data negli anni precedenti';
+				}
 			}
 
 			$og_meta[ 'title' ] = "Archivio del$date_string";
