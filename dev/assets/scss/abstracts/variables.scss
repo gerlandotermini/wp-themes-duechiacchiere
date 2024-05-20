@@ -46,18 +46,18 @@ $white: #fff;
 // ------------------------------------------------
 // SVG Filter Calculator: https://codepen.io/sosuke/pen/Pjoqqp - https://css-tricks.com/change-color-of-svg-on-hover/
 $months: (
-    ( "jan", "repeat-x fixed 0 0 #000", "#560bad", "invert(10%) sepia(80%) saturate(6469%) hue-rotate(270deg) brightness(84%) contrast(106%)" ),
-    ( "feb", "repeat fixed center 0 #993947", "#694d21", "invert(28%) sepia(17%) saturate(1723%) hue-rotate(357deg) brightness(96%) contrast(86%)" ),
-    ( "mar", "repeat fixed 0 0 #332874", "#443796", "invert(17%) sepia(91%) saturate(1556%) hue-rotate(233deg) brightness(96%) contrast(92%)" ),
-    ( "apr", "repeat fixed center 0 #B3212C", "#135180", "invert(13%) sepia(81%) saturate(3639%) hue-rotate(193deg) brightness(96%) contrast(85%)" ),
-    ( "may", "repeat fixed center 0 #0d6f00", "#4f7101", "invert(32%) sepia(65%) saturate(997%) hue-rotate(44deg) brightness(98%) contrast(99%)" ),
-    ( "jun", "no-repeat fixed center bottom #0062AD", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
-    ( "jul", "repeat fixed center 0 #040001", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
-    ( "aug", "repeat fixed 0 center #fecc59", "#1f797f", "invert(38%) sepia(16%) saturate(1829%) hue-rotate(135deg) brightness(97%) contrast(87%)" ),
-    ( "sep", "repeat fixed center 0 #ac4900", "#994000", "invert(19%) sepia(68%) saturate(6317%) hue-rotate(41deg) brightness(94%) contrast(101%)" ),
-    ( "oct", "repeat fixed center 0 #000000", "#aa5c08", "invert(36%) sepia(39%) saturate(5677%) hue-rotate(27deg) brightness(91%) contrast(94%)" ),
-    ( "nov", "repeat fixed center 0 #2d1a0b", "#664438", "invert(26%) sepia(48%) saturate(395%) hue-rotate(330deg) brightness(95%) contrast(90%)" ),
-    ( "dec", "repeat fixed 0 0 #711517", "#b30000", "invert(9%) sepia(100%) saturate(6904%) hue-rotate(20deg) brightness(81%) contrast(119%)" )
+    ( "jan", "0 0 / contain repeat-x fixed #000", "#560bad", "invert(10%) sepia(80%) saturate(6469%) hue-rotate(270deg) brightness(84%) contrast(106%)" ),
+    ( "feb", "center 0 / contain repeat fixed #993947", "#694d21", "invert(28%) sepia(17%) saturate(1723%) hue-rotate(357deg) brightness(96%) contrast(86%)" ),
+    ( "mar", "0 0 / contain repeat fixed #332874", "#443796", "invert(17%) sepia(91%) saturate(1556%) hue-rotate(233deg) brightness(96%) contrast(92%)" ),
+    ( "apr", "center 0 / contain repeat fixed #B3212C", "#135180", "invert(13%) sepia(81%) saturate(3639%) hue-rotate(193deg) brightness(96%) contrast(85%)" ),
+    ( "may", "center 0 / contain repeat fixed #0d6f00", "#4f7101", "invert(32%) sepia(65%) saturate(997%) hue-rotate(44deg) brightness(98%) contrast(99%)" ),
+    ( "jun", "center bottom / contain no-repeat fixed #0062AD", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
+    ( "jul", "center 0 / contain repeat fixed #040001", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
+    ( "aug", "0 center / contain repeat fixed #fecc59", "#1f797f", "invert(38%) sepia(16%) saturate(1829%) hue-rotate(135deg) brightness(97%) contrast(87%)" ),
+    ( "sep", "center 0 / contain repeat fixed #ac4900", "#994000", "invert(19%) sepia(68%) saturate(6317%) hue-rotate(41deg) brightness(94%) contrast(101%)" ),
+    ( "oct", "center 0 / contain repeat fixed #222222", "#aa5c08", "invert(36%) sepia(39%) saturate(5677%) hue-rotate(27deg) brightness(91%) contrast(94%)" ),
+    ( "nov", "center 0 / contain repeat fixed #2d1a0b", "#664438", "invert(26%) sepia(48%) saturate(395%) hue-rotate(330deg) brightness(95%) contrast(90%)" ),
+    ( "dec", "0 0 / contain repeat fixed #711517", "#b30000", "invert(9%) sepia(100%) saturate(6904%) hue-rotate(20deg) brightness(81%) contrast(119%)" )
 );
 
 // 3. Borders and Shadows
