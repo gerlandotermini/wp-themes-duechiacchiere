@@ -1,7 +1,7 @@
 <aside>
 	<div class="widget" id="search-form">
 		<h2 class="visually-hidden">Cerca nel sito</h2>
-		<form role="search" action="<?= is_single() ? '/' : $_SERVER[ 'REQUEST_URI' ] ?>" method="post">
+		<form role="search" action="<?= is_single() ? '/' : $_SERVER[ 'REQUEST_URI' ] ?>" method="get">
 			<label for="search-field" class="visually-hidden">Digita le parole da cercare e premi invio</label>
 			<?php if ( is_category() ): ?>
 				<input type="text" id="search-field" autocomplete="off" name="s" required="required" placeholder="Cerca in questa stanza...">
