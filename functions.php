@@ -221,19 +221,19 @@ class duechiacchiere {
 		}
 
 		// Get the search term
-		if ( !empty( $query->query_vars[ 'search_terms' ] ) ) {
-			$search_terms = $query->query_vars[ 'search_terms' ];
-		}
-		else {
+		if ( empty( $query->query_vars[ 'search_terms' ] ) ) {
 			return $clauses;
 		}
 
+		$search_terms = $query->query_vars[ 'search_terms' ];
+
 		// Build the query
 		$search_query = array();
+
 		foreach ( $search_terms as $a_term ) {
 			$search_query[] = $GLOBALS[ 'wpdb' ]->prepare( " ({$GLOBALS[ 'wpdb' ]->posts}.post_title LIKE %s OR {$GLOBALS[ 'wpdb' ]->posts}.post_content LIKE %s)", '%' . $a_term . '%', '%' . $a_term . '%' );
 		}
-		$clauses[ 'where' ] = ' AND (' . implode( ' OR ', $search_query ) . ')';
+		$clauses[ 'where' ] .= ' AND (' . implode( ' OR ', $search_query ) . ')';
 		
 		// Restrict search to only published posts
 		$clauses[ 'where' ] .= " AND ({$GLOBALS[ 'wpdb' ]->posts}.post_type = 'post' AND {$GLOBALS[ 'wpdb' ]->posts}.post_status = 'publish')";
@@ -354,6 +354,14 @@ class duechiacchiere {
 			add_filter( 'wp_title_rss', array( __CLASS__, 'wp_title_rss' ) );
 			add_filter( 'get_post_time', array( __CLASS__, 'get_post_time' ) );
 			add_filter( 'get_feed_build_date', array( __CLASS__, 'get_feed_build_date' ), 10, 2 );
+		}
+		else if ( $query->is_search() && $query->is_main_query() ) {
+
+			// Attempt to get the parameter, or default to 0
+			$category_id = (int)( $_REQUEST[ 'c' ] ?? 0 );
+			if ( !empty( $category_id ) ) {
+				$query->set( 'cat', $category_id );
+			}
 		}
 	}
 
