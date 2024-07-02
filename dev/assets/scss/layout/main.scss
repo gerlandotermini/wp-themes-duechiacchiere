@@ -37,8 +37,12 @@ main {
                 font-size: $font-size-small;
                 margin: 0 0 0.5em;
                 opacity: .7;
-            }
-            .post-meta {
+                
+                a {
+                    text-decoration: none;
+                    border-bottom: 1px solid;
+                    padding-bottom: .1vh;
+                }
                 .comments-link {
                     display: table;
 
