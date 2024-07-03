@@ -6,7 +6,7 @@
     justify-content: center;
     list-style: none;
     margin: 0;
-    padding: $padding-small 0;
+    padding: 0;
 
     .pagination-item {
         display: none;
@@ -22,7 +22,6 @@
         }
 
         a, span {
-            border-radius: $border-radius;
             display: block;
             line-height: 1;
             min-width: 50px;
