@@ -45,6 +45,7 @@
 
     &.pagination-flex {
         flex-direction: column;
+        padding: $padding-extra-small 0;
 
         @include media-query( large ) {
             flex-direction: row;
