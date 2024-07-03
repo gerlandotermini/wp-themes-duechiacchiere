@@ -39,6 +39,10 @@ body {
             &.theme-#{ nth( $month, 1 ) } {
                 background: url( "#{$assets}/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
             }
+            &.theme-#{ nth( $month, 1 ) } #primary-menu {
+                border-top-color: #{ nth( $month, 3 ) };
+                border-bottom-color: #{ nth( $month, 3 ) };
+            }
         }
         &.theme-#{ nth( $month, 1 ) } ul.menu > li.current-menu-item > a, &.theme-#{ nth( $month, 1 ) } ul.menu > li.current-menu-parent > a {
             background-color: #{ nth( $month, 3 ) };
@@ -296,6 +300,7 @@ body {
             border-top: $border-secondary;
             
             ul.menu {
+                background-color: $white;
                 display: flex;
                 list-style-type: none;
                 margin: 0;
@@ -347,10 +352,11 @@ body {
                         border: $border-secondary;
                         border-bottom-left-radius: $padding-small;
                         border-bottom-right-radius: $padding-small;
+                        display: block;
                         list-style-type: none;
                         margin: 40px 0 0;
                         min-width: 200px;
-                        padding: 0;
+                        padding: 0 0 $padding-extra-small;
                         position: absolute;
                         transition: all 0s ease-in-out;
                         visibility: hidden;
