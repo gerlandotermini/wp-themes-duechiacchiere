@@ -47,14 +47,14 @@
 							if ( is_user_logged_in() ) {
 								echo '[' . get_comments_number() . '] ';
 							}
+							if ( !is_single() ) {
+								edit_post_link( '[M] ', ' ' );
+							}
 						?>
 						<span class="visually-hidden">Scritto il giorno </span><time datetime="<?php the_time( 'Y-m-d H:i:s' ) ?>"><?= strtolower( get_the_time('j F Y') ); ?></time>
 						<?php
 							if ( !empty( $categories_html ) ) {
 								echo '<span class="visually-hidden">, archiviato</span> in ' . $categories_html;
-							}
-							if ( !is_single() ) {
-								edit_post_link( '[M]', ' ' );
 							}
 						?>
 					</p>
