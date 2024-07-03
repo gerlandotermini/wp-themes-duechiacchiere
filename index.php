@@ -37,18 +37,19 @@
 			}
 			$categories_html = implode( ', ', $categories_html );
 
-			$comment_count = get_comments_number();
-
-			switch( $comment_count ) {
-				case 0:
-					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
-					break;
-				case 1:
-					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments" aria-label="Leggi il commento per '. $GLOBALS[ 'post' ]->post_title . '">1 commento</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
-					break;
-				default:
-					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments" aria-label="Leggi i ' . $comment_count . ' commenti per ' . $GLOBALS[ 'post' ]->post_title . '">' . $comment_count . ' commenti</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
-			}
+			// $comment_count = get_comments_number();
+ 
+			// switch( $comment_count ) {
+			// 	case 0:
+			// 		// $comments_html = '<a class="comments-link" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
+			// 		$comments_html = '';
+			// 		break;
+			// 	case 1:
+			// 		$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments" aria-label="Leggi il commento per '. $GLOBALS[ 'post' ]->post_title . '">1 commento</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
+			// 		break;
+			// 	default:
+			// 		$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments" aria-label="Leggi i ' . $comment_count . ' commenti per ' . $GLOBALS[ 'post' ]->post_title . '">' . $comment_count . ' commenti</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
+			// }
 			?>
 
 			<article <?php if ( $GLOBALS[ 'wp_query' ]->current_post == $GLOBALS[ 'wp_query' ]->post_count - 1 ) { echo ' class="last"'; } ?>>
@@ -61,9 +62,9 @@
 							if ( !empty( $categories_html ) ) {
 								echo '<span class="visually-hidden">, archiviato</span> in ' . $categories_html;
 							}
-							if ( !empty( $comments_html ) ) {
-								echo ' <span class="comment-separator">&mdash;</span> ' . $comments_html;
-							}
+							// if ( !empty( $comments_html ) ) {
+							// 	echo ' <span class="comment-separator">&mdash;</span> ' . $comments_html;
+							// }
 							if ( !is_single() ) {
 								edit_post_link( '[M]', ' ' );
 							}
