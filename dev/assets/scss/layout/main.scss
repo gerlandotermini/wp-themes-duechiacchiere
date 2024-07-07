@@ -260,6 +260,27 @@ main {
 
                     @include links;
                 }
+                blockquote {
+                    padding-left: $padding-regular;
+                    position: relative;
+                }
+                blockquote::before {
+                    color: $grey;
+                    content: '"';
+                    font-style: italic;
+                    left: - calc($padding-regular/2);
+                    line-height: 1rem;
+                    position: absolute;
+                    top: calc( $padding-small * 1.5 );
+                    font-size: 3rem;
+    
+    
+    
+                    
+                    // border-left: 5px solid $background-secondary;
+                    // padding-left: $padding-regular;
+                    // margin: $margin-small 0 $margin-regular;
+                }
                 .reply {
                     a {
                         font-size: $font-size-extra-small;
