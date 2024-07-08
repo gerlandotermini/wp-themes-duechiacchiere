@@ -70,7 +70,7 @@
 			foreach ( $comments_list as $a_comment ) {
 				$comment_post_title = get_the_title( $a_comment->comment_post_ID );
 				$comment_permalink = get_comment_link( $a_comment->comment_ID );
-				$comment_excerpt = duechiacchiere::get_substr_words( $a_comment->comment_content, 150 );
+				$comment_excerpt = duechiacchiere::get_substr_words( $a_comment->comment_content, 150, $comment_permalink );
 				$comment_author_link = !empty( $a_comment->comment_author_url ) ? '<a href="' . $a_comment->comment_author_url . '" aria-label="Visita il sito di ' . $a_comment->comment_author . ', apre una nuova finestra">' . $a_comment->comment_author . '</a>' : $a_comment->comment_author;
 				echo '<li><h3>' . $comment_author_link . ' su <a aria-label="Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title . '" href="' . $comment_permalink .'">' . $comment_post_title . '</a></h3>' . apply_filters( 'comment_text', $comment_excerpt ) . '</li>';
 			}

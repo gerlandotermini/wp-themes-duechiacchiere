@@ -504,7 +504,7 @@ class duechiacchiere {
 			}
 	}
 
-	public static function get_substr_words( $string, $desired_length ) {
+	public static function get_substr_words( $string = '', $desired_length = 100, $permalink = '') {
 		$parts = preg_split( '/([\s\n\r]+)/u', strip_tags( $string ), -1, PREG_SPLIT_DELIM_CAPTURE );
 		$parts_count = count( $parts );
 	
@@ -517,7 +517,7 @@ class duechiacchiere {
 			}
 		}
 	
-		return implode( array_slice( $parts, 0, $last_part ) ) . ( ( $parts_count > $last_part) ? '...' : '' );
+		return implode( array_slice( $parts, 0, $last_part ) ) . ( ( $parts_count > $last_part) ? '<a href="' . $permalink . '">...</a>' : '' );
 	}
 
 	public static function scrub_field( $header, $strip_tags = true ) {
