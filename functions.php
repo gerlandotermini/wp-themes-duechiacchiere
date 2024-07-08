@@ -517,7 +517,7 @@ class duechiacchiere {
 			}
 		}
 	
-		return implode( array_slice( $parts, 0, $last_part ) ) . ( ( $parts_count > $last_part) ? '<a aria-label="' . $aria_label . '" href="' . $permalink . '">...</a>' : '' );
+		return implode( array_slice( $parts, 0, $last_part ) ) . ( ( $parts_count > $last_part) ? '<a aria-label="' . $aria_label . '" href="' . $permalink . '">&hellip;</a>' : '' );
 	}
 
 	public static function scrub_field( $header, $strip_tags = true ) {
