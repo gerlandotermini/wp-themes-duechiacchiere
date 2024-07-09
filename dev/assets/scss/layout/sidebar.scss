@@ -46,6 +46,7 @@ aside {
             background: $background-secondary;
             border-top-left-radius: $border-radius;
             border-top-right-radius: $border-radius;
+            font-size: $font-size-large;
             margin: 0;
             padding: 5px $padding-small;
         }
@@ -73,7 +74,7 @@ aside {
         margin: 0;
     }
     p {
-        font-size: 1.1rem;
+        font-size: $font-size-regular;
         margin: $margin-small 0 0;
         opacity: 85%;
     }

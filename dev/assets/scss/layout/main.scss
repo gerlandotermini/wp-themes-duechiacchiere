@@ -28,7 +28,7 @@ main {
 
             h1, h2 {
                 font-family: $headings-font-family;
-                font-size: $font-size-large;
+                font-size: $font-size-extra-large;
                 line-height: 1.6rem;
                 margin: $margin-regular 0 $margin-small;
             }
@@ -83,7 +83,7 @@ main {
                 }
                 .wp-caption-text {
                     background-color: $background-caption;
-                    font-size: $font-size-small;
+                    font-size: $font-size-regular;
                     display: block;
                     padding: $padding-small;
                     text-align: center;
@@ -218,7 +218,7 @@ main {
     }
    
     #comments {
-        font-size: $font-size-extra-small;
+        font-size: $font-size-regular;
 
         @include media-query( mobile ) {
             border-bottom: $border-secondary;

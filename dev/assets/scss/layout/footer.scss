@@ -30,7 +30,7 @@
             text-decoration: none;
 
             @include media-query( mobile ) {
-                font-size: $font-size-large;
+                font-size: $font-size-extra-large;
                 &::before {
                     width: $padding-regular;
                 }
