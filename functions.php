@@ -199,7 +199,7 @@ class duechiacchiere {
 		return wp_kses_post($dom->saveHTML());
 	}
 
-	public static function the_content_feed( $_content = '' ) {
+	public static function the_content_feed( $_content = '', $_feed_type = 'rss2' ) {
 		return $_content . '<p><a href="' . get_permalink() . '#comments">Lascia un commento</a></p>';
 	}
 
