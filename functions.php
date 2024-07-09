@@ -37,6 +37,9 @@ class duechiacchiere {
 		add_filter( 'the_content', array( __CLASS__, 'mark_external_links' ) );
 		add_filter( 'comment_text', array( __CLASS__, 'mark_external_links' ) );
 
+		// Add a link to leave a comment to the feed
+		add_filter( 'the_content_feed', array( __CLASS__, 'the_content_feed') );
+
 		// Don't generate thumbnails, this theme only uses full size
 		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
 
@@ -131,28 +134,28 @@ class duechiacchiere {
 		echo "<script>const duechiacchiere={'COOKIEHASH':'" . COOKIEHASH . "'};$js</script>";
 	}
 
-	public static function walker_nav_menu_start_el( $item_output, $item, $depth, $args ) {
-		if ( !empty( $item->description ) ) {
-			$item_output = str_replace( $args->link_after . '</a>', $args->link_after . '</a>' . '<p class="menu-item-description">' . $item->description . '</p>', $item_output );
+	public static function walker_nav_menu_start_el( $_item_output, $_item, $_depth, $_args ) {
+		if ( !empty( $_item->description ) ) {
+			$_item_output = str_replace( $_args->link_after . '</a>', $_args->link_after . '</a>' . '<p class="menu-item-description">' . $_item->description . '</p>', $_item_output );
 		}
 	
-		return $item_output;
+		return $_item_output;
 	}
 
-	public static function img_caption_html( $attr, $content = null ) {
+	public static function img_caption_html( $_attr, $_content = null ) {
 		extract( shortcode_atts( array(
 			'id'	=> '',
 			'align'	=> 'alignnone',
 			'width'	=> '',
 			'caption' => ''
-		), $attr ) );
+		), $_attr ) );
 		
 		// New approach implemented in WP 3.4: caption is not an attribute anymore
-		$caption = trim( strip_tags( $content ) );
-		$image = trim( str_replace( $caption, '', $content ) );
+		$caption = trim( strip_tags( $_content ) );
+		$image = trim( str_replace( $caption, '', $_content ) );
 	
 		if ( 1 > (int) $width || empty( $caption ) )
-			return $content;
+			return $_content;
 	
 		if ( $id ) {
 			$id = 'id="' . esc_attr( $id ) . '" ';
@@ -194,6 +197,10 @@ class duechiacchiere {
 		}
 
 		return wp_kses_post($dom->saveHTML());
+	}
+
+	public static function the_content_feed( $_content = '' ) {
+		return $_content . '<p><a href="' . get_permalink() . '#comments">Lascia un commento</a></p>';
 	}
 
 	public static function wp_video_shortcode( $html = '' ) {
