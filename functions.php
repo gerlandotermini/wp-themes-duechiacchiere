@@ -161,7 +161,7 @@ class duechiacchiere {
 			$id = 'id="' . esc_attr( $id ) . '" ';
 		}
 
-		return "<figure {$id}class=\"wp-caption $align\">$image<span class=\"wp-caption-text\" aria-hidden=\"true\">$caption</span></figure>";
+		return "<figure {$id}class=\"wp-caption $align\">$image<figcaption class=\"wp-caption-text\" aria-hidden=\"true\">$caption</figcaption></figure>";
 	}
 
 	public static function mark_external_links( $html = '' ) {
