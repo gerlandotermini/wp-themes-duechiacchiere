@@ -95,7 +95,7 @@ footer {
         border-bottom-left-radius: $padding-small;
         border-bottom-right-radius: $padding-small;
         flex-direction: row;
-        font-size: $font-size-extra-small;
+        font-size: $font-size-small;
         justify-content: space-between;
 
         div, nav {
@@ -117,6 +117,7 @@ footer {
             }
 
             h2 {
+                font-size: $font-size-large;
                 border-bottom: 0;
                 margin: 0;
             }
@@ -149,7 +150,7 @@ footer {
 
         li {
             line-height: 1em;
-            padding-bottom: 14px;
+            padding-bottom: 11px;
 
             &:last-child {
                 padding-bottom: 0;

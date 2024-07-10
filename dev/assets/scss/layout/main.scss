@@ -35,7 +35,7 @@ main {
 
             // Post Meta
             .post-meta {
-                font-size: $font-size-extra-small;
+                font-size: $font-size-small;
                 margin: -5px 0 0.5em;
                 opacity: .7;
                 
@@ -68,7 +68,11 @@ main {
         .entry {
             // Links
             @include links;
-            
+
+            h2 {
+                font-size: $font-size-large;
+            }
+
             // Images
             figure {
                 border-radius: $border-radius;
@@ -187,7 +191,7 @@ main {
                     color: $text-code;
                     display: block;
                     font-weight: 400;
-                    font-size: $font-size-extra-small;
+                    font-size: $font-size-small;
                     padding: $padding-small $padding-regular;
                     word-break: break-word;
                 }
@@ -240,7 +244,7 @@ main {
                         line-height: 1.2rem;
                     }
                     .comment-metadata {
-                        font-size: $font-size-extra-small;
+                        font-size: $font-size-small;
                     }
 
                     img {
@@ -283,7 +287,7 @@ main {
                 }
                 .reply {
                     a {
-                        font-size: $font-size-extra-small;
+                        font-size: $font-size-small;
                     }
                 }
 
@@ -340,7 +344,7 @@ main {
             align-items: flex-start;
             flex-direction: row;
             flex-wrap: wrap;
-            font-size: $font-size-extra-small;
+            font-size: $font-size-small;
             margin-top: $margin-regular;
 
             #comment-submit {

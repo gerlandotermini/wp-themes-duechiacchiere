@@ -24,7 +24,6 @@ body {
     @include media-query( large ) {
         border-radius: $padding-small;
         box-shadow: $box-shadow;
-        font-size: $body-font-size + 0.1;
         margin: 0 auto;
         max-width: $body-max-width;
         width: 90%;
@@ -78,9 +77,6 @@ body {
         }
     }
 
-    h1, h2 {
-        font-size: $font-size-extra-large;
-    }
     h1, h2, h3 {
         font-weight: 300;
         margin: 1em 0 .2em;
