@@ -59,6 +59,9 @@ class duechiacchiere {
 		add_action( 'edit_comment', array( __CLASS__, 'edit_comment' ), 10, 2 );
 		add_action( 'transition_comment_status', array( __CLASS__, 'transition_comment_status' ), 10, 3 );
 
+		// Cache Gravatars
+		add_filter( 'get_avatar_url', array( __CLASS__, 'get_avatar_url' ), 10, 3 );
+
 		// Filter really long comments (spam)
 		add_filter( 'preprocess_comment' , array( __CLASS__, 'preprocess_comment' ) );
 
@@ -314,6 +317,37 @@ class duechiacchiere {
 
 		// Delete the old version from the cache
 		duechiacchiere::delete_from_cache( $permalink_path );
+	}
+
+	public static function get_avatar_url( $_url, $_comment, $_args ) { 
+		if ( !empty( $_url ) ) {
+			$cached_image_path = '/cache/gravatar/' . md5( $_url ) . '.webp';
+
+			// Do we have this image in cache?
+			if ( file_exists( WP_CONTENT_DIR . $cached_image_path ) ) {
+				return WP_CONTENT_URL . $cached_image_path;
+			}
+
+			// Download the image
+			$image_file = imagecreatefromstring( file_get_contents( $_url ) );
+
+			// Convert it to webp
+			$w=imagesx($image_file);
+			$h=imagesy($image_file);
+			$webp=imagecreatetruecolor($w,$h);
+			imagecopy($webp,$image_file,0,0,0,0,$w,$h);
+
+			// Save it to our cache
+			imagewebp($webp, WP_CONTENT_DIR . $cached_image_path, 80);
+
+			// Free up resources
+			imagedestroy($image_file);
+			imagedestroy($webp);
+
+			return WP_CONTENT_URL . $cached_image_path;
+		}
+
+		return $_url; 
 	}
 
 	public static function preprocess_comment( $commentdata = array() ) {
