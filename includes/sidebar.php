@@ -121,9 +121,12 @@
 			echo '<div class="widget"><h2>' . $heading . '</h2><ul class="plain-list">';
 	
 			foreach( $list_posts as $a_post ) {
-				echo '<li><h3><a href="' . get_permalink( $a_post->ID ). '">' . $a_post->post_title . '</a>';
+				$post_permalink = get_permalink( $a_post->ID );
+				$aria_label = 'Continua a leggere: ' . $a_post->post_title;
+
+				echo '<li><h3><a href="' . $post_permalink . '">' . $a_post->post_title . '</a>';
 				edit_post_link( '[M]', ' ', '', $a_post->ID );
-				echo '</h3><p>' . duechiacchiere::get_substr_words( $a_post->post_content, 150 ) . '</p></li>';
+				echo '</h3><p>' . duechiacchiere::get_substr_words( $a_post->post_content, 150, $post_permalink, $aria_label ) . '</p></li>';
 			}
 
 			echo '</ul></div>';
