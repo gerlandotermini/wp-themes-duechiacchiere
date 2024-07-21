@@ -34,8 +34,9 @@ class duechiacchiere {
 		add_shortcode( 'caption', array( __CLASS__, 'img_caption_html' ) );
 
 		// Add appropriate classes to external links
-		add_filter( 'the_content', array( __CLASS__, 'mark_external_links' ) );
-		add_filter( 'comment_text', array( __CLASS__, 'mark_external_links' ) );
+		add_filter( 'the_content', array( __CLASS__, 'the_content' ) );
+		add_filter( 'comment_text', array( __CLASS__, 'the_content' ) );
+		add_filter( 'the_content_more_link', array( __CLASS__, 'the_content_more_link' ) );
 
 		// Add a link to leave a comment to the feed
 		add_filter( 'the_content_feed', array( __CLASS__, 'the_content_feed') );
@@ -82,8 +83,7 @@ class duechiacchiere {
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'mce_external_plugins' ) );
 		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
 		add_filter( 'tiny_mce_before_init', array( __CLASS__, 'tiny_mce_before_init' ) );
-		add_action( 'admin_head-post.php', array( __CLASS__, 'admin_head_post' ) );
-		add_action( 'admin_head-post-new.php', array( __CLASS__, 'admin_head_post' ) );
+		add_action( 'admin_head', array( __CLASS__, 'admin_head' ) );
 		
 		// Add a Post List button to the admin bar
 		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_menu' ), 100 );
@@ -167,7 +167,7 @@ class duechiacchiere {
 		return "<figure {$id}class=\"wp-caption $align\">$image<figcaption class=\"wp-caption-text\" aria-hidden=\"true\">$caption</figcaption></figure>";
 	}
 
-	public static function mark_external_links( $html = '' ) {
+	public static function the_content( $html = '' ) {
 		// Add appropriate classes to certain links
 		$dom = new DomDocument();
 		$dom->loadHTML( '<?xml encoding="utf-8" ?>' . $html, LIBXML_NOERROR );
@@ -184,22 +184,19 @@ class duechiacchiere {
 
 			if ( stripos( $link_attr, '.pdf' ) !== false ) {
 				if ( stripos( $class_attr, 'pdf') === false ) {
-					$a_link->setAttribute( 'class', $class_attr . 'pdf' );
+					$a_link->setAttribute( 'class', $class_attr . 'svg external pdf' );
 				}
 			}
-			else if ( stripos( $link_attr, get_bloginfo( 'url' ) ) === false && stripos( $link_attr, 'http' ) !== false ) {
-				if ( stripos( $link_attr, 'wikipedia.org' ) !== false ) {
-					if ( stripos( $class_attr, 'wikipedia') === false ) {
-						$a_link->setAttribute( 'class', $class_attr . 'wikipedia' );
-					}
-				}
-				else if ( stripos( $class_attr, 'external') === false ) {
-					$a_link->setAttribute( 'class', $class_attr . 'external' );
-				}
+			else if ( stripos( $link_attr, get_bloginfo( 'url' ) ) === false && stripos( $link_attr, 'http' ) !== false && stripos( $class_attr, 'external') === false ) {
+				$a_link->setAttribute( 'class', $class_attr . 'svg external' );
 			}
 		}
 
 		return wp_kses_post($dom->saveHTML());
+	}
+
+	public static function the_content_more_link( $_more_link = '' ) {
+		return str_replace( 'more-link', 'svg more-link', $_more_link );
 	}
 
 	public static function the_content_feed( $_content = '', $_feed_type = 'rss2' ) {
@@ -466,17 +463,64 @@ class duechiacchiere {
 		return $settings;
 	}
 
-	public static function admin_head_post(){
-		if ( 'page' != get_post_type() ) {
-			echo '
-				<script>jQuery(document).ready(function(){
-					jQuery("#postexcerpt .handlediv").after("<div style=\"position:absolute;top:auto;bottom:18px;left:auto;right:15px;\">Character count: <span id=\"excerpt_counter\"></span></div>");
-					jQuery("span#excerpt_counter").text(jQuery("#excerpt").val().length);
-					jQuery("#excerpt").keyup( function() {
-						jQuery("span#excerpt_counter").text(jQuery("#excerpt").val().length);
-					});
-				});</script>';
-		}
+	public static function admin_head() {
+		echo '
+		<style>
+			#wpbody-content a {
+				filter: invert(1) hue-rotate(180deg) saturate(10);
+				color: #777 !important;
+			}
+			#wpbody-content a:hover {
+				filter: invert(1) hue-rotate(180deg) saturate(10);
+				color: red !important;
+			}
+			/* Styling for primary content area. */
+				.block-editor-page .editor-styles-wrapper {
+				color: lightgray;
+				background: #262626;
+			}
+			/* Base styling adjustments. */
+			.wp-admin {
+				background-color: #262626;
+			}
+			.wp-admin #wpbody {
+				filter: invert(0.85) hue-rotate(185deg);
+			}
+			.wp-admin #wpbody img {
+				filter: invert(1) hue-rotate(-180deg);
+				background: white;
+			}/* Enhancements for hyperlink visuals. */
+			.block-editor-page .editor-styles-wrapper a {
+				filter: invert(0.85) hue-rotate(185deg);
+			}
+			#wp-content-editor-tools {
+				background: initial;
+			}
+			/* Filter reset for specific editor sections. */
+			.block-editor-page #wpbody {
+				filter: unset;
+			}/* Adjustments for the main body appearance. */
+			/* Sidebar appearance customization. */
+			.block-editor-page .interface-interface-skeleton__sidebar,
+			.block-editor-page .interface-interface-skeleton__secondary-sidebar {
+				filter: invert(0.85) hue-rotate(185deg);
+			}/* Configuration for top navigation bar. */
+			.block-editor-page .interface-interface-skeleton__header {
+				filter: invert(0.85) hue-rotate(185deg);
+			}
+			/* Primary action button styling. */
+			.block-editor-page .is-primary {
+				color: black !important;
+			}
+			/* Lower section layout adjustments. */
+			.block-editor-page .edit-post-layout__metaboxes {
+				border-top: 0px;
+				background-color: #262626;
+			}/* Reset various button BG colours */
+			.wrap .add-new-h2, .wrap .add-new-h2:active, .wrap .page-title-action, .wrap .page-title-action:active {
+				background:#f6f7f700;
+			}
+		</style>';
 	}
 
 	public static function admin_bar_menu( $wp_admin_bar ) {
@@ -508,17 +552,14 @@ class duechiacchiere {
 							echo get_avatar( $comment, $args[ 'avatar_size' ], 'mystery', 'Avatar di ' . $comment->comment_author, array( 'extra_attr' => 'aria-hidden="true"' ) );
 						}
 						
-						echo '<div class="comment-author-name">' . get_comment_author_link( $comment ) . '</div> <span class="says">ha scritto:</span>';
+						echo '<div class="comment-author-name">' . get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span></div>';
 					?>
 					</div>
 
 					<div class="comment-metadata">
 						<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
 							<time datetime="<?php comment_time( 'c' ); ?>">
-								<?php
-								/* translators: 1: comment date, 2: comment time */
-								printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() );
-								?>
+								<?php printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() ); ?>
 							</time>
 						</a>
 						<?php edit_comment_link( '[M]', ' <span class="edit-link">', '</span>' ); ?>
@@ -545,7 +586,7 @@ class duechiacchiere {
 			}
 	}
 
-	public static function get_substr_words( $string = '', $desired_length = 100, $permalink = '', $aria_label = '' ) {
+	public static function get_substr_words( $string = '', $desired_length = 100 ) {
 		$parts = preg_split( '/([\s\n\r]+)/u', strip_tags( $string ), -1, PREG_SPLIT_DELIM_CAPTURE );
 		$parts_count = count( $parts );
 	
@@ -558,7 +599,7 @@ class duechiacchiere {
 			}
 		}
 	
-		return implode( array_slice( $parts, 0, $last_part ) ) . ( ( $parts_count > $last_part) ? '<a aria-label="' . $aria_label . '" href="' . $permalink . '">&hellip;</a>' : '' );
+		return implode( array_slice( $parts, 0, $last_part ) ) . ( ( $parts_count > $last_part) ? '&hellip;' : '' );
 	}
 
 	public static function scrub_field( $header, $strip_tags = true ) {

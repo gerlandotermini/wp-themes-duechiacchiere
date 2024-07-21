@@ -1,8 +1,8 @@
 #main-wrapper {
-    background-color: $background;
+    background-color: var(--color-bg-container);
     display: flex;
     flex-direction: column;
-    padding: 0 $padding-regular $padding-regular*2;
+    padding: 0 var(--gap-lg) var(--gap-xl);
 
     @include media-query( large ) {
         flex-direction: row;
@@ -12,40 +12,37 @@
 main {
     @include media-query( large ) {
         flex: 2.5;
-        padding: 0 $padding-regular*2 0 0;
+        padding: 0 var(--gap-xl) 0 0;
     }
 
     > article {
         @include media-query( mobile ) {
-            border-bottom: $border-secondary;
+            border-bottom: var(--border) var(--color-border);
         }
 
-        padding-bottom: $padding-regular;
-        margin-bottom: $margin-regular;
+        padding-bottom: var(--gap-lg);
+        margin-bottom: var(--gap-lg);
 
         header {
-            padding-bottom: $padding-small;
+            padding-bottom: var(--gap-sm);
 
             h1, h2 {
-                font-family: $headings-font-family;
-                font-size: $font-size-extra-large;
+                font-size: var(--font-size-xl);
                 line-height: 1.6rem;
-                margin: $margin-regular 0 $margin-small;
+                margin: var(--gap-lg) 0 var(--gap-sm);
             }
 
             // Post Meta
             .post-meta {
-                font-size: $font-size-small;
+                font-size: var(--font-size-sm);
                 margin: -5px 0 0.5em;
                 opacity: .7;
-                
+
                 a {
-                    text-decoration: none;
-                    border-bottom: 1px solid;
-                    padding-bottom: .1vh;
+                    background: linear-gradient(180deg, transparent 95%, var(--color-link) 95%);
 
                     &.post-edit-link {
-                        border-bottom: 0;
+                        background: none;
                     }
                 }
                 .comments-link {
@@ -66,17 +63,46 @@ main {
         }
 
         .entry {
-            // Links
-            @include links;
-
+            // Title
             h2 {
-                font-size: $font-size-large;
+                font-size: var(--font-size-lg);
+            }
+
+            // Paragraphs and lists
+            p {
+                font-size: 1.1rem;
+                margin: 0 0 var(--gap-sm);
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            // Links
+            a {
+                &::after {
+                    margin: 0 2px 0 5px;
+                    width: 10px;
+                }
+                &.external::after {
+                    content: var(--icon-link-external);
+                }
+
+                &.external.pdf::after {
+                    content: var(--icon-link-pdf);
+                }
+
+                &.more-link::after {
+                    content: var(--icon-angle-right);
+                }
+
+                background: linear-gradient(180deg, transparent 95%, var(--color-link) 95%);
             }
 
             // Images
             figure {
-                border-radius: $border-radius;
-                margin: $margin-regular 0;
+                border-radius: var(--border-radius);
+                margin: var(--gap-lg) 0;
                 max-width: 100% !important;
                 overflow: hidden;
 
@@ -86,10 +112,9 @@ main {
                     width: 100%;
                 }
                 .wp-caption-text {
-                    background-color: $background-caption;
-                    font-size: $font-size-regular;
+                    background-color: var(--color-border);
                     display: block;
-                    padding: $padding-small;
+                    padding: var(--gap-sm);
                     text-align: center;
                 }
             }
@@ -107,10 +132,10 @@ main {
                     margin: 0 auto;
                 }
             }
-            
+
             // Videos
             .wp-video, .mejs-container, .mejs-overlay.load {
-                margin: $margin-regular 0;
+                margin: var(--gap-lg) 0;
                 max-width: 100% !important;
                 position: relative;
                 width: 100% !important;
@@ -118,9 +143,9 @@ main {
                 @include media-query( print ) {
                     display: none;
                 }
-            }   
+            }
             .mejs-container.wp-video-shortcode {
-                border-radius: $border-radius;
+                border-radius: var(--border-radius);
                 overflow: hidden;
                 padding-top: 56.25%;
             }
@@ -144,7 +169,7 @@ main {
                 height: auto !important;
             }
             .mejs-captions-layer {
-                font-size: 24px;
+                font-size: var(--font-size-lg);
             }
             .mejs-captions-position {
                 background: hsla(0,0%,0%,.7);
@@ -157,24 +182,35 @@ main {
                 background-color: transparent;
                 box-shadow: none !important;
                 line-height: 1.4em;
-                padding: $padding-small $padding-medium;
+                padding: var(--gap-sm) var(--gap-md);
             }
             .mejs-captions-button>.mejs-captions-selector {
                 width: 100px;
             }
             .mejs-captions-selector-list {
-                padding-bottom: $padding-small;
+                padding-bottom: var(--gap-sm);
             }
             .mejs-captions-selector-label {
-                font-size: .9rem;
+                font-size: var(--font-size-sm);
                 line-height: 1rem;
             }
+            .mejs-horizontal-volume-slider {
+                background: none;
+            }
+            .mejs-controls {
+                background: #444;
+            }
 
+            // Abbreviations
+            abbr {
+                background: linear-gradient(180deg, transparent 90%, #7a0505 90%);
+                text-decoration: none;
+            }
             // Blockquotes, citations and pre-formatted text (code)
             blockquote {
-                border-left: 5px solid $background-secondary;
-                padding-left: $padding-regular;
-                margin: $margin-small 0 $margin-regular;
+                border-left: 5px solid var(--color-border);
+                padding-left: var(--gap-lg);
+                margin: var(--gap-sm) 0 var(--gap-lg);
             }
             cite {
                 font-style: normal;
@@ -184,30 +220,23 @@ main {
             }
             pre {
                 white-space: pre-wrap;
-                margin-bottom: $margin-regular;
+                margin-bottom: var(--gap-lg);
 
                 code {
-                    background-color: $background-code;
-                    color: $text-code;
+                    background-color: var(--color-bg-code);
+                    color: var(--color-code);
                     display: block;
                     font-weight: 400;
-                    font-size: $font-size-small;
-                    padding: $padding-small $padding-regular;
+                    font-size: var(--font-size-sm);
+                    padding: var(--gap-sm) var(--gap-lg);
                     word-break: break-word;
                 }
             }
 
-            // Paragraphs and lists
-            p {
-                margin: 0 0 $margin-small;
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            }
+            // Lists
             ul, ol {
                 li {
-                    padding-bottom: $padding-small;
+                    padding-bottom: var(--gap-sm);
                 }
             }
 
@@ -220,13 +249,11 @@ main {
             }
         }
     }
-   
-    #comments {
-        font-size: $font-size-regular;
 
+    #comments {
         @include media-query( mobile ) {
-            border-bottom: $border-secondary;
-            padding-bottom: $padding-regular;
+            border-bottom: var(--border) var(--color-border);
+            padding-bottom: var(--gap-lg);
         }
 
         ol {
@@ -234,75 +261,69 @@ main {
             padding-left: 0;
 
             li {
-                margin: $margin-regular 0;
+                margin: var(--gap-lg) 0;
                 padding-bottom: 0;
 
                 .comment-meta {
-                    margin-bottom: $margin-small;
+                    font-size: var(--font-size-xs);
+                    margin-bottom: var(--gap-sm);
 
                     .comment-author-name {
                         line-height: 1.2rem;
                     }
-                    .comment-metadata {
-                        font-size: $font-size-small;
-                    }
 
                     img {
-                        border-radius: $border-radius;
+                        border-radius: var(--border-radius);
                         float: left;
-                        margin-right: $margin-small;
+                        margin-right: var(--gap-sm);
                     }
                     a {
-                        text-decoration: none;
+                        border-bottom: 0;
                     }
                     cite {
                         font-style: initial;
                     }
                 }
-                p {
-                    margin-bottom: $margin-small;
+                .comment-content {
+                    font-size: var(--font-size-sm);
+                    p {
+                        margin-bottom: var(--gap-sm);
+                    }
+                    a {
+                        padding-bottom: .1vh;
 
-                    @include links;
-                }
-                blockquote {
-                    padding-left: $padding-regular;
-                    position: relative;
-                }
-                blockquote::before {
-                    color: $grey;
-                    content: '"';
-                    font-style: italic;
-                    left: - calc($padding-regular/2);
-                    line-height: 1rem;
-                    position: absolute;
-                    top: calc( $padding-small * 1.5 );
-                    font-size: 3rem;
-    
-    
-    
-                    
-                    // border-left: 5px solid $background-secondary;
-                    // padding-left: $padding-regular;
-                    // margin: $margin-small 0 $margin-regular;
+                        @include media-query( print ) {
+                            &.comment-reply-link {
+                                display: none;
+                            }
+                        }
+                    }
+                    blockquote {
+                        padding-left: var(--gap-lg);
+                        position: relative;
+                    }
+                    blockquote::before {
+                        color: var(--color-text);
+                        content: '"';
+                        filter: brightness(85%);
+                        font-style: italic;
+                        left: calc(var(--gap-sm) * (-1));
+                        line-height: 1rem;
+                        position: absolute;
+                        top: var(--gap-md);
+                        font-size: 3rem;
+                    }
                 }
                 .reply {
                     a {
-                        font-size: $font-size-small;
+                        font-size: var(--font-size-sm);
                     }
                 }
 
                 ol.children, #respond {
-                    border-left: 3px solid $background-secondary;
-                    margin: $margin-small 0 0 3px;
-                    padding-left: $padding-regular;
-                }
-    
-                a {
-                    @include media-query( print ) { 
-                        &.comment-reply-link {
-                            display: none;
-                        }
-                    }
+                    border-left: 3px solid var(--color-border);
+                    margin: var(--gap-sm) 0 0 3px;
+                    padding-left: var(--gap-lg);
                 }
             }
         }
@@ -330,12 +351,18 @@ main {
             }
         }
         input, textarea, button {
-            background-color: $white;
-            border: $border-input-fields;
-            border-radius: $border-radius;
+            background-color: var(--color-bg-field);
+            border: var(--border) var(--color-border);
+            border-radius: var(--border-radius);
+            color: var(--color-text);
             font-weight: 300;
-            padding: $padding-extra-extra-small $padding-small;
-            
+            padding: var(--gap-xs) var(--gap-sm);
+
+            &:active, &:focus {
+                border: var(--border) var(--color-link);
+                outline: none;
+            }
+
         }
         .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
             width: 100%;
@@ -344,16 +371,16 @@ main {
             align-items: flex-start;
             flex-direction: row;
             flex-wrap: wrap;
-            font-size: $font-size-small;
-            margin-top: $margin-regular;
+            font-size: var(--font-size-sm);
+            margin-top: var(--gap-lg);
 
             #comment-submit {
-                margin: 0 $margin-regular 0 0;
-                padding: $padding-extra-extra-small $padding-small;
+                margin: 0 var(--gap-lg) 0 0;
+                padding: var(--gap-xs) var(--gap-sm);
 
                 &:hover, &:focus {
                     cursor: pointer;
-                    text-shadow: $shadow;
+                    text-shadow: var(--drop-shadow);
                 }
 
                 @keyframes shakeme {
@@ -362,25 +389,25 @@ main {
                     50% { transform: translate(5px, 0); }
                     75% { transform: translate(-5px, 0); }
                     100% { transform: translate(0, 0); }
-                    
+
                 }
                 &.shake {
                     display: inline-block;
                     animation-name: shakeme;
                     animation-duration: 0.5s;
                     transform-origin: 50% 50%;
-                    animation-timing-function: linear
+                    animation-timing-function: linear;
                 }
             }
             #cancel-comment-reply {
-                background-color: $white;
-                border: $border-secondary;
+                background-color: var(--color-bg-field);
+                border: var(--border) var(--color-border);
                 font-weight: 300;
-                padding: $padding-extra-extra-small $padding-small;
+                padding: var(--gap-xs) var(--gap-sm);
 
                 &:hover, &:focus {
                     cursor: pointer;
-                    text-shadow: $shadow;
+                    text-shadow: var(--drop-shadow);
                 }
             }
         }

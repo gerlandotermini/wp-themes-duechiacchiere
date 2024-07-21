@@ -9,7 +9,7 @@
 			<?php else: ?>
 				<input type="text" id="search-field" autocomplete="off" name="s" required="required" placeholder="Cerca nell'archivio...">
 			<?php endif; ?>
-			<button type='submit' id="search-button" class="svg icon-search"><span class="visually-hidden">Avvia la ricerca</span></button>
+			<button type='submit' id="search-button" class="svg"><span class="visually-hidden">Avvia la ricerca</span></button>
 		</form>
 	</div>
 
@@ -126,7 +126,7 @@
 
 				echo '<li><h3><a href="' . $post_permalink . '">' . $a_post->post_title . '</a>';
 				edit_post_link( '[M]', ' ', '', $a_post->ID );
-				echo '</h3><p>' . duechiacchiere::get_substr_words( $a_post->post_content, 150, $post_permalink, $aria_label ) . '</p></li>';
+				echo '</h3><p>' . duechiacchiere::get_substr_words( $a_post->post_content, 150 ) . '</p></li>';
 			}
 
 			echo '</ul></div>';

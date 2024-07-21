@@ -1,10 +1,4 @@
-// Table of Contents
-// ------------------------------------------------
-//	1. Media query selector
-//	2. Styles for links (wikipedia, external, PDFs)
-// ------------------------------------------------
-
-// 1. Media query selector
+// Media query selector
 // ------------------------------------------------
 @mixin media-query( $breakpoint: "large" ) {
     @if $breakpoint == "large" {
@@ -21,40 +15,5 @@
     }
     @else {
         @media only screen and ( max-width: 1024px ) { @content; }
-    }
-}
-
-// 2. Styles for links (wikipedia, external, PDFs)
-// ------------------------------------------------
-@mixin links {
-    a {
-        text-decoration: none;
-        border-bottom: 1px solid;
-        padding-bottom: .1vh;
-    
-        &:hover {
-            border-bottom: 2px solid;
-        }
-        &.external::after {
-            content: $icon-external-link;
-            margin: 0 2px 0 5px;
-            opacity: 0.5;
-        }
-        &.more-link::after {
-            content: $icon-chevron-right;
-            display: inline-block;
-            margin-left: 5px;
-            width: 6px;
-        }
-        &.pdf::after {
-            content: $icon-pdf-link;
-            margin: 0 2px 0 4px;
-            opacity: 0.5;
-        }
-        &.wikipedia::after {
-            content: $icon-wikipedia-link;
-            margin: 0 2px 0 5px;
-            opacity: 0.5;
-        }
     }
 }

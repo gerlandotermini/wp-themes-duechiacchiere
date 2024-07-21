@@ -34,10 +34,10 @@
 					}
 
 					if ( stripos( $prev_page, 'precedente' ) !== false ) {
-						$prev_page = str_replace( 'page-numbers', 'svg icon-chevron-left page-numbers', $prev_page );
+						$prev_page = str_replace( 'page-numbers', 'svg page-numbers', $prev_page );
 					}
 					if ( stripos( $next_page, 'successiva' ) !== false ) {
-						$next_page = str_replace( 'page-numbers', 'svg icon-chevron-right page-numbers', $next_page );
+						$next_page = str_replace( 'page-numbers', 'svg page-numbers', $next_page );
 					}
 
 					echo '<ul><li class="pagination-item' . ( ( $current_page == 1 ) ? ' current-item' : '' ) . '">' . $prev_page . '</li>';
@@ -55,8 +55,8 @@
 		<nav id="pagination" aria-labelledby="pagination-title">
 			<h2 class="visually-hidden" id="pagination-title">Navigazione cronologica</h2>
 			<ul class="pagination-flex">
-				<li class="prev"><?php previous_post_link( '<i class="svg icon-chevron-left"></i> %link' ); ?></li>
-				<li class="next"><?php next_post_link( '%link  <i class="svg icon-chevron-right"></i>' ); ?></li>
+				<li class="prev"><?php echo str_replace('href', 'class="svg" href', get_previous_post_link( '%link' )) ?></li>
+				<li class="next"><?php echo str_replace('href', 'class="svg" href', get_next_post_link( '%link' )) ?></li>
 			</ul>
 		</nav>
 	<?php
@@ -126,7 +126,7 @@
 				<a href="#search-field" id="mobile-search-button" class="svg icon-search"><span class="visually-hidden">Vai al modulo per cercare tra gli articoli</span></a>
 			</li>
 			<li>
-				<a href="#primary-menu" id="mobile-nav-button" aria-haspopup="true" class="svg icon-menu"><span class="visually-hidden">Apri il menu di navigazione</span></a>
+				<a href="#primary-menu" id="mobile-nav-button" aria-haspopup="true" class="svg icon-mobile-menu"><span class="visually-hidden">Apri il menu di navigazione</span></a>
 			</li>
 		</ul>
 		<div id="menu-overlay"></div>

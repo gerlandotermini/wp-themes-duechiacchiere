@@ -1,59 +1,180 @@
 // Table of Contents
 // ------------------------------------------------
-//  0. Paths
-//	1. Box Model
-//	2. Colors
-//	  2.1 Monthly Color
-//  3. Borders
-//  4. Icons
-//	5. Typography
+// 1. Global variables
+//   1.1 Box model
+//   1.2 Body background
+//   1.3 Borders and shadows
+//   1.4 Colors
+//   1.5 Typography
+//   1.6 Icons
+// 2. Camu
+// 3. Months
+// 4. Dark mode
+//   4.1 Colors
+//   4.2 Months
+//   4.3 Camu
 // ------------------------------------------------
 
-// 0. Paths
 $assets: '/content/themes/duechiacchiere/assets';
 
-// 1. Box Model
-// ------------------------------------------------
-$body-max-width: 1300px;
-$border-radius: 5px;
-$margin-regular: 20px;
-$margin-medium: 15px;
-$margin-small: 10px;
-$margin-extra-small: 7px;
-$margin-extra-extra-small: 5px;
-$padding-regular: $margin-regular;
-$padding-medium: $margin-medium;
-$padding-small: $margin-small;
-$padding-extra-small: $margin-extra-small;
-$padding-extra-extra-small: $margin-extra-extra-small;
+:root{
+    // 1. Global variables
+    // 1.1 Box model
+    --gap-xs: 5px;
+    --gap-sm: 10px;
+    --gap-md: 15px;
+    --gap-lg: 20px;
+    --gap-xl: 40px;
 
-// 2. Colors
-// ------------------------------------------------
-$background: rgba( 255 255 255 / 97% );
-$background-secondary: #e5e1e3;
-$background-caption: #e4e4e4;
-$background-code: #2d3142;
-$background-footer: rgba( 20 20 20 / 95% );
-$links: #00ff00;
-$links-footer: #a8dadc;
-$shadow-nav: rgba( 20 20 20 / 45% );
-$text: #333;
-$text-code: #ddd;
-$text-footer: #ecf7fa;
-$white: #fff;
-$grey: #96999B;
+    // 1.2 Body background
+    --body-bg-color: #000;
+    --body-bg-image: url('#{$assets}/img/bg/jan.webp');
+    --body-bg-opacity: 0;
+    --body-bg-position: center 0;
+    --body-bg-repeat: repeat;
+    --body-bg-size: contain;
 
-// 2.1 Monthly colors
-// ------------------------------------------------
-// SVG Filter Calculator: https://codepen.io/sosuke/pen/Pjoqqp - https://css-tricks.com/change-color-of-svg-on-hover/
+    // 1.3 Borders
+    --border: 1px solid;
+    --border-radius: 5px;
+
+    // 1.4 Colors
+    --color-bg-code: #f00;
+    --color-bg-container: rgba( 255 255 255 / 95% );
+    --color-bg-field: #fff;
+
+    --color-border: #bbb5b9;
+
+    --color-code: #ddd;
+    --color-link: #00f;
+    --color-text: #333;
+    --color-white: #fff;
+
+    --color-link: #00ffff;
+    --color-svg: invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%);
+
+    // 1.5 Typography
+    --font-size-xs: .9rem;
+    --font-size-sm: 1rem;
+    --font-size-md: 1.2rem;
+    --font-size-lg: 1.4rem;
+    --font-size-xl: 1.5rem;
+
+    @include media-query( large ) {
+        --font-size-xl: 1.8rem;
+    }
+
+    // 1.6 Icons - https://www.svgbackgrounds.com/tools/svg-to-css/
+    --icon-angle-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 17'%3E%3Cpath d='M5.29289,3.70711 C4.90237,3.31658 4.90237,2.68342 5.29289,2.29289 C5.68342,1.90237 6.31658,1.90237 6.70711,2.29289 L11.7071,7.29289 C12.0976,7.68342 12.0976,8.31658 11.7071,8.70711 L6.70711,13.7071 C6.31658,14.0976 5.68342,14.0976 5.29289,13.7071 C4.90237,13.3166 4.90237,12.6834 5.29289,12.2929 L9.58579,8 L5.29289,3.70711 Z'/%3E%3C/svg%3E");
+    --icon-home: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 330 330'%3E%3Cpath d='M324.442,129.811l-41.321-33.677V42.275c0-6.065-4.935-11-11-11h-26c-6.065,0-11,4.935-11,11v14.737l-55.213-44.999 c-3.994-3.254-9.258-5.047-14.822-5.047c-5.542,0-10.781,1.782-14.753,5.019L5.8,129.81c-6.567,5.351-6.173,10.012-5.354,12.314 c0.817,2.297,3.448,6.151,11.884,6.151h19.791v154.947c0,11.058,8.972,20.053,20,20.053h62.5c10.935,0,19.5-8.809,19.5-20.053 v-63.541c0-5.446,5.005-10.405,10.5-10.405h42c5.238,0,9.5,4.668,9.5,10.405v63.541c0,10.87,9.388,20.053,20.5,20.053h61.5 c11.028,0,20-8.996,20-20.053V148.275h19.791c8.436,0,11.066-3.854,11.884-6.151C330.615,139.822,331.009,135.161,324.442,129.811z' /%3E%3C/svg%3E");
+    --icon-link-external: url("data:image/svg+xml,%3Csvg viewBox='0 0 26 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 12.3125 0 C 10.425781 0.00390625 10.566406 0.507813 11.5625 1.5 L 14.78125 4.71875 L 9.25 10.25 C 8.105469 11.394531 8.105469 13.230469 9.25 14.375 L 11.6875 16.78125 C 12.832031 17.921875 14.667969 17.925781 15.8125 16.78125 L 21.34375 11.28125 L 24.5 14.4375 C 25.601563 15.539063 26 15.574219 26 13.6875 L 26 3.40625 C 26 -0.03125 26.035156 0 22.59375 0 Z M 4.875 5 C 2.183594 5 0 7.183594 0 9.875 L 0 21.125 C 0 23.816406 2.183594 26 4.875 26 L 16.125 26 C 18.816406 26 21 23.816406 21 21.125 L 21 14.75 L 18 17.75 L 18 21.125 C 18 22.160156 17.160156 23 16.125 23 L 4.875 23 C 3.839844 23 3 22.160156 3 21.125 L 3 9.875 C 3 8.839844 3.839844 8 4.875 8 L 8.3125 8 L 11.3125 5 Z'/%3E%3C/svg%3E");
+    --icon-link-pdf: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 1C4.34315 1 3 2.34315 3 4V20C3 21.6569 4.34315 23 6 23H18C19.6569 23 21 21.6569 21 20V8.82843C21 8.03278 20.6839 7.26972 20.1213 6.70711L15.2929 1.87868C14.7303 1.31607 13.9672 1 13.1716 1H6ZM5 4C5 3.44772 5.44772 3 6 3H12V8C12 9.10457 12.8954 10 14 10H19V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V4ZM18.5858 8L14 3.41421V8H18.5858Z'/%3E%3C/svg%3E");
+    --icon-mobile-menu: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-20 0 480 412'%3E%3Cpath d='M120 256c0 30.9-25.1 56-56 57s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm160 0c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm104 56c-30.9 0-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56s-25.1 56-56 56z'/%3E%3C/svg%3E");
+    --icon-random: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V160H352c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C293.3 110.2 321.8 96 352 96h32V64c0-12.9 7.8-24.6 19.8-29.6zM164 282.7L204 336l-31.2 41.6C154.7 401.8 126.2 416 96 416H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96c10.1 0 19.6-4.7 25.6-12.8L164 282.7zm274.6 188c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V416H352c-30.2 0-58.7-14.2-76.8-38.4L121.6 172.8c-6-8.1-15.5-12.8-25.6-12.8H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96c30.2 0 58.7 14.2 76.8 38.4L326.4 339.2c6 8.1 15.5 12.8 25.6 12.8h32V320c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64z'/%3E%3C/svg%3E");
+    --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z'/%3E%3C/svg%3E");
+
+    // 1.7 Misc
+    --drop-shadow: 0 0 1px #444;
+}
+
+body {
+    // 2. Camu
+    --image-camu: url('#{$assets}/img/camu/light/ingresso.webp');
+    &.theme-jun, &.theme-jul, &.theme-aug { // During the summer months, Camu wears a t-shirt
+        --image-camu: url('#{$assets}/img/camu/light/ingresso-manichecorte.webp');
+    }
+    &.theme-dec { // In December, Camu wears a nice Santa hat
+        --image-camu: url('#{$assets}/img/camu/light/ingresso-natale.webp');
+    }
+    &.category-404 {
+        --image-camu: url('#{$assets}/img/camu/light/404.webp');
+    }
+    &.category-angolo-pc {
+        --image-camu: url('#{$assets}/img/camu/light/angolo-pc.webp');
+    }
+    &.category-angolo-tv {
+        --image-camu: url('#{$assets}/img/camu/light/angolo-tv.webp');
+    }
+    &.category-biblioteca {
+        --image-camu: url('#{$assets}/img/camu/light/biblioteca.webp');
+    }
+    &.category-cucina {
+        --image-camu:  url('#{$assets}/img/camu/light/cucina.webp');
+    }
+    &.category-ripostiglio {
+        --image-camu:  url('#{$assets}/img/camu/light/ripostiglio.webp');
+    }
+    &.category-salotto {
+        --image-camu:  url('#{$assets}/img/camu/light/salotto.webp');
+    }
+    &.category-zona-notte {
+        --image-camu:  url('#{$assets}/img/camu/light/zona-notte.webp');
+    }
+
+    // 3. Months
+    &.theme-jan {
+        --body-bg-repeat: repeat-x;
+    }
+    &.theme-feb {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/feb.webp');
+        --body-bg-color: #993947;
+    }
+    &.theme-mar {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/mar.webp');
+        --body-bg-position: 0 0;
+        --body-bg-color: #332874;
+    }
+    &.theme-apr {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/apr.webp');
+        --body-bg-color: #B3212C;
+    }
+    &.theme-may {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/may.webp');
+        --body-bg-color: #0d6f00;
+    }
+    &.theme-jun {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/jun.webp');
+        --body-bg-position: center bottom;
+        --body-bg-repeat: no-repeat;
+        --body-bg-color: #0062AD;
+    }
+    &.theme-jul {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/jul.webp');
+        --body-bg-color: #040001;
+
+        --color-link: #3c875e;
+        --color-svg: invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%);
+    }
+    &.theme-aug {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/aug.webp');
+        --body-bg-position: 0 center;
+        --body-bg-color: #fecc59;
+    }
+    &.theme-sep {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/sep.webp');
+        --body-bg-color: #ac4900;
+    }
+    &.theme-oct {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/oct.webp');
+        --body-bg-color: center 0 repeat fixed #222222;
+    }
+    &.theme-nov {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/nov.webp');
+        --body-bg-color: #2d1a0b;
+    }
+    &.theme-dec {
+        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/dec.webp');
+        --body-bg-position: 0 0;
+        --body-bg-color: #711517;
+    }
+}
+
 $months: (
-    ( "jan", "0 0 / contain repeat-x fixed #000", "#560bad", "invert(10%) sepia(80%) saturate(6469%) hue-rotate(270deg) brightness(84%) contrast(106%)" ),
     ( "feb", "center 0 / contain repeat fixed #993947", "#694d21", "invert(28%) sepia(17%) saturate(1723%) hue-rotate(357deg) brightness(96%) contrast(86%)" ),
     ( "mar", "0 0 / contain repeat fixed #332874", "#443796", "invert(17%) sepia(91%) saturate(1556%) hue-rotate(233deg) brightness(96%) contrast(92%)" ),
     ( "apr", "center 0 / contain repeat fixed #B3212C", "#135180", "invert(13%) sepia(81%) saturate(3639%) hue-rotate(193deg) brightness(96%) contrast(85%)" ),
     ( "may", "center 0 repeat fixed #0d6f00", "#4f7101", "invert(32%) sepia(65%) saturate(997%) hue-rotate(44deg) brightness(98%) contrast(99%)" ),
     ( "jun", "center bottom / contain no-repeat fixed #0062AD", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
-    ( "jul", "center 0 / contain repeat fixed #040001", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
     ( "aug", "0 center / contain repeat fixed #fecc59", "#1f797f", "invert(38%) sepia(16%) saturate(1829%) hue-rotate(135deg) brightness(97%) contrast(87%)" ),
     ( "sep", "center 0 / contain repeat fixed #ac4900", "#994000", "invert(19%) sepia(68%) saturate(6317%) hue-rotate(41deg) brightness(94%) contrast(101%)" ),
     ( "oct", "center 0 repeat fixed #222222", "#aa5c08", "invert(36%) sepia(39%) saturate(5677%) hue-rotate(27deg) brightness(91%) contrast(94%)" ),
@@ -61,64 +182,68 @@ $months: (
     ( "dec", "0 0 / contain repeat fixed #711517", "#b30000", "invert(9%) sepia(100%) saturate(6904%) hue-rotate(20deg) brightness(81%) contrast(119%)" )
 );
 
-// 3. Borders and Shadows
-// ------------------------------------------------
-$border: 1px solid #333;
-$border-secondary: 1px solid $background-secondary;
-$border-input-fields: 1px solid darken($background-secondary, 25%);
-$box-shadow: 0px 0px 0px 12px rgb( 255 255 255 / 40% );
-$shadow: 0 0 1px #999;
-$shadow-light: 0 0 1px #fff;
+// 4. Dark mode
+@media (prefers-color-scheme: dark) {
+    :root {
+        --border: 2px solid;
+        --drop-shadow: 0 0 1px #ddd;
+    }
 
-// 4. Icons
-// ------------------------------------------------
-// https://www.svgbackgrounds.com/tools/svg-to-css/
-// ------------------------------------------------
-$icon-external-link: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
-$icon-pdf-link: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAEFJREFUKFNjZGBg+M+ACRjRhUACIIXoEhhi+BSCDIUbgKwQ5gSYGMx2sGJcJiI7EewMbCYiK4LLDwITsYQ5ihAjAAS0FQtncXjJAAAAAElFTkSuQmCC);
-$icon-wikipedia-link: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDcuMS1jMDAwIDc5LjljY2M0ZGU5MywgMjAyMi8wMy8xNC0xNDowNzoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIzLjMgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkE3NzhBNjZDRDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkE3NzhBNjZERDNDMjExRUM4RkYzQkIwNkZEOUFFQzNEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QTc3OEE2NkFEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QTc3OEE2NkJEM0MyMTFFQzhGRjNCQjA2RkQ5QUVDM0QiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6xhK7YAAAALVBMVEUAAACqqqru7u6fn5/MzMxmZmaIiIgRERF3d3czMzMiIiKZmZlERETd3d3///92kDfUAAAAD3RSTlP//////////////////wDU3JihAAAAQklEQVR42jzMSQoAQQhD0WjX1NO//3ELFSobHyEoMjqBq07W4TbcXBYbF3o/iz33mv1BwaWhXjQxrUjjJ3l+bwEGAIiuAm+ewC65AAAAAElFTkSuQmCC);
-$icon-chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath d='M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z'/%3E%3C/svg%3E");
+    // SVG Filter Calculator: https://codepen.io/sosuke/pen/Pjoqqp - https://css-tricks.com/change-color-of-svg-on-hover/
+    body{
+        // 4.1 Colors
+        --body-bg-opacity: 0.2;
 
-[class*="icon-"]::before {
-    display: block;
+        --color-bg-code: rgb(40, 35, 48);
+        --color-bg-container: rgba(20, 20, 20, 0.95);
+        --color-bg-container-svg: invert(6%) sepia(1%) saturate(271%) hue-rotate(314deg) brightness(94%) contrast(94%);
+        --color-bg-field: #202020;
+
+        --color-border: #333;
+
+        --color-code: #e6e6e6;
+        --color-link: #00ffff;
+        --color-svg: invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%);
+        --color-text: #ccc;
+        --color-white: #fff;
+
+        // 4.3 Camu - https://onlinepngtools.com/remove-outline-from-png
+        --image-camu: url('#{$assets}/img/camu/light/ingresso.webp');
+        &.theme-jun, &.theme-jul, &.theme-aug { // During the summer months, Camu wears a t-shirt
+            --image-camu: url('#{$assets}/img/camu/dark/ingresso-manichecorte.webp');
+        }
+        &.theme-dec { // In December, Camu wears a nice Santa hat
+            --image-camu: url('#{$assets}/img/camu/dark/ingresso-natale.webp');
+        }
+        &.category-404 {
+            --image-camu: url('#{$assets}/img/camu/dark/404.webp');
+        }
+        &.category-angolo-pc {
+            --image-camu: url('#{$assets}/img/camu/dark/angolo-pc.webp');
+        }
+        &.category-angolo-tv {
+            --image-camu: url('#{$assets}/img/camu/dark/angolo-tv.webp');
+        }
+        &.category-biblioteca {
+            --image-camu: url('#{$assets}/img/camu/dark/biblioteca.webp');
+        }
+        &.category-cucina {
+            --image-camu:  url('#{$assets}/img/camu/dark/cucina.webp');
+        }
+        &.category-ripostiglio {
+            --image-camu:  url('#{$assets}/img/camu/dark/ripostiglio.webp');
+        }
+        &.category-salotto {
+            --image-camu:  url('#{$assets}/img/camu/dark/salotto.webp');
+        }
+        &.category-zona-notte {
+            --image-camu:  url('#{$assets}/img/camu/dark/zona-notte.webp');
+        }
+
+        // 4.2 Months
+        &.theme-jul {
+            --color-link: #66BB8C;
+            --color-svg: invert(70%) sepia(10%) saturate(1644%) hue-rotate(94deg) brightness(97%) contrast(79%);
+        }
+    }
 }
-[class*="icon-"]:hover {
-    filter: drop-shadow($shadow);
-}
-.icon {
-    &-chevron-left::before {
-        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath d='M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z'/%3E%3C/svg%3E");
-    }
-    &-chevron-right::before {
-        content: $icon-chevron-right;
-    }
-    &-chevron-up::before {
-        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z'/%3E%3C/svg%3E");
-    }
-    &-home::before {
-        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 330 330'%3E%3Cpath d='M324.442,129.811l-41.321-33.677V42.275c0-6.065-4.935-11-11-11h-26c-6.065,0-11,4.935-11,11v14.737l-55.213-44.999 c-3.994-3.254-9.258-5.047-14.822-5.047c-5.542,0-10.781,1.782-14.753,5.019L5.8,129.81c-6.567,5.351-6.173,10.012-5.354,12.314 c0.817,2.297,3.448,6.151,11.884,6.151h19.791v154.947c0,11.058,8.972,20.053,20,20.053h62.5c10.935,0,19.5-8.809,19.5-20.053 v-63.541c0-5.446,5.005-10.405,10.5-10.405h42c5.238,0,9.5,4.668,9.5,10.405v63.541c0,10.87,9.388,20.053,20.5,20.053h61.5 c11.028,0,20-8.996,20-20.053V148.275h19.791c8.436,0,11.066-3.854,11.884-6.151C330.615,139.822,331.009,135.161,324.442,129.811z' /%3E%3C/svg%3E");
-    }
-    &-menu::before {
-        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-20 0 480 412'%3E%3Cpath d='M120 256c0 30.9-25.1 56-56 57s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm160 0c0 30.9-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56zm104 56c-30.9 0-56-25.1-56-56s25.1-56 56-56s56 25.1 56 56s-25.1 56-56 56z'/%3E%3C/svg%3E");
-    }
-    &-random::before {
-        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M403.8 34.4c12-5 25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V160H352c-10.1 0-19.6 4.7-25.6 12.8L284 229.3 244 176l31.2-41.6C293.3 110.2 321.8 96 352 96h32V64c0-12.9 7.8-24.6 19.8-29.6zM164 282.7L204 336l-31.2 41.6C154.7 401.8 126.2 416 96 416H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96c10.1 0 19.6-4.7 25.6-12.8L164 282.7zm274.6 188c-9.2 9.2-22.9 11.9-34.9 6.9s-19.8-16.6-19.8-29.6V416H352c-30.2 0-58.7-14.2-76.8-38.4L121.6 172.8c-6-8.1-15.5-12.8-25.6-12.8H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96c30.2 0 58.7 14.2 76.8 38.4L326.4 339.2c6 8.1 15.5 12.8 25.6 12.8h32V320c0-12.9 7.8-24.6 19.8-29.6s25.7-2.2 34.9 6.9l64 64c6 6 9.4 14.1 9.4 22.6s-3.4 16.6-9.4 22.6l-64 64z'/%3E%3C/svg%3E");
-    }
-    &-search::before {
-        content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z'/%3E%3C/svg%3E");
-    }
-}
-
-// 5. Typography
-// ------------------------------------------------
-$headings-font-family: 'Outfit', 'Outfit-Local', sans-serif;
-
-$body-font-family: 'Outfit', 'Outfit-Local', sans-serif;
-$body-font-size: 1.1rem;
-$body-font-weight: 300;
-
-$font-size-extra-large: 1.6rem;
-$font-size-large: 1.4rem;
-$font-size-medium: 1.2rem;
-$font-size-regular: 1rem;
-$font-size-small: .9rem;

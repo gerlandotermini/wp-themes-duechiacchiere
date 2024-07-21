@@ -2,156 +2,33 @@ html {
     scroll-behavior: smooth;
 
     @include media-query( large ) {
-        margin: $margin-regular*2 0 $margin-regular;
+        margin: var(--gap-xl) 0 var(--gap-lg);
     }
 }
 
 body {
     background-size: contain;
-    color: $text;
-    font-family: $body-font-family;
-    font-size: $body-font-size;
-    font-weight: $body-font-weight;
-    line-height: 1.5;
+    color: var(--color-text);
+    font-family: 'Outfit', 'Outfit-Local', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.6;
     word-break: break-word;
 
-    // Pass media query info to Javascript
+    // Use CSS to tell Javascript if we are displaying the desktop or mobile layout (see below, where padding = 1 on desktop)
     &::before {
         display: none;
         padding: 0;
     }
 
-    @include media-query( large ) {
-        border-radius: $padding-small;
-        box-shadow: $box-shadow;
-        margin: 0 auto;
-        max-width: $body-max-width;
-        width: 90%;
-
-        &::before {
-            padding: 1px;
-        }
-    }
-
-    @each $month in $months {
-        @include media-query( large ) {
-            &.theme-#{ nth( $month, 1 ) } {
-                background: url( "#{$assets}/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
-            }
-            &.theme-#{ nth( $month, 1 ) } #primary-menu {
-                border-top-color: #{ nth( $month, 3 ) };
-                border-bottom-color: #{ nth( $month, 3 ) };
-            }
-        }
-        &.theme-#{ nth( $month, 1 ) } ul.menu > li.current-menu-item > a, &.theme-#{ nth( $month, 1 ) } ul.menu > li.current-menu-parent > a {
-            background-color: #{ nth( $month, 3 ) };
-            color: $white;
-        }
-        &.theme-#{ nth( $month, 1 ) } a, &.#{ nth( $month, 1 ) } a:visited, &.#{ nth( $month, 1 ) } a:active, &.#{ nth( $month, 1 ) } input.submit {
-            color: #{ nth( $month, 3 ) };
-        }
-        &.theme-#{ nth( $month, 1 ) } .pagination-item .current {
-            background-color: #{ nth( $month, 3 ) };
-        }
-        &.theme-#{ nth( $month, 1 ) } .svg::before {
-            filter: #{ nth( $month, 4 ) };
-        }
-    }
-
-    &.april-fools {
-
-        &::after {
-            background: url( "#{$assets}/img/polvere.webp") -50px -50px repeat;
-            content: '';
-            display: block;
-            height: 100vh;
-            left: 0;
-            position: fixed;
-            top: 0;
-            width: 100vw;
-            z-index: 1;
-        }
-        a, button, input, textarea {
-            position: relative;
-            z-index: 2;
-        }
-    }
-
-    h1, h2, h3 {
-        font-weight: 300;
-        margin: 1em 0 .2em;
-
-        a {
-            text-decoration: none;
-        }
-    }
-
-    @include media-query( print ) { 
-        a {
-            text-decoration: none;
-        }
-    }
-
-    a:hover, a:focus, a:focus-visible {
-        filter: drop-shadow($shadow);
-    }
-
-    a.skip {
-        background-color: #fff;
-        height: 1px;
-        left: -10000px;
-        overflow: hidden;
-        position: fixed;
-        top: auto;
-        width: 1px;
-    
-        &:focus {
-            height: auto;
-            left: 20px;
-            padding: 10px;
-            text-decoration: none;
-            top: 20px;
-            width: auto;
-        }    
-    }
-    a.skip-inline {
-        left: -10000px;
-        overflow: hidden;
-        position: fixed;
-
-        &:focus {
-            left: initial;
-            position: relative;
-
-            @include media-query( large ) {
-                margin-left: $margin-small;
-            }
-        }
-    }
-    
-    .visually-hidden,
-    #comments .says {
-        background-color: $background; // Avoid contrast issues with WAVE
-        clip-path: inset(50%);
-        color: $text;
-        left: -1000vw;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-    }
-
-    b, strong {
-        font-weight: 700;
-    }
-
-    // Admin Bar to the bottom
+    // Move admin bar to the bottom
     &.admin-bar {
         margin-bottom: 50px;
 
         #wpadminbar {
             bottom: 0;
             top: auto !important;
-            
+
             .quicklinks .menupop {
                 .ab-sub-wrapper {
                     bottom: 32px;
@@ -162,18 +39,137 @@ body {
             }
         }
     }
-}
-   
-#header-container {
-    background-color: $background;
-    border-bottom: $border-secondary;
-    padding-top: $padding-regular;
+
+    // Let's have a little fun once a year
+    &.april-fools {
+        animation: blur 20s infinite alternate;
+    }
+    @keyframes blur {
+        0%, 40%, 80%, 100% {
+            filter: blur(0);
+        }
+        60% {
+            filter: blur(1px);
+        }
+    }
 
     @include media-query( large ) {
-        border-top-left-radius: $padding-small;
-        border-top-right-radius: $padding-small;
+        // Use CSS to tell Javascript if we are displaying the desktop or mobile layout (see above, where padding = 0 by default)
+        &::before {
+            padding: 1px;
+        }
+
+        background: linear-gradient(rgba(0, 0, 0, var(--body-bg-opacity)), rgba(0, 0, 0, var(--body-bg-opacity))), var(--body-bg-image) var(--body-bg-position) / var(--body-bg-size) var(--body-bg-repeat) fixed var(--body-bg-color);
+        border-radius: var(--border-radius);
+        box-shadow: 0px 0px 0px 12px rgb( 255 255 255 / 40% );
+        margin: 0 auto;
+        max-width: 1300px;
+        width: 90%;
+    }
+
+    h1, h2, h3 {
+        font-weight: 300;
+        margin: 1em 0 .2em;
+    }
+
+    a, a:visited, a:active, input.submit {
+        &.skip {
+            background-color: var(--color-bg-container);
+            height: 1px;
+            left: -10000px;
+            overflow: hidden;
+            position: fixed;
+            top: auto;
+            width: 1px;
+
+            &:focus {
+                height: auto;
+                left: var(--gap-lg);
+                padding: var(--gap-sm);
+                text-decoration: none;
+                left: var(--gap-lg);
+                width: auto;
+            }
+        }
+        &.skip-inline {
+            left: -10000px;
+            overflow: hidden;
+            position: fixed;
+
+            &:focus {
+                left: initial;
+                position: relative;
+
+                @include media-query( large ) {
+                    margin-left: var(--gap-sm);
+                }
+            }
+        }
+
+        color: var(--color-link);
+        text-decoration: none;
+    }
+
+    a:hover, a:focus, a:focus-visible {
+        filter: drop-shadow(var(--drop-shadow));
+    }
+
+    @include media-query( print ) {
+        a {
+            text-decoration: none;
+        }
+    }
+
+    // @each $month in $months {
+    //     @include media-query( large ) {
+    //         &.theme-#{ nth( $month, 1 ) } {
+    //             background: linear-gradient(rgba(0, 0, 0, var(--background-image-opacity)), rgba(0, 0, 0, var(--background-image-opacity))), url( "#{$assets}/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
+    //         }
+    //         &.theme-#{ nth( $month, 1 ) } #primary-menu {
+    //             border-top-color: #{ nth( $month, 3 ) };
+    //             border-bottom-color: #{ nth( $month, 3 ) };
+    //         }
+    //     }
+    //     &.theme-#{ nth( $month, 1 ) } ul.menu > li.current-menu-item > a, &.theme-#{ nth( $month, 1 ) } ul.menu > li.current-menu-parent > a {
+    //         background-color: #{ nth( $month, 3 ) };
+    //         color: $white;
+    //     }
+    //     &.theme-#{ nth( $month, 1 ) } a, &.#{ nth( $month, 1 ) } a:visited, &.#{ nth( $month, 1 ) } a:active, &.#{ nth( $month, 1 ) } input.submit {
+    //         color: invert( list.nth( $month, 3 ) );
+    //     }
+    //     &.theme-#{ nth( $month, 1 ) } .pagination-item .current {
+    //         background-color: #{ nth( $month, 3 ) };
+    //     }
+    //     &.theme-#{ nth( $month, 1 ) } .svg::before {
+    //         filter: #{ nth( $month, 4 ) };
+    //     }
+    // }
+
+    .svg::before, .svg::after {
+        display: inline-block;
+        filter: var(--color-svg);
+    }
+
+    // Utility classes
+    .visually-hidden, #comments .says {
+        clip-path: inset(50%);
+        color: var(--text-color);
+        left: -1000vw;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+    }
+}
+
+#header-container {
+    background-color: var(--color-bg-container);
+    border-bottom: var(--border) var(--color-text);
+    padding-top: var(--gap-lg);
+
+    @include media-query( large ) {
+        border-top-left-radius: var(--border-radius);
+        border-top-right-radius: var(--border-radius);
         border-bottom: 0;
-        
     }
     @include media-query( print ) {
         border-bottom: 2px solid #000;
@@ -184,20 +180,22 @@ body {
         align-items: flex-end;
         flex-flow: row wrap;
         justify-content: space-between;
-        padding: 0 $margin-regular;
+        padding: 0 var(--gap-lg);
     }
-    #logo {
-        height: auto;
+    #camu {
+        display: inline-block;
+        background-image: var(--image-camu);
+        background-position: bottom left;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 15vw;
+        max-height: 120px;
+        max-width: 200px;
         width: 25vw;
-
-        @include media-query( large ) {
-            width: initial;
-        }
     }
 
     #name {
-        font-family: $headings-font-family;
-        font-size: 6vw;
+        font-size: 7vw;
         text-decoration: none;
 
         @include media-query( large ) {
@@ -205,22 +203,30 @@ body {
             line-height: 1.5em;
         }
     }
-    #name:hover, #name:focus {
-        filter: brightness( 50% );
-    }
 
     #primary-menu {
+        >ul>li.current-menu-item, >ul>li.current-menu-parent {
+            background-color: var(--color-link);
+            >a {
+                color: var(--color-bg-container);
+
+                &.icon-angle-right {
+                    filter: var(--color-bg-container-svg);
+                }
+            }
+        }
+
         @include media-query( mobile ) {
-            background-color: $background;
+            background-color: var(--color-bg-container);
             display: flex;
-            height: calc( 100vh - $padding-regular*3 );
+            height: calc(100vh - var(--gap-xl));
             min-width: 70%;
             overflow-x: hidden;
             overflow-y: auto;
             position: fixed;
             right: 0;
             top: 0;
-            transform: translateX( 100% );
+            transform: translateX(100%);
             transition: transform 0.5s ease-out, visibility 0.5s ease-out;
             visibility: hidden; // to remove it from the tabbing sequence
             width: auto;
@@ -232,37 +238,40 @@ body {
                 overflow-y: auto;
                 padding: 0;
                 position: relative;
-                width: 100%;    
+                width: 100%;
 
                 li {
                     display: flex;
                     align-items: center;
-                    border-bottom: $border-secondary;
+                    border-bottom: var(--color-text);
                     justify-content: space-between;
                     position: relative;
-
-                    &.current-menu-item > a, &.current-menu-parent > a {
-                        text-shadow: $shadow;
-                    }
 
                     a {
                         display: block;
                         flex: 1;
-                        padding: $padding-regular;
+                        padding: var(--gap-lg);
                         text-decoration: none;
 
                         &.open-submenu{
                             flex: 0 0 auto;
-                            width: 50px;
+                            width: 55px;
                         }
-                        &.close-submenu .svg {
+                        &.close-submenu::before {
+                            content: var(--icon-angle-left);
                             display: inline-block;
-                            margin-right: $margin-small;
+                            filter: var(--color-svg);
+                            margin-right: var(--gap-sm);
                             width: 8px;
+                        }
+
+                        &.icon-chevron-right {
+                            content: var(--icon-chevron-right);
+                            filter: var(--color-svg);
                         }
                     }
                     ul {
-                        background-color: $background;
+                        background-color: var(--color-bg-container);
                         height: calc( 100% - 60px );
                         left: 0;
                         position: fixed;
@@ -280,32 +289,29 @@ body {
             }
 
             &.active {
-                box-shadow: 0 0 10px $shadow-nav;
+                box-shadow: 0 0 10px rgba( 20 20 20 / 45% );
                 transform: translateX( 0 );
                 visibility: visible;
             }
-    
         }
 
         @include media-query( large ) {
             display: block;
-            border-bottom: $border-secondary;
-            border-top: $border-secondary;
-            
+            border-bottom: var(--border) var(--color-border);
+            border-top: var(--border) var(--color-border);
+
             ul.menu {
-                background-color: $white;
                 display: flex;
                 height: 40px;
                 list-style-type: none;
                 margin: 0;
-                padding: 0 0 0 calc( $padding-regular / 2 );
+                padding: 0 var(--gap-sm);
 
                 > li {
                     display: flex;
                     position: relative;
 
-                    &:hover > ul.sub-menu,
-                    &.active > ul.sub-menu {
+                    &:hover > ul.sub-menu, &.active > ul.sub-menu {
                         transition-delay: 0.3s;
                         visibility: visible;
                     }
@@ -319,10 +325,11 @@ body {
 
                     a {
                         line-height: 1rem;
-                        padding: $padding-small $padding-small $padding-small * 1.5;
+                        padding: var(--gap-sm) var(--gap-sm) var(--gap-md);
                         text-decoration: none;
 
                         &.open-submenu {
+                            content: var(--icon-angle-left);
                             left: -10000vh;
                             padding: 0 !important;
                             position: absolute;
@@ -342,15 +349,16 @@ body {
                     }
 
                     ul.sub-menu {
-                        background-color: $background;
-                        border: $border-secondary;
-                        border-bottom-left-radius: $padding-small;
-                        border-bottom-right-radius: $padding-small;
+                        background-color: var(--color-bg-container);
+                        border: var(--border) var(--color-border);
+                        border-bottom-left-radius: var(--border-radius);
+                        border-bottom-right-radius: var(--border-radius);
                         display: block;
                         list-style-type: none;
                         margin: 40px 0 0;
                         min-width: 200px;
-                        padding: 0 0 $padding-extra-small;
+                        overflow: hidden;
+                        padding: 0;
                         position: absolute;
                         transition: all 0s ease-in-out;
                         visibility: hidden;
@@ -359,15 +367,11 @@ body {
                         a {
                             display: block;
                             min-width: 100px;
-                            padding: $padding-small $padding-small;
+                            padding: var(--gap-sm);
 
                             &.close-submenu.svg {
                                 display: none !important;
                             }
-                        }
-
-                        .current-menu-item > a, .current-menu-parent > a {
-                            text-shadow: $shadow;
                         }
                     }
                 }

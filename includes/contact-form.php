@@ -78,7 +78,7 @@ include_once( 'header.php' ) ?>
 					<p class="comment-form-author"><label for="author">Nome</label><input type="text" name="author" id="author" size="5" maxlength="250" required="required" value="<?php echo isset( $_COOKIE[ 'comment_author_' . COOKIEHASH ] ) ? $_COOKIE[ 'comment_author_' . COOKIEHASH ] : ''; ?>"></p>
 					<p class="comment-form-email"><label for="email">Email</label> <input type="text" name="email" id="email" size="5" maxlength="250" required="required" value="<?php echo isset($_COOKIE['comment_author_email_'.COOKIEHASH])?$_COOKIE['comment_author_email_'.COOKIEHASH]:''; ?>"></p>
 					<p class="comment-form-comment"><label for="message">Messaggio</label> <textarea name="message" id="message" cols="15" rows="7" required="required"></textarea></p>
-					<p class="form-submit"><input class="comment-submit" type="submit" name="comment-submit" value="Invia il messaggio" id="contact-submit"></p>
+					<p class="form-submit"><input class="comment-submit" type="submit" name="comment-submit" value="Invia il messaggio" id="comment-submit"></p>
 					<input type="hidden" name="control" value="<?= md5( date( 'His' ) ) ?>" />
 				</form>
 			<?php else: echo $content; endif; ?>
