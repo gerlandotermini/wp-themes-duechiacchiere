@@ -120,31 +120,6 @@ body {
         }
     }
 
-    // @each $month in $months {
-    //     @include media-query( large ) {
-    //         &.theme-#{ nth( $month, 1 ) } {
-    //             background: linear-gradient(rgba(0, 0, 0, var(--background-image-opacity)), rgba(0, 0, 0, var(--background-image-opacity))), url( "#{$assets}/img/bg/#{ nth( $month, 1 ) }.webp" ) #{ nth( $month, 2 ) };
-    //         }
-    //         &.theme-#{ nth( $month, 1 ) } #primary-menu {
-    //             border-top-color: #{ nth( $month, 3 ) };
-    //             border-bottom-color: #{ nth( $month, 3 ) };
-    //         }
-    //     }
-    //     &.theme-#{ nth( $month, 1 ) } ul.menu > li.current-menu-item > a, &.theme-#{ nth( $month, 1 ) } ul.menu > li.current-menu-parent > a {
-    //         background-color: #{ nth( $month, 3 ) };
-    //         color: $white;
-    //     }
-    //     &.theme-#{ nth( $month, 1 ) } a, &.#{ nth( $month, 1 ) } a:visited, &.#{ nth( $month, 1 ) } a:active, &.#{ nth( $month, 1 ) } input.submit {
-    //         color: invert( list.nth( $month, 3 ) );
-    //     }
-    //     &.theme-#{ nth( $month, 1 ) } .pagination-item .current {
-    //         background-color: #{ nth( $month, 3 ) };
-    //     }
-    //     &.theme-#{ nth( $month, 1 ) } .svg::before {
-    //         filter: #{ nth( $month, 4 ) };
-    //     }
-    // }
-
     .svg::before, .svg::after {
         display: inline-block;
         filter: var(--color-svg);
@@ -172,7 +147,7 @@ body {
         border-bottom: 0;
     }
     @include media-query( print ) {
-        border-bottom: 2px solid #000;
+        border-bottom: var(--border) var(--color-border);
     }
 
     #branding {
@@ -192,6 +167,12 @@ body {
         max-height: 120px;
         max-width: 200px;
         width: 25vw;
+
+        @include media-query( print ) {
+            -webkit-print-color-adjust: exact !important;
+            color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
     }
 
     #name {
@@ -210,8 +191,8 @@ body {
             >a {
                 color: var(--color-bg-container);
 
-                &.icon-angle-right {
-                    filter: var(--color-bg-container-svg);
+                &.open-submenu::before {
+                    filter: var(--color-bg-container);
                 }
             }
         }
@@ -247,27 +228,35 @@ body {
                     justify-content: space-between;
                     position: relative;
 
+                    &.current-menu-item, &.current-menu-parent {
+                        background-color: var(--color-link);
+
+                        >a {
+                            color: var(--color-bg-container);
+                        }
+                    }
+
                     a {
-                        display: block;
+                        display: flex;
                         flex: 1;
                         padding: var(--gap-lg);
                         text-decoration: none;
 
-                        &.open-submenu{
+                        &.open-submenu {
                             flex: 0 0 auto;
-                            width: 55px;
+                            &::before {
+                                content: var(--icon-angle-right);
+                                filter: var(--color-svg);
+                                height: 25px;
+                                width: 25px;
+                            }
                         }
                         &.close-submenu::before {
-                            content: var(--icon-angle-left);
-                            display: inline-block;
+                            content: var(--icon-angle-right);
+                            transform: rotate(180deg);
                             filter: var(--color-svg);
                             margin-right: var(--gap-sm);
-                            width: 8px;
-                        }
-
-                        &.icon-chevron-right {
-                            content: var(--icon-chevron-right);
-                            filter: var(--color-svg);
+                            width: 13px;
                         }
                     }
                     ul {
@@ -329,7 +318,11 @@ body {
                         text-decoration: none;
 
                         &.open-submenu {
-                            content: var(--icon-angle-left);
+                            &::before {
+                                content: var(--icon-angle-right);
+                                width: 10px;
+                            }
+
                             left: -10000vh;
                             padding: 0 !important;
                             position: absolute;
@@ -341,11 +334,6 @@ body {
                                 left: 45%;
                             }
                         }
-
-                        span.svg {
-                            display: none;
-                        }
-
                     }
 
                     ul.sub-menu {

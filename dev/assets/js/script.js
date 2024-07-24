@@ -18,10 +18,10 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     if( !el.parentNode ) {
         return siblings;
     }
-    
+
     // First child of the parent node
     let sibling  = el.parentNode.firstChild;
-    
+
     // Find siblings
     while ( sibling ) {
         if ( sibling.nodeType === 1 && sibling !== el && ( !withClass || sibling.classList.contains( withClass ) ) ) {
@@ -90,7 +90,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       // Hide the reply button
       e.currentTarget.setAttribute( 'id', 'restore-reply-button' );
       e.currentTarget.classList.add( 'visually-hidden' );
-      
+
       // Set aside the original reply title
       const replyTitle = document.getElementById( 'reply-title' );
       if ( !replyTitle.hasAttribute( 'data-original-title' ) ) {
@@ -148,7 +148,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     // Make sure that the comment is not empty
     document.getElementById( 'comment-form' ).addEventListener( 'submit', ( e ) => {
       e.preventDefault();
-      
+
       let submitForm = true;
       e.target.querySelectorAll( '[required]' ).forEach( node => {
         submitForm = submitForm && ( node.value.trim() != '' );
@@ -221,6 +221,8 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     }
   }
 
+  // Move the search 
+
   // Attach the appropriate event handler to the mobile menu button
   addMultiEventListener( toolbarMenuButton, ( e ) => {
     toggleMenu( e, 'toggle' );
@@ -259,8 +261,8 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     }
 
     item.querySelector( 'a' ).setAttribute( 'aria-expanded', 'false' );
-    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="open-submenu" href="#" aria-expanded="false" aria-haspopup="true"><span class="visually-hidden"> apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
-    item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="close-submenu" href="#">esci ' + exit_preposition + room_name + '</a></li>' );
+    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="svg open-submenu" href="#" aria-expanded="false" aria-haspopup="true"><span class="visually-hidden"> apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
+    item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="svg close-submenu" href="#">esci ' + exit_preposition + room_name + '</a></li>' );
 
     item.addEventListener( 'mouseover', ( e ) => {
       item.querySelectorAll( ':scope > a' ).forEach( link => {
@@ -296,7 +298,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
         item.querySelectorAll( ':scope > a' ).forEach( link => {
           link.setAttribute( 'aria-expanded', 'false' );
         } );
-    
+
         // On desktop, focus the parent
         if ( window.getComputedStyle( document.body, ':before' ).getPropertyValue( 'padding' ) === '1px' ) {
           item.querySelector( 'a' ).focus();
@@ -314,7 +316,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
           getSiblings( e.target.parentElement ).forEach( ( sibling ) => {
             is_sibling_selected = is_sibling_selected || ( document.activeElement.parentElement === sibling );
           });
-  
+
           if ( !is_sibling_selected ) {
             item.classList.remove( 'active' );
             item.querySelectorAll( ':scope > a' ).forEach( link => {

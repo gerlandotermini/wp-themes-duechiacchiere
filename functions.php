@@ -154,7 +154,7 @@ class duechiacchiere {
 		), $_attr ) );
 		
 		// New approach implemented in WP 3.4: caption is not an attribute anymore
-		$caption = trim( strip_tags( $_content ) );
+		$caption = trim( strip_tags( $_content, '<a>' ) );
 		$image = trim( str_replace( $caption, '', $_content ) );
 	
 		if ( 1 > (int) $width || empty( $caption ) )

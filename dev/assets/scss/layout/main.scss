@@ -39,6 +39,7 @@ main {
                 opacity: .7;
 
                 a {
+                    // This simulates the underlining, to include the icon when needed
                     background: linear-gradient(180deg, transparent 95%, var(--color-link) 95%);
 
                     &.post-edit-link {
@@ -63,11 +64,6 @@ main {
         }
 
         .entry {
-            // Title
-            h2 {
-                font-size: var(--font-size-lg);
-            }
-
             // Paragraphs and lists
             p {
                 font-size: 1.1rem;
@@ -96,6 +92,7 @@ main {
                     content: var(--icon-angle-right);
                 }
 
+                // This simulates the underlining, to include the icon when needed
                 background: linear-gradient(180deg, transparent 95%, var(--color-link) 95%);
             }
 
@@ -110,26 +107,29 @@ main {
                     box-sizing: border-box;
                     height: auto;
                     width: 100%;
+
+                    &.alignright {
+                        float:right;
+                    }
+                    &.alignleft {
+                        float:left;
+                    }
+                    &.aligncenter {
+                        display: block;
+                        margin: 0 auto;
+                    }
                 }
                 .wp-caption-text {
                     background-color: var(--color-border);
                     display: block;
                     padding: var(--gap-sm);
                     text-align: center;
-                }
-            }
-            // WordPress styles for image alignment
-            img {
 
-                &.alignright {
-                    float:right;
-                }
-                &.alignleft {
-                    float:left;
-                }
-                &.aligncenter {
-                    display: block;
-                    margin: 0 auto;
+                    @include media-query( print ) {
+                        -webkit-print-color-adjust: exact !important;
+                        color-adjust: exact !important;
+                        print-color-adjust: exact !important;
+                    }
                 }
             }
 
@@ -206,12 +206,14 @@ main {
                 background: linear-gradient(180deg, transparent 90%, #7a0505 90%);
                 text-decoration: none;
             }
+
             // Blockquotes, citations and pre-formatted text (code)
             blockquote {
                 border-left: 5px solid var(--color-border);
                 padding-left: var(--gap-lg);
                 margin: var(--gap-sm) 0 var(--gap-lg);
             }
+
             cite {
                 font-style: normal;
             }
@@ -242,9 +244,13 @@ main {
 
             @include media-query( print ) {
                 a::after{
-                    color: #888;
-                    content: " [ " attr(href) " ]";
-                    word-break: break-word;
+                    color: var(--color-link);
+                    display: inline;
+                    filter: none;
+                    content: " [ " attr(href) " ]" !important;
+                    width: initial;
+                    word-break: break-all;
+                    word-wrap: break-word;
                 }
             }
         }
@@ -333,81 +339,81 @@ main {
                 display: none;
             }
         }
-    }
 
-    #comment-form {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2%;
-
-        p {
+        #comment-form {
             display: flex;
-            flex-direction: column;
-            margin: 5px 0;
-            width: 100%;
-
-            &.comment-form-author, &.comment-form-email {
-                width: 49%;
-            }
-        }
-        input, textarea, button {
-            background-color: var(--color-bg-field);
-            border: var(--border) var(--color-border);
-            border-radius: var(--border-radius);
-            color: var(--color-text);
-            font-weight: 300;
-            padding: var(--gap-xs) var(--gap-sm);
-
-            &:active, &:focus {
-                border: var(--border) var(--color-link);
-                outline: none;
-            }
-
-        }
-        .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
-            width: 100%;
-        }
-        .form-submit {
-            align-items: flex-start;
-            flex-direction: row;
             flex-wrap: wrap;
-            font-size: var(--font-size-sm);
-            margin-top: var(--gap-lg);
+            gap: 2%;
 
-            #comment-submit {
-                margin: 0 var(--gap-lg) 0 0;
-                padding: var(--gap-xs) var(--gap-sm);
+            p {
+                display: flex;
+                flex-direction: column;
+                margin: 5px 0;
+                width: 100%;
 
-                &:hover, &:focus {
-                    cursor: pointer;
-                    text-shadow: var(--drop-shadow);
-                }
-
-                @keyframes shakeme {
-                    0% { transform: translate(10px, 0); }
-                    25% { transform: translate(-10px, 0); }
-                    50% { transform: translate(5px, 0); }
-                    75% { transform: translate(-5px, 0); }
-                    100% { transform: translate(0, 0); }
-
-                }
-                &.shake {
-                    display: inline-block;
-                    animation-name: shakeme;
-                    animation-duration: 0.5s;
-                    transform-origin: 50% 50%;
-                    animation-timing-function: linear;
+                &.comment-form-author, &.comment-form-email {
+                    width: 49%;
                 }
             }
-            #cancel-comment-reply {
+            input, textarea, button {
                 background-color: var(--color-bg-field);
                 border: var(--border) var(--color-border);
+                border-radius: var(--border-radius);
+                color: var(--color-text);
                 font-weight: 300;
                 padding: var(--gap-xs) var(--gap-sm);
 
-                &:hover, &:focus {
-                    cursor: pointer;
-                    text-shadow: var(--drop-shadow);
+                &:active, &:focus {
+                    border: var(--border) var(--color-link);
+                    outline: none;
+                }
+
+            }
+            .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
+                width: 100%;
+            }
+            .form-submit {
+                align-items: flex-start;
+                flex-direction: row;
+                flex-wrap: wrap;
+                font-size: var(--font-size-sm);
+                margin-top: var(--gap-lg);
+
+                #comment-submit {
+                    margin: 0 var(--gap-lg) 0 0;
+                    padding: var(--gap-xs) var(--gap-sm);
+
+                    &:hover, &:focus {
+                        cursor: pointer;
+                        text-shadow: var(--drop-shadow);
+                    }
+
+                    @keyframes shakeme {
+                        0% { transform: translate(10px, 0); }
+                        25% { transform: translate(-10px, 0); }
+                        50% { transform: translate(5px, 0); }
+                        75% { transform: translate(-5px, 0); }
+                        100% { transform: translate(0, 0); }
+
+                    }
+                    &.shake {
+                        display: inline-block;
+                        animation-name: shakeme;
+                        animation-duration: 0.5s;
+                        transform-origin: 50% 50%;
+                        animation-timing-function: linear;
+                    }
+                }
+                #cancel-comment-reply {
+                    background-color: var(--color-bg-field);
+                    border: var(--border) var(--color-border);
+                    font-weight: 300;
+                    padding: var(--gap-xs) var(--gap-sm);
+
+                    &:hover, &:focus {
+                        cursor: pointer;
+                        text-shadow: var(--drop-shadow);
+                    }
                 }
             }
         }

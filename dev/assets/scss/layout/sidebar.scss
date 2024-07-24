@@ -11,6 +11,7 @@ aside {
         border: var(--border) var(--color-border);
         border-radius: var(--border-radius);
         display: flex;
+        overflow: hidden; // otherwise the round corners look weird
         position: relative;
 
         &:focus-within {
@@ -64,8 +65,11 @@ aside {
         ul {
             border-left: var(--border) var(--color-border);
             border-right: var(--border) var(--color-border);
+            border-bottom-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
             list-style-type: none;
             margin: 0;
+            overflow: hidden; // otherwise the round corners look weird
             padding-left: 0;
         }
         li {

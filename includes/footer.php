@@ -9,6 +9,8 @@
 					'base' => str_replace( 99999, '%#%', esc_url( get_pagenum_link( 99999 ) ) ), 
 					'current' => $current_page,
 					'format' => '?paged=%#%',
+					'mid_size' => 1,
+					'end_size' => ( $current_page < 3 || $current_page > $GLOBALS[ 'wp_query' ]->max_num_pages - 2 ) ? 4 : 2,
 					'prev_text' => '<span class="visually-hidden">Pagina precedente</span>',
 					'next_text' => '<span class="visually-hidden">Pagina successiva</span>',
 					'before_page_number' => '<span class="visually-hidden">Pagina </span>',
@@ -40,13 +42,13 @@
 						$next_page = str_replace( 'page-numbers', 'svg page-numbers', $next_page );
 					}
 
-					echo '<ul><li class="pagination-item' . ( ( $current_page == 1 ) ? ' current-item' : '' ) . '">' . $prev_page . '</li>';
+					echo '<ul><li class="pagination-item prev' . ( ( $current_page == 1 ) ? ' current-item' : '' ) . '">' . $prev_page . '</li>';
 
 					foreach ( $pages as $a_page_html ) {
 						echo '<li class="pagination-item' . ( stripos( $a_page_html, 'current' ) !== false ? ' current-item' : '' ) . '">' . $a_page_html . '</li>';
 					}
 
-					echo '<li class="pagination-item' . ( ( $current_page == $GLOBALS[ 'wp_query' ]->max_num_pages ) ? ' current-item' : '' ) . '">' . $next_page . '</li></ul>';
+					echo '<li class="pagination-item next' . ( ( $current_page == $GLOBALS[ 'wp_query' ]->max_num_pages ) ? ' current-item' : '' ) . '">' . $next_page . '</li></ul>';
 				}
 			?>
 		</nav>
