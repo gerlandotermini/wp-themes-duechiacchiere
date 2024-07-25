@@ -77,6 +77,7 @@ aside {
             padding: var(--gap-sm);
 
             img {
+                border-radius: var(--border-radius);
                 float: right;
                 margin: var(--gap-xs) 0 var(--gap-md) var(--gap-md);
             }

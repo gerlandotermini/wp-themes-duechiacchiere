@@ -26,7 +26,7 @@ $assets: '/content/themes/duechiacchiere/assets';
     --gap-xl: 40px;
 
     // 1.2 Body background
-    --body-bg-color: #000;
+    --body-bg-color: #1e2046;
     --body-bg-image: url('#{$assets}/img/bg/jan.webp');
     --body-bg-opacity: 0;
     --body-bg-position: center 0;
@@ -41,7 +41,7 @@ $assets: '/content/themes/duechiacchiere/assets';
 
     // 1.4 Colors
     --color-bg-code: #222;
-    --color-bg-container: rgba( 255 255 255 / 95% );
+    --color-bg-container: rgba( 255 255 255 / 97% );
     --color-bg-field: #fff;
 
     --color-abbr: #d94516;
@@ -85,80 +85,88 @@ body {
         --body-bg-repeat: repeat-x;
     }
     &.theme-feb {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/feb.webp');
-        --body-bg-color: #993947;
+        --body-bg-image: url('#{$assets}/img/bg/feb.webp');
+        --body-bg-color: #4c4f36;
 
         --color-link: #694d21;
         --color-svg: invert(28%) sepia(33%) saturate(826%) hue-rotate(358deg) brightness(97%) contrast(91%);
     }
     &.theme-mar {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/mar.webp');
+        --body-bg-image: url('#{$assets}/img/bg/mar.webp');
         --body-bg-position: 0 0;
-        --body-bg-color: #332874;
+        --body-bg-color: #0f1d32;
 
         --color-link: #274a80;
         --color-svg: invert(24%) sepia(89%) saturate(446%) hue-rotate(177deg) brightness(91%) contrast(95%);
     }
     &.theme-apr {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/apr.webp');
-        --body-bg-color: #B3212C;
+        --body-bg-image: url('#{$assets}/img/bg/apr.webp');
+        --body-bg-color: #e1d7ff;
 
         --color-link: #3b6389;
         --color-svg: invert(35%) sepia(14%) saturate(1696%) hue-rotate(168deg) brightness(94%) contrast(87%);
     }
     &.theme-may {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/may.webp');
+        --body-bg-image: url('#{$assets}/img/bg/may.webp');
         --body-bg-color: #0d6f00;
+
+        --color-link: #c02c3c;
+        --color-svg: invert(30%) sepia(93%) saturate(719%) hue-rotate(43deg) brightness(101%) contrast(99%);
     }
     &.theme-jun {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/jun.webp');
+        --body-bg-image: url('#{$assets}/img/bg/jun.webp');
         --body-bg-position: center bottom;
         --body-bg-repeat: no-repeat;
         --body-bg-color: #0062AD;
+
+        --color-link: #0062ad;
+        --color-svg: invert(21%) sepia(100%) saturate(2247%) hue-rotate(191deg) brightness(90%) contrast(101%);
     }
     &.theme-jul {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/jul.webp');
-        --body-bg-color: #040001;
+        --body-bg-image: url('#{$assets}/img/bg/jul.webp');
+        --body-bg-color: #ccb2c1;
 
         --color-link: #3c875e;
         --color-svg: invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%);
     }
     &.theme-aug {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/aug.webp');
+        --body-bg-image: url('#{$assets}/img/bg/aug.webp');
         --body-bg-position: 0 center;
-        --body-bg-color: #fecc59;
+        --body-bg-color: #c0c586;
+
+        --color-link: #3c875e;
+        --color-svg: invert(43%) sepia(19%) saturate(1020%) hue-rotate(94deg) brightness(101%) contrast(92%);
     }
     &.theme-sep {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/sep.webp');
+        --body-bg-image: url('#{$assets}/img/bg/sep.webp');
         --body-bg-color: #ac4900;
+
+        --color-link: #943e00;
+        --color-svg: invert(22%) sepia(54%) saturate(2583%) hue-rotate(16deg) brightness(100%) contrast(101%);
     }
     &.theme-oct {
         --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/oct.webp');
-        --body-bg-color: center 0 repeat fixed #222222;
+        --body-bg-color: #222222;
+
+        --color-link: #b2630a;
+        --color-svg: invert(31%) sepia(76%) saturate(2454%) hue-rotate(28deg) brightness(97%) contrast(92%);
     }
     &.theme-nov {
         --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/nov.webp');
         --body-bg-color: #2d1a0b;
+
+        --color-link: #664438;
+        --color-svg: invert(25%) sepia(10%) saturate(2150%) hue-rotate(329deg) brightness(95%) contrast(81%);
     }
     &.theme-dec {
         --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/dec.webp');
         --body-bg-position: 0 0;
         --body-bg-color: #711517;
+
+        --color-link: #a2191e;
+        --color-svg: invert(14%) sepia(64%) saturate(3661%) hue-rotate(344deg) brightness(95%) contrast(98%);
     }
 }
-
-$months: (
-    ( "feb", "center 0 / contain repeat fixed #993947", "#694d21", "invert(28%) sepia(17%) saturate(1723%) hue-rotate(357deg) brightness(96%) contrast(86%)" ),
-    ( "mar", "0 0 / contain repeat fixed #332874", "#443796", "invert(17%) sepia(91%) saturate(1556%) hue-rotate(233deg) brightness(96%) contrast(92%)" ),
-    ( "apr", "center 0 / contain repeat fixed #B3212C", "#135180", "invert(13%) sepia(81%) saturate(3639%) hue-rotate(193deg) brightness(96%) contrast(85%)" ),
-    ( "may", "center 0 repeat fixed #0d6f00", "#4f7101", "invert(32%) sepia(65%) saturate(997%) hue-rotate(44deg) brightness(98%) contrast(99%)" ),
-    ( "jun", "center bottom / contain no-repeat fixed #0062AD", "#4373a3", "invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%)" ),
-    ( "aug", "0 center / contain repeat fixed #fecc59", "#1f797f", "invert(38%) sepia(16%) saturate(1829%) hue-rotate(135deg) brightness(97%) contrast(87%)" ),
-    ( "sep", "center 0 / contain repeat fixed #ac4900", "#994000", "invert(19%) sepia(68%) saturate(6317%) hue-rotate(41deg) brightness(94%) contrast(101%)" ),
-    ( "oct", "center 0 repeat fixed #222222", "#aa5c08", "invert(36%) sepia(39%) saturate(5677%) hue-rotate(27deg) brightness(91%) contrast(94%)" ),
-    ( "nov", "center 0 repeat fixed #2d1a0b", "#664438", "invert(26%) sepia(48%) saturate(395%) hue-rotate(330deg) brightness(95%) contrast(90%)" ),
-    ( "dec", "0 0 / contain repeat fixed #711517", "#b30000", "invert(9%) sepia(100%) saturate(6904%) hue-rotate(20deg) brightness(81%) contrast(119%)" )
-);
 
 // 3. Dark mode
 @media (prefers-color-scheme: dark) {
@@ -173,7 +181,7 @@ $months: (
         --body-bg-opacity: 0.2;
 
         --color-bg-code: rgb(40, 35, 48);
-        --color-bg-container: rgba(20, 20, 20, 0.95);
+        --color-bg-container: rgba(20, 20, 20, 0.97);
         --color-bg-field: #202020;
 
         --color-border: #333;
@@ -196,11 +204,39 @@ $months: (
         }
         &.theme-apr {
             --color-link: #c7bfed;
-            --color-svg: invert(72%) sepia(19%) saturate(669%) hue-rotate(155deg) brightness(96%) contrast(82%);
+            --color-svg: invert(82%) sepia(8%) saturate(1294%) hue-rotate(208deg) brightness(95%) contrast(96%);
+        }
+        &.theme-may {
+            --color-link: #ce6646;
+            --color-svg: invert(45%) sepia(59%) saturate(566%) hue-rotate(328deg) brightness(93%) contrast(89%);
+        }
+        &.theme-jun {
+            --color-link: #c2b280;
+            --color-svg: invert(75%) sepia(7%) saturate(1577%) hue-rotate(8deg) brightness(95%) contrast(88%);
         }
         &.theme-jul {
-            --color-link: #66BB8C;
-            --color-svg: invert(70%) sepia(10%) saturate(1644%) hue-rotate(94deg) brightness(97%) contrast(79%);
+            --color-link: #66bb8c;
+            --color-svg: invert(69%) sepia(30%) saturate(516%) hue-rotate(94deg) brightness(91%) contrast(91%);
+        }
+        &.theme-aug {
+            --color-link: #c0c584;
+            --color-svg: invert(86%) sepia(13%) saturate(865%) hue-rotate(23deg) brightness(90%) contrast(85%);
+        }
+        &.theme-sep {
+            --color-link: #e77000;
+            --color-svg: invert(38%) sepia(79%) saturate(2535%) hue-rotate(16deg) brightness(96%) contrast(98%);
+        }
+        &.theme-oct {
+            --color-link: #d58f2a;
+            --color-svg: invert(77%) sepia(64%) saturate(2447%) hue-rotate(341deg) brightness(88%) contrast(87%);
+        }
+        &.theme-nov {
+            --color-link: #baaf96;
+            --color-svg: invert(96%) sepia(3%) saturate(3170%) hue-rotate(333deg) brightness(88%) contrast(60%);
+        }
+        &.theme-dec {
+            --color-link: #ff6363;
+            --color-svg: invert(70%) sepia(71%) saturate(4246%) hue-rotate(319deg) brightness(97%) contrast(109%);
         }
     }
 }
