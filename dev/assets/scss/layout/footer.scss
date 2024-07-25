@@ -41,10 +41,6 @@
             // &:not(.prev):not(.next):not(.current-item) {
                 display: none;
             }
-
-            &.prev {
-                
-            }
         }
 
         &.prev.svg::before, &.prev a.svg::before {

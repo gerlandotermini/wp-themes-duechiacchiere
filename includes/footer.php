@@ -53,12 +53,15 @@
 			?>
 		</nav>
 	<?php
-	elseif ( is_single() ): ?>
+	elseif ( is_single() ): 
+		$prev_post_link = get_previous_post_link( '%link' );
+		$next_post_link = get_next_post_link( '%link' );
+	?>
 		<nav id="pagination" aria-labelledby="pagination-title">
 			<h2 class="visually-hidden" id="pagination-title">Navigazione cronologica</h2>
 			<ul class="pagination-flex">
-				<li class="svg prev"><?php echo get_previous_post_link( '%link' ) ?></li>
-				<li class="svg next"><?php echo get_next_post_link( '%link' ) ?></li>
+				<?php if ( !empty( $prev_post_link ) ): ?><li class="svg prev"><?= $prev_post_link ?></li><?php endif; ?>
+				<?php if ( !empty( $next_post_link ) ): ?><li class="svg next"><?= $next_post_link ?></li><?php endif; ?>
 			</ul>
 		</nav>
 	<?php

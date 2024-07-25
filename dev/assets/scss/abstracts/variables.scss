@@ -44,6 +44,7 @@ $assets: '/content/themes/duechiacchiere/assets';
     --color-bg-container: rgba( 255 255 255 / 95% );
     --color-bg-field: #fff;
 
+    --color-abbr: #d94516;
     --color-code: #ddd;
     --color-link: #1b0bad;
     --color-svg: invert(15%) sepia(61%) saturate(7137%) hue-rotate(249deg) brightness(65%) contrast(122%);
@@ -177,6 +178,7 @@ $months: (
 
         --color-border: #333;
 
+        --color-abbr: #efe397;
         --color-code: #e6e6e6;
         --color-link: #9eaaff;
         --color-svg: invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%);
