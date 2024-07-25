@@ -77,7 +77,7 @@ main {
             // Links
             a {
                 &::after {
-                    margin: 0 2px 0 5px;
+                    margin: 0 1px 0 5px;
                     width: 10px;
                 }
                 &.external::after {
@@ -90,6 +90,7 @@ main {
 
                 &.more-link::after {
                     content: var(--icon-angle-right);
+                    margin: 0 0 0 3px;
                 }
 
                 // This simulates the underlining, to include the icon when needed

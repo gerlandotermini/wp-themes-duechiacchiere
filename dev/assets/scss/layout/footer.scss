@@ -17,6 +17,13 @@
             flex-direction: column;
             li {
                 display: flex !important; // make the pagination links visible
+
+                &.prev a {
+                    text-align: left;
+                }
+                &.next a {
+                    text-align: right;
+                }
             }
         }
     }
@@ -125,8 +132,8 @@ footer {
             border-right: 2px solid #333;
             border-top: 0;
             flex: 1;
-            margin-right: var(--gap-lg);
-            padding-right: var(--gap-lg);
+            margin: 0 var(--gap-lg) 0 0;
+            padding: 0 var(--gap-lg) 0 0;
             width: initial;
 
             &:last-child {

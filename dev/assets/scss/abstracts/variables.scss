@@ -40,12 +40,13 @@ $assets: '/content/themes/duechiacchiere/assets';
     --color-border-text: #333;
 
     // 1.4 Colors
-    --color-bg-code: #f00;
+    --color-bg-code: #222;
     --color-bg-container: rgba( 255 255 255 / 95% );
     --color-bg-field: #fff;
 
     --color-code: #ddd;
-    --color-link: #560bad;
+    --color-link: #1b0bad;
+    --color-svg: invert(15%) sepia(61%) saturate(7137%) hue-rotate(249deg) brightness(65%) contrast(122%);
     --color-text: #333;
     --color-white: #fff;
 
@@ -85,15 +86,24 @@ body {
     &.theme-feb {
         --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/feb.webp');
         --body-bg-color: #993947;
+
+        --color-link: #694d21;
+        --color-svg: invert(28%) sepia(33%) saturate(826%) hue-rotate(358deg) brightness(97%) contrast(91%);
     }
     &.theme-mar {
         --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/mar.webp');
         --body-bg-position: 0 0;
         --body-bg-color: #332874;
+
+        --color-link: #274a80;
+        --color-svg: invert(24%) sepia(89%) saturate(446%) hue-rotate(177deg) brightness(91%) contrast(95%);
     }
     &.theme-apr {
         --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/apr.webp');
         --body-bg-color: #B3212C;
+
+        --color-link: #3b6389;
+        --color-svg: invert(35%) sepia(14%) saturate(1696%) hue-rotate(168deg) brightness(94%) contrast(87%);
     }
     &.theme-may {
         --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/may.webp');
@@ -174,6 +184,18 @@ $months: (
         --color-white: #fff;
 
         // 3.2 Months
+        &.theme-feb {
+            --color-link: #1ec476;
+            --color-svg: invert(68%) sepia(27%) saturate(1251%) hue-rotate(98deg) brightness(88%) contrast(85%);
+        }
+        &.theme-mar {
+            --color-link: #81B7D2;
+            --color-svg: invert(72%) sepia(19%) saturate(669%) hue-rotate(155deg) brightness(96%) contrast(82%);
+        }
+        &.theme-apr {
+            --color-link: #c7bfed;
+            --color-svg: invert(72%) sepia(19%) saturate(669%) hue-rotate(155deg) brightness(96%) contrast(82%);
+        }
         &.theme-jul {
             --color-link: #66BB8C;
             --color-svg: invert(70%) sepia(10%) saturate(1644%) hue-rotate(94deg) brightness(97%) contrast(79%);
