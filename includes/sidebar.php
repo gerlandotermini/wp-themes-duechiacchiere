@@ -73,7 +73,10 @@
 				$aria_label = 'Vai al commento che ' . $a_comment->comment_author . ' ha lasciato per l\'articolo intitolato ' . $comment_post_title;
 				$comment_excerpt = duechiacchiere::get_substr_words( $a_comment->comment_content, 150, $comment_permalink, $aria_label );
 				$comment_author_link = !empty( $a_comment->comment_author_url ) ? '<a href="' . $a_comment->comment_author_url . '" aria-label="Visita il sito di ' . $a_comment->comment_author . ', apre una nuova finestra">' . $a_comment->comment_author . '</a>' : $a_comment->comment_author;
-				echo '<li><h3>' . $comment_author_link . ' su <a aria-label="' . $aria_label . '" href="' . $comment_permalink .'">' . $comment_post_title . '</a></h3>' . apply_filters( 'comment_text', $comment_excerpt ) . '</li>';
+				echo '<li>';
+				echo get_avatar( $a_comment, 40, 'mystery', 'Avatar di ' . $a_comment->comment_author, array( 'extra_attr' => 'aria-hidden="true"' ) );
+
+				echo '<h3>' . $comment_author_link . ' su <a aria-label="' . $aria_label . '" href="' . $comment_permalink .'">' . $comment_post_title . '</a></h3>' . apply_filters( 'comment_text', $comment_excerpt ) . '</li>';
 			}
 
 			echo '</ul></div>';

@@ -204,8 +204,7 @@ main {
 
             // Abbreviations
             abbr {
-                border-bottom: 2px solid var(--color-abbr);
-                // background: linear-gradient(180deg, transparent 93%, var(--color-abbr) 93%);
+                border-bottom: 2px dotted var(--color-abbr);
                 text-decoration: none;
             }
 
