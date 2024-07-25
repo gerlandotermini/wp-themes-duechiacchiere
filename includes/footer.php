@@ -58,7 +58,7 @@
 			<h2 class="visually-hidden" id="pagination-title">Navigazione cronologica</h2>
 			<ul class="pagination-flex">
 				<li class="svg prev"><?php echo get_previous_post_link( '%link' ) ?></li>
-				<li class="svg next"><?php echo str_replace('href', 'class="svg" href', get_next_post_link( '%link' )) ?></li>
+				<li class="svg next"><?php echo get_next_post_link( '%link' ) ?></li>
 			</ul>
 		</nav>
 	<?php

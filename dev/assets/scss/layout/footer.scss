@@ -18,8 +18,12 @@
             li {
                 display: flex !important; // make the pagination links visible
 
-                &.prev a {
-                    text-align: left;
+                &.prev {
+                    margin-bottom: var(--gap-md);
+   
+                    a {
+                        text-align: left;
+                    }
                 }
                 &.next a {
                     text-align: right;
@@ -39,11 +43,11 @@
             }
 
             &.prev {
-                margin-bottom: var(--gap-md);
+                
             }
         }
 
-        &.prev.svg::before {
+        &.prev.svg::before, &.prev a.svg::before {
             content: var(--icon-angle-right);
             margin-right: var(--gap-sm);
             transform: rotate(180deg);
@@ -52,7 +56,7 @@
         &.next {
             justify-content: end;
 
-            &.svg::after {
+            &.svg::after, a.svg::after {
                 content: var(--icon-angle-right);
                 margin-left: var(--gap-sm);
                 width: 12px;
