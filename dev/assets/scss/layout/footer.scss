@@ -30,15 +30,20 @@
 
     li {
         align-items: center;
+        display: flex;
 
         @include media-query( mobile ) {
             &:not(.current-item):not(.current-item + .pagination-item):not(:has(+ .current-item)):not(.current-item:first-child + .pagination-item + .pagination-item) {
             // &:not(.prev):not(.next):not(.current-item) {
                 display: none;
             }
+
+            &.prev {
+                margin-bottom: var(--gap-md);
+            }
         }
 
-        &.prev a.svg::before {
+        &.prev.svg::before {
             content: var(--icon-angle-right);
             margin-right: var(--gap-sm);
             transform: rotate(180deg);
@@ -47,7 +52,7 @@
         &.next {
             justify-content: end;
 
-            a.svg::after {
+            &.svg::after {
                 content: var(--icon-angle-right);
                 margin-left: var(--gap-sm);
                 width: 12px;
