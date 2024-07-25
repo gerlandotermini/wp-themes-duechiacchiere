@@ -134,7 +134,7 @@
 		<div id="menu-overlay"></div>
 	</nav>
 
-	<a id="backtotop" href="#body" class="svg icon-chevron-up">
+	<a id="backtotop" href="#body" class="svg">
 		<span class="visually-hidden">Torna in cima alla pagina</span>
 	</a>
 

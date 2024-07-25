@@ -7,6 +7,7 @@
 //   1.4 Colors
 //   1.5 Typography
 //   1.6 Icons
+//   1.7 Misc
 // 2. Months
 // 3. Dark mode
 //   3.1 Colors
@@ -44,12 +45,12 @@ $assets: '/content/themes/duechiacchiere/assets';
     --color-bg-field: #fff;
 
     --color-code: #ddd;
-    --color-link: #00f;
+    --color-link: #560bad;
     --color-text: #333;
     --color-white: #fff;
 
-    --color-link: #00ffff;
-    --color-svg: invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%);
+    // SVG Filter Calculator: https://codepen.io/sosuke/pen/Pjoqqp
+    --color-svg: filter: invert(15%) sepia(32%) saturate(5185%) hue-rotate(256deg) brightness(116%) contrast(132%); // matches --color-link
 
     // 1.5 Typography
     --font-size-xs: .9rem;
@@ -76,8 +77,8 @@ $assets: '/content/themes/duechiacchiere/assets';
     --image-camu: var(--image-camu-light);
 }
 
+// 2. Months
 body {
-    // 2. Months
     &.theme-jan {
         --body-bg-repeat: repeat-x;
     }
@@ -156,20 +157,18 @@ $months: (
         --image-camu: var(--image-camu-dark);
     }
 
-    // SVG Filter Calculator: https://codepen.io/sosuke/pen/Pjoqqp - https://css-tricks.com/change-color-of-svg-on-hover/
     body{
         // 3.1 Colors
         --body-bg-opacity: 0.2;
 
         --color-bg-code: rgb(40, 35, 48);
         --color-bg-container: rgba(20, 20, 20, 0.95);
-        --color-bg-container-svg: invert(6%) sepia(1%) saturate(271%) hue-rotate(314deg) brightness(94%) contrast(94%);
         --color-bg-field: #202020;
 
         --color-border: #333;
 
         --color-code: #e6e6e6;
-        --color-link: #00ffff;
+        --color-link: #9eaaff;
         --color-svg: invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%);
         --color-text: #ccc;
         --color-white: #fff;

@@ -7,6 +7,5 @@ Version: 4.9
 License: This theme is distributed under the terms of the GNU GPL version 2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Styles are defined in assets/css/style.css. Please use gulp to compile the source SASS files
-available in dev/assets/scss/.
+Please use gulp to compile the source SASS files available in dev/assets/scss/.
 */

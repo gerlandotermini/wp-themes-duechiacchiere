@@ -11,6 +11,16 @@
         display: none;
     }
 
+    @include media-query( mobile ) {
+        &.pagination-flex {
+        
+            flex-direction: column;
+            li {
+                display: flex !important; // make the pagination links visible
+            }
+        }
+    }
+
     li {
         align-items: center;
 
