@@ -193,7 +193,7 @@ body {
                 color: var(--color-bg-container);
 
                 &.open-submenu::before {
-                    filter: var(--color-bg-container);
+                    filter: var(--color-svg-inverse);
                 }
             }
         }

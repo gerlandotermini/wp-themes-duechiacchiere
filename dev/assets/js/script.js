@@ -188,39 +188,84 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
 
   // Enable the trigger to open and close the menu
   const toolbarMenuButton = document.getElementById( 'mobile-nav-button' );
+  const toolbarSearchButton = document.getElementById( 'mobile-search-button' );
   const menuOverlay = document.getElementById( 'menu-overlay' );
   let bodyWidth = 0;
 
   let toggleMenu = ( e, action ) => {
-    const menu = document.getElementById( 'primary-menu' );  
-
     if ( e.type != 'touchstart' ) {
       e.preventDefault();
     }
+
+    const menu = document.getElementById( 'primary-menu' );
 
     if ( menu === null || menuOverlay === null || toolbarMenuButton === null ) {
       return false;
     }
 
-    if ( action == 'close' ||  toolbarMenuButton.classList.contains( 'active' ) ) {
+    if ( action == 'close' || toolbarMenuButton.classList.contains( 'active' ) ) {
       menu.classList.remove( 'active' );
-      menuOverlay.classList.remove( 'active' );
       toolbarMenuButton.classList.remove( 'active' );
+      toggleOverlay( e, 'hide' );
+    }
+    else if ( action == 'open' || !toolbarMenuButton.classList.contains( 'active' ) ) {
+      toggleSearch( e, 'close', true );
+      menu.classList.add( 'active' );
+      
+      toolbarMenuButton.classList.add( 'active' );
+      toggleOverlay( e, 'show' );
+    }
+  }
+
+  let toggleSearch = ( e, action, fromMenu ) => {
+    if ( !fromMenu ) {
+      toggleMenu( e, 'close' );
+    }
+
+    if ( action == 'close' || toolbarSearchButton.classList.contains( 'active' ) ) {
+      toolbarSearchButton.classList.remove( 'active' );
+
+      toggleOverlay( e, 'hide' );
+
+      if ( !fromMenu ) {
+        setTimeout( () => {
+            document.getElementById( 'search-form' ).style.zIndex = 'initial';
+          },
+          1010
+        );
+      }
+      else {
+        document.getElementById( 'search-form' ).style.zIndex = 'initial';
+      }
+    }
+    else if ( action == 'open' || !toolbarSearchButton.classList.contains( 'active' ) ) {
+      // Let's remember that the search is focused
+      toolbarSearchButton.classList.add( 'active' );
+
+      // Scroll to the search field
+      document.getElementById( 'search-form' ).style.zIndex = '475';
+      document.getElementById( 'search-field' ).focus();
+      document.getElementById( 'search-field' ).closest( '.widget' ).scrollIntoView();
+
+      // Show the overlay
+      toggleOverlay( e, 'show' );
+    }
+  }
+
+  let toggleOverlay = ( e, action ) => {
+    if ( action == 'hide' ) {
+      menuOverlay.classList.remove( 'active' );
 
       document.body.style.overflowY = 'visible';
       document.body.style.paddingRight = 0;
     }
-    else if ( action == 'open' || !toolbarMenuButton.classList.contains( 'active' ) ) {
-      menu.classList.add( 'active' );
+    else {
       menuOverlay.classList.add( 'active' );
-      toolbarMenuButton.classList.add( 'active' );
 
-      // The search field has a special z-index value that needs to be reset if we're displaying the flyout menu
-      document.getElementById( 'search-form' ).style.zIndex = 'initial';
-
-      bodyWidth = document.documentElement.clientWidth; // Prevent copy reflow issues when removing overflow-y from body
+      // Prevent copy reflow issues when removing overflow-y from body
+      bodyWidth = document.documentElement.clientWidth;
       document.body.style.overflowY = 'hidden';
-      document.body.style.paddingRight = ( document.documentElement.clientWidth - bodyWidth) + 'px';
+      document.body.style.paddingRight = ( document.documentElement.clientWidth - bodyWidth ) + 'px';
     }
   }
 
@@ -229,39 +274,16 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     toggleMenu( e, 'toggle' );
   } );
 
-  // Hide the menu when tapping on the overlay. We had to use an actual DIV because we cannot attach event handlers to pseudo elements
-  addMultiEventListener( menuOverlay, ( e ) => {
-    toggleMenu( e, 'close' );
+  // When tapping the search button, let's make sure the navigation is closed
+  addMultiEventListener( toolbarSearchButton, ( e ) => {
+    toggleSearch( e, 'toggle', false );
   } );
 
-  // When tapping the search button, let's make sure the navigation is closed
-  addMultiEventListener( document.getElementById( 'mobile-search-button' ), ( e ) => {
+  // Hide the menu when tapping on the overlay. We had to use an actual DIV because we cannot attach event handlers to pseudo elements
+  addMultiEventListener( menuOverlay, ( e ) => {
+    toggleOverlay( e, 'hide' );
     toggleMenu( e, 'close' );
-
-    const toolbarSearchButton = document.getElementById( 'mobile-search-button' );
-
-    if ( toolbarSearchButton.classList.contains( 'active' ) ) {
-      menuOverlay.classList.remove( 'active' );
-      toolbarSearchButton.classList.remove( 'active' );
-
-      document.body.style.overflowY = 'visible';
-      document.body.style.paddingRight = 0;
-    }
-    else {
-      // Let's remember that the search is focused
-      toolbarSearchButton.classList.add( 'active' );
-
-      // Darken everything else
-      bodyWidth = document.documentElement.clientWidth; // Prevent copy reflow issues when removing overflow-y from body
-      document.body.style.overflowY = 'hidden';
-      document.body.style.paddingRight = ( document.documentElement.clientWidth - bodyWidth) + 'px';
-      menuOverlay.classList.add( 'active' );
-
-      // Scroll to the search field
-      document.getElementById( 'search-form' ).style.zIndex = '475';
-      document.getElementById( 'search-field' ).focus();
-      document.getElementById( 'search-field' ).closest( '.widget' ).scrollIntoView();
-    }
+    toggleSearch( e, 'close', false );
   } );
 
   // Add elements to open and close the submenus
