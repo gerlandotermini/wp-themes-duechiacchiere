@@ -215,13 +215,14 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       menuOverlay.classList.add( 'active' );
       toolbarMenuButton.classList.add( 'active' );
 
+      // The search field has a special z-index value that needs to be reset if we're displaying the flyout menu
+      document.getElementById( 'search-form' ).style.zIndex = 'initial';
+
       bodyWidth = document.documentElement.clientWidth; // Prevent copy reflow issues when removing overflow-y from body
       document.body.style.overflowY = 'hidden';
       document.body.style.paddingRight = ( document.documentElement.clientWidth - bodyWidth) + 'px';
     }
   }
-
-  // Move the search 
 
   // Attach the appropriate event handler to the mobile menu button
   addMultiEventListener( toolbarMenuButton, ( e ) => {
@@ -236,78 +237,105 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   // When tapping the search button, let's make sure the navigation is closed
   addMultiEventListener( document.getElementById( 'mobile-search-button' ), ( e ) => {
     toggleMenu( e, 'close' );
-    document.getElementById( 'search-field' ).focus();
-    document.getElementById( 'search-field' ).closest( '.widget' ).scrollIntoView();
+
+    const toolbarSearchButton = document.getElementById( 'mobile-search-button' );
+
+    if ( toolbarSearchButton.classList.contains( 'active' ) ) {
+      menuOverlay.classList.remove( 'active' );
+      toolbarSearchButton.classList.remove( 'active' );
+
+      document.body.style.overflowY = 'visible';
+      document.body.style.paddingRight = 0;
+    }
+    else {
+      // Let's remember that the search is focused
+      toolbarSearchButton.classList.add( 'active' );
+
+      // Darken everything else
+      bodyWidth = document.documentElement.clientWidth; // Prevent copy reflow issues when removing overflow-y from body
+      document.body.style.overflowY = 'hidden';
+      document.body.style.paddingRight = ( document.documentElement.clientWidth - bodyWidth) + 'px';
+      menuOverlay.classList.add( 'active' );
+
+      // Scroll to the search field
+      document.getElementById( 'search-form' ).style.zIndex = '475';
+      document.getElementById( 'search-field' ).focus();
+      document.getElementById( 'search-field' ).closest( '.widget' ).scrollIntoView();
+    }
   } );
 
   // Add elements to open and close the submenus
-  document.querySelectorAll( '#primary-menu .menu-item-has-children' ).forEach( item => {
-    // Use Italian grammar to determine which preposition to use
-    let room_name = item.childNodes[0].textContent;
+  document.querySelectorAll( '#primary-menu .menu-item-has-children' ).forEach( item => {    
+      // Use Italian grammar to determine which preposition to use
+      let room_name = item.childNodes[0].textContent;
 
-    let enter_preposition = 'il ';
-    let exit_preposition = 'dal';
+      let enter_preposition = 'il ';
+      let exit_preposition = 'dal';
 
-    if ( [ 'a', 'e', 'i', 'o', 'u' ].indexOf( room_name.charAt(0) ) != -1 ) { // word starts with a vowel
-      enter_preposition = "l'";
-      exit_preposition += "l'";
-    }
-    else if ( room_name.slice(-1) == 'a' ) { // word ends with 'a'
-      enter_preposition = 'la ';
-      exit_preposition += 'la ';
-    }
-    else {
-      exit_preposition += ' ';
-    }
-
-    item.querySelector( 'a' ).setAttribute( 'aria-expanded', 'false' );
-    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="svg open-submenu" href="#" aria-expanded="false" aria-haspopup="true"><span class="visually-hidden"> apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
-    item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="svg close-submenu" href="#">esci ' + exit_preposition + room_name + '</a></li>' );
-
-    item.addEventListener( 'mouseover', ( e ) => {
-      item.querySelectorAll( ':scope > a' ).forEach( link => {
-        link.setAttribute( 'aria-expanded', 'true' );
-      } );
-    } );
-
-    item.addEventListener( 'mouseout', ( e ) => {
-      item.querySelectorAll( ':scope > a' ).forEach( link => {
-        link.setAttribute( 'aria-expanded', 'false' );
-      } );
-    } );
-
-    addMultiEventListener( item.querySelector( '.open-submenu' ), ( e ) => {
-      if ( e.type != 'touchstart' ) {
-        e.preventDefault();
+      if ( [ 'a', 'e', 'i', 'o', 'u' ].indexOf( room_name.charAt(0) ) != -1 ) { // word starts with a vowel
+        enter_preposition = "l'";
+        exit_preposition += "l'";
+      }
+      else if ( room_name.slice(-1) == 'a' ) { // word ends with 'a'
+        enter_preposition = 'la ';
+        exit_preposition += 'la ';
+      }
+      else {
+        exit_preposition += ' ';
       }
 
-      item.classList.add( 'active' );
-      item.querySelectorAll( ':scope > a' ).forEach( link => {
-        link.setAttribute( 'aria-expanded', 'true' );
+      item.querySelector( 'a' ).setAttribute( 'aria-expanded', 'false' );
+      item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="svg open-submenu" href="#" aria-expanded="false" aria-haspopup="true"><span class="visually-hidden"> apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
+      
+      if ( parseInt( window.getComputedStyle( document.body, '::before' ).getPropertyValue( 'padding' ) ) === 0 ) {
+        item.querySelector( '.sub-menu' ).insertAdjacentHTML( 'afterbegin', '<li class="menu-item"><a class="svg close-submenu" href="#">esci ' + exit_preposition + room_name + '</a></li>' );
+      }
+
+      item.addEventListener( 'mouseover', ( e ) => {
+        item.querySelectorAll( ':scope > a' ).forEach( link => {
+          link.setAttribute( 'aria-expanded', 'true' );
+        } );
       } );
-    } );
 
-    item.querySelectorAll( '.close-submenu' ).forEach( link => {
-      addMultiEventListener( link, ( e ) => {
-        if ( e.type != 'touchstart' ) {
-          e.preventDefault();
-        }
-        
-        item.classList.remove( 'active' );
-
+      item.addEventListener( 'mouseout', ( e ) => {
         item.querySelectorAll( ':scope > a' ).forEach( link => {
           link.setAttribute( 'aria-expanded', 'false' );
         } );
-
-        // On desktop, focus the parent
-        if ( window.getComputedStyle( document.body, ':before' ).getPropertyValue( 'padding' ) === '1px' ) {
-          item.querySelector( 'a' ).focus();
-        }
       } );
-    } );
+
+      addMultiEventListener( item.querySelector( '.open-submenu' ), ( e ) => {
+        if ( e.type != 'touchstart' ) {
+          e.preventDefault();
+        }
+
+        item.classList.add( 'active' );
+        item.querySelectorAll( ':scope > a' ).forEach( link => {
+          link.setAttribute( 'aria-expanded', 'true' );
+        } );
+      } );
+
+      item.querySelectorAll( '.close-submenu' ).forEach( link => {
+        addMultiEventListener( link, ( e ) => {
+          if ( e.type != 'touchstart' ) {
+            e.preventDefault();
+          }
+          
+          item.classList.remove( 'active' );
+
+          item.querySelectorAll( ':scope > a' ).forEach( link => {
+            link.setAttribute( 'aria-expanded', 'false' );
+          } );
+
+          // On desktop, focus the parent
+          if ( parseInt( window.getComputedStyle( document.body, ':before' ).getPropertyValue( 'padding' ) ) === 1 ) {
+            item.querySelector( 'a' ).focus();
+          }
+        } );
+      } );
+    // }
 
     // This only applies to the desktop version on the menu (we use a pseudoelement to determine which layout is being displayed)
-    if ( window.getComputedStyle( document.body, ':before' ).getPropertyValue( 'padding' ) === '1px' ) {
+    if ( parseInt( window.getComputedStyle( document.body, '::before' ).getPropertyValue( 'padding' ) ) === 1 ) {
       let is_sibling_selected = false;
       item.querySelector( '.sub-menu' ).addEventListener( 'focusout', ( e ) => {
         // We need the setTimeout to give time to the browser to focus the next element

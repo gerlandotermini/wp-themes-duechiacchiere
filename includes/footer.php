@@ -118,7 +118,7 @@
 		</nav>
 	</footer>
 
-	<nav aria-labelledby="mobile-toolbar-label">
+	<nav aria-labelledby="mobile-toolbar-label" id="mobile-toolbar-container">
 		<h2 id="mobile-toolbar-label" class="visually-hidden">Navigazione mobile</h2>
 		<ul id="mobile-toolbar">
 			<li>

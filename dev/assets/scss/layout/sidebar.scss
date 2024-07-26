@@ -7,46 +7,51 @@ aside {
         display: none;
     }
 
-    #search-form form {
-        border: var(--border) var(--color-border);
-        border-radius: var(--border-radius);
-        display: flex;
-        overflow: hidden; // otherwise the round corners look weird
+    #search-form {
+        // This is needed on mobile to make the search field stand out when clicking on the search button in the mobile toolbar
         position: relative;
 
-        &:focus-within {
-            border: var(--border) var(--color-link);
-        }
+        form {
+            border: var(--border) var(--color-border);
+            border-radius: var(--border-radius);
+            display: flex;
+            overflow: hidden; // otherwise the round corners look weird
+            position: relative;
 
-        #search-field {
-            background-color: var(--color-bg-field);
-            border: 0;
-            color: var(--text-color);
-            flex: 5;
-            font-size: var(--font-size-sm);
-            font-weight: 300;
-            padding: var(--gap-sm);
-            width: 100%;
-
-            &:focus {
-                outline: none;
+            &:focus-within {
+                border: var(--border) var(--color-link);
             }
-        }
-        #search-field::placeholder {
-            color: var(--text-color-secondary);
-        }
-        #search-button {
-            background-color: var(--color-bg-field);
-            border: 0;
-            cursor: pointer;
-            flex: 1;
 
-            &::before {
-                content: var(--icon-search);
-                filter: var(--color-svg);
-                position: absolute;
-                top: 10px;
-                width: 15px;
+            #search-field {
+                background-color: var(--color-bg-field);
+                border: 0;
+                color: var(--text-color);
+                flex: 5;
+                font-size: var(--font-size-sm);
+                font-weight: 300;
+                padding: var(--gap-sm);
+                width: 100%;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+            #search-field::placeholder {
+                color: var(--text-color-secondary);
+            }
+            #search-button {
+                background-color: var(--color-bg-field);
+                border: 0;
+                cursor: pointer;
+                flex: 1;
+
+                &::before {
+                    content: var(--icon-search);
+                    filter: var(--color-svg);
+                    position: absolute;
+                    top: 10px;
+                    width: 15px;
+                }
             }
         }
     }
@@ -63,12 +68,12 @@ aside {
             padding: 5px var(--gap-sm);
         }
         ul {
+            border-bottom: var(--border) var(--color-border);
             border-left: var(--border) var(--color-border);
             border-right: var(--border) var(--color-border);
             border-bottom-left-radius: var(--border-radius);
             border-bottom-right-radius: var(--border-radius);
             list-style-type: none;
-            margin: 0;
             overflow: hidden; // otherwise the round corners look weird
             padding-left: 0;
         }
@@ -76,6 +81,9 @@ aside {
             border-bottom: var(--border) var(--color-border);
             padding: var(--gap-sm);
 
+            &:last-child {
+                border-bottom: 0;
+            }
             img {
                 border-radius: var(--border-radius);
                 float: right;
