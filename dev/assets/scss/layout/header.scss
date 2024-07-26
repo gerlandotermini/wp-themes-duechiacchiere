@@ -225,7 +225,7 @@ body {
                 li {
                     display: flex;
                     align-items: center;
-                    border-bottom: var(--color-text);
+                    border-bottom: var(--border) var(--color-border);
                     justify-content: space-between;
                     position: relative;
 
@@ -279,7 +279,7 @@ body {
             }
 
             &.active {
-                box-shadow: 0 0 10px rgba( 20 20 20 / 45% );
+                box-shadow: 0 0 var(--gap-md) var(--color-border);
                 transform: translateX( 0 );
                 visibility: visible;
             }
