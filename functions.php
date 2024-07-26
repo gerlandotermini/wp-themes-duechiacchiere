@@ -690,10 +690,7 @@ class duechiacchiere {
 		// Then create a 'cache' folder under wp-content, writeable to the web server
 
 		// Cache only individual posts and the homepage, not categories or other archives, or 404s, and don't cache pages with a query string
-		if ( ( !is_single() && !is_front_page() && !is_page() ) || 
-			substr_count( $_SERVER[ 'REQUEST_URI' ], '/' ) != 1 ||
-			!empty( $_REQUEST ) ||
-			is_user_logged_in() ) {
+		if ( ( !is_single() && !is_front_page() && !is_page() ) || substr_count( $_SERVER[ 'REQUEST_URI' ], '/' ) != 1 || !empty( $_REQUEST ) || is_user_logged_in() ) {
 			return false;
 		}
 
