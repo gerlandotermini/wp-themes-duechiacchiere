@@ -376,7 +376,7 @@
 	<!-- END: Favicon -->
 
 	<!-- BEGIN: Font Preloading -->
-	<link rel="preload" href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/outfit.woff2" as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/outfit.woff2" as="font" type="font/woff2" crossorigin>
 	<!-- END: Font Preloading -->
 
 	<!-- BEGIN: RSS feed -->
@@ -402,7 +402,7 @@
 	<a class="skip" id="page-top" href="#content">salta al contenuto</a>
 	<header id="header-container">
 		<div id="branding">
-			<div id="camu" aria-label="un ragazzo con la testa appoggiata in avanti sulle braccia conserte"></div>
+			<div id="camu" role="img" aria-label="un ragazzo con la testa appoggiata in avanti sulle braccia conserte"></div>
 			<a id="name" href="/" aria-label="Torna alla pagina iniziale del sito">due chiacchiere</a>
 		</div>
 

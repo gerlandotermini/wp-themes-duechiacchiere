@@ -229,7 +229,9 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
 
       if ( !fromMenu ) {
         setTimeout( () => {
-            document.getElementById( 'search-form' ).style.zIndex = 'initial';
+            if ( !toolbarSearchButton.classList.contains( 'active' ) ) {
+              document.getElementById( 'search-form' ).style.zIndex = 'initial';
+            }
           },
           1010
         );
@@ -256,7 +258,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     if ( action == 'hide' ) {
       menuOverlay.classList.remove( 'active' );
 
-      document.body.style.overflowY = 'visible';
+      // document.body.style.overflowY = 'visible';
       document.body.style.paddingRight = 0;
     }
     else {
@@ -264,7 +266,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
 
       // Prevent copy reflow issues when removing overflow-y from body
       bodyWidth = document.documentElement.clientWidth;
-      document.body.style.overflowY = 'hidden';
+      // document.body.style.overflowY = 'hidden';
       document.body.style.paddingRight = ( document.documentElement.clientWidth - bodyWidth ) + 'px';
     }
   }

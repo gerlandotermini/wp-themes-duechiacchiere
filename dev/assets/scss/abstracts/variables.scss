@@ -47,13 +47,10 @@ $assets: '/content/themes/duechiacchiere/assets';
     --color-abbr: #d94516;
     --color-code: #ddd;
     --color-link: #1b0bad;
-    --color-svg: invert(15%) sepia(61%) saturate(7137%) hue-rotate(249deg) brightness(65%) contrast(122%);
+    --color-svg: invert(15%) sepia(61%) saturate(7137%) hue-rotate(249deg) brightness(65%) contrast(122%); // SVG Filter Calculator: https://codepen.io/sosuke/pen/Pjoqqp
     --color-svg-inverse: invert(100%) sepia(15%) saturate(7%) hue-rotate(133deg) brightness(113%) contrast(99%);
     --color-text: #333;
     --color-white: #fff;
-
-    // SVG Filter Calculator: https://codepen.io/sosuke/pen/Pjoqqp
-    --color-svg: filter: invert(15%) sepia(32%) saturate(5185%) hue-rotate(256deg) brightness(116%) contrast(132%); // matches --color-link
 
     // 1.5 Typography
     --font-size-xs: .9rem;
@@ -127,8 +124,8 @@ body {
         --body-bg-image: url('#{$assets}/img/bg/jul.webp');
         --body-bg-color: #ccb2c1;
 
-        --color-link: #3c875e;
-        --color-svg: invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%);
+        --color-link: #3a7be0;
+        --color-svg: invert(44%) sepia(88%) saturate(1978%) hue-rotate(199deg) brightness(90%) contrast(96%);
     }
     &.theme-aug {
         --body-bg-image: url('#{$assets}/img/bg/aug.webp');

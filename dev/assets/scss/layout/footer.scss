@@ -103,8 +103,8 @@ footer {
 
     p {
         font-size: var(--font-size-xs);
-        line-height: 1.5rem;
-        margin: 0;
+        line-height: 1.6rem;
+        margin: -3px 0 0;
     }
 
     ul {
@@ -115,7 +115,7 @@ footer {
 
         li {
             line-height: 1rem;
-            padding-bottom: 9px;
+            padding-bottom: 10px;
 
             &:last-child {
                 padding-bottom: 0;
@@ -155,7 +155,7 @@ footer {
     }
 
     @include media-query( large ) {
-        padding: var(--gap-lg);
+        padding: var(--gap-xl) var(--gap-lg);
     }
 
     @include media-query( print ) {
