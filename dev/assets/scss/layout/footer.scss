@@ -3,7 +3,7 @@
     border-top: var(--border) var(--color-border);
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     list-style: none;
     padding: 0 var(--gap-lg);
 
@@ -29,6 +29,12 @@
                     text-align: right;
                 }
             }
+        }
+    }
+
+    @include media-query( large ) {
+        &.pagination-flex {
+            justify-content: space-between;
         }
     }
 
