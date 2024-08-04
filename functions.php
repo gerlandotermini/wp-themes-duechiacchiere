@@ -460,67 +460,52 @@ class duechiacchiere {
 			)
 		) );
 
+		// Dark Mode
+		$settings['content_style'] = '.mce-content-body{background:#404b53;color:#ddd;}.mce-content-body a{color:#bfb6f8}.mce-content-body a[data-mce-selected]{background-color:#555}';
+
 		return $settings;
 	}
 
 	public static function admin_head() {
-		echo '
-		<style>
-			#wpbody-content a {
-				filter: invert(1) hue-rotate(180deg) saturate(10);
-				color: #777 !important;
-			}
-			#wpbody-content a:hover {
-				filter: invert(1) hue-rotate(180deg) saturate(10);
-				color: red !important;
-			}
-			/* Styling for primary content area. */
-				.block-editor-page .editor-styles-wrapper {
-				color: lightgray;
-				background: #262626;
-			}
-			/* Base styling adjustments. */
-			.wp-admin {
-				background-color: #262626;
-			}
-			.wp-admin #wpbody {
-				filter: invert(0.85) hue-rotate(185deg);
-			}
-			.wp-admin #wpbody img {
-				filter: invert(1) hue-rotate(-180deg);
-				background: white;
-			}/* Enhancements for hyperlink visuals. */
-			.block-editor-page .editor-styles-wrapper a {
-				filter: invert(0.85) hue-rotate(185deg);
-			}
-			#wp-content-editor-tools {
-				background: initial;
-			}
-			/* Filter reset for specific editor sections. */
-			.block-editor-page #wpbody {
-				filter: unset;
-			}/* Adjustments for the main body appearance. */
-			/* Sidebar appearance customization. */
-			.block-editor-page .interface-interface-skeleton__sidebar,
-			.block-editor-page .interface-interface-skeleton__secondary-sidebar {
-				filter: invert(0.85) hue-rotate(185deg);
-			}/* Configuration for top navigation bar. */
-			.block-editor-page .interface-interface-skeleton__header {
-				filter: invert(0.85) hue-rotate(185deg);
-			}
-			/* Primary action button styling. */
-			.block-editor-page .is-primary {
-				color: black !important;
-			}
-			/* Lower section layout adjustments. */
-			.block-editor-page .edit-post-layout__metaboxes {
-				border-top: 0px;
-				background-color: #262626;
-			}/* Reset various button BG colours */
-			.wrap .add-new-h2, .wrap .add-new-h2:active, .wrap .page-title-action, .wrap .page-title-action:active {
-				background:#f6f7f700;
-			}
-		</style>';
+		// Admin Dark Mode
+		echo '<style>
+:root {
+	--color-bg: #404b53;
+	--color-bg-accent: #e0e0e3;
+	--color-link: #bfb6f8;
+	--color-text: #ddd;
+}
+.wp-admin,.show-settings,#edit-slug-box,input,textarea,#wp-content-editor-tools,.mce-panel,#post-status-info,#newmeta,#postcustomstuff thead th,.wp-core-ui select,.postbox,.postbox button,#major-publishing-actions,#category-tabs .tabs,.tabs-panel,.howto,
+.count,table.widefat,.striped>tbody>:nth-child(odd),ul.striped>:nth-child(odd),.alternate,.widefat thead tr th, .widefat thead tr td, .widefat tfoot tr th, .widefat tfoot tr td,.widefat th, .widefat td,.widefat p, .widefat ol, .widefat ul,
+.form-table th, .form-wrap label,#future-posts li, #published-posts li,#activity-widget #the-comment-list .comment-item,#latest-comments #the-comment-list .comment-meta,.community-events li{
+	background-color: var(--color-bg) !important;
+	color: var(--color-text) !important;
+	scrollbar-color: var(--color-text) var(--color-bg);
+}
+p.description, .form-wrap p{
+	filter: brightness(175%);
+}
+h1,h2,
+#dashboard-widgets h4, #dashboard-widgets h3, #dashboard_quick_press .drafts h2 {
+	color: var(--color-text);
+}
+button {
+	background-color: var(--color-bg-accent) !important;
+}
+#content_ifr{
+	width:99.9% !important;
+}
+.page-title-action,.insert-media,.preview.button,#collapse-button{
+	background-color: var(--color-bg) !important;
+	color: var(--color-link) !important;
+}
+#wpcontent a, #major-publishing-actions a, #category-tabs a{
+	color: var(--color-link) !important;
+}
+div.mce-toolbar-grp {
+	background-color: var(--color-bg-accent) !important;
+}
+</style>';
 	}
 
 	public static function admin_bar_menu( $wp_admin_bar ) {

@@ -73,7 +73,7 @@
 							name : 'abbrTitle',
 							label : 'Title',
 							tooltip: 'The meaning of your abbreviation',
-            },
+            			},
 						{
 							type : 'textbox',
 							id: 'tinymce-abbr-lang',
