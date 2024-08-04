@@ -477,7 +477,8 @@ class duechiacchiere {
 }
 .wp-admin,.show-settings,#edit-slug-box,input,textarea,#wp-content-editor-tools,.mce-panel,#post-status-info,#newmeta,#postcustomstuff thead th,.wp-core-ui select,.postbox,.postbox button,#major-publishing-actions,#category-tabs .tabs,.tabs-panel,.howto,
 .count,table.widefat,.striped>tbody>:nth-child(odd),ul.striped>:nth-child(odd),.alternate,.widefat thead tr th, .widefat thead tr td, .widefat tfoot tr th, .widefat tfoot tr td,.widefat th, .widefat td,.widefat p, .widefat ol, .widefat ul,
-.form-table th, .form-wrap label,#future-posts li, #published-posts li,#activity-widget #the-comment-list .comment-item,#latest-comments #the-comment-list .comment-meta,.community-events li{
+.form-table th, .form-wrap label,#future-posts li, #published-posts li,#activity-widget #the-comment-list .comment-item,#latest-comments #the-comment-list .comment-meta,.community-events li,.notice, div.updated, div.error,
+.wp-core-ui .button-primary[disabled], .wp-core-ui .button-primary:disabled, .wp-core-ui .button-primary-disabled, .wp-core-ui .button-primary.disabled,.attachments-browser .media-toolbar,.media-menu,.media-modal-content,.media-frame-content{
 	background-color: var(--color-bg) !important;
 	color: var(--color-text) !important;
 	scrollbar-color: var(--color-text) var(--color-bg);
