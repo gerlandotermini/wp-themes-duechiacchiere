@@ -580,7 +580,7 @@ div.mce-toolbar-grp {
 	}
 
 	public static function get_substr_words( $string = '', $desired_length = 100 ) {
-		$parts = preg_split( '/([\s\n\r]+)/u', strip_tags( $string ), -1, PREG_SPLIT_DELIM_CAPTURE );
+		$parts = preg_split( '/([\s\n\r]+)/u', strip_tags( strip_shortcodes( $string ) ), -1, PREG_SPLIT_DELIM_CAPTURE );
 		$parts_count = count( $parts );
 	
 		$length = 0;
