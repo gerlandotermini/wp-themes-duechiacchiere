@@ -461,7 +461,7 @@ class duechiacchiere {
 		) );
 
 		// Dark Mode
-		$settings['content_style'] = '.mce-content-body{background:#404b53;color:#ddd;}.mce-content-body a{color:#bfb6f8}.mce-content-body a[data-mce-selected]{background-color:#555}';
+		$settings['content_style'] = '@media (prefers-color-scheme:dark){.mce-content-body{background:#404b53;color:#ddd;}.mce-content-body a{color:#bfb6f8}.mce-content-body a[data-mce-selected]{background-color:#555}}';
 
 		return $settings;
 	}
