@@ -42,7 +42,7 @@ class duechiacchiere {
 		add_filter( 'the_content_feed', array( __CLASS__, 'the_content_feed') );
 
 		// Don't generate thumbnails, this theme only uses full size
-		add_filter( 'intermediate_image_sizes', '__return_empty_array' );
+		add_filter( 'intermediate_image_sizes', array( __CLASS__, 'intermediate_image_sizes' ) );
 
 		// Tweak style and script HTML tags
 		add_filter( 'style_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
@@ -203,6 +203,11 @@ class duechiacchiere {
 		return $_content . '<p><a href="' . get_permalink() . '#comments">Lascia un commento</a></p>';
 	}
 
+	// Keep just the medium size, for mobile devices
+	public static function intermediate_image_sizes( $_default_sizes = [] ) {
+		return array_intersect( $_default_sizes, [ 'medium' ] );
+	}
+
 	public static function wp_video_shortcode( $html = '' ) {
 		return str_replace( '<video', '<video crossorigin="anonymous"', $html );
 	}
@@ -329,17 +334,17 @@ class duechiacchiere {
 			$image_file = imagecreatefromstring( file_get_contents( $_url ) );
 
 			// Convert it to webp
-			$w=imagesx($image_file);
-			$h=imagesy($image_file);
-			$webp=imagecreatetruecolor($w,$h);
-			imagecopy($webp,$image_file,0,0,0,0,$w,$h);
+			$w = imagesx( $image_file );
+			$h = imagesy( $image_file );
+			$webp = imagecreatetruecolor( $w,$h );
+			imagecopy( $webp, $image_file, 0, 0, 0, 0, $w, $h );
 
 			// Save it to our cache
-			imagewebp($webp, WP_CONTENT_DIR . $cached_image_path, 80);
+			imagewebp( $webp, WP_CONTENT_DIR . $cached_image_path, 80 );
 
 			// Free up resources
-			imagedestroy($image_file);
-			imagedestroy($webp);
+			imagedestroy( $image_file );
+			imagedestroy( $webp );
 
 			return WP_CONTENT_URL . $cached_image_path;
 		}
