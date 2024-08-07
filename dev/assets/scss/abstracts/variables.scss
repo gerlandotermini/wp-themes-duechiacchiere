@@ -41,7 +41,7 @@ $assets: '/content/themes/duechiacchiere/assets';
 
     // 1.4 Colors
     --color-bg-code: #222;
-    --color-bg-container: rgba( 255 255 255 / 97% );
+    --color-bg-container: rgba( 255, 255, 255, 0.99 );
     --color-bg-field: #fff;
 
     --color-abbr: #d94516;
@@ -179,7 +179,7 @@ body {
         --body-bg-opacity: 0.2;
 
         --color-bg-code: rgb(40, 35, 48);
-        --color-bg-container: rgba(20, 20, 20, 0.97);
+        --color-bg-container: rgba(20, 20, 20, 0.99);
         --color-bg-field: #363636;
 
         --color-border: #333;
