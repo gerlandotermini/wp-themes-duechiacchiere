@@ -480,7 +480,8 @@ class duechiacchiere {
 .count,table.widefat,.striped>tbody>:nth-child(odd),ul.striped>:nth-child(odd),.alternate,.widefat thead tr th, .widefat thead tr td, .widefat tfoot tr th, .widefat tfoot tr td,.widefat th, .widefat td,.widefat p, .widefat ol, .widefat ul,
 .form-table th, .form-wrap label,#future-posts li, #published-posts li,#activity-widget #the-comment-list .comment-item,#latest-comments #the-comment-list .comment-meta,.community-events li,.notice, div.updated, div.error,
 .wp-core-ui .button-primary[disabled], .wp-core-ui .button-primary:disabled, .wp-core-ui .button-primary-disabled, .wp-core-ui .button-primary.disabled,.attachments-browser .media-toolbar,.media-menu,.media-modal-content,.media-frame-content,
-#screen-meta,.contextual-help-tabs ul li,.contextual-help-tabs-wrap,#contextual-help-back{
+#screen-meta,.contextual-help-tabs ul li,.contextual-help-tabs-wrap,#contextual-help-back,#poststuff .stuffbox .inside,table.widefat, .wp-editor-container, .stuffbox, p.popular-tags, .widgets-holder-wrap, .popular-tags, .feature-filter, .comment-ays,
+.edit-comment-author{
 	background-color: var(--color-bg) !important;
 	color: var(--color-text) !important;
 	scrollbar-color: var(--color-text) var(--color-bg);
@@ -498,7 +499,7 @@ button {
 #content_ifr{
 	width:99.9% !important;
 }
-.page-title-action,.insert-media,.preview.button,#collapse-button{
+.page-title-action,.insert-media,.preview.button,#collapse-button,.wp-core-ui .button-primary,.wp-core-ui .button-link{
 	background-color: var(--color-bg) !important;
 	color: var(--color-link) !important;
 }
