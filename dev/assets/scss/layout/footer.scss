@@ -161,7 +161,7 @@ footer {
     }
 
     @include media-query( large ) {
-        padding: var(--gap-xl) var(--gap-lg);
+        padding: var(--gap-lg);
     }
 
     @include media-query( print ) {
