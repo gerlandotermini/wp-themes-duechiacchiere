@@ -288,4 +288,7 @@ footer {
     @include media-query( large ) {
         bottom: var(--gap-xl);
     }
+    @include media-query( print ) {
+        display: none;
+    }
 }
