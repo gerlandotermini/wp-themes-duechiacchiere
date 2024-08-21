@@ -303,6 +303,18 @@ main {
                                 display: none;
                             }
                         }
+
+                        @include media-query( print ) {
+                            &::after{
+                                color: var(--color-link);
+                                display: inline;
+                                filter: none;
+                                content: " [ " attr(href) " ]" !important;
+                                width: initial;
+                                word-break: break-all;
+                                word-wrap: break-word;
+                            }
+                        }
                     }
                     blockquote {
                         padding-left: var(--gap-lg);
