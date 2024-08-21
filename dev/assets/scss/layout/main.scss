@@ -321,6 +321,10 @@ main {
                     }
                 }
                 .reply {
+                    @include media-query( print ) {
+                        display: none;
+                    }
+
                     a {
                         font-size: var(--font-size-sm);
                     }
