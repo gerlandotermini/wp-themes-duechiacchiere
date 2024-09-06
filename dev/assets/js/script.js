@@ -4,7 +4,8 @@
 // 2. Back to Top
 // 3. Comments
 // 4. Menu
-// 5. Miscellaneous
+// 5. Live Search
+// 6. Miscellaneous
 
 window.addEventListener( 'DOMContentLoaded', ( event ) => {
   // 1. Utilities
@@ -390,7 +391,70 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
     }
   });
 
-  // 5. Miscellaneous
+  // 5. Live Search
+  // ----------------------------------------------------------------
+  const searchField = document.getElementById( 'search-field' );
+  const categoryFilter = document.getElementById( 'search-category');
+  const dropdown = document.getElementById( 'live-results' );
+  const searchEndpoint = '//' + window.location.hostname + '/wp-json/wp/v2/posts?search=';
+  const decoder = document.createElement("textarea");
+  let timeoutID = 0;
+
+  searchField.addEventListener( 'input', ( e ) => {
+    if ( searchField.value.length < 3 ) {
+      return;
+    }
+
+    if ( timeoutID != 0 ) {
+      clearTimeout( timeoutID );
+    }
+
+    timeoutID = setTimeout( () => {
+      fetch( searchEndpoint + encodeURIComponent( searchField.value ) + ( categoryFilter != null ? '&categories=' + categoryFilter.value : '' ) )
+          .then( response => {
+            if ( !response.ok ) {
+                throw new Error( 'Network response was not ok' );
+            }
+            return response.json();
+          } )
+          .then( data => {
+            dropdown.innerHTML = '';
+
+            if ( data.length > 0 ) {
+              data.forEach( data => {
+                // Little trick to convert HTML entities returned from the endpoint
+                decoder.innerHTML = data.title.rendered;
+
+                const item = document.createElement( 'li' );
+                const link = document.createElement( 'a' );
+                link.href = data.link;
+                link.textContent = decoder.value;
+                item.appendChild( link );
+                dropdown.appendChild( item );
+              });
+            } else {
+              const item = document.createElement( 'li' );
+              item.textContent = 'Nessun risultato trovato'
+              dropdown.appendChild( item );
+            }
+            dropdown.style.display = 'block';
+            searchField.setAttribute( 'aria-expanded', 'true' );
+          } )
+          .catch( error => {
+            console.error( 'There was a problem with the fetch operation:', error );
+          } );
+    }, 500);
+  });
+
+  // Hide dropdown if user clicks outside of it
+  document.addEventListener('click', function(event) {
+      if (!dropdown.contains(event.target) && !document.getElementById('search-field').contains(event.target)) {
+          dropdown.style.display = 'none';
+          searchField.setAttribute( 'aria-expanded', 'false' );
+      }
+  });
+
+  // 6. Miscellaneous
   // ----------------------------------------------------------------
 
   // Open external links in a new tab/window

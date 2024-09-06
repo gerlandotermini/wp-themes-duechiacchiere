@@ -189,7 +189,7 @@ body {
         --color-link: #9eaaff;
         --color-svg: invert(37%) sepia(85%) saturate(341%) hue-rotate(170deg) brightness(94%) contrast(87%);
         --color-svg-inverse: invert(0%) sepia(4%) saturate(4456%) hue-rotate(0deg) brightness(92%) contrast(84%);
-        --color-text: #ccc;
+        --color-text: #bbb;
         --color-white: #fff;
 
         // 3.2 Months
@@ -222,8 +222,8 @@ body {
             --color-svg: invert(86%) sepia(13%) saturate(865%) hue-rotate(23deg) brightness(90%) contrast(85%);
         }
         &.theme-sep {
-            --color-link: #e77000;
-            --color-svg: invert(38%) sepia(79%) saturate(2535%) hue-rotate(16deg) brightness(96%) contrast(98%);
+            --color-link: #af6d3b;
+            --color-svg: invert(44%) sepia(65%) saturate(464%) hue-rotate(343deg) brightness(91%) contrast(85%);
         }
         &.theme-oct {
             --color-link: #d58f2a;

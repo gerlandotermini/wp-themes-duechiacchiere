@@ -326,25 +326,23 @@ class duechiacchiere {
 			$cached_image_path = '/cache/gravatar/' . md5( $_url ) . '.webp';
 
 			// Do we have this image in cache?
-			if ( file_exists( WP_CONTENT_DIR . $cached_image_path ) ) {
-				return WP_CONTENT_URL . $cached_image_path;
+			if ( !file_exists( WP_CONTENT_DIR . $cached_image_path ) ) {
+				// Download the image
+				$image_file = imagecreatefromstring( file_get_contents( $_url ) );
+
+				// Convert it to webp
+				$w = imagesx( $image_file );
+				$h = imagesy( $image_file );
+				$webp = imagecreatetruecolor( $w,$h );
+				imagecopy( $webp, $image_file, 0, 0, 0, 0, $w, $h );
+
+				// Save it to our cache
+				imagewebp( $webp, WP_CONTENT_DIR . $cached_image_path, 80 );
+
+				// Free up resources
+				imagedestroy( $image_file );
+				imagedestroy( $webp );
 			}
-
-			// Download the image
-			$image_file = imagecreatefromstring( file_get_contents( $_url ) );
-
-			// Convert it to webp
-			$w = imagesx( $image_file );
-			$h = imagesy( $image_file );
-			$webp = imagecreatetruecolor( $w,$h );
-			imagecopy( $webp, $image_file, 0, 0, 0, 0, $w, $h );
-
-			// Save it to our cache
-			imagewebp( $webp, WP_CONTENT_DIR . $cached_image_path, 80 );
-
-			// Free up resources
-			imagedestroy( $image_file );
-			imagedestroy( $webp );
 
 			return WP_CONTENT_URL . $cached_image_path;
 		}
