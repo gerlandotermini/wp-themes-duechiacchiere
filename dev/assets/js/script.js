@@ -396,7 +396,7 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
   const searchField = document.getElementById( 'search-field' );
   const categoryFilter = document.getElementById( 'search-category');
   const dropdown = document.getElementById( 'live-results' );
-  const searchEndpoint = '//' + window.location.hostname + '/wp-json/wp/v2/posts?search=';
+  const searchEndpoint = '//' + window.location.hostname + '/wp-json/wp/v2/posts?per_page=20&search=';
   const decoder = document.createElement("textarea");
   let timeoutID = 0;
 
