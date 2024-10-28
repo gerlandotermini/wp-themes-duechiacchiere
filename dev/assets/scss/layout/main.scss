@@ -298,6 +298,22 @@ main {
                     a {
                         padding-bottom: .1vh;
 
+                        &::after {
+                            margin: 0 1px 0 5px;
+                            width: 10px;
+                        }
+
+                        &.external::after {
+                            content: var(--icon-link-external);
+                        }
+        
+                        &.external.pdf::after {
+                            content: var(--icon-link-pdf);
+                        }
+
+                        // This simulates the underlining, to include the icon when needed
+                        background: linear-gradient(180deg, transparent 95%, var(--color-link) 95%);
+
                         @include media-query( print ) {
                             &.comment-reply-link {
                                 display: none;
