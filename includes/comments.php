@@ -8,28 +8,58 @@ $comment_count = get_comments_number();
 ?>
 
 <section id="comments" class="comments-area default-max-width">
-	<?php if ( have_comments() ): ?>
-		<h2>Commenti</h2>
-		<ol>
-		<?php
-			wp_list_comments(
-				array(
-					'avatar_size' => 40,
-					'callback' => array( 'duechiacchiere', 'comment_callback' ),
-					'format' => 'html5',
-					'short_ping' => true,
-					'style' => 'ol'
-				)
-			);
-		?>
-		</ol><!-- .comment-list -->
+	<div id="like-section">
+		<button id="like-comment-reply">Mi piace</button><?php
+	
+	$post_likes = get_comments( [ 'type' => 'like', 'post_id' => $GLOBALS[ 'post' ]->ID ] );
+	if ( !empty( $post_likes ) ) {
+		echo '<h2 class="visually-hidden">Piace a</h2><ol>';
+		$like_authors = [];
 
-		<?php if ( !comments_open() ) : ?>
-			<p>I commenti a quest'articolo sono chiusi.</p>
-		<?php endif; ?>
-	<?php endif; ?>
+		foreach( $post_likes as $a_post_like ) {
+			if ( '0' == $a_post_like->comment_approved || in_array( $a_post_like->comment_author, $like_authors ) ) {
+				continue;
+			}
+	
+			$avatar = get_avatar( $a_post_like->comment_author_email, 40, 'mystery', 'Avatar di ' . $a_post_like->comment_author, array( 'extra_attr' => 'aria-hidden="true" title="' . $a_post_like->comment_author . '"' ) );
+			if ( !empty ( $a_post_like->comment_author_url ) ) {
+				$avatar = '<a href="' . $a_post_like->comment_author_url . '">' . $avatar . '</a>';
+			}
 
-	<?php
+			echo '<li id="comment-' . get_comment_ID() .'" class="like-item">' . $avatar;
+
+			$like_authors[] = $a_post_like->comment_author;
+		}
+
+		echo '</ol><!-- .like-list -->';
+	}
+
+	echo '</div><div id="comment-section">';
+
+	$post_comments = get_comments( [ 'type' => 'comment', 'post_id' => $GLOBALS[ 'post' ]->ID ] );
+	if ( !empty( $post_comments ) ) {
+		echo '<h2>Commenti</h2><ol>';
+
+		wp_list_comments(
+			[
+				'avatar_size' => 35,
+				'callback' => array( 'duechiacchiere', 'comment_callback' ),
+				'format' => 'html5',
+				'short_ping' => true,
+				'style' => 'ol',
+				'type' => 'comment'
+			]
+		);
+		
+		echo '</ol><!-- .comment-list -->';
+
+		if ( !comments_open() ) {
+			echo '<p>I commenti a quest\'articolo sono chiusi.</p>';
+		}
+	}
+
+	echo '</div>';
+
 	comment_form( array(
 		// This action makes the assumption that WP is installed in the 'wp' subdirectory
 		'action' => get_home_url() . '/wp/wp-comments-post.php',
@@ -50,7 +80,6 @@ $comment_count = get_comments_number();
 		'title_reply_after'  => '</h2>',
 		'id_submit' => 'comment-submit',
 		'name_submit' => 'comment-submit',
-		'submit_field' => '<p class="form-submit">%1$s <button id="cancel-comment-reply" style="display:none">Annulla risposta</button> %2$s</p>'
-	) );
-	?>
+		'submit_field' => '<p class="form-submit">%1$s <button id="cancel-comment-reply" style="display:none">Annulla</button> %2$s</p>'
+	) ); ?>
 </section><!-- #comments -->

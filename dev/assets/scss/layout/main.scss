@@ -262,11 +262,29 @@ main {
             padding-bottom: var(--gap-lg);
         }
 
+        #like-section {
+            overflow: hidden;
+
+            li {
+                display: inline-block;
+
+                a {
+                    display: block;
+                }
+            }
+        }
+
         ol {
             list-style-type: none;
             padding-left: 0;
 
-            li {
+            img {
+                border-radius: var(--border-radius);
+                float: left;
+                margin-right: var(--gap-sm);
+            }
+
+            li:not(.like-item) {
                 margin: var(--gap-lg) 0;
                 padding-bottom: 0;
 
@@ -278,11 +296,6 @@ main {
                         line-height: 1.2rem;
                     }
 
-                    img {
-                        border-radius: var(--border-radius);
-                        float: left;
-                        margin-right: var(--gap-sm);
-                    }
                     a {
                         border-bottom: 0;
                     }
@@ -367,9 +380,30 @@ main {
         }
 
         #respond {
+            clear: both;
+
             @include media-query( print ) {
                 display: none;
             }
+        }
+
+        input, textarea, button {
+            background-color: var(--color-bg-field);
+            border: var(--border) var(--color-border);
+            border-radius: var(--border-radius);
+            color: var(--color-text);
+            font-weight: 300;
+            padding: var(--gap-xs) var(--gap-sm);
+
+            &:active, &:focus {
+                border: var(--border) var(--color-link);
+                outline: none;
+            }
+        }
+
+        #like-comment-reply {
+            float: left;
+            margin-right: var(--gap-sm);
         }
 
         #comment-form {
@@ -387,20 +421,7 @@ main {
                     width: 49%;
                 }
             }
-            input, textarea, button {
-                background-color: var(--color-bg-field);
-                border: var(--border) var(--color-border);
-                border-radius: var(--border-radius);
-                color: var(--color-text);
-                font-weight: 300;
-                padding: var(--gap-xs) var(--gap-sm);
-
-                &:active, &:focus {
-                    border: var(--border) var(--color-link);
-                    outline: none;
-                }
-
-            }
+            
             .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
                 width: 100%;
             }

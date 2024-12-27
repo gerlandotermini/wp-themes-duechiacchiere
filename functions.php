@@ -65,28 +65,129 @@ class duechiacchiere {
 
 		// Filter really long comments (spam)
 		add_filter( 'preprocess_comment' , array( __CLASS__, 'preprocess_comment' ) );
+		add_filter( 'pre_comment_approved' , array( __CLASS__, 'pre_comment_approved' ) , '99', 2 );
+
+		// Add support for Likes to the admin
+		add_filter( "admin_comment_types_dropdown", function( $_comment_types ) {
+			$_comment_types[ 'like' ] = 'Mi Piace';
+			return $_comment_types;
+		}, 10, 1 );		
 
 		// Remove attribute nofollow from comment author link, if present
-		add_filter( 'get_comment_author_link', array( __CLASS__, 'get_comment_author_link' ), 10, 3 );
+		add_filter( 'get_comment_author_link', function( $link, $author, $comment_ID ) {
+			$comment_url = get_comment_author_url( $comment_ID );
+	
+			if ( !empty( $comment_url ) ) {
+				return sprintf(
+					'<a href="%s" rel="external ugc" class="url">%s</a>',
+					get_comment_author_url( $comment_ID ),
+					$author
+				);
+			}
+	
+			return $link;
+		}, 10, 3 );
 
 		// Move the 'Cancel reply' link next to the button to submit a comment
 		add_filter( 'cancel_comment_reply_link', '__return_empty_string' );
 
 		// Add nofollow to the monthly archive links in the footer
-		add_filter( 'get_archives_link', array( __CLASS__, 'get_archives_link' ) );
+		add_filter( 'get_archives_link', function( $_link_html = '' ) {
+			return str_replace( '<a href=', '<a rel="nofollow" href=',  $_link_html );
+		} );
 
 		// Generate today's posts feed
-		add_feed( 'scrissi-oggi', array( __CLASS__, 'feed_today_in_the_past' ) );
-		add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ) );
+		add_feed( 'scrissi-oggi', function() {
+			load_template( ABSPATH . WPINC . '/feed-rss2.php' );
+		} );
+		add_action( 'pre_get_posts', function( $_query ) {
+			if ( $_query->is_feed( 'scrissi-oggi' ) ) {
+				$_query->set( 'post_type', 'post' );
+				$_query->set( 'monthnum', date_i18n( 'm' ) );
+				$_query->set( 'day', date_i18n( 'd' ) );
+				$_query->set( 'posts_per_page', -1 );
+				$_query->set( 'orderby', 'date' );
+				$_query->set( 'order', 'desc' );
+				$_query->set( 'date_query', array( 'before' => array( 'year' => date_i18n( 'Y' ), 'month' => 1, 'day' => 1 ), 'inclusive' => false ) );
+	
+				// Change the feed title
+				add_filter( 'wp_title_rss', array( __CLASS__, 'wp_title_rss' ) );
+				add_filter( 'get_post_time', array( __CLASS__, 'get_post_time' ) );
+				add_filter( 'get_feed_build_date', array( __CLASS__, 'get_feed_build_date' ), 10, 2 );
+			}
+			else if ( $_query->is_search() && $_query->is_main_query() ) {
+	
+				// Attempt to get the parameter, or default to 0
+				$category_id = (int)( $_REQUEST[ 'c' ] ?? 0 );
+				if ( !empty( $category_id ) ) {
+					$_query->set( 'cat', $category_id );
+				}
+			}
+		} );
 
 		// Customize the TinyMCE Editor
-		add_filter( 'mce_external_plugins', array( __CLASS__, 'mce_external_plugins' ) );
-		add_filter( 'mce_buttons', array( __CLASS__, 'mce_buttons' ) );
-		add_filter( 'tiny_mce_before_init', array( __CLASS__, 'tiny_mce_before_init' ) );
+		add_filter( 'mce_external_plugins', function( $_plugin_array ) {
+			$_plugin_array[ 'tinymce_duechiacchiere' ] = str_replace( get_site_url(), get_home_url(), get_template_directory_uri() ) . '/assets/js/tinymce.js';
+			return $_plugin_array;
+		} );
+		add_filter( 'mce_buttons', function( $_buttons ) {
+			// Add the styles dropdown
+			array_unshift( $_buttons, 'styleselect' );
+			
+			// No advanced buttons, please
+			if ( ( $key = array_search( 'wp_adv', $_buttons ) ) !== false ) {
+				unset( $_buttons[ $key ] );
+			}
+	
+			// Move the wp_more button 
+			if ( ( $key = array_search( 'wp_more', $_buttons ) ) !== false ) {
+				unset( $_buttons[ $key ] );
+			}
+	
+			array_push( $_buttons, 'duechiacchiere_code' );
+			array_push( $_buttons, 'duechiacchiere_recipe' );
+			array_push( $_buttons, 'duechiacchiere_abbr' );
+			array_push( $_buttons, 'wp_more' );
+	
+			return $_buttons;
+		} );
+		add_filter( 'tiny_mce_before_init', function( $_settings ) {
+			// Only show the block elements that we should use
+			$_settings[ 'block_formats' ] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Code=code;Preformatted=pre';
+	
+			// Insert the array, JSON ENCODED, into 'style_formats'
+			$_settings[ 'style_formats' ] = json_encode( array(
+				array(
+					'title' => 'lang="en"',
+					'selector' => '*',
+					'attributes' => array( 'lang' => 'en' )
+				),
+				array(
+					'title' => 'hreflang="en"',
+					'selector' => 'a',
+					'attributes' => array( 'hreflang' => 'en' )
+				)
+			) );
+	
+			// Dark Mode
+			$_settings['content_style'] = '@media (prefers-color-scheme:dark){.mce-content-body{background:#404b53;color:#ddd;}.mce-content-body a{color:#bfb6f8}.mce-content-body a[data-mce-selected]{background-color:#555}}';
+	
+			return $_settings;
+		} );
 		add_action( 'admin_head', array( __CLASS__, 'admin_head' ) );
 		
 		// Add a Post List button to the admin bar
-		add_action( 'admin_bar_menu', array( __CLASS__, 'admin_bar_menu' ), 100 );
+		add_action( 'admin_bar_menu', function( $_wp_admin_bar ) {
+			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			if ( is_plugin_active( 'editorial-calendar/edcal.php' ) ) {
+				$args = array(
+					'id' => 'post-list',
+					'title' => __( 'Posts' ),
+					'href' => get_admin_url( 1, 'admin.php?page=cal' )
+				);
+				$_wp_admin_bar->add_node($args);	
+			}
+		}, 100 );
 
 		// Disable built-in sitemap
 		add_filter( 'wp_sitemaps_enabled', '__return_false' );
@@ -351,59 +452,23 @@ class duechiacchiere {
 	}
 
 	public static function preprocess_comment( $commentdata = array() ) {
-		if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 || preg_match( '/\s/', $commentdata[ 'comment_content' ] ) === 0 ) {
+		if ( $commentdata[ 'comment_content' ] === '[##like##]' ) {
+			$commentdata[ 'comment_type' ] = 'like';
+			$commentdata[ 'comment_karma' ] = 0;
+		}
+		else if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 || preg_match( '/\s/', $commentdata[ 'comment_content' ] ) === 0 ) {
 			die( 'Pussa via brutta bertuccia' );
 		};
 
 		return $commentdata;
 	}
 
-	public static function get_comment_author_link( $link, $author, $comment_ID ) {
-        $comment_url = get_comment_author_url( $comment_ID );
-
-		if ( !empty( $comment_url ) ) {
-			return sprintf(
-				'<a href="%s" rel="external ugc" class="url">%s</a>',
-				get_comment_author_url( $comment_ID ),
-				$author
-			);
+	public static function pre_comment_approved( $approved , $commentdata ) {
+		if ( $commentdata[ 'comment_content' ] === '[##like##]' ) {
+			$approved = 1;
 		}
 
-		return $link;
-	}
-
-	public static function get_archives_link( $link_html = '' ) {
-		return str_replace( '<a href=', '<a rel="nofollow" href=',  $link_html );
-	}
-
-	// Make sure to save the Permalinks settings for WP to add this feed to its rewrite rules
-	public static function feed_today_in_the_past() {
-		load_template( ABSPATH . WPINC . '/feed-rss2.php' );
-	}
-
-	public static function pre_get_posts( $query ) {
-		if ( $query->is_feed( 'scrissi-oggi' ) ) {
-			$query->set( 'post_type', 'post' );
-			$query->set( 'monthnum', date_i18n( 'm' ) );
-			$query->set( 'day', date_i18n( 'd' ) );
-			$query->set( 'posts_per_page', -1 );
-			$query->set( 'orderby', 'date' );
-			$query->set( 'order', 'desc' );
-			$query->set( 'date_query', array( 'before' => array( 'year' => date_i18n( 'Y' ), 'month' => 1, 'day' => 1 ), 'inclusive' => false ) );
-
-			// Change the feed title
-			add_filter( 'wp_title_rss', array( __CLASS__, 'wp_title_rss' ) );
-			add_filter( 'get_post_time', array( __CLASS__, 'get_post_time' ) );
-			add_filter( 'get_feed_build_date', array( __CLASS__, 'get_feed_build_date' ), 10, 2 );
-		}
-		else if ( $query->is_search() && $query->is_main_query() ) {
-
-			// Attempt to get the parameter, or default to 0
-			$category_id = (int)( $_REQUEST[ 'c' ] ?? 0 );
-			if ( !empty( $category_id ) ) {
-				$query->set( 'cat', $category_id );
-			}
-		}
+		return $approved;	
 	}
 
 	public static function wp_title_rss( $title ) {
@@ -414,59 +479,6 @@ class duechiacchiere {
 	}
 	public static function get_feed_build_date( $max_modified_time, $format ) {
 		return date( 'D, d M Y H:i:s +0000' );
-	}
-
-	public static function mce_external_plugins( $plugin_array ) {
-		$plugin_array[ 'tinymce_duechiacchiere' ] = str_replace( get_site_url(), get_home_url(), get_template_directory_uri() ) . '/assets/js/tinymce.js';
-		return $plugin_array;
-	}
-
-	// Callback function to insert 'styleselect' into the $buttons array
-	public static function mce_buttons( $buttons ) {
-		// Add the styles dropdown
-		array_unshift( $buttons, 'styleselect' );
-		
-		// No advanced buttons, please
-		if ( ( $key = array_search( 'wp_adv', $buttons ) ) !== false ) {
-			unset( $buttons[ $key ] );
-		}
-
-		// Move the wp_more button 
-		if ( ( $key = array_search( 'wp_more', $buttons ) ) !== false ) {
-			unset( $buttons[ $key ] );
-		}
-
-		array_push( $buttons, 'duechiacchiere_code' );
-		array_push( $buttons, 'duechiacchiere_recipe' );
-		array_push( $buttons, 'duechiacchiere_abbr' );
-		array_push( $buttons, 'wp_more' );
-
-		return $buttons;
-	}
-
-	// Add custom styles to TinyMCE
-	public static function tiny_mce_before_init( $settings ) {
-		// Only show the block elements that we should use
-		$settings[ 'block_formats' ] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Code=code;Preformatted=pre';
-
-		// Insert the array, JSON ENCODED, into 'style_formats'
-		$settings[ 'style_formats' ] = json_encode( array(
-			array(
-				'title' => 'lang="en"',
-				'selector' => '*',
-				'attributes' => array( 'lang' => 'en' )
-			),
-			array(
-				'title' => 'hreflang="en"',
-				'selector' => 'a',
-				'attributes' => array( 'hreflang' => 'en' )
-			)
-		) );
-
-		// Dark Mode
-		$settings['content_style'] = '@media (prefers-color-scheme:dark){.mce-content-body{background:#404b53;color:#ddd;}.mce-content-body a{color:#bfb6f8}.mce-content-body a[data-mce-selected]{background-color:#555}}';
-
-		return $settings;
 	}
 
 	public static function admin_head() {
@@ -522,18 +534,6 @@ div.mce-toolbar-grp {
 </style>';
 	}
 
-	public static function admin_bar_menu( $wp_admin_bar ) {
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-		if ( is_plugin_active( 'editorial-calendar/edcal.php' ) ) {
-			$args = array(
-				'id' => 'post-list',
-				'title' => __( 'Posts' ),
-				'href' => get_admin_url( 1, 'admin.php?page=cal' )
-			);
-			$wp_admin_bar->add_node($args);	
-		}
-	}
-
 	// Used in comments.php to customize each comment's structure
 	public static function comment_callback( $comment, $args, $depth ) {
 		// Don't show pending comments
@@ -551,18 +551,18 @@ div.mce-toolbar-grp {
 							echo get_avatar( $comment, $args[ 'avatar_size' ], 'mystery', 'Avatar di ' . $comment->comment_author, array( 'extra_attr' => 'aria-hidden="true"' ) );
 						}
 						
-						echo '<div class="comment-author-name">' . get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span></div>';
+						echo '<p class="comment-author-name">' . get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span></p>';
 					?>
 					</div>
 
-					<div class="comment-metadata">
+					<p class="comment-metadata">
 						<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
 							<time datetime="<?php comment_time( 'c' ); ?>">
 								<?php printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() ); ?>
 							</time>
 						</a>
 						<?php edit_comment_link( '[M]', ' <span class="edit-link">', '</span>' ); ?>
-					</div>
+					</p>
 				</header>
 
 				<div class="comment-content">

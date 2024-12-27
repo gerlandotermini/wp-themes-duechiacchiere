@@ -82,68 +82,96 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
       }
     }
 
-    let commentReply = ( e ) => {
-      e.preventDefault();
-
-      // If the user had clicked on another reply button, restore its original state
-      showOtherReplyButton();
-
-      // Hide the reply button
-      e.currentTarget.setAttribute( 'id', 'restore-reply-button' );
-      e.currentTarget.classList.add( 'visually-hidden' );
-
-      // Set aside the original reply title
-      const replyTitle = document.getElementById( 'reply-title' );
-      if ( !replyTitle.hasAttribute( 'data-original-title' ) ) {
-        replyTitle.setAttribute( 'data-original-title', replyTitle.textContent );
-      }
-
-      // Update the heading
-      replyTitle.textContent = e.currentTarget.getAttribute( 'data-replyto' );
-
-      // Set the value of the hidden field for the parent comment
-      document.getElementById( 'comment_parent' ).value = e.currentTarget.getAttribute( 'data-commentid' );
-
-      // Move the comment form
-      e.currentTarget.closest( 'li' ).appendChild( document.getElementById( 'comment-form' ).parentElement );
-
-      // Show the 'cancel' button
-      document.getElementById( 'cancel-comment-reply' ).style.display = 'block';
-
-      // Focus on the comment field
-      document.getElementById( 'comment' ).focus();
-    }
-
-    let commentCancelReply = ( e ) => {
-      e.preventDefault();
-
-      // If the user had clicked on another reply button, restore its original state
-      showOtherReplyButton();
-
-      // Hide the 'cancel' button
-      document.getElementById( 'cancel-comment-reply' ).style.display = 'none';
-
-      // Reset the heading
-      const replyTitle = document.getElementById( 'reply-title' );
-      replyTitle.textContent = replyTitle.getAttribute( 'data-original-title' );
-
-      // Reset the value of the hidden field for the parent comment
-      document.getElementById( 'comment_parent' ).value = 0;
-
-      // Move the form back
-      document.getElementById( 'comments' ).appendChild( document.getElementById( 'comment-form' ).parentElement );
-
-      // Focus on the comment field
-      document.getElementById( 'comment' ).focus();
-    }
-
     document.querySelectorAll( '.comment-reply-link' ).forEach( link => {
-      addMultiEventListener( link, commentReply );
+      addMultiEventListener( link, function( e ) {
+        e.preventDefault();
+
+        // If the user had clicked on another reply button, restore its original state
+        showOtherReplyButton();
+
+        // Hide the reply button
+        e.currentTarget.setAttribute( 'id', 'restore-reply-button' );
+        e.currentTarget.classList.add( 'visually-hidden' );
+
+        // Set aside the original reply title
+        const replyTitle = document.getElementById( 'reply-title' );
+        if ( !replyTitle.hasAttribute( 'data-original-title' ) ) {
+          replyTitle.setAttribute( 'data-original-title', replyTitle.textContent );
+        }
+
+        // Update the heading
+        replyTitle.textContent = e.currentTarget.getAttribute( 'data-replyto' );
+
+        // Set the value of the hidden field for the parent comment
+        document.getElementById( 'comment_parent' ).value = e.currentTarget.getAttribute( 'data-commentid' );
+
+        // Reset the button label
+        const replyButton = document.getElementById( 'comment-submit' );
+        if ( replyButton.hasAttribute( 'data-original-value' ) ) {
+          replyButton.value = replyButton.getAttribute( 'data-original-value' );
+        }
+
+        // Show the comment field, if hidden by the Like button
+        const comment_field = document.getElementById( 'comment' );
+        comment_field.style.display = 'block';
+        if ( comment_field.value == '[##like##]' ) {
+          comment_field.value = '';
+        }
+
+        // Show the Like button
+        document.getElementById( 'like-comment-reply' ).style.display = 'block';
+
+        // Move the comment form
+        e.currentTarget.closest( 'li' ).appendChild( document.getElementById( 'comment-form' ).parentElement );
+
+        // Show the 'cancel' button
+        document.getElementById( 'cancel-comment-reply' ).style.display = 'block';
+
+        // Focus on the comment field
+        document.getElementById( 'comment' ).focus();
+      } );
     } );
 
     const cancel_comment_reply = document.getElementById( 'cancel-comment-reply' );
     if ( cancel_comment_reply !== null ) {
-      addMultiEventListener( cancel_comment_reply, commentCancelReply );
+      addMultiEventListener( cancel_comment_reply, function( e ) {
+        e.preventDefault();
+
+        // If the user had clicked on another reply button, restore its original state
+        showOtherReplyButton();
+
+        // Hide the 'cancel' button
+        document.getElementById( 'cancel-comment-reply' ).style.display = 'none';
+
+        // Reset the heading
+        const replyTitle = document.getElementById( 'reply-title' );
+        replyTitle.textContent = replyTitle.getAttribute( 'data-original-title' );
+
+        // Reset the button label
+        const replyButton = document.getElementById( 'comment-submit' );
+        if ( replyButton.hasAttribute( 'data-original-value' ) ) {
+          replyButton.value = replyButton.getAttribute( 'data-original-value' );
+        }
+
+        // Show the comment field, if hidden by the Like button
+        const comment_field = document.getElementById( 'comment' );
+        comment_field.style.display = 'block';
+        if ( comment_field.value == '[##like##]' ) {
+          comment_field.value = '';
+        }
+
+        // Show the Like button and avatars
+        document.getElementById( 'like-section' ).style.display = 'block';
+
+        // Reset the value of the hidden field for the parent comment
+        document.getElementById( 'comment_parent' ).value = 0;
+
+        // Move the form back
+        document.getElementById( 'comments' ).appendChild( document.getElementById( 'comment-form' ).parentElement );
+
+        // Focus on the comment field
+        document.getElementById( 'comment' ).focus();
+      } );
     }
 
     // Make sure that the comment is not empty
@@ -169,6 +197,42 @@ window.addEventListener( 'DOMContentLoaded', ( event ) => {
         e.target.submit();
       }
     } );
+
+    // Like button
+    const like_comment_reply = document.getElementById( 'like-comment-reply' );
+    if ( like_comment_reply !== null ) {
+      addMultiEventListener( like_comment_reply, function( e ) {
+        e.preventDefault();
+
+        // Add a placeholder value as the comment value
+        const comment_field = document.getElementById( 'comment' );
+        comment_field.style.display = 'none';
+        comment_field.value = '[##like##]';
+
+        // Update the form's look and feel
+        const replyTitle = document.getElementById( 'reply-title' );
+        if ( !replyTitle.hasAttribute( 'data-original-title' ) ) {
+          replyTitle.setAttribute( 'data-original-title', replyTitle.textContent );
+        }
+        replyTitle.textContent = "Ti è piaciuto questo post? Dimmi chi sei.";
+
+        const replyButton = document.getElementById( 'comment-submit' );
+        if ( !replyButton.hasAttribute( 'data-original-value' ) ) {
+          replyButton.setAttribute( 'data-original-value', replyButton.value );
+        }
+        replyButton.value = 'Mi piace';
+
+        // Show the 'cancel' button
+        document.getElementById( 'cancel-comment-reply' ).style.display = 'block';
+
+        // Hide the Like button and bring up the form
+        document.getElementById( 'like-section' ).style.display = 'none';
+        document.getElementById( 'like-section' ).after( document.getElementById( 'comment-form' ).parentElement );
+
+        // Focus the name field
+        document.getElementById( 'author' ).focus();
+      } );
+    }
   }
 
   // Populate comment fields with cookie values, if available
