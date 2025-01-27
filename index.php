@@ -37,7 +37,9 @@
 			}
 			$categories_html = implode( ', ', $categories_html );
 
-			$comment_count = get_comments_number();
+			$post_comments = get_comments( [ 'type' => 'comment', 'post_id' => $GLOBALS[ 'post' ]->ID ] );
+			$comment_count = count( $post_comments );
+
 			switch( $comment_count ) {
 				case 0:
 					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Commenta</a>';

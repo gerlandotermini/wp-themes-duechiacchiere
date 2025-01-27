@@ -26,7 +26,7 @@ $comment_count = get_comments_number();
 				$avatar = '<a href="' . $a_post_like->comment_author_url . '">' . $avatar . '</a>';
 			}
 
-			echo '<li id="comment-' . get_comment_ID() .'" class="like-item">' . $avatar;
+			echo '<li id="comment-' . get_comment_ID() .'" class="like-item">' . $avatar . '</li>';
 
 			$like_authors[] = $a_post_like->comment_author;
 		}
@@ -36,20 +36,18 @@ $comment_count = get_comments_number();
 
 	echo '</div><div id="comment-section">';
 
-	$post_comments = get_comments( [ 'type' => 'comment', 'post_id' => $GLOBALS[ 'post' ]->ID ] );
+	// $post_comments is initialized in index.php
 	if ( !empty( $post_comments ) ) {
 		echo '<h2>Commenti</h2><ol>';
 
-		wp_list_comments(
-			[
-				'avatar_size' => 35,
-				'callback' => array( 'duechiacchiere', 'comment_callback' ),
-				'format' => 'html5',
-				'short_ping' => true,
-				'style' => 'ol',
-				'type' => 'comment'
-			]
-		);
+		wp_list_comments( [
+			'avatar_size' => 35,
+			'callback' => array( 'duechiacchiere', 'comment_callback' ),
+			'format' => 'html5',
+			'short_ping' => true,
+			'style' => 'ol',
+			'type' => 'comment'
+		] );
 		
 		echo '</ol><!-- .comment-list -->';
 
