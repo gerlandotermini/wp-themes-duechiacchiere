@@ -36,8 +36,8 @@ $comment_count = get_comments_number();
 
 	echo '</div><div id="comment-section">';
 
-	// $post_comments is initialized in index.php
-	if ( !empty( $post_comments ) ) {
+	// $duechiacchiere_post_comments is define in index.php
+	if ( !empty( $GLOBALS[ 'duechiacchiere_comment_count' ] ) ) {
 		echo '<h2>Commenti</h2><ol>';
 
 		wp_list_comments( [

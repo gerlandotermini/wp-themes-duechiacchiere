@@ -37,10 +37,11 @@
 			}
 			$categories_html = implode( ', ', $categories_html );
 
+			global $duechiacchiere_comment_count;
 			$post_comments = get_comments( [ 'type' => 'comment', 'post_id' => $GLOBALS[ 'post' ]->ID ] );
-			$comment_count = count( $post_comments );
+			$duechiacchiere_comment_count = count( $post_comments );
 
-			switch( $comment_count ) {
+			switch( $duechiacchiere_comment_count ) {
 				case 0:
 					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Commenta</a>';
 					break;
@@ -48,7 +49,7 @@
 					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments">1 commento</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
 					break;
 				default:
-					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments">' . $comment_count . ' commenti</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
+					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments">' . $duechiacchiere_comment_count . ' commenti</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';
 			}
 			?>
 
