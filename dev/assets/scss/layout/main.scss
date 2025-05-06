@@ -63,7 +63,7 @@ main {
         }
 
         .entry {
-            // Paragraphs and lists
+            // Paragraphs
             p {
                 font-size: 1.1rem;
                 margin: 0 0 var(--gap-sm);
@@ -212,6 +212,9 @@ main {
                 border-left: 5px solid var(--color-border);
                 padding-left: var(--gap-lg);
                 margin: var(--gap-sm) 0 var(--gap-lg);
+            }
+            strong {
+                font-weight: 700;
             }
 
             cite {
