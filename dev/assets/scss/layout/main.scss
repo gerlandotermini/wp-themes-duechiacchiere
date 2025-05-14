@@ -136,6 +136,7 @@ main {
             // Videos
             .wp-video, .mejs-container, .mejs-overlay.load {
                 margin: var(--gap-lg) 0;
+                max-height: 500px;
                 max-width: 100% !important;
                 position: relative;
                 width: 100% !important;
