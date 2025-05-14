@@ -144,6 +144,9 @@ main {
                     display: none;
                 }
             }
+            .wp-video-shortcode video, video.wp-video-shortcode {
+                max-height: 465px;
+            }
             .mejs-container.wp-video-shortcode {
                 border-radius: var(--border-radius);
                 overflow: hidden;
