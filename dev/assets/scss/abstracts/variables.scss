@@ -57,10 +57,10 @@ $assets: '/content/themes/duechiacchiere/assets';
     --font-size-sm: 1rem;
     --font-size-md: 1.2rem;
     --font-size-lg: 1.4rem;
-    --font-size-xl: 1.5rem;
+    --font-size-xl: 1.7rem;
 
     @include media-query( large ) {
-        --font-size-xl: 1.8rem;
+        --font-size-xl: 1.9rem;
     }
 
     // 1.6 Icons - https://www.svgbackgrounds.com/tools/svg-to-css/
