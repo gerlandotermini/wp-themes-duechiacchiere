@@ -4,11 +4,11 @@ A custom WordPress theme designed for optimized comment interaction, dark mode s
 
 ## 🎯 Features
 
-- **Dark mode toggle** — Seamlessly switch between light and dark themes. :contentReference[oaicite:1]{index=1}  
-- **Live search** — AJAX-powered search to filter posts in real-time. :contentReference[oaicite:2]{index=2}  
-- **Like comments** — Users can “Like” posts via integrated comment placeholders. :contentReference[oaicite:3]{index=3}  
-- **Improved reply system** — Reworked JavaScript for comment replies and form repositioning. :contentReference[oaicite:4]{index=4}  
-- **SCSS-based styling** — Modular styles with a structured SASS workflow. :contentReference[oaicite:5]{index=5}
+- **Dark mode toggle** — Seamlessly switch between light and dark themes.
+- **Live search** — AJAX-powered search to filter posts in real-time.
+- **Like comments** — Users can “Like” posts via integrated comment placeholders.
+- **Improved reply system** — Reworked JavaScript for comment replies and form repositioning.
+- **SCSS-based styling** — Modular styles with a structured SASS workflow.
 
 ## 🚀 Installation
 
