@@ -3,12 +3,7 @@
 		<h2 class="visually-hidden">Cerca nel sito</h2>
 		<form role="search" action="<?= is_single() ? '/' : $_SERVER[ 'REQUEST_URI' ] ?>" method="get">
 			<label for="search-field" class="visually-hidden">Digita le parole da cercare e premi invio</label>
-			<?php if ( is_category() || is_single() ): // See header.php for $category and $categories var definition ?>
-				<input type="text" id="search-field" role="combobox" aria-controls="live-results" aria-expanded="false" aria-haspopup="listbox" autocomplete="off" name="s" required="required" placeholder="Cerca in questa stanza...">
-				<input type="hidden" id="search-category" name="c" value="<?= is_category() ? $category->term_id : $categories[ 0 ]->term_id ?>">
-			<?php else: ?>
-				<input type="text" id="search-field" role="combobox" aria-controls="live-results" aria-expanded="false" aria-haspopup="listbox" autocomplete="off" name="s" required="required" placeholder="Cerca nell'archivio...">
-			<?php endif; ?>
+			<input type="text" id="search-field" role="combobox" aria-controls="live-results" aria-expanded="false" aria-haspopup="listbox" autocomplete="off" name="s" required="required" placeholder="Cerca nell'archivio...">
 			<button type='submit' id="search-button" class="svg"><span class="visually-hidden">Avvia la ricerca</span></button>
 		</form>
 		<ul id="live-results" role="listbox"></ul>
