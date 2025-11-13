@@ -178,6 +178,7 @@ main {
             .mejs-captions-position {
                 background: hsla(0,0%,0%,.7);
                 bottom: 0;
+                padding: var(--gap-sm) 0;
             }
             .mejs-captions-position-hover {
                 bottom: 40px;
