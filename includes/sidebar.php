@@ -1,12 +1,13 @@
 <aside>
 	<div class="widget" id="search-form">
 		<h2 class="visually-hidden">Cerca nel sito</h2>
-		<form role="search" action="<?= is_single() ? '/' : $_SERVER[ 'REQUEST_URI' ] ?>" method="get">
+		<form role="search" action="<?= esc_url( home_url( '/' ) ); ?>" method="get">
 			<label for="search-field" class="visually-hidden">Digita le parole da cercare e premi invio</label>
-			<input type="text" id="search-field" role="combobox" aria-controls="live-results" aria-expanded="false" aria-haspopup="listbox" autocomplete="off" name="s" required="required" placeholder="Cerca nell'archivio...">
-			<button type='submit' id="search-button" class="svg"><span class="visually-hidden">Avvia la ricerca</span></button>
+			<input type="search" id="search-field" aria-controls="live-results" aria-expanded="false" aria-autocomplete="list" autocomplete="off" name="s" required placeholder="Cerca nell'archivio...">
+			<button type='submit' id="search-button" class="svg" aria-label="Avvia la ricerca"></button>
 		</form>
-		<ul id="live-results" role="listbox"></ul>
+		<ul id="live-results" role="listbox" aria-live="polite" aria-label="Risultati della ricerca"></ul>
+
 	</div>
 
 	<?php
@@ -35,10 +36,10 @@
 				
 				foreach ( $posts_in_series as $a_post ) {
 					if ( $a_post->ID == $GLOBALS[ 'post' ]->ID ) {
-						echo '<li class="current-post">' . $a_post->post_title . '</li>';
+						echo '<li class="current-post">' . esc_html( $a_post->post_title ) . '</li>';
 					}
 					else {
-						echo '<li><a href="' . get_permalink( $a_post->ID ) . '">' . $a_post->post_title . '</a>';
+						echo '<li><a href="' . esc_url( get_permalink( $a_post->ID ) ) . '">' . esc_html( $a_post->post_title ) . '</a>';
 						edit_post_link( '[M]', ' ', '', $a_post->ID );
 						echo '</li>';
 					}

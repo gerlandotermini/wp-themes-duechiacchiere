@@ -489,20 +489,25 @@ class duechiacchiere {
 
 	// Used in sidebar.php and header.php to show a short post excerpt
 	public static function get_substr_words( $string = '', $desired_length = 100 ) {
-		$parts = preg_split( '/([\s\n\r]+)/u', strip_tags( strip_shortcodes( $string ) ), -1, PREG_SPLIT_DELIM_CAPTURE );
+		// Strip shortcodes and HTML, decode entities
+		$clean_string = html_entity_decode( strip_tags( strip_shortcodes( $string ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+
+		// Split by spaces, preserving them
+		$parts = preg_split( '/([\s\n\r]+)/u', $clean_string, -1, PREG_SPLIT_DELIM_CAPTURE );
 		$parts_count = count( $parts );
-	
+
 		$length = 0;
 		$last_part = 0;
-		for (; $last_part < $parts_count; ++$last_part) {
-			$length += strlen( $parts[ $last_part ] );
+		for ( ; $last_part < $parts_count; ++$last_part ) {
+			$length += mb_strlen( $parts[ $last_part ], 'UTF-8' );
 			if ( $length > $desired_length ) {
 				break;
 			}
 		}
-	
-		return implode( array_slice( $parts, 0, $last_part ) ) . ( ( $parts_count > $last_part) ? '&hellip;' : '' );
+
+		return implode( array_slice( $parts, 0, $last_part ) ) . ( $parts_count > $last_part ? '&hellip;' : '' );
 	}
+
 
 	// Used in contact-form.php and header.php to strip malicious code from emails sent via the blog
 	public static function scrub_field( $header, $strip_tags = true ) {

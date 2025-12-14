@@ -69,8 +69,16 @@ aside {
             li {
                 font-size: var(--font-size-sm);
 
+                &.active a {
+                    color: var(--color-link);
+                }
+
                 a {
                     color: var(--text-color);
+
+                    &:hover, &:focus {
+                        color: var(--color-link);
+                    }
                 }
             }
         }
