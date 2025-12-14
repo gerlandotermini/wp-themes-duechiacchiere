@@ -14,59 +14,255 @@ class duechiacchiere {
 		add_post_type_support( 'page', 'excerpt' );
 
 		// Redirect shortlinks (with post id) to the actual canonical URLs
-		add_filter( 'template_redirect', array( __CLASS__, 'redirect_post_id_to_canonical_url' ) );
+		add_filter( 'template_redirect', function() {
+			$requested_url = str_replace( '/', '', $_SERVER[ 'REQUEST_URI' ] );
+
+			if ( is_404() && is_numeric( $requested_url ) ) {
+				$canonical = get_permalink( intval( $requested_url ) );
+
+				if ( !empty( $canonical ) ) {
+					wp_redirect( $canonical, 301 );
+				}
+			}
+		} );
 
 		// Sorry, no Gutenberg for you
 		add_filter( 'use_block_editor_for_post_type', '__return_false' );
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'wp_enqueue_scripts' ), 100 );
+		add_filter( 'wp_should_output_buffer_template_for_enhancement', '__return_false' );
+		add_action( 'wp_enqueue_scripts', function() {
+			if ( ( !defined( 'USE_INLINE_STYLES_SCRIPTS' ) || !USE_INLINE_STYLES_SCRIPTS ) ) {
+				if ( !self::is_naked_day() ) {
+					wp_enqueue_style( 'duechiacchiere', get_template_directory_uri() . '/assets/css/style.css', array(), null, 'all' );
+				}
+
+				wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/assets/js/script.js', array(), null, true );
+				wp_localize_script( 'duechiacchiere', 'duechiacchiere',
+					array( 
+						'COOKIEHASH' => COOKIEHASH
+					)
+				);
+			}
+
+			wp_dequeue_style( 'wp-block-library' );
+			wp_dequeue_style( 'wp-block-library-theme' );
+			wp_dequeue_style( 'wc-block-style' );
+			wp_dequeue_style( 'global-styles' );
+
+			wp_deregister_script( 'comment-reply' );
+		}, 100 );
 
 		// Insert inline styles and scripts, except on CSS Naked Day - https://css-naked-day.github.io/
 		// If constant is not defined, wp_enqueue_scripts will take care of adding the external reference as needed
 		if ( !self::is_naked_day() && defined( 'USE_INLINE_STYLES_SCRIPTS' ) && USE_INLINE_STYLES_SCRIPTS ) {
-			add_action( 'wp_head', array( __CLASS__, 'print_styles' ) );
+			add_action( 'wp_head', function() {
+				$css = file_get_contents( get_template_directory() . '/assets/css/style.css' );
+				echo "<style>$css</style>";
+			} );
 		}
 
-		add_action( 'wp_footer', array( __CLASS__, 'print_scripts' ) );
+		add_action( 'wp_footer', function () {
+			$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
+			echo "<script>const duechiacchiere={'COOKIEHASH':'" . COOKIEHASH . "'};$js</script>";
+		} );
 
 		// Make the main menu more accessible
-		add_filter( 'walker_nav_menu_start_el', array( __CLASS__, 'walker_nav_menu_start_el' ), 10, 4 );
+		add_filter( 'walker_nav_menu_start_el', function ( $_item_output, $_item, $_depth, $_args ) {
+			if ( !empty( $_item->description ) ) {
+				$_item_output = str_replace( $_args->link_after . '</a>', $_args->link_after . '</a>' . '<p class="menu-item-description">' . $_item->description . '</p>', $_item_output );
+			}
+		
+			return $_item_output;
+		}, 10, 4 );
 
 		// Customize image HTML wrappers
-		add_shortcode( 'caption', array( __CLASS__, 'img_caption_html' ) );
+		add_shortcode( 'caption', function( $_attr, $_content = null ) {
+			extract( shortcode_atts( array(
+				'id'	=> '',
+				'align'	=> 'alignnone',
+				'width'	=> '',
+				'caption' => ''
+			), $_attr ) );
+			
+			// New approach implemented in WP 3.4: caption is not an attribute anymore
+			$caption = trim( strip_tags( $_content, '<a>' ) );
+			$image = trim( str_replace( $caption, '', $_content ) );
+		
+			if ( 1 > (int) $width || empty( $caption ) )
+				return $_content;
+		
+			if ( $id ) {
+				$id = 'id="' . esc_attr( $id ) . '" ';
+			}
+
+			return "<figure {$id}class=\"wp-caption $align\">$image<figcaption class=\"wp-caption-text\" aria-hidden=\"true\">$caption</figcaption></figure>";
+		} );
 
 		// Add appropriate classes to external links
 		add_filter( 'the_content', array( __CLASS__, 'the_content' ) );
 		add_filter( 'comment_text', array( __CLASS__, 'the_content' ) );
-		add_filter( 'the_content_more_link', array( __CLASS__, 'the_content_more_link' ) );
+		add_filter( 'the_content_more_link', function( $_more_link = '' ) {
+			return str_replace( 'more-link', 'svg more-link', $_more_link );
+		} );
 
 		// Add a link to leave a comment to the feed
-		add_filter( 'the_content_feed', array( __CLASS__, 'the_content_feed') );
+		add_filter( 'the_content_feed', function( $_content = '', $_feed_type = 'rss2' ) {
+			return $_content . '<p><a href="' . get_permalink() . '#comments">Lascia un commento</a></p>';
+		} );
 
 		// Don't generate thumbnails, this theme only uses full size
-		add_filter( 'intermediate_image_sizes', array( __CLASS__, 'intermediate_image_sizes' ) );
+		add_filter( 'intermediate_image_sizes', function( $_default_sizes = [] ) {
+			return array_intersect( $_default_sizes, [ 'medium' ] );
+		} );
 
 		// Tweak style and script HTML tags
 		add_filter( 'style_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 		add_filter( 'script_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
-		add_filter( 'script_loader_tag', array( __CLASS__, 'script_loader_tag'), 20, 2 );
+		add_filter( 'script_loader_tag', function( $tag, $handle ) {
+			if ( 'duechiacchiere' !== $handle ) {
+				return $tag;
+			}
+
+			return str_replace( ' src', ' defer src', $tag );
+		}, 20, 2 );
 
 		// Improve the built-in search a bit
-		add_filter( 'posts_clauses', array( __CLASS__, 'post_clauses' ), 10, 2 );
+		add_filter( 'posts_clauses', function( $clauses, $query ) {
+			// Do something only if this is a search request
+			if ( !$query->is_search && !$query->is_404 ) {
+					return $clauses;
+			}
+
+			// Get the search term
+			if ( empty( $query->query_vars[ 'search_terms' ] ) ) {
+				return $clauses;
+			}
+
+			$search_terms = $query->query_vars[ 'search_terms' ];
+
+			// Build the query
+			$search_query = array();
+
+			foreach ( $search_terms as $a_term ) {
+				$search_query[] = $GLOBALS[ 'wpdb' ]->prepare( " ({$GLOBALS[ 'wpdb' ]->posts}.post_title LIKE %s OR {$GLOBALS[ 'wpdb' ]->posts}.post_content LIKE %s)", '%' . $a_term . '%', '%' . $a_term . '%' );
+			}
+			$clauses[ 'where' ] .= ' AND (' . implode( ' OR ', $search_query ) . ')';
+			
+			// Restrict search to only published posts
+			$clauses[ 'where' ] .= " AND ({$GLOBALS[ 'wpdb' ]->posts}.post_type = 'post' AND {$GLOBALS[ 'wpdb' ]->posts}.post_status = 'publish')";
+
+			// Show the most recent first
+			$clauses[ 'orderby' ] = "{$GLOBALS['wpdb']->posts}.post_date DESC";
+
+			return $clauses;
+		}, 10, 2 );
 
 		// Update the sitemap file and the cache whenever a post is added or modified
-		add_action( 'transition_post_status', array( __CLASS__, 'transition_post_status' ), 10, 3 );
+		add_action( 'transition_post_status', function( $new_status = '', $old_status = '', $post = 0 ) {
+			// Bail if we're not dealing with a published post, which shouldn't be cached or listed in the sitemap anyway
+			if ( $old_status != 'publish' && $new_status != 'publish' ) {
+				return 0;
+			}
+
+			// Cache
+			// -------------------------------------------------------------------------------
+
+			if ( function_exists( 'get_sample_permalink' ) ) {
+				// Note: get_sample_permalink doesn't add a leading slash to the permalink, and returns an array
+				$permalink = get_sample_permalink( $post->ID );
+				$permalink_path = '/' . $permalink[ 1 ];
+
+				// Delete this post from the cache
+				duechiacchiere::delete_from_cache( $permalink_path );
+			}
+
+			// Sitemap
+			// -------------------------------------------------------------------------------
+
+			// Bail if the status didn't change (like saving a new version of a draft)
+			if ( $old_status === $new_status ) {
+				return 0;
+			}
+
+			self::_generate_sitemap();
+		}, 10, 3 );
 
 		// Update cache after a comment is posted or edited or deleted
-		add_action( 'comment_post', array( __CLASS__, 'comment_post' ), 10, 3 );
-		add_action( 'edit_comment', array( __CLASS__, 'edit_comment' ), 10, 2 );
-		add_action( 'transition_comment_status', array( __CLASS__, 'transition_comment_status' ), 10, 3 );
+		add_action( 'comment_post', function( $comment_id = 0, $comment_approved = 0, $commentdata = array() ) {
+			// Delete cached version of this page (footer will regenerate it) and refresh homepage
+			if ( !empty( $commentdata[ 'comment_post_ID' ] ) && $comment_approved ) {
+				$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
+				duechiacchiere::delete_from_cache( $permalink_path );
+			}
+		}, 10, 3 );
+		add_action( 'edit_comment', function( $comment_id = 0, $commentdata = array() ) {
+			// Delete cached version of this page (footer will regenerate it) and refresh homepage
+			if ( !empty( $commentdata[ 'comment_post_ID' ] ) ) {
+				$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
+				duechiacchiere::delete_from_cache( $permalink_path );
+				self::$comment_edited = true;
+			}
+		}, 10, 2 );
+		add_action( 'transition_comment_status', function( $new_status = '', $old_status = '', $comment = 0 ) {
+			// Bail if we're not dealing with an approved comment, which shouldn't be cached anyway, or if we already cleared the cache in edit_comment
+			if ( ( $old_status != 'approved' && $new_status != 'approved' ) || self::$comment_edited ) {
+				return 0;
+			}
+
+			$permalink_path = str_replace( home_url(), '', get_permalink( $comment->comment_post_ID ) );
+
+			// Delete the old version from the cache
+			duechiacchiere::delete_from_cache( $permalink_path );
+		}, 10, 3 );
 
 		// Cache Gravatars
-		add_filter( 'get_avatar_url', array( __CLASS__, 'get_avatar_url' ), 10, 3 );
+		add_filter( 'get_avatar_url', function( $_url, $_comment, $_args ) { 
+			if ( !empty( $_url ) ) {
+				$cached_image_path = '/cache/gravatar/' . md5( $_url ) . '.webp';
+
+				// Do we have this image in cache?
+				if ( !file_exists( WP_CONTENT_DIR . $cached_image_path ) ) {
+					// Download the image
+					$image_file = imagecreatefromstring( file_get_contents( $_url ) );
+
+					// Convert it to webp
+					$w = imagesx( $image_file );
+					$h = imagesy( $image_file );
+					$webp = imagecreatetruecolor( $w,$h );
+					imagecopy( $webp, $image_file, 0, 0, 0, 0, $w, $h );
+
+					// Save it to our cache
+					imagewebp( $webp, WP_CONTENT_DIR . $cached_image_path, 80 );
+
+					// Free up resources
+					imagedestroy( $image_file );
+					imagedestroy( $webp );
+				}
+
+				return WP_CONTENT_URL . $cached_image_path;
+			}
+
+			return $_url; 
+		}, 10, 3 );
 
 		// Filter really long comments (spam)
-		add_filter( 'preprocess_comment' , array( __CLASS__, 'preprocess_comment' ) );
-		add_filter( 'pre_comment_approved' , array( __CLASS__, 'pre_comment_approved' ) , '99', 2 );
+		add_filter( 'preprocess_comment' , function( $commentdata = array() ) {
+			if ( $commentdata[ 'comment_content' ] === '[##like##]' ) {
+				$commentdata[ 'comment_type' ] = 'like';
+				$commentdata[ 'comment_karma' ] = 0;
+			}
+			else if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 || preg_match( '/\s/', $commentdata[ 'comment_content' ] ) === 0 ) {
+				die( 'Pussa via brutta bertuccia' );
+			};
+
+			return $commentdata;
+		} );
+		add_filter( 'pre_comment_approved' , function( $approved , $commentdata ) {
+			if ( $commentdata[ 'comment_content' ] === '[##like##]' ) {
+				$approved = 1;
+			}
+
+			return $approved;	
+		} , '99', 2 );
 
 		// Add support for Likes to the admin
 		add_filter( "admin_comment_types_dropdown", function( $_comment_types ) {
@@ -112,9 +308,15 @@ class duechiacchiere {
 				$_query->set( 'date_query', array( 'before' => array( 'year' => date_i18n( 'Y' ), 'month' => 1, 'day' => 1 ), 'inclusive' => false ) );
 	
 				// Change the feed title
-				add_filter( 'wp_title_rss', array( __CLASS__, 'wp_title_rss' ) );
-				add_filter( 'get_post_time', array( __CLASS__, 'get_post_time' ) );
-				add_filter( 'get_feed_build_date', array( __CLASS__, 'get_feed_build_date' ), 10, 2 );
+				add_filter( 'wp_title_rss', function( $title ) {
+					return "Dall'archivio di $title";
+				} );
+				add_filter( 'get_post_time', function( $title ) {
+					return date_i18n( 'Y-m-d 00:00:01' );
+				} );
+				add_filter( 'get_feed_build_date', function( $max_modified_time, $format ) {
+					return date( 'D, d M Y H:i:s +0000' );
+				}, 10, 2 );
 			}
 			else if ( $_query->is_search() && $_query->is_main_query() ) {
 	
@@ -175,7 +377,10 @@ class duechiacchiere {
 	
 			return $_settings;
 		} );
-		add_action( 'admin_head', array( __CLASS__, 'admin_head' ) );
+		add_action( 'admin_head', function() {
+			// Admin Dark Mode
+			echo '<style>:root{--color-bg:#404b53;--color-bg-accent:#e0e0e3;--color-link:#bfb6f8;--color-text:#ddd}@media (prefers-color-scheme:dark){#activity-widget #the-comment-list .comment-item,#category-tabs .tabs,#contextual-help-back,#edit-slug-box,#future-posts li,#latest-comments #the-comment-list .comment-meta,#major-publishing-actions,#newmeta,#post-status-info,#postcustomstuff thead th,#poststuff .stuffbox .inside,#published-posts li,#screen-meta,#wp-content-editor-tools,.alternate,.attachments-browser .media-toolbar,.comment-ays,.community-events li,.contextual-help-tabs ul li,.contextual-help-tabs-wrap,.count,.edit-comment-author,.feature-filter,.form-table th,.form-wrap label,.howto,.mce-panel,.media-frame-content,.media-menu,.media-modal-content,.notice,.popular-tags,.postbox,.postbox button,.show-settings,.striped>tbody>:nth-child(odd),.stuffbox,.tabs-panel,.widefat ol,.widefat p,.widefat td,.widefat tfoot tr td,.widefat tfoot tr th,.widefat th,.widefat thead tr td,.widefat thead tr th,.widefat ul,.widgets-holder-wrap,.wp-admin,.wp-core-ui .button-primary-disabled,.wp-core-ui .button-primary.disabled,.wp-core-ui .button-primary:disabled,.wp-core-ui .button-primary[disabled],.wp-core-ui select,.wp-editor-container,div.error,div.updated,input,p.popular-tags,table.widefat,textarea,ul.striped>:nth-child(odd){background-color:var(--color-bg)!important;color:var(--color-text)!important;scrollbar-color:var(--color-text) var(--color-bg)}.form-wrap p,p.description{filter:brightness(175%)}#dashboard-widgets h3,#dashboard-widgets h4,#dashboard_quick_press .drafts h2,h1,h2{color:var(--color-text)}button,div.mce-toolbar-grp{background-color:var(--color-bg-accent)!important}#content_ifr{width:99.9%!important}#collapse-button,.insert-media,.page-title-action,.preview.button,.wp-core-ui .button-link,.wp-core-ui .button-primary{background-color:var(--color-bg)!important;color:var(--color-link)!important}#category-tabs a,#major-publishing-actions a,#wpcontent a{color:var(--color-link)!important}.contextual-help-tabs ul li.active{font-weight:700}#contextual-help-back,.contextual-help-tabs ul li a{border:0}}</style>';
+		} );
 		
 		// Add a Post List button to the admin bar
 		add_action( 'admin_bar_menu', function( $_wp_admin_bar ) {
@@ -196,80 +401,6 @@ class duechiacchiere {
 		// Miscellaneous clean up
 		self::_remove_emoji_hooks();
 		self::_remove_wp_headers();
-	}
-
-	public static function redirect_post_id_to_canonical_url() {
-		$requested_url = str_replace( '/', '', $_SERVER[ 'REQUEST_URI' ] );
-
-		if ( is_404() && is_numeric( $requested_url ) ) {
-			$canonical = get_permalink( intval( $requested_url ) );
-
-			if ( !empty( $canonical ) ) {
-				wp_redirect( $canonical, 301 );
-			}
-		}
-	}
-
-	public static function wp_enqueue_scripts() {
-		if ( ( !defined( 'USE_INLINE_STYLES_SCRIPTS' ) || !USE_INLINE_STYLES_SCRIPTS ) ) {
-			if ( !self::is_naked_day() ) {
-				wp_enqueue_style( 'duechiacchiere', get_template_directory_uri() . '/assets/css/style.css', array(), null, 'all' );
-			}
-
-			wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/assets/js/script.js', array(), null, true );
-			wp_localize_script( 'duechiacchiere', 'duechiacchiere',
-				array( 
-					'COOKIEHASH' => COOKIEHASH
-				)
-			);
-		}
-
-		wp_dequeue_style( 'wp-block-library' );
-		wp_dequeue_style( 'wp-block-library-theme' );
-		wp_dequeue_style( 'wc-block-style' );
-		wp_dequeue_style( 'global-styles' );
-
-		wp_deregister_script( 'comment-reply' );
-	}
-
-	public static function print_styles() {
-		$css = file_get_contents( get_template_directory() . '/assets/css/style.css' );
-		echo "<style>$css</style>";
-	}
-
-	public static function print_scripts() {
-		$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
-		echo "<script>const duechiacchiere={'COOKIEHASH':'" . COOKIEHASH . "'};$js</script>";
-	}
-
-	public static function walker_nav_menu_start_el( $_item_output, $_item, $_depth, $_args ) {
-		if ( !empty( $_item->description ) ) {
-			$_item_output = str_replace( $_args->link_after . '</a>', $_args->link_after . '</a>' . '<p class="menu-item-description">' . $_item->description . '</p>', $_item_output );
-		}
-	
-		return $_item_output;
-	}
-
-	public static function img_caption_html( $_attr, $_content = null ) {
-		extract( shortcode_atts( array(
-			'id'	=> '',
-			'align'	=> 'alignnone',
-			'width'	=> '',
-			'caption' => ''
-		), $_attr ) );
-		
-		// New approach implemented in WP 3.4: caption is not an attribute anymore
-		$caption = trim( strip_tags( $_content, '<a>' ) );
-		$image = trim( str_replace( $caption, '', $_content ) );
-	
-		if ( 1 > (int) $width || empty( $caption ) )
-			return $_content;
-	
-		if ( $id ) {
-			$id = 'id="' . esc_attr( $id ) . '" ';
-		}
-
-		return "<figure {$id}class=\"wp-caption $align\">$image<figcaption class=\"wp-caption-text\" aria-hidden=\"true\">$caption</figcaption></figure>";
 	}
 
 	public static function the_content( $html = '' ) {
@@ -300,242 +431,9 @@ class duechiacchiere {
 		return wp_kses_post($dom->saveHTML());
 	}
 
-	public static function the_content_more_link( $_more_link = '' ) {
-		return str_replace( 'more-link', 'svg more-link', $_more_link );
-	}
-
-	public static function the_content_feed( $_content = '', $_feed_type = 'rss2' ) {
-		return $_content . '<p><a href="' . get_permalink() . '#comments">Lascia un commento</a></p>';
-	}
-
-	// Keep just the medium size, for mobile devices
-	public static function intermediate_image_sizes( $_default_sizes = [] ) {
-		return array_intersect( $_default_sizes, [ 'medium' ] );
-	}
-
-	public static function wp_video_shortcode( $html = '' ) {
-		return str_replace( '<video', '<video crossorigin="anonymous"', $html );
-	}
-
 	// This function assumes that WordPress is installed in the 'wp' subfolder
 	public static function script_loader_src( $src, $handle ) {
 		return str_replace( get_site_url(), get_home_url() . '/wp', $src );
-	}
-
-	// Defer loading of the Javascript code
-	public static function script_loader_tag( $tag, $handle ) {
-		if ( 'duechiacchiere' !== $handle ) {
-			return $tag;
-		}
-
-		return str_replace( ' src', ' defer src', $tag );
-	}
-
-	public static function post_clauses( $clauses, $query ) {
-		// Do something only if this is a search request
-		if ( !$query->is_search && !$query->is_404 ) {
-				return $clauses;
-		}
-
-		// Get the search term
-		if ( empty( $query->query_vars[ 'search_terms' ] ) ) {
-			return $clauses;
-		}
-
-		$search_terms = $query->query_vars[ 'search_terms' ];
-
-		// Build the query
-		$search_query = array();
-
-		foreach ( $search_terms as $a_term ) {
-			$search_query[] = $GLOBALS[ 'wpdb' ]->prepare( " ({$GLOBALS[ 'wpdb' ]->posts}.post_title LIKE %s OR {$GLOBALS[ 'wpdb' ]->posts}.post_content LIKE %s)", '%' . $a_term . '%', '%' . $a_term . '%' );
-		}
-		$clauses[ 'where' ] .= ' AND (' . implode( ' OR ', $search_query ) . ')';
-		
-		// Restrict search to only published posts
-		$clauses[ 'where' ] .= " AND ({$GLOBALS[ 'wpdb' ]->posts}.post_type = 'post' AND {$GLOBALS[ 'wpdb' ]->posts}.post_status = 'publish')";
-
-		// Show the most recent first
-		$clauses[ 'orderby' ] = "{$GLOBALS['wpdb']->posts}.post_date DESC";
-
-		return $clauses;
-	}
-
-	// Handle cache and sitemap generation
-	public static function transition_post_status( $new_status = '', $old_status = '', $post = 0 ) {
-		// Bail if we're not dealing with a published post, which shouldn't be cached or listed in the sitemap anyway
-		if ( $old_status != 'publish' && $new_status != 'publish' ) {
-			return 0;
-		}
-
-		// Cache
-		// -------------------------------------------------------------------------------
-
-		if ( function_exists( 'get_sample_permalink' ) ) {
-			// Note: get_sample_permalink doesn't add a leading slash to the permalink, and returns an array
-			$permalink = get_sample_permalink( $post->ID );
-			$permalink_path = '/' . $permalink[ 1 ];
-
-			// Delete this post from the cache
-			duechiacchiere::delete_from_cache( $permalink_path );
-		}
-
-		// Sitemap
-		// -------------------------------------------------------------------------------
-
-		// Bail if the status didn't change (like saving a new version of a draft)
-		if ( $old_status === $new_status ) {
-			return 0;
-		}
-
-		self::_generate_sitemap();
-	}
-
-	// Refresh the cache whenever a comment is submitted or changes status
-	public static function comment_post( $comment_id = 0, $comment_approved = 0, $commentdata = array() ) {
-
-		// Delete cached version of this page (footer will regenerate it) and refresh homepage
-		if ( !empty( $commentdata[ 'comment_post_ID' ] ) && $comment_approved ) {
-			$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
-			duechiacchiere::delete_from_cache( $permalink_path );
-		}
-	}
-
-	// Refresh the cache whenever a comment is edited or changes status
-	public static function edit_comment( $comment_id = 0, $commentdata = array() ) {
-
-		// Delete cached version of this page (footer will regenerate it) and refresh homepage
-		if ( !empty( $commentdata[ 'comment_post_ID' ] ) ) {
-			$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
-			duechiacchiere::delete_from_cache( $permalink_path );
-			self::$comment_edited = true;
-		}
-	}
-
-	// Refresh the cache if a comment is deleted or restored from the trash, or changes status
-	public static function transition_comment_status( $new_status = '', $old_status = '', $comment = 0 ) {
-
-		// Bail if we're not dealing with an approved comment, which shouldn't be cached anyway, or if we already cleared the cache in edit_comment
-		if ( ( $old_status != 'approved' && $new_status != 'approved' ) || self::$comment_edited ) {
-			return 0;
-		}
-
-		$permalink_path = str_replace( home_url(), '', get_permalink( $comment->comment_post_ID ) );
-
-		// Delete the old version from the cache
-		duechiacchiere::delete_from_cache( $permalink_path );
-	}
-
-	public static function get_avatar_url( $_url, $_comment, $_args ) { 
-		if ( !empty( $_url ) ) {
-			$cached_image_path = '/cache/gravatar/' . md5( $_url ) . '.webp';
-
-			// Do we have this image in cache?
-			if ( !file_exists( WP_CONTENT_DIR . $cached_image_path ) ) {
-				// Download the image
-				$image_file = imagecreatefromstring( file_get_contents( $_url ) );
-
-				// Convert it to webp
-				$w = imagesx( $image_file );
-				$h = imagesy( $image_file );
-				$webp = imagecreatetruecolor( $w,$h );
-				imagecopy( $webp, $image_file, 0, 0, 0, 0, $w, $h );
-
-				// Save it to our cache
-				imagewebp( $webp, WP_CONTENT_DIR . $cached_image_path, 80 );
-
-				// Free up resources
-				imagedestroy( $image_file );
-				imagedestroy( $webp );
-			}
-
-			return WP_CONTENT_URL . $cached_image_path;
-		}
-
-		return $_url; 
-	}
-
-	public static function preprocess_comment( $commentdata = array() ) {
-		if ( $commentdata[ 'comment_content' ] === '[##like##]' ) {
-			$commentdata[ 'comment_type' ] = 'like';
-			$commentdata[ 'comment_karma' ] = 0;
-		}
-		else if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 || preg_match( '/\s/', $commentdata[ 'comment_content' ] ) === 0 ) {
-			die( 'Pussa via brutta bertuccia' );
-		};
-
-		return $commentdata;
-	}
-
-	public static function pre_comment_approved( $approved , $commentdata ) {
-		if ( $commentdata[ 'comment_content' ] === '[##like##]' ) {
-			$approved = 1;
-		}
-
-		return $approved;	
-	}
-
-	public static function wp_title_rss( $title ) {
-		return "Dall'archivio di $title";
-	}
-	public static function get_post_time( $title ) {
-		return date_i18n( 'Y-m-d 00:00:01' );
-	}
-	public static function get_feed_build_date( $max_modified_time, $format ) {
-		return date( 'D, d M Y H:i:s +0000' );
-	}
-
-	public static function admin_head() {
-		// Admin Dark Mode
-		echo '<style>
-:root {
-	--color-bg: #404b53;
-	--color-bg-accent: #e0e0e3;
-	--color-link: #bfb6f8;
-	--color-text: #ddd;
-}
-@media (prefers-color-scheme: dark) {
-.wp-admin,.show-settings,#edit-slug-box,input,textarea,#wp-content-editor-tools,.mce-panel,#post-status-info,#newmeta,#postcustomstuff thead th,.wp-core-ui select,.postbox,.postbox button,#major-publishing-actions,#category-tabs .tabs,.tabs-panel,.howto,
-.count,table.widefat,.striped>tbody>:nth-child(odd),ul.striped>:nth-child(odd),.alternate,.widefat thead tr th, .widefat thead tr td, .widefat tfoot tr th, .widefat tfoot tr td,.widefat th, .widefat td,.widefat p, .widefat ol, .widefat ul,
-.form-table th, .form-wrap label,#future-posts li, #published-posts li,#activity-widget #the-comment-list .comment-item,#latest-comments #the-comment-list .comment-meta,.community-events li,.notice, div.updated, div.error,
-.wp-core-ui .button-primary[disabled], .wp-core-ui .button-primary:disabled, .wp-core-ui .button-primary-disabled, .wp-core-ui .button-primary.disabled,.attachments-browser .media-toolbar,.media-menu,.media-modal-content,.media-frame-content,
-#screen-meta,.contextual-help-tabs ul li,.contextual-help-tabs-wrap,#contextual-help-back,#poststuff .stuffbox .inside,table.widefat, .wp-editor-container, .stuffbox, p.popular-tags, .widgets-holder-wrap, .popular-tags, .feature-filter, .comment-ays,
-.edit-comment-author{
-	background-color: var(--color-bg) !important;
-	color: var(--color-text) !important;
-	scrollbar-color: var(--color-text) var(--color-bg);
-}
-p.description, .form-wrap p{
-	filter: brightness(175%);
-}
-h1,h2,
-#dashboard-widgets h4, #dashboard-widgets h3, #dashboard_quick_press .drafts h2 {
-	color: var(--color-text);
-}
-button {
-	background-color: var(--color-bg-accent) !important;
-}
-#content_ifr{
-	width:99.9% !important;
-}
-.page-title-action,.insert-media,.preview.button,#collapse-button,.wp-core-ui .button-primary,.wp-core-ui .button-link{
-	background-color: var(--color-bg) !important;
-	color: var(--color-link) !important;
-}
-#wpcontent a, #major-publishing-actions a, #category-tabs a{
-	color: var(--color-link) !important;
-}
-div.mce-toolbar-grp {
-	background-color: var(--color-bg-accent) !important;
-}
-.contextual-help-tabs ul li.active{
-	font-weight:700;
-}
-#contextual-help-back,.contextual-help-tabs ul li a{
-	border:0;
-}
-}
-</style>';
 	}
 
 	// Used in comments.php to customize each comment's structure
@@ -589,6 +487,7 @@ div.mce-toolbar-grp {
 			}
 	}
 
+	// Used in sidebar.php and header.php to show a short post excerpt
 	public static function get_substr_words( $string = '', $desired_length = 100 ) {
 		$parts = preg_split( '/([\s\n\r]+)/u', strip_tags( strip_shortcodes( $string ) ), -1, PREG_SPLIT_DELIM_CAPTURE );
 		$parts_count = count( $parts );
@@ -605,6 +504,7 @@ div.mce-toolbar-grp {
 		return implode( array_slice( $parts, 0, $last_part ) ) . ( ( $parts_count > $last_part) ? '&hellip;' : '' );
 	}
 
+	// Used in contact-form.php and header.php to strip malicious code from emails sent via the blog
 	public static function scrub_field( $header, $strip_tags = true ) {
 		$headers_to_remove = array(
 			'/to\:/i',
@@ -625,6 +525,7 @@ div.mce-toolbar-grp {
 	 	return htmlspecialchars( $clean_string );
 	}
 
+	// Compress output before saving it in the cache
 	public static function scrub_output( $html = '' ) {
 		// No need to have type defined in the script tag anymore
 		$html = str_replace( array( " type='text/javascript'", ' type="text/javascript"' ), '', $html );
@@ -663,6 +564,7 @@ div.mce-toolbar-grp {
 		return $html;
 	}
 
+	// Yes, this function could use some love...
 	public static function get_cache_path( $permalink = '' ) {
 		// Is this the homepage?
 		if ( $permalink == '/' ) {
