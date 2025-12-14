@@ -24,9 +24,12 @@
 		}
 		
 		$categories = wp_get_post_terms( $GLOBALS[ 'post' ]->ID, 'category', 'orderby=id' );
-		if ( count( $categories ) > 1 ) {
+		if ( count( $categories ) > 0 ) {
 			$which_camu = $categories[ 0 ]->slug;
-			$section = $categories[ 1 ]->slug;
+
+			if ( count( $categories ) > 1 ) {
+				$section = $categories[ 1 ]->slug;
+			}
 		}
 
 		$title_tag = 'h1';
