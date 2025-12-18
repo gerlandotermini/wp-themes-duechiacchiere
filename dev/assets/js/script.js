@@ -310,6 +310,19 @@ window.addEventListener('DOMContentLoaded', () => {
       );
     }
 
+    if (menuOverlay) {
+      addMobileListener(menuOverlay, 'click', () => { toggleOverlay('hide'); toggleMenu('close'); toggleSearch('close'); });
+      addMobileListener(
+        menuOverlay,
+        'touchstart',
+        () => {
+          toggleOverlay('hide');
+          toggleMenu('close');
+          toggleSearch('close');
+        }
+      );
+    }
+
     // Reset menu/search state
     toggleMenu('close');
     toggleSearch('close');
@@ -476,7 +489,6 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
 
   // 6. Miscellaneous
   // ----------------------------------------------------------------
