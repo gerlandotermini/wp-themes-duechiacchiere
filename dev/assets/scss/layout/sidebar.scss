@@ -12,19 +12,19 @@ aside {
         position: relative;
 
         @include media-query( mobile ) {
+            bottom: -50px;
             left: 50%;
             opacity: 0;
             padding: 0 var(--gap-lg) var(--gap-xl);
             position: fixed;
-            bottom: 50px;
             transform: translateX(-50%);
-            transition: opacity 1s ease-out;
+            transition: opacity 1s ease-out, bottom 1s ease-out;
             width: 100%;
-            z-index: 0;
+            z-index: 475;
 
             &.active {
+                bottom: 50px;
                 opacity: 1;
-                z-index: 475;
             }
         }
 

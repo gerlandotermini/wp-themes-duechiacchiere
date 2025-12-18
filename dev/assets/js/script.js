@@ -274,7 +274,6 @@ window.addEventListener('DOMContentLoaded', () => {
         searchForm.removeEventListener('transitionend', onEnd);
       });
     } else {
-      searchForm.style.zIndex = 475;
       searchForm.classList.add('active');
       toolbarSearchButton.classList.add('active');
       document.getElementById('search-field').focus();
