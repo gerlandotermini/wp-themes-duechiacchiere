@@ -1,7 +1,7 @@
 <aside>
-	<div class="widget" id="search-form">
+	<div class="widget" id="search-form-widget">
 		<h2 class="visually-hidden">Cerca nel sito</h2>
-		<form role="search" action="<?= esc_url( home_url( '/' ) ); ?>" method="get">
+		<form role="search" action="<?= esc_url( home_url( '/' ) ); ?>" method="get" id="search-form">
 			<label for="search-field" class="visually-hidden">Digita le parole da cercare e premi invio</label>
 			<input type="search" id="search-field" aria-controls="live-results" aria-expanded="false" aria-autocomplete="list" autocomplete="off" name="s" required placeholder="Cerca nell'archivio...">
 			<button type='submit' id="search-button" class="svg" aria-label="Avvia la ricerca"></button>

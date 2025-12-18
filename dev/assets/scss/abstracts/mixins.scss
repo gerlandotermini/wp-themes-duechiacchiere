@@ -1,19 +1,24 @@
 // Media query selector
 // ------------------------------------------------
-@mixin media-query( $breakpoint: "large" ) {
+$bp-mobile-max: 1024px;
+$bp-tablet-min: 768px;
+$bp-large-min: 1025px;
+$bp-tablet-max: 1200px;
+
+@mixin media-query($breakpoint: "large") {
     @if $breakpoint == "large" {
-        @media only screen and ( min-width: 1025px ) { @content; }
+        @media only screen and (min-width: $bp-large-min) { @content; }
     }
     @else if $breakpoint == "tablet" {
-        @media only screen and ( min-width: 768px ) { @content; }
+        @media only screen and (min-width: $bp-tablet-min) { @content; }
     }
     @else if $breakpoint == "tablet-max" {
-        @media only screen and ( max-width: 1200px ) { @content; }
+        @media only screen and (max-width: $bp-tablet-max) { @content; }
     }
     @else if $breakpoint == "print" {
         @media only print { @content; }
     }
     @else {
-        @media only screen and ( max-width: 1024px ) { @content; }
+        @media only screen and (max-width: $bp-mobile-max) { @content; }
     }
 }

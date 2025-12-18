@@ -37,6 +37,32 @@ window.addEventListener('DOMContentLoaded', () => {
     return '';
   };
 
+  const isVisible = (el) => {
+    if (!el) return false;
+
+    const style = getComputedStyle(el);
+    const rect = el.getBoundingClientRect();
+
+    return (
+      style.display !== 'none' &&
+      style.visibility !== 'hidden' &&
+      style.opacity !== '0' &&
+      rect.width > 0 &&
+      rect.height > 0
+    );
+  };
+
+  const cssVar = (name) =>
+    getComputedStyle(document.documentElement)
+      .getPropertyValue(name)
+      .trim();
+
+  const mq = {
+    mobile: window.matchMedia(`(max-width: ${cssVar('--bp-mobile-max')})`),
+    tablet: window.matchMedia(`(min-width: ${cssVar('--bp-tablet-min')})`),
+    large: window.matchMedia(`(min-width: ${cssVar('--bp-large-min')})`)
+  };
+
   // 2. Back to Top
   // ----------------------------------------------------------------
   const backToTopButton = document.getElementById('backtotop');
@@ -176,15 +202,31 @@ window.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('url')) document.getElementById('url').value = getCookie('comment_author_url_' + duechiacchiere.COOKIEHASH);
   }
 
-  // 4. Menu
+  // 4. Menu (mobile-first, breakpoint-aware)
   // ----------------------------------------------------------------
   const toolbarMenuButton = document.getElementById('mobile-nav-button');
   const toolbarSearchButton = document.getElementById('mobile-search-button');
   const menuOverlay = document.getElementById('menu-overlay');
-  let bodyWidth = 0;
+  const primaryMenu = document.getElementById('primary-menu');
 
-  const toggleOverlay = (e, action) => {
+  let bodyWidth = 0;
+  let mobileListeners = [];
+  let searchForm = document.getElementById('search-form-widget');
+
+  const addMobileListener = (el, type, fn, options) => {
+    el.addEventListener(type, fn, options);
+    mobileListeners.push({ el, type, fn, options });
+  };
+
+  const removeMobileListeners = () => {
+    mobileListeners.forEach(({ el, type, fn, options }) => el.removeEventListener(type, fn, options));
+    mobileListeners = [];
+  };
+
+  // Overlay toggle
+  const toggleOverlay = (action) => {
     if (!menuOverlay) return;
+
     if (action === 'hide') {
       menuOverlay.classList.remove('active');
       document.body.style.paddingRight = 0;
@@ -195,48 +237,104 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const toggleMenu = (e, action) => {
-    if (e.type !== 'touchstart') e.preventDefault();
-    const menu = document.getElementById('primary-menu');
-    if (!menu || !menuOverlay || !toolbarMenuButton) return;
+  // Menu toggle
+  const toggleMenu = (action) => {
+    if (!primaryMenu || !toolbarMenuButton) return;
+
+    // Close search if opening menu
+    if (action !== 'close' && searchForm?.classList.contains('active')) {
+      toggleSearch('close');
+    }
 
     if (action === 'close' || toolbarMenuButton.classList.contains('active')) {
-      menu.classList.remove('active');
+      primaryMenu.classList.remove('active');
       toolbarMenuButton.classList.remove('active');
-      toggleOverlay(e, 'hide');
+      toggleOverlay('hide');
     } else {
-      toggleSearch(e, 'close', true);
-      menu.classList.add('active');
+      primaryMenu.classList.add('active');
       toolbarMenuButton.classList.add('active');
-      toggleOverlay(e, 'show');
+      toggleOverlay('show');
     }
   };
 
-  const toggleSearch = (e, action, fromMenu = false) => {
-    if (!fromMenu) toggleMenu(e, 'close');
-    const searchForm = document.getElementById('search-form');
-    if (!searchForm) return;
+  // Search toggle
+  const toggleSearch = (action) => {
+    if (!searchForm || !toolbarSearchButton) return;
+
+    // Close menu if opening search
+    if (action !== 'close' && toolbarMenuButton?.classList.contains('active')) {
+      toggleMenu('close');
+    }
 
     if (action === 'close' || toolbarSearchButton.classList.contains('active')) {
+      searchForm.classList.remove('active');
       toolbarSearchButton.classList.remove('active');
-      toggleOverlay(e, 'hide');
-      searchForm.style.zIndex = 'initial';
+      toggleOverlay('hide');
+      searchForm.addEventListener('transitionend', function onEnd() {
+        searchForm.removeEventListener('transitionend', onEnd);
+      });
     } else {
+      searchForm.style.zIndex = 475;
+      searchForm.classList.add('active');
       toolbarSearchButton.classList.add('active');
-      searchForm.style.zIndex = '475';
       document.getElementById('search-field').focus();
-      document.getElementById('search-field').closest('.widget').scrollIntoView();
-      toggleOverlay(e, 'show');
+      toggleOverlay('show');
     }
   };
 
-  if (toolbarMenuButton) addMultiEventListener(toolbarMenuButton, (e) => toggleMenu(e, 'toggle'));
-  if (toolbarSearchButton) addMultiEventListener(toolbarSearchButton, (e) => toggleSearch(e, 'toggle', false));
-  if (menuOverlay) addMultiEventListener(menuOverlay, (e) => {
-    toggleOverlay(e, 'hide');
-    toggleMenu(e, 'close');
-    toggleSearch(e, 'close', false);
+  // Mobile setup
+  const onEnterMobile = () => {
+    if (toolbarMenuButton) {
+      addMobileListener(toolbarMenuButton, 'click', () => toggleMenu('toggle'));
+      addMobileListener(
+        toolbarMenuButton,
+        'touchstart',
+        (e) => {
+          e.preventDefault();
+          toggleMenu('toggle');
+        },
+        { passive: false }
+      );
+    }
+
+    if (toolbarSearchButton) {
+      addMobileListener(toolbarSearchButton, 'click', () => toggleSearch('toggle'));
+      addMobileListener(
+        toolbarSearchButton,
+        'touchstart',
+        (e) => {
+          e.preventDefault();
+          toggleSearch('toggle');
+        },
+        { passive: false }
+      );
+    }
+
+    // Reset menu/search state
+    toggleMenu('close');
+    toggleSearch('close');
+  };
+
+  // Mobile teardown
+  const onExitMobile = () => {
+    console.log('Exited mobile mode');
+
+    // Remove listeners
+    removeMobileListeners();
+
+    // Reset menu/search state
+    toggleMenu('close');
+    toggleSearch('close');
+  };
+
+  // Attach breakpoint listener
+  mq.mobile.addEventListener('change', (e) => {
+    if (e.matches) onEnterMobile();
+    else onExitMobile();
   });
+
+  // Initialize
+  if (mq.mobile.matches) onEnterMobile();
 
   // Submenus
   document.querySelectorAll('#primary-menu .menu-item-has-children').forEach(item => {
@@ -283,7 +381,6 @@ window.addEventListener('DOMContentLoaded', () => {
         searchFieldInput.removeAttribute('aria-activedescendant');
       }
     };
-
 
     const populateSearchDropdown = (data) => {
       searchDropdown.innerHTML = '';

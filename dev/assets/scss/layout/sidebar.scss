@@ -7,9 +7,26 @@ aside {
         display: none;
     }
 
-    #search-form {
+    #search-form-widget {
         // This is needed on mobile to make the search field stand out when clicking on the search button in the mobile toolbar
         position: relative;
+
+        @include media-query( mobile ) {
+            left: 50%;
+            opacity: 0;
+            padding: 0 var(--gap-lg) var(--gap-xl);
+            position: fixed;
+            top: 40vh;
+            transform: translateX(-50%);
+            transition: opacity 1s ease-out;
+            width: 100%;
+            z-index: 0;
+
+            &.active {
+                opacity: 1;
+                z-index: 475;
+            }
+        }
 
         form {
             border: var(--border) var(--color-border);
