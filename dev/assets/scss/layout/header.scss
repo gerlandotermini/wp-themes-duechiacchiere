@@ -53,6 +53,11 @@ body {
         }
     }
 
+    &.overlay-active {
+        overflow: hidden;
+        padding-right: var(--scrollbar-compensation, 0px);
+    }
+
     @include media-query( large ) {
         // Use CSS to tell Javascript if we are displaying the desktop or mobile layout (see above, where padding = 0 by default)
         &::before {

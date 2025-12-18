@@ -226,14 +226,22 @@ window.addEventListener('DOMContentLoaded', () => {
   const toggleOverlay = (action) => {
     if (!menuOverlay) return;
 
-    if (action === 'hide') {
-      menuOverlay.classList.remove('active');
-      document.body.style.paddingRight = 0;
+    const isActive = action !== 'hide';
+
+    if (isActive) {
+      const scrollbarWidth =
+        window.innerWidth - document.documentElement.clientWidth;
+
+      document.body.style.setProperty(
+        '--scrollbar-compensation',
+        `${scrollbarWidth}px`
+      );
     } else {
-      menuOverlay.classList.add('active');
-      bodyWidth = document.documentElement.clientWidth;
-      document.body.style.paddingRight = (document.documentElement.clientWidth - bodyWidth) + 'px';
+      document.body.style.removeProperty('--scrollbar-compensation');
     }
+
+    menuOverlay.classList.toggle('active', isActive);
+    document.body.classList.toggle('overlay-active', isActive);
   };
 
   // Menu toggle
