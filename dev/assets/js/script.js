@@ -66,14 +66,13 @@ window.addEventListener('DOMContentLoaded', () => {
   // 2. Back to Top
   // ----------------------------------------------------------------
   const backToTopButton = document.getElementById('backtotop');
-  window.onscroll = () => {
+  window.addEventListener('scroll', () => {
     if (!backToTopButton) return;
-    if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
-      backToTopButton.classList.add('active');
-    } else {
-      backToTopButton.classList.remove('active');
-    }
-  };
+    backToTopButton.classList.toggle(
+      'active',
+      document.documentElement.scrollTop > 600
+    );
+  });
 
   // 3. Comments
   // ----------------------------------------------------------------
@@ -349,18 +348,112 @@ window.addEventListener('DOMContentLoaded', () => {
   if (mq.mobile.matches) onEnterMobile();
 
   // Submenus
-  document.querySelectorAll('#primary-menu .menu-item-has-children').forEach(item => {
-    const parentLink = item.querySelector(':scope > a');
-    parentLink.setAttribute('aria-expanded', 'false');
-    const roomName = parentLink.textContent;
+  document.querySelectorAll( '#primary-menu .menu-item-has-children' ).forEach( item => {    
+    // Use Italian grammar to determine which preposition to use
+    let room_name = item.childNodes[0].textContent;
 
-    item.querySelector('a').insertAdjacentHTML('afterend', `<a class="svg open-submenu" href="#" aria-expanded="false" aria-haspopup="true"><span class="visually-hidden"> apri il sottomenu per ${roomName}</span></a>`);
+    let enter_preposition = 'il ';
+    let exit_preposition = 'dal';
 
-    addMultiEventListener(item.querySelector('.open-submenu'), (e) => {
-      if (e.type !== 'touchstart') e.preventDefault();
-      item.classList.add('active');
-      item.querySelectorAll(':scope > a').forEach(link => link.setAttribute('aria-expanded', 'true'));
-    });
+    if ( [ 'a', 'e', 'i', 'o', 'u' ].indexOf( room_name.charAt(0) ) != -1 ) { // word starts with a vowel
+      enter_preposition = "l'";
+      exit_preposition += "l'";
+    }
+    else if ( room_name.slice(-1) == 'a' ) { // word ends with 'a'
+      enter_preposition = 'la ';
+      exit_preposition += 'la ';
+    }
+    else {
+      exit_preposition += ' ';
+    }
+
+    item.querySelector( 'a' ).setAttribute( 'aria-expanded', 'false' );
+    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="svg open-submenu" href="#" aria-expanded="false" aria-haspopup="true"><span class="visually-hidden"> apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
+    
+    if (mq.mobile.matches) {
+      item.querySelector('.sub-menu')
+        .insertAdjacentHTML(
+          'afterbegin',
+          `<li class="menu-item">
+            <a class="svg close-submenu" href="#">
+              esci ${exit_preposition}${room_name}
+            </a>
+          </li>`
+        );
+    }
+
+    item.addEventListener( 'mouseover', ( e ) => {
+      item.querySelectorAll( ':scope > a' ).forEach( link => {
+        link.setAttribute( 'aria-expanded', 'true' );
+      } );
+    } );
+
+    item.addEventListener( 'mouseout', ( e ) => {
+      item.querySelectorAll( ':scope > a' ).forEach( link => {
+        link.setAttribute( 'aria-expanded', 'false' );
+      } );
+    } );
+
+    addMultiEventListener( item.querySelector( '.open-submenu' ), ( e ) => {
+      if ( e.type != 'touchstart' ) {
+        e.preventDefault();
+      }
+
+      item.classList.add( 'active' );
+      item.querySelectorAll( ':scope > a' ).forEach( link => {
+        link.setAttribute( 'aria-expanded', 'true' );
+      } );
+    } );
+
+    item.querySelectorAll( '.close-submenu' ).forEach( link => {
+      addMultiEventListener( link, ( e ) => {
+        if ( e.type != 'touchstart' ) {
+          e.preventDefault();
+        }
+        
+        item.classList.remove( 'active' );
+
+        item.querySelectorAll( ':scope > a' ).forEach( link => {
+          link.setAttribute( 'aria-expanded', 'false' );
+        } );
+
+        // On desktop, focus the parent
+        if ( parseInt( window.getComputedStyle( document.body, ':before' ).getPropertyValue( 'padding' ) ) === 1 ) {
+          item.querySelector( 'a' ).focus();
+        }
+      } );
+    } );
+
+    // This only applies to the desktop version on the menu (we use a pseudoelement to determine which layout is being displayed)
+    if ( parseInt( window.getComputedStyle( document.body, '::before' ).getPropertyValue( 'padding' ) ) === 1 ) {
+      let is_sibling_selected = false;
+      item.querySelector( '.sub-menu' ).addEventListener( 'focusout', ( e ) => {
+        // We need the setTimeout to give time to the browser to focus the next element
+        setTimeout( () => {
+          is_sibling_selected = false;
+          getSiblings( e.target.parentElement ).forEach( ( sibling ) => {
+            is_sibling_selected = is_sibling_selected || ( document.activeElement.parentElement === sibling );
+          });
+
+          if ( !is_sibling_selected ) {
+            item.classList.remove( 'active' );
+            item.querySelectorAll( ':scope > a' ).forEach( link => {
+              link.setAttribute( 'aria-expanded', 'false' );
+            } );
+          }
+        }, 10);
+      } );
+    };
+  } );
+
+  // Close all the flyouts on Esc key
+  document.body.addEventListener( 'keyup', ( e ) => {
+    if ( e.key == "Escape" ) {
+      document.querySelectorAll( '.menu-item-has-children' ).forEach( item => {
+        item.classList.remove( 'active' );
+        item.querySelector( '.open-submenu' ).setAttribute( 'aria-expanded', 'false' );
+      } );
+    }
   });
 
   // 5. Live Search
