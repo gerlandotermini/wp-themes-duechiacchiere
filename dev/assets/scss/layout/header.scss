@@ -206,7 +206,7 @@ body {
         @include media-query( mobile ) {
             background-color: var(--color-bg-container);
             display: flex;
-            height: calc(100vh - var(--gap-xl));
+            height: calc(100% - 50px);
             min-width: 70%;
             overflow-x: hidden;
             overflow-y: auto;
@@ -245,7 +245,7 @@ body {
                     a {
                         display: flex;
                         flex: 1;
-                        padding: var(--gap-lg);
+                        padding: calc(30vh / 9);
                         text-decoration: none;
 
                         &.open-submenu {
@@ -267,7 +267,7 @@ body {
                     }
                     ul {
                         background-color: var(--color-bg-container);
-                        height: calc( 100% - 60px );
+                        height: calc( 100vh - 50px );
                         left: 0;
                         position: fixed;
                         top: 0;
