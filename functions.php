@@ -43,6 +43,10 @@ class duechiacchiere {
 				);
 			}
 
+			if ( is_singular() && comments_open() ) {
+				wp_enqueue_script('comment-tinymce', includes_url('js/tinymce/tinymce.min.js'), array(), null, true);
+			}
+
 			wp_dequeue_style( 'wp-block-library' );
 			wp_dequeue_style( 'wp-block-library-theme' );
 			wp_dequeue_style( 'wc-block-style' );
@@ -246,18 +250,18 @@ class duechiacchiere {
 
 		// Filter really long comments (spam)
 		add_filter( 'preprocess_comment' , function( $commentdata = array() ) {
-			if ( $commentdata[ 'comment_content' ] === '[##like##]' ) {
+			if ( strip_tags( $commentdata[ 'comment_content' ] ) === '[##like##]' ) {
 				$commentdata[ 'comment_type' ] = 'like';
 				$commentdata[ 'comment_karma' ] = 0;
 			}
-			else if ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 || preg_match( '/\s/', $commentdata[ 'comment_content' ] ) === 0 ) {
+			else if ( ( count( preg_split('/\n/', $commentdata[ 'comment_content' ] ) ) > 100 || preg_match( '/\s/', $commentdata[ 'comment_content' ] ) === 0 ) ) {
 				die( 'Pussa via brutta bertuccia' );
 			};
 
 			return $commentdata;
 		} );
 		add_filter( 'pre_comment_approved' , function( $approved , $commentdata ) {
-			if ( $commentdata[ 'comment_content' ] === '[##like##]' ) {
+			if ( strip_tags( $commentdata[ 'comment_content' ] ) === '[##like##]' ) {
 				$approved = 1;
 			}
 

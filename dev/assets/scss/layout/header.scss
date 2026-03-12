@@ -9,7 +9,7 @@ html {
 body {
     background-size: contain;
     color: var(--color-text);
-    font-family: 'Outfit', 'Outfit-Local', sans-serif;
+    font-family: var(--body-font-family);
     font-size: 1.1rem;
     font-weight: 300;
     line-height: 1.6;

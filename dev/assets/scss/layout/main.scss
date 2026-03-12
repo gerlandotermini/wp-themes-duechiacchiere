@@ -368,6 +368,9 @@ main {
                         top: var(--gap-md);
                         font-size: 3rem;
                     }
+                    strong {
+                        font-weight: 700;
+                    }
                 }
                 .reply {
                     @include media-query( print ) {
@@ -395,7 +398,7 @@ main {
             }
         }
 
-        input, textarea, button {
+        input, textarea, button, #comment-editor {
             background-color: var(--color-bg-field);
             border: var(--border) var(--color-border);
             border-radius: var(--border-radius);
@@ -430,9 +433,69 @@ main {
                 }
             }
             
-            .comment-form-comment, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
+            #comment-editor, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
                 width: 100%;
             }
+
+            /* WYSIWYG Comment Field - Dark mode */
+            #comment {
+                display: none !important;
+            }
+            #comment-editor-toolbar {
+                margin-top: -45px;
+                position: relative;
+                width: 100%;
+                z-index: 100;
+
+                .mce-tinymce-inline {
+                    left: auto !important;
+                    right: 0 !important;
+                    position: absolute;
+                    box-shadow: none;
+                }
+
+                .mce-tinymce-inline, .mce-toolbar-grp, .mce-btn {
+                    background-color: transparent !important;
+                    border: 0 !important;
+                }
+
+                .mce-btn {
+                    margin-left: var(--gap-sm);
+
+                    &.mce-active button {
+                        background-color: var(--color-bg-field-active);
+                        
+                        i {
+                            color: var(--color-white);
+                        }
+                    }
+
+                    i {
+                        color: var(--color-text);
+                    }
+                }
+            }
+            #comment-editor {
+                min-height: 200px;
+
+                p {
+                    display: block;
+                }
+
+                a {
+                    background: linear-gradient(180deg, transparent 95%, var(--color-link) 95%);
+                }
+
+                blockquote {
+                    border-left: 3px solid var(--color-border-in-comment-field);
+                    padding-left: var(--gap-lg);
+                    margin: var(--gap-sm) 0 var(--gap-lg);
+                }
+                strong {
+                    font-weight: 700;
+                }
+            }
+
             .form-submit {
                 align-items: flex-start;
                 flex-direction: row;

@@ -63,6 +63,12 @@ window.addEventListener('DOMContentLoaded', () => {
     large: window.matchMedia(`(min-width: ${cssVar('--bp-large-min')})`)
   };
 
+  const stripTags = (html) => {
+    const tmpTagCleaner = document.createElement('div');
+    tmpTagCleaner.innerHTML = html;
+    return tmpTagCleaner.textContent || tmpTagCleaner.innerText || '';
+  };
+
   // 2. Back to Top
   // ----------------------------------------------------------------
   const backToTopButton = document.getElementById('backtotop');
@@ -77,6 +83,35 @@ window.addEventListener('DOMContentLoaded', () => {
   // 3. Comments
   // ----------------------------------------------------------------
   if (document.body.classList.contains('single')) {
+
+    if (typeof tinymce !== 'undefined') {
+      const fontFamily = getComputedStyle(document.documentElement).getPropertyValue('--body-font-family').trim();
+
+      tinymce.init({
+        selector: '#comment-editor',
+        inline: true,
+        menubar: false,
+        plugins: 'link lists',
+        toolbar: 'link blockquote',
+        height: 200,
+        fixed_toolbar_container: '#comment-editor-toolbar',
+        setup: function(editor) {
+          // --- Sync content on submit ---
+          const form = document.getElementById('comment-form');
+          form.addEventListener('submit', function(e) {
+            const content = editor.getContent({format:'text'}).trim();
+            if (!content) {
+              e.preventDefault();
+              alert('Per favore, inserisci un commento.');
+              editor.focus();
+            } else {
+              document.getElementById('comment').value = editor.getContent();
+            }
+          });
+        }
+      });
+    }
+
     const showOtherReplyButton = () => {
       const reply_button = document.getElementById('restore-reply-button');
       if (reply_button) {
@@ -85,39 +120,53 @@ window.addEventListener('DOMContentLoaded', () => {
       }
     };
 
+    // Reply links
     document.querySelectorAll('.comment-reply-link').forEach(link => {
       addMultiEventListener(link, (e) => {
         e.preventDefault();
         showOtherReplyButton();
 
+        // Hide clicked reply link
         link.setAttribute('id', 'restore-reply-button');
         link.classList.add('visually-hidden');
 
+        // Update reply title
         const replyTitle = document.getElementById('reply-title');
         if (!replyTitle.hasAttribute('data-original-title')) {
           replyTitle.setAttribute('data-original-title', replyTitle.textContent);
         }
         replyTitle.textContent = link.getAttribute('data-replyto');
 
+        // Set parent comment ID
         document.getElementById('comment_parent').value = link.getAttribute('data-commentid');
 
+        // Reset reply button value if needed
         const replyButton = document.getElementById('comment-submit');
         if (replyButton.hasAttribute('data-original-value')) {
           replyButton.value = replyButton.getAttribute('data-original-value');
         }
 
-        const comment_field = document.getElementById('comment');
-        comment_field.style.display = 'block';
-        if (comment_field.value == '[##like##]') comment_field.value = '';
-
+        // Show like button
         document.getElementById('like-comment-reply').style.display = 'block';
-        link.closest('li').appendChild(document.getElementById('comment-form').parentElement);
 
+        // MOVE the entire respond wrapper after the comment
+        const respondWrapper = document.getElementById('respond');
+        const commentLi = link.closest('li');
+        commentLi.appendChild(respondWrapper);
+
+        // Re-sync TinyMCE content to hidden textarea
+        const editor = tinymce.get('comment-editor');
+        if (editor) {
+          editor.setContent(document.getElementById('comment').value);
+          editor.focus();
+        }
+
+        // Show cancel reply button
         document.getElementById('cancel-comment-reply').style.display = 'block';
-        comment_field.focus();
       });
     });
 
+    // Cancel reply button
     const cancel_comment_reply = document.getElementById('cancel-comment-reply');
     if (cancel_comment_reply) {
       addMultiEventListener(cancel_comment_reply, (e) => {
@@ -126,22 +175,49 @@ window.addEventListener('DOMContentLoaded', () => {
 
         cancel_comment_reply.style.display = 'none';
 
+        // Restore reply title
         const replyTitle = document.getElementById('reply-title');
         replyTitle.textContent = replyTitle.getAttribute('data-original-title');
 
+        // Reset reply button value
         const replyButton = document.getElementById('comment-submit');
         if (replyButton.hasAttribute('data-original-value')) {
           replyButton.value = replyButton.getAttribute('data-original-value');
         }
 
-        const comment_field = document.getElementById('comment');
+        // Show hidden textarea
+        const comment_field = document.getElementById('comment-editor');
         comment_field.style.display = 'block';
-        if (comment_field.value == '[##like##]') comment_field.value = '';
 
         document.getElementById('like-section').style.display = 'block';
         document.getElementById('comment_parent').value = 0;
-        document.getElementById('comments').appendChild(document.getElementById('comment-form').parentElement);
-        comment_field.focus();
+
+        // Move respond wrapper back to original position at the bottom of comments
+        const commentsSection = document.getElementById('comments');
+        const respondWrapper = document.getElementById('respond');
+        commentsSection.appendChild(respondWrapper);
+
+        // Re-sync TinyMCE content
+        const editor = tinymce.get('comment-editor');
+        if (editor) {
+          editor.setContent('');
+          editor.focus();
+        }
+      });
+    }
+
+    // Sync editor content on submit
+    const commentForm = document.getElementById('comment-form');
+    if (commentForm) {
+      commentForm.addEventListener('submit', function(e) {
+        const editor = tinymce.get('comment-editor');
+        if (editor) {
+          const content = editor.getContent({format:'text'}).trim();
+          if (content) {
+            // Sync to hidden textarea
+            document.getElementById('comment').value = editor.getContent();
+          }
+        }
       });
     }
 
@@ -170,9 +246,13 @@ window.addEventListener('DOMContentLoaded', () => {
     if (like_comment_reply) {
       addMultiEventListener(like_comment_reply, (e) => {
         e.preventDefault();
-        const comment_field = document.getElementById('comment');
-        comment_field.style.display = 'none';
-        comment_field.value = '[##like##]';
+        const comment_field_container = document.getElementById('comment-editor');
+        if (comment_field_container) {
+          comment_field_container.style.display = 'none';
+        }
+
+        const editor = tinymce.get('comment-editor');
+        editor.setContent('[##like##]');
 
         const replyTitle = document.getElementById('reply-title');
         if (!replyTitle.hasAttribute('data-original-title')) {
