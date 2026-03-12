@@ -93,6 +93,7 @@ window.addEventListener('DOMContentLoaded', () => {
         menubar: false,
         plugins: 'link lists',
         toolbar: 'link blockquote',
+        language_url: '/content/themes/duechiacchiere/assets/js/tinymce-it.js',
         height: 200,
         fixed_toolbar_container: '#comment-editor-toolbar',
         setup: function(editor) {
