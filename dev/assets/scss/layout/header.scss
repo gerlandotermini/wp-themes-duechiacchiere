@@ -23,21 +23,7 @@ body {
 
     // Move admin bar to the bottom
     &.admin-bar {
-        margin-bottom: 50px;
-
-        #wpadminbar {
-            bottom: 0;
-            top: auto !important;
-
-            .quicklinks .menupop {
-                .ab-sub-wrapper {
-                    bottom: 32px;
-                }
-                ul {
-                    bottom: 0;
-                }
-            }
-        }
+        margin-top: 30px;
     }
 
     // Let's have a little fun once a year
@@ -76,6 +62,12 @@ body {
         font-weight: 300;
         line-height: 1.8rem;
         margin: 1em 0 .2em;
+    }
+
+    @include media-query( mobile ) {
+        h2 {
+            font-size: 1.3rem;
+        }
     }
 
     a, a:visited, a:active, input.submit {

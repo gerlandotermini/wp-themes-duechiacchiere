@@ -93,9 +93,17 @@ window.addEventListener('DOMContentLoaded', () => {
         menubar: false,
         plugins: 'link lists',
         toolbar: 'link blockquote',
+        link_quicklink: true,
         language_url: '/content/themes/duechiacchiere/assets/js/tinymce-it.js',
         height: 200,
         fixed_toolbar_container: '#comment-editor-toolbar',
+
+        link_context_toolbar: false,
+        link_title: false,
+        target_list: false,
+        anchor_top: false,
+        anchor_bottom: false,
+
         setup: function(editor) {
           // --- Sync content on submit ---
           const form = document.getElementById('comment-form');
@@ -109,6 +117,7 @@ window.addEventListener('DOMContentLoaded', () => {
               document.getElementById('comment').value = editor.getContent();
             }
           });
+
         }
       });
     }

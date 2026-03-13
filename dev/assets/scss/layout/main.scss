@@ -496,6 +496,7 @@ main {
                 }
             }
 
+
             .form-submit {
                 align-items: flex-start;
                 flex-direction: row;
@@ -540,6 +541,60 @@ main {
                     }
                 }
             }
+        }
+    }
+}
+
+/* Improve the TinyMCE link dialog */
+.mce-window {
+    background-color: var(--color-bg-container) !important;
+    border-radius: var(--border-radius) !important;
+    overflow: hidden !important;
+
+    .mce-close {
+        background-color: transparent !important;
+    }
+    .mce-title, .mce-label {
+        color: var(--color-text);
+        text-shadow: none;
+    }
+    .mce-container-body.mce-abs-layout {
+        overflow: visible !important;
+    }
+    
+    input, button {
+        background-color: var(--color-bg-field) !important;
+        border-radius: var(--border-radius);
+        color: var(--color-text) !important;
+    }
+}
+.mce-foot {
+    background-color: var(--color-bg-container) !important;
+
+    .mce-btn {
+        background-color: transparent !important;
+        border-color: transparent !important;
+    }
+}
+#mce-modal-block {
+    background-color: var(--color-bg-container) !important;
+}
+@include media-query( mobile ) {
+    .mce-window {
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90vw !important;
+
+        .mce-formitem {
+            width: 85vw !important;
+
+            input {
+                width: 43vw !important;
+            }
+        }
+
+        .mce-foot {
+            width: 90vw !important;
         }
     }
 }
