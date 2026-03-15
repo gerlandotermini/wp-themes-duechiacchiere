@@ -360,12 +360,12 @@ class duechiacchiere {
 
 			if ( !$posts ) return;
 
-			foreach ( $posts as $post_id ) {
+			foreach ( $posts as $a_post_id ) {
 				wp_update_post( array(
-					'ID' => $post_id,
+					'ID' => $a_post_id,
 					'post_date' => $new_date,
-					'post_date_gmt' => get_gmt_from_date( $new_date );
-				));
+					'post_date_gmt' => get_gmt_from_date( $new_date )
+				) );
 			}
 		}, 10, 2 );
 
