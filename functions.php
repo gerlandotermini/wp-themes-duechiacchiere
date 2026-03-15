@@ -338,9 +338,7 @@ class duechiacchiere {
 				return;
 			}
 
-			// New publish date: 3 months from now
-			$new_date = date( 'Y-m-d H:i:s', strtotime( '+3 months' ) );
-			$new_ts = strtotime( $new_date );
+			$default_days = 90; // fallback if custom field is not set
 
 			$args = array(
 				'post_type' => 'post',
@@ -351,16 +349,27 @@ class duechiacchiere {
 			);
 
 			$posts = get_posts( $args );
-
 			if ( !$posts ) return;
 
 			foreach ( $posts as $a_post_id ) {
+				// Get custom field for days, fallback to 90
+				$days = get_post_meta( $a_post_id, 'post_scongiuro_days', true );
+				if ( !$days || !is_numeric( $days ) ) {
+					$days = 90; // default
+				}
+
+				// Calculate new date for this post
+				$new_date = date( 'Y-m-d H:i:s', strtotime( "+$days days" ) );
+				$new_ts = strtotime( $new_date );
+
+				// Skip if current post date is already later than target
 				$current_ts = strtotime( get_post_field( 'post_date', $a_post_id ) );
 				if ( $current_ts >= $new_ts ) continue;
 
+				// Update the post
 				wp_update_post( array(
-					'ID' => $a_post_id,
-					'post_date' => $new_date,
+					'ID'            => $a_post_id,
+					'post_date'     => $new_date,
 					'post_date_gmt' => get_gmt_from_date( $new_date ),
 					'post_status'   => 'future'
 				) );
