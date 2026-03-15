@@ -332,6 +332,43 @@ class duechiacchiere {
 			}
 		} );
 
+		add_action( 'wp_login', function( $_user_login, $_user ) {
+			// Only administrators
+			if ( ! in_array( 'administrator', (array) $_user->roles ) ) {
+				return;
+			}
+
+			// Run only once per day
+			if ( get_transient( 'postpone_tagged_posts_ran_today' ) ) {
+				return;
+			}
+
+			set_transient( 'postpone_tagged_posts_ran_today', true, DAY_IN_SECONDS );
+
+			// New publish date: 3 months from now
+			$new_date = date( 'Y-m-d H:i:s', strtotime( '+3 months' ) );
+
+			$args = array(
+				'post_type' => 'post',
+				'posts_per_page' => -1,
+				'post_status' => 'publish',
+				'tag' => 'post-scongiuro',
+				'fields' => 'ids'
+			);
+
+			$posts = get_posts( $args );
+
+			if ( !$posts ) return;
+
+			foreach ( $posts as $post_id ) {
+				wp_update_post( array(
+					'ID' => $post_id,
+					'post_date' => $new_date,
+					'post_date_gmt' => get_gmt_from_date( $new_date );
+				));
+			}
+		}, 10, 2 );
+
 		// Customize the TinyMCE Editor
 		add_filter( 'mce_external_plugins', function( $_plugin_array ) {
 			$_plugin_array[ 'tinymce_duechiacchiere' ] = str_replace( get_site_url(), get_home_url(), get_template_directory_uri() ) . '/assets/js/tinymce.js';
