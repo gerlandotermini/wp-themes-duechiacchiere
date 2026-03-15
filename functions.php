@@ -338,13 +338,6 @@ class duechiacchiere {
 				return;
 			}
 
-			// Run only once per day
-			// if ( get_transient( 'postpone_tagged_posts_ran_today' ) ) {
-			// 	return;
-			// }
-
-			set_transient( 'postpone_tagged_posts_ran_today', true, DAY_IN_SECONDS );
-
 			// New publish date: 3 months from now
 			$new_date = date( 'Y-m-d H:i:s', strtotime( '+3 months' ) );
 			$new_ts = strtotime( $new_date );
@@ -362,7 +355,7 @@ class duechiacchiere {
 			if ( !$posts ) return;
 
 			foreach ( $posts as $a_post_id ) {
-				$current_ts = strtotime( get_post_field( 'post_date', $post_id ) );
+				$current_ts = strtotime( get_post_field( 'post_date', $a_post_id ) );
 				if ( $current_ts >= $new_ts ) continue;
 
 				wp_update_post( array(
