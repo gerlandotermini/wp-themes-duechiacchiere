@@ -334,24 +334,25 @@ class duechiacchiere {
 
 		add_action( 'wp_login', function( $_user_login, $_user ) {
 			// Only administrators
-			if ( ! in_array( 'administrator', (array) $_user->roles ) ) {
+			if ( !in_array( 'administrator', (array) $_user->roles ) ) {
 				return;
 			}
 
 			// Run only once per day
-			if ( get_transient( 'postpone_tagged_posts_ran_today' ) ) {
-				return;
-			}
+			// if ( get_transient( 'postpone_tagged_posts_ran_today' ) ) {
+			// 	return;
+			// }
 
 			set_transient( 'postpone_tagged_posts_ran_today', true, DAY_IN_SECONDS );
 
 			// New publish date: 3 months from now
 			$new_date = date( 'Y-m-d H:i:s', strtotime( '+3 months' ) );
+			$new_ts = strtotime( $new_date );
 
 			$args = array(
 				'post_type' => 'post',
 				'posts_per_page' => -1,
-				'post_status' => 'publish',
+				'post_status' => array( 'publish', 'future' ),
 				'tag' => 'post-scongiuro',
 				'fields' => 'ids'
 			);
@@ -361,10 +362,14 @@ class duechiacchiere {
 			if ( !$posts ) return;
 
 			foreach ( $posts as $a_post_id ) {
+				$current_ts = strtotime( get_post_field( 'post_date', $post_id ) );
+				if ( $current_ts >= $new_ts ) continue;
+
 				wp_update_post( array(
 					'ID' => $a_post_id,
 					'post_date' => $new_date,
-					'post_date_gmt' => get_gmt_from_date( $new_date )
+					'post_date_gmt' => get_gmt_from_date( $new_date ),
+					'post_status'   => 'future'
 				) );
 			}
 		}, 10, 2 );
