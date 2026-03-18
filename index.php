@@ -43,7 +43,7 @@
 
 			switch( $duechiacchiere_comment_count ) {
 				case 0:
-					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Commenta</a>';
+					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comment-form" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Commenta</a>';
 					break;
 				case 1:
 					$comments_html = '<a class="comments-link" href="' . get_permalink() . '#comments">1 commento</a><span class="visually-hidden"> &mdash; </span><a class="skip-inline" href="' . get_permalink() . '#comment" aria-label="Esprimi la tua opinione su '. $GLOBALS[ 'post' ]->post_title . '">Lascia un commento</a>';

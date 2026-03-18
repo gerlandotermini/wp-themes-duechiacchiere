@@ -69,6 +69,7 @@ $comment_count = get_comments_number();
                 <textarea id="comment" name="comment" style="display:none;"></textarea>
             </p>
 
+            <?php if ( ! is_user_logged_in() ) : ?>
             <p class="comment-form-author">
                 <label for="author">Nome <span class="required">*</span></label>
                 <input id="author" name="author" type="text" value="" size="25" maxlength="245" required="required">
@@ -83,6 +84,7 @@ $comment_count = get_comments_number();
                 <label for="url">Sito Web</label>
                 <input id="url" name="url" type="text" value="" size="25" maxlength="200">
             </p>
+            <?php endif; ?>
 
             <input type="hidden" value="1" name="wp-comment-cookies-consent">
             <input type="hidden" name="comment_post_ID" value="<?php the_ID(); ?>" id="comment_post_ID">

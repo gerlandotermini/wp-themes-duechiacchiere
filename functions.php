@@ -110,7 +110,7 @@ class duechiacchiere {
 
 		// Add a link to leave a comment to the feed
 		add_filter( 'the_content_feed', function( $_content = '', $_feed_type = 'rss2' ) {
-			return $_content . '<p><a href="' . get_permalink() . '#comments">Lascia un commento</a></p>';
+			return $_content . '<p><a href="' . get_permalink() . '#comment-form">Lascia un commento</a></p>';
 		} );
 
 		// Don't generate thumbnails, this theme only uses full size
