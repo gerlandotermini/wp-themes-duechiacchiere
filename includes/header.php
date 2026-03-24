@@ -243,7 +243,7 @@
 			}';
 	}
 
-	$bg_month = strtolower( isset( $_GET[ 'colors' ] ) ? duechiacchiere::scrub_field( $_GET[ 'colors' ] ) : date( 'M' ) );
+	$bg_month = strtolower( isset( $_GET[ 'theme' ] ) ? duechiacchiere::scrub_field( $_GET[ 'theme' ] ) : date( 'M' ) );
 	if ( !in_array( $bg_month, array( 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec' ) ) ) {
 		$bg_month = strtolower( date( 'M' ) );
 	}
