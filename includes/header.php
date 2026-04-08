@@ -416,21 +416,9 @@
 	<!-- END: WP_Head -->
 </head>
 
-<body <?= body_class( 'theme-' . $bg_month . ' category-' . $which_camu ) ?> id="body">
-	<a class="skip" id="page-top" href="#content">salta al contenuto</a>
-	<header id="header-container">
-		<div id="branding">
-			<div id="camu" role="img" aria-label="un ragazzo con la testa appoggiata in avanti sulle braccia conserte"></div>
-			<a id="name" href="/" aria-label="Torna alla pagina iniziale del sito">due chiacchiere</a>
-		</div>
-
-		<nav aria-label="Navigazione primaria" id="primary-menu">
-		<?php
-			wp_nav_menu( array(
-				'theme_location' => 'primary',
-				'container' => '',
-				'depth' => 2
-			) );
-		?>
-		</nav>
-	</header>
+<body <?= body_class( 'theme-' . $bg_month . ' category-' . $which_camu ) ?> id="body" style="padding:20px">
+	<ul class="visually-hidden">
+		<li><a id="page-top" href="/">Torna alla pagina principale</a></li>
+		<li><a class="skip" href="#header-container">Salta alla navigazione del sito</a></li>
+	</ul>
+	

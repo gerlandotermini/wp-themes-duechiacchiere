@@ -60,8 +60,8 @@
 		<nav id="pagination" aria-labelledby="pagination-title">
 			<h2 class="visually-hidden" id="pagination-title">Navigazione cronologica</h2>
 			<ul class="pagination-flex">
-				<?php if ( !empty( $prev_post_link ) ): ?><li class="svg prev"><?= $prev_post_link ?></li><?php endif; ?>
-				<?php if ( !empty( $next_post_link ) ): ?><li class="svg next"><?= $next_post_link ?></li><?php endif; ?>
+				<?php if ( !empty( $prev_post_link ) ): ?><li class="svg prev"><span class="visually-hidden">Post precedente: </span><?= $prev_post_link ?></li><?php endif; ?>
+				<?php if ( !empty( $next_post_link ) ): ?><li class="svg next"><span class="visually-hidden">Post successivo: </span><?= $next_post_link ?></li><?php endif; ?>
 			</ul>
 		</nav>
 	<?php
