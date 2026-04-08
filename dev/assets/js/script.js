@@ -466,7 +466,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     item.querySelector( 'a' ).setAttribute( 'aria-expanded', 'false' );
-    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="svg open-submenu" href="#" aria-expanded="false" aria-haspopup="true"><span class="visually-hidden"> apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
+    item.querySelector( 'a' ).insertAdjacentHTML( 'afterend', '<a class="svg open-submenu" href="#" aria-expanded="false" aria-haspopup="true"><span class="visually-hidden" style="left:-10000vh;position:absolute"> apri il sottomenu per ' + enter_preposition + room_name + '</span></a>' );
     
     if (mq.mobile.matches) {
       item.querySelector('.sub-menu')
