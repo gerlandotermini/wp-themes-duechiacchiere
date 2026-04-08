@@ -93,6 +93,7 @@ footer {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    margin-bottom: var(--gap-lg);
     padding: var(--gap-lg) var(--gap-lg) calc(var(--gap-xl) * 2);
 
     nav {

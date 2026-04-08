@@ -86,21 +86,5 @@
 
 	<?php include_once( 'includes/sidebar.php' ) ?>
 </div>
-<header id="header-container">
-		<div id="branding">
-			<div id="camu" role="img" aria-label="un ragazzo con la testa appoggiata in avanti sulle braccia conserte"></div>
-			<a id="name" href="/" aria-label="Torna alla pagina iniziale del sito">due chiacchiere</a>
-		</div>
-
-		<nav aria-label="Navigazione primaria" id="primary-menu">
-		<?php
-			wp_nav_menu( array(
-				'theme_location' => 'primary',
-				'container' => '',
-				'depth' => 2
-			) );
-		?>
-		</nav>
-	</header>
 
 <?php include_once( 'includes/footer.php' ) ?>

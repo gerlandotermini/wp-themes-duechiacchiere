@@ -9,13 +9,10 @@ html {
 body {
     background-size: contain;
     color: var(--color-text);
-    display: flex;
-    flex-direction: column;
     font-family: var(--body-font-family);
     font-size: 1.1rem;
     font-weight: 300;
     line-height: 1.6;
-    padding: 0 !important;
     word-break: break-word;
 
     // Use CSS to tell Javascript if we are displaying the desktop or mobile layout (see below, where padding = 1 on desktop)
@@ -140,7 +137,6 @@ body {
 #header-container {
     background-color: var(--color-bg-container);
     border-bottom: var(--border) var(--color-text);
-    order: -1;
     padding-top: var(--gap-lg);
 
     @include media-query( large ) {
