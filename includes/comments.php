@@ -65,7 +65,7 @@ $comment_count = get_comments_number();
             <p class="comment-form-comment">
                 <label for="comment-editor" class="visually-hidden">Commento</label>
 				<div id="comment-editor-toolbar"></div>
-                <div id="comment-editor" contenteditable="true" class="comment-editor"></div>
+                <div id="comment-editor" contenteditable="true" class="comment-editor" style="border:1px solid #000"></div>
                 <textarea id="comment" name="comment" style="display:none;"></textarea>
             </p>
 

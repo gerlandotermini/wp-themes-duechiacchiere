@@ -57,13 +57,14 @@ aside {
                 border: 0;
                 cursor: pointer;
                 flex: 1.4;
+                font-size: 0;
 
                 &::before {
                     content: var(--icon-search);
                     filter: var(--color-svg);
                     position: absolute;
-                    top: 10px;
-                    width: 15px;
+                    top: var(--gap-sm);
+                    width: var(--gap-sm);
                 }
             }
         }
