@@ -46,7 +46,7 @@ tinymce.addI18n('it',{
 "Pre": "Pre",
 "Code": "Codice",
 "Paragraph": "Paragrafo",
-"Blockquote": "Blockquote",
+"Blockquote": "Citazione",
 "Inline": "Inlinea",
 "Blocks": "Blocchi",
 "Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.": "Incolla \u00e8 in modalit\u00e0 testo normale. I contenuti sono incollati come testo normale se non disattivi l'opzione.",
