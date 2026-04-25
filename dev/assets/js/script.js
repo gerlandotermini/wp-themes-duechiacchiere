@@ -92,7 +92,7 @@ window.addEventListener('DOMContentLoaded', () => {
         inline: true,
         menubar: false,
         plugins: 'link lists',
-        toolbar: 'link blockquote',
+        toolbar: 'bold link blockquote',
         link_quicklink: true,
         language_url: '/content/themes/duechiacchiere/assets/js/tinymce-it.js',
         height: 200,
