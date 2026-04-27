@@ -117,7 +117,6 @@ window.addEventListener('DOMContentLoaded', () => {
               document.getElementById('comment').value = editor.getContent();
             }
           });
-
         }
       });
     }

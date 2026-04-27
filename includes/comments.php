@@ -59,7 +59,7 @@ $comment_count = get_comments_number();
 
     <!-- Respond wrapper -->
     <div id="respond" class="comment-respond">
-        <h2 id="reply-title" class="comment-reply-title" data-original-title="Lascia un commento ">Lascia un commento</h2>
+        <h2 id="reply-title" class="comment-reply-title" data-original-title="Dimmi la tua ">Dimmi la tua</h2>
         <form action="<?php echo get_home_url() . '/wp/wp-comments-post.php'; ?>" method="post" id="comment-form" class="comment-form">
             
             <p class="comment-form-comment">
