@@ -524,6 +524,8 @@ class duechiacchiere {
 						'add_below' => 'div-comment',
 						'depth' => $depth,
 						'max_depth' => $args[ 'max_depth' ],
+						'reply_text' => 'Rispondi',
+						'reply_to_text' => 'Rispondi a %s',
 						'before' => '<div class="reply">',
 						'after' => '</div>'
 					) ) );
