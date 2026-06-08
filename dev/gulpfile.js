@@ -15,7 +15,6 @@ const autoprefixer = require('autoprefixer');
 const terser = require('gulp-terser');
 
 // Utils
-const sourcemaps = require('gulp-sourcemaps');
 const plumber = require('gulp-plumber');
 
 const paths = {
@@ -37,7 +36,7 @@ const paths = {
  */
 function scripts() {
     return gulp
-        .src(paths.scripts.src, { sourcemaps: true })
+        .src(paths.scripts.src)
         .pipe(plumber())
         .pipe(
             terser({
@@ -47,7 +46,7 @@ function scripts() {
                 }
             })
         )
-        .pipe(gulp.dest(paths.scripts.dest, { sourcemaps: '.' }));
+        .pipe(gulp.dest(paths.scripts.dest));
 }
 
 /**
@@ -55,7 +54,7 @@ function scripts() {
  */
 function styles() {
     return gulp
-        .src(paths.styles.src.main, { sourcemaps: true })
+        .src(paths.styles.src.main)
         .pipe(plumber())
         .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
         .pipe(
@@ -68,7 +67,7 @@ function styles() {
                 level: 2
             })
         )
-        .pipe(gulp.dest(paths.styles.dest, { sourcemaps: '.' }));
+        .pipe(gulp.dest(paths.styles.dest));
 }
 
 /**
