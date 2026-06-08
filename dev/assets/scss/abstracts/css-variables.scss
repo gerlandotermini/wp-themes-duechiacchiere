@@ -1,3 +1,5 @@
+@use "../abstracts/mixins-variables";
+
 // Table of Contents
 // ------------------------------------------------
 // 1. Global variables
@@ -15,16 +17,14 @@
 //  3.2 Months
 // ------------------------------------------------
 
-$assets: '/content/themes/duechiacchiere/assets';
-
 :root{
     // 1. Global variables
 
     // 1.1 Breakpoints (single source of truth - see mixins.scss)
-    --bp-mobile-max: #{$bp-mobile-max};
-    --bp-tablet-min: #{$bp-tablet-min};
-    --bp-large-min: #{$bp-large-min};
-    --bp-tablet-max: #{$bp-tablet-max};
+    --bp-mobile-max: #{mixins-variables.$bp-mobile-max};
+    --bp-tablet-min: #{mixins-variables.$bp-tablet-min};
+    --bp-large-min: #{mixins-variables.$bp-large-min};
+    --bp-tablet-max: #{mixins-variables.$bp-tablet-max};
 
     // 1.2 Box model
     --gap-xs: 5px;
@@ -35,7 +35,7 @@ $assets: '/content/themes/duechiacchiere/assets';
 
     // 1.3 Body background
     --body-bg-color: #1e2046;
-    --body-bg-image: url('#{$assets}/img/bg/jan.webp');
+    --body-bg-image: url('#{mixins-variables.$assets}/img/bg/jan.webp');
     --body-bg-opacity: 0;
     --body-bg-position: center 0;
     --body-bg-repeat: repeat;
@@ -70,7 +70,7 @@ $assets: '/content/themes/duechiacchiere/assets';
     --font-size-lg: 1.4rem;
     --font-size-xl: 1.7rem;
 
-    @include media-query( large ) {
+    @include mixins-variables.media-query( large ) {
         --font-size-xl: 1.9rem;
     }
 
@@ -94,14 +94,14 @@ body {
         --body-bg-repeat: repeat-x;
     }
     &.theme-feb {
-        --body-bg-image: url('#{$assets}/img/bg/feb.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/feb.webp');
         --body-bg-color: #4c4f36;
 
         --color-link: #694d21;
         --color-svg: invert(28%) sepia(33%) saturate(826%) hue-rotate(358deg) brightness(97%) contrast(91%);
     }
     &.theme-mar {
-        --body-bg-image: url('#{$assets}/img/bg/mar.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/mar.webp');
         --body-bg-position: 0 0;
         --body-bg-color: #0f1d32;
 
@@ -109,21 +109,21 @@ body {
         --color-svg: invert(24%) sepia(89%) saturate(446%) hue-rotate(177deg) brightness(91%) contrast(95%);
     }
     &.theme-apr {
-        --body-bg-image: url('#{$assets}/img/bg/apr.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/apr.webp');
         --body-bg-color: #e1d7ff;
 
         --color-link: #3b6389;
         --color-svg: invert(35%) sepia(14%) saturate(1696%) hue-rotate(168deg) brightness(94%) contrast(87%);
     }
     &.theme-may {
-        --body-bg-image: url('#{$assets}/img/bg/may.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/may.webp');
         --body-bg-color: #0d6f00;
 
         --color-link: #c02c3c;
         --color-svg: invert(30%) sepia(93%) saturate(719%) hue-rotate(43deg) brightness(101%) contrast(99%);
     }
     &.theme-jun {
-        --body-bg-image: url('#{$assets}/img/bg/jun.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/jun.webp');
         --body-bg-position: center bottom;
         --body-bg-repeat: no-repeat;
         --body-bg-color: #0062AD;
@@ -132,14 +132,14 @@ body {
         --color-svg: invert(21%) sepia(100%) saturate(2247%) hue-rotate(191deg) brightness(90%) contrast(101%);
     }
     &.theme-jul {
-        --body-bg-image: url('#{$assets}/img/bg/jul.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/jul.webp');
         --body-bg-color: #ccb2c1;
 
         --color-link: #3a7be0;
         --color-svg: invert(44%) sepia(88%) saturate(1978%) hue-rotate(199deg) brightness(90%) contrast(96%);
     }
     &.theme-aug {
-        --body-bg-image: url('#{$assets}/img/bg/aug.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/aug.webp');
         --body-bg-position: 0 center;
         --body-bg-color: #c0c586;
 
@@ -147,28 +147,28 @@ body {
         --color-svg: invert(43%) sepia(19%) saturate(1020%) hue-rotate(94deg) brightness(101%) contrast(92%);
     }
     &.theme-sep {
-        --body-bg-image: url('#{$assets}/img/bg/sep.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/sep.webp');
         --body-bg-color: #ac4900;
 
         --color-link: #943e00;
         --color-svg: invert(22%) sepia(54%) saturate(2583%) hue-rotate(16deg) brightness(100%) contrast(101%);
     }
     &.theme-oct {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/oct.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/oct.webp');
         --body-bg-color: #222222;
 
         --color-link: #b2630a;
         --color-svg: invert(31%) sepia(76%) saturate(2454%) hue-rotate(28deg) brightness(97%) contrast(92%);
     }
     &.theme-nov {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/nov.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/nov.webp');
         --body-bg-color: #2d1a0b;
 
         --color-link: #664438;
         --color-svg: invert(25%) sepia(10%) saturate(2150%) hue-rotate(329deg) brightness(95%) contrast(81%);
     }
     &.theme-dec {
-        --body-bg-image: url('/content/themes/duechiacchiere/assets/img/bg/dec.webp');
+        --body-bg-image: url('#{mixins-variables.$assets}/img/bg/dec.webp');
         --body-bg-position: 0 0;
         --body-bg-color: #711517;
 

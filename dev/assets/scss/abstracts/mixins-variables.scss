@@ -1,0 +1,30 @@
+// Media query selector
+$bp-mobile-max: 1024px;
+$bp-tablet-min: 768px;
+$bp-large-min: 1025px;
+$bp-tablet-max: 1200px;
+
+// Asset location
+$assets: '/content/themes/duechiacchiere/assets';
+
+@mixin media-query($breakpoint: large) {
+  @if $breakpoint == large {
+    @media (min-width: $bp-large-min) { @content; }
+  }
+
+  @else if $breakpoint == tablet {
+    @media (min-width: $bp-tablet-min) { @content; }
+  }
+
+  @else if $breakpoint == tablet-max {
+    @media (max-width: $bp-tablet-max) { @content; }
+  }
+
+  @else if $breakpoint == print {
+    @media print { @content; }
+  }
+
+  @else {
+    @media (max-width: $bp-mobile-max) { @content; }
+  }
+}

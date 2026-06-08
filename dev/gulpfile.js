@@ -1,17 +1,23 @@
 'use strict';
 
-const gulp = require( 'gulp' ),
+// Suppress warnings
+process.env.SASS_QUIET_DEPS = "true";
 
-    // Minify CSS
-    clean_css = require( 'gulp-clean-css' ),
+const gulp = require('gulp');
 
-    // Minify JS
-    clean_js = require('gulp-uglify'),
+// Styles
+const sass = require('gulp-sass')(require('sass'));
+const cleanCSS = require('gulp-clean-css');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
 
-    // Compile SCSS
-    sass = require( 'gulp-sass' )( require( 'sass' ) );
+// JS
+const terser = require('gulp-terser');
 
-// Where to find the source code and where to save the output
+// Utils
+const sourcemaps = require('gulp-sourcemaps');
+const plumber = require('gulp-plumber');
+
 const paths = {
     scripts: {
         src: './assets/js/**/*.js',
@@ -20,50 +26,65 @@ const paths = {
     styles: {
         src: {
             main: './assets/scss/style.scss',
-            all: './assets/scss/**/*.?css'
+            all: './assets/scss/**/*.scss'
         },
         dest: '../assets/css'
     }
-}
+};
 
-exports.scripts = scripts;
+/**
+ * JavaScript task
+ */
 function scripts() {
-    return (
-        gulp
-            .src( paths.scripts.src )
-
-            // Minify the output
-            .pipe( clean_js( { mangle: { toplevel: true } } ) )
- 
-            // What is the destination for the compiled file?
-            .pipe( gulp.dest( paths.scripts.dest ) )
-    );
+    return gulp
+        .src(paths.scripts.src, { sourcemaps: true })
+        .pipe(plumber())
+        .pipe(
+            terser({
+                compress: true,
+                mangle: {
+                    toplevel: true
+                }
+            })
+        )
+        .pipe(gulp.dest(paths.scripts.dest, { sourcemaps: '.' }));
 }
 
-// Define tasks after requiring dependencies
-// $ gulp style
-exports.styles = styles;
+/**
+ * Styles task
+ */
 function styles() {
-    return (
-        gulp
-            .src( paths.styles.src.main )
- 
-            // Use sass with the files found, and log any errors
-            .pipe( sass() ).on( 'error', sass.logError )
-
-            // Minify the output
-            .pipe( clean_css( { level: { 1: { specialComments: 0 } } } ) ) // Remove comments
- 
-            // What is the destination for the compiled file?
-            .pipe( gulp.dest( paths.styles.dest ) )
-    );
+    return gulp
+        .src(paths.styles.src.main, { sourcemaps: true })
+        .pipe(plumber())
+        .pipe(sass({ outputStyle: 'expanded' }).on('error', sass.logError))
+        .pipe(
+            postcss([
+                autoprefixer()
+            ])
+        )
+        .pipe(
+            cleanCSS({
+                level: 2
+            })
+        )
+        .pipe(gulp.dest(paths.styles.dest, { sourcemaps: '.' }));
 }
 
-// Watch folders
-// $ gulp watch
-exports.watch = watch
-function watch() {
-    gulp.watch( paths.scripts.src, { awaitWriteFinish: true }, scripts );
-    gulp.watch( paths.styles.src.all, { awaitWriteFinish: true }, styles );
+/**
+ * Watch task
+ */
+function watchFiles() {
+    gulp.watch(paths.styles.src.all, styles);
+    gulp.watch(paths.scripts.src, scripts);
 }
-    
+
+/**
+ * Build tasks
+ */
+exports.styles = styles;
+exports.scripts = scripts;
+exports.watch = watchFiles;
+exports.default = gulp.series(
+    gulp.parallel(styles, scripts)
+);

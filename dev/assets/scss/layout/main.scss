@@ -1,27 +1,34 @@
+@use "../abstracts/mixins-variables";
+
 #main-wrapper {
     background-color: var(--color-bg-container);
     display: flex;
     flex-direction: column;
-    padding: 0 var(--gap-lg) var(--gap-xl);
+    padding: 0 var(--gap-lg) var(--gap-lg);
 
-    @include media-query( large ) {
+    @include mixins-variables.media-query( large ) {
         flex-direction: row;
     }
 }
 
 main {
-    @include media-query( large ) {
+    @include mixins-variables.media-query( large ) {
         flex: 2.5;
         padding: 0 var(--gap-xl) 0 0;
     }
 
     > article {
-        @include media-query( mobile ) {
-            border-bottom: var(--border) var(--color-border);
-        }
-
         padding-bottom: var(--gap-lg);
         margin-bottom: var(--gap-lg);
+
+        @include mixins-variables.media-query( mobile ) {
+            border-bottom: var(--border) var(--color-border);
+
+            &:last-child {
+                border: 0;
+                padding-bottom: 0;
+            }
+        }
 
         header {
             padding-bottom: var(--gap-sm);
@@ -48,14 +55,14 @@ main {
                 .comments-link {
                     display: table;
 
-                    @include media-query( large ) {
+                    @include mixins-variables.media-query( large ) {
                         display: initial;
                     }
                 }
                 .comment-separator {
                     display: none;
 
-                    @include media-query( large ) {
+                    @include mixins-variables.media-query( large ) {
                         display: initial;
                     }
                 }
@@ -125,7 +132,7 @@ main {
                     padding: var(--gap-sm);
                     text-align: center;
 
-                    @include media-query( print ) {
+                    @include mixins-variables.media-query( print ) {
                         -webkit-print-color-adjust: exact !important;
                         color-adjust: exact !important;
                         print-color-adjust: exact !important;
@@ -141,7 +148,7 @@ main {
                 position: relative;
                 width: 100% !important;
 
-                @include media-query( print ) {
+                @include mixins-variables.media-query( print ) {
                     display: none;
                 }
             }
@@ -250,7 +257,7 @@ main {
                 }
             }
 
-            @include media-query( print ) {
+            @include mixins-variables.media-query( print ) {
                 a::after{
                     color: var(--color-link);
                     display: inline;
@@ -265,8 +272,7 @@ main {
     }
 
     #comments {
-        @include media-query( mobile ) {
-            border-bottom: var(--border) var(--color-border);
+        @include mixins-variables.media-query( mobile ) {
             padding-bottom: var(--gap-lg);
         }
 
@@ -335,13 +341,13 @@ main {
                         // This simulates the underlining, to include the icon when needed
                         background: linear-gradient(180deg, transparent 95%, var(--color-link) 95%);
 
-                        @include media-query( print ) {
+                        @include mixins-variables.media-query( print ) {
                             &.comment-reply-link {
                                 display: none;
                             }
                         }
 
-                        @include media-query( print ) {
+                        @include mixins-variables.media-query( print ) {
                             &::after{
                                 color: var(--color-link);
                                 display: inline;
@@ -373,7 +379,7 @@ main {
                     }
                 }
                 .reply {
-                    @include media-query( print ) {
+                    @include mixins-variables.media-query( print ) {
                         display: none;
                     }
 
@@ -393,7 +399,7 @@ main {
         #respond {
             clear: both;
 
-            @include media-query( print ) {
+            @include mixins-variables.media-query( print ) {
                 display: none;
             }
         }
@@ -579,7 +585,7 @@ main {
 #mce-modal-block {
     background-color: var(--color-bg-container) !important;
 }
-@include media-query( mobile ) {
+@include mixins-variables.media-query( mobile ) {
     .mce-window {
         left: 50% !important;
         transform: translate(-50%, -50%) !important;

@@ -1,7 +1,9 @@
+@use "../abstracts/mixins-variables";
+
 html {
     scroll-behavior: smooth;
 
-    @include media-query( large ) {
+    @include mixins-variables.media-query( large ) {
         margin: var(--gap-xl) 0 var(--gap-lg);
     }
 }
@@ -45,7 +47,7 @@ body {
         padding-right: var(--scrollbar-compensation, 0px);
     }
 
-    @include media-query( large ) {
+    @include mixins-variables.media-query( large ) {
         // Use CSS to tell Javascript if we are displaying the desktop or mobile layout (see above, where padding = 0 by default)
         &::before {
             padding: 1px;
@@ -65,7 +67,7 @@ body {
         margin: 1em 0 .2em;
     }
 
-    @include media-query( mobile ) {
+    @include mixins-variables.media-query( mobile ) {
         h2 {
             font-size: 1.3rem;
         }
@@ -99,7 +101,7 @@ body {
                 left: initial;
                 position: relative;
 
-                @include media-query( large ) {
+                @include mixins-variables.media-query( large ) {
                     margin-left: var(--gap-sm);
                 }
             }
@@ -113,7 +115,7 @@ body {
         filter: drop-shadow(var(--drop-shadow));
     }
 
-    @include media-query( print ) {
+    @include mixins-variables.media-query( print ) {
         a {
             text-decoration: none;
         }
@@ -140,12 +142,12 @@ body {
     border-bottom: var(--border) var(--color-text);
     padding-top: var(--gap-lg);
 
-    @include media-query( large ) {
+    @include mixins-variables.media-query( large ) {
         border-top-left-radius: var(--border-radius);
         border-top-right-radius: var(--border-radius);
         border-bottom: 0;
     }
-    @include media-query( print ) {
+    @include mixins-variables.media-query( print ) {
         border-bottom: var(--border) var(--color-border);
     }
 
@@ -167,7 +169,7 @@ body {
         max-width: 200px;
         width: 25vw;
 
-        @include media-query( print ) {
+        @include mixins-variables.media-query( print ) {
             -webkit-print-color-adjust: exact !important;
             color-adjust: exact !important;
             print-color-adjust: exact !important;
@@ -178,7 +180,7 @@ body {
         font-size: 7vw;
         text-decoration: none;
 
-        @include media-query( large ) {
+        @include mixins-variables.media-query( large ) {
             font-size: 3.2em;
             line-height: 1.5em;
         }
@@ -196,7 +198,7 @@ body {
             }
         }
 
-        @include media-query( mobile ) {
+        @include mixins-variables.media-query( mobile ) {
             background-color: var(--color-bg-container);
             display: flex;
             height: calc(100% - 50px);
@@ -283,7 +285,7 @@ body {
             }
         }
 
-        @include media-query( large ) {
+        @include mixins-variables.media-query( large ) {
             display: block;
             border-bottom: var(--border) var(--color-border);
             border-top: var(--border) var(--color-border);
@@ -365,7 +367,7 @@ body {
             }
         }
 
-        @include media-query( print ) {
+        @include mixins-variables.media-query( print ) {
             display: none;
         }
     }

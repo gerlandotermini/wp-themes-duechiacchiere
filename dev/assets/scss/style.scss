@@ -1,12 +1,12 @@
-@import "abstracts/mixins";
-@import "abstracts/variables";
-@import "abstracts/fonts";
+@use "abstracts/mixins-variables";
+@use "abstracts/css-variables";
+@use "abstracts/fonts";
 
 // These libraries are defined as dependencies in package.json, to always have
 // the latest version available without having to manually check for updates
-@import "vendor/reset";
+@use "vendor/reset";
 
-@import 'layout/header';
-@import 'layout/main';
-@import 'layout/sidebar';
-@import 'layout/footer';
+@use 'layout/header' as *;
+@use 'layout/main' as *;
+@use 'layout/sidebar' as *;
+@use 'layout/footer' as *;

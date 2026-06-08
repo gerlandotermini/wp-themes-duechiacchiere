@@ -1,9 +1,11 @@
+@use "../abstracts/mixins-variables";
+
 aside {
-    @include media-query( large ) {
+    @include mixins-variables.media-query( large ) {
         flex: 1;
     }
 
-    @include media-query( print ) {
+    @include mixins-variables.media-query( print ) {
         display: none;
     }
 
@@ -11,7 +13,7 @@ aside {
         // This is needed on mobile to make the search field stand out when clicking on the search button in the mobile toolbar
         position: relative;
 
-        @include media-query( mobile ) {
+        @include mixins-variables.media-query( mobile ) {
             bottom: -50px;
             left: 50%;
             opacity: 0;

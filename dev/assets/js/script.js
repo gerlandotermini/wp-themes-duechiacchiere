@@ -377,62 +377,66 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Mobile setup
+  let paginationEl = null;
+  let originalParent = null;
+  let originalNextSibling = null;
+  let mobileListenersAttached = false;
+
   const onEnterMobile = () => {
-    if (toolbarMenuButton) {
-      addMobileListener(toolbarMenuButton, 'click', () => toggleMenu('toggle'));
-      addMobileListener(
-        toolbarMenuButton,
-        'touchstart',
-        (e) => {
-          e.preventDefault();
-          toggleMenu('toggle');
-        },
-        { passive: false }
-      );
-    }
+    const pagination = document.querySelector('nav#pagination');
+    const main = document.querySelector('main#content');
 
-    if (toolbarSearchButton) {
-      addMobileListener(toolbarSearchButton, 'click', () => toggleSearch('toggle'));
-      addMobileListener(
-        toolbarSearchButton,
-        'touchstart',
-        (e) => {
-          e.preventDefault();
-          toggleSearch('toggle');
-        },
-        { passive: false }
-      );
-    }
+    if (!pagination || !main) return;
+    if (pagination.dataset.moved === "true") return;
 
-    if (menuOverlay) {
-      addMobileListener(menuOverlay, 'click', () => { toggleOverlay('hide'); toggleMenu('close'); toggleSearch('close'); });
-      addMobileListener(
-        menuOverlay,
-        'touchstart',
-        () => {
+    originalParent = pagination.parentNode;
+    originalNextSibling = pagination.nextSibling;
+
+    main.insertAdjacentElement('afterend', pagination);
+    pagination.dataset.moved = "true";
+
+    // attach listeners only once
+    if (!mobileListenersAttached) {
+      if (toolbarMenuButton) {
+        addMobileListener(toolbarMenuButton, 'click', () => toggleMenu('toggle'));
+      }
+
+      if (toolbarSearchButton) {
+        addMobileListener(toolbarSearchButton, 'click', () => toggleSearch('toggle'));
+      }
+
+      if (menuOverlay) {
+        addMobileListener(menuOverlay, 'click', () => {
           toggleOverlay('hide');
           toggleMenu('close');
           toggleSearch('close');
-        }
-      );
+        });
+      }
+
+      mobileListenersAttached = true;
     }
 
-    // Reset menu/search state
     toggleMenu('close');
     toggleSearch('close');
   };
 
-  // Mobile teardown
   const onExitMobile = () => {
-    console.log('Exited mobile mode');
+    const pagination = document.querySelector('nav#pagination');
 
-    // Remove listeners
     removeMobileListeners();
 
-    // Reset menu/search state
     toggleMenu('close');
     toggleSearch('close');
+
+    if (pagination && originalParent && pagination.dataset.moved === "true") {
+      if (originalNextSibling) {
+        originalParent.insertBefore(pagination, originalNextSibling);
+      } else {
+        originalParent.appendChild(pagination);
+      }
+
+      pagination.dataset.moved = "false";
+    }
   };
 
   // Attach breakpoint listener
