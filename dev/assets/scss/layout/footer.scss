@@ -64,7 +64,7 @@
             content: var(--icon-angle-right);
             margin-right: var(--gap-sm);
             transform: rotate(180deg);
-            width: 12px;
+            width: var(--gap-md);
         }
         &.next {
             justify-content: end;
@@ -72,7 +72,8 @@
             &.svg::after, a.svg::after {
                 content: var(--icon-angle-right);
                 margin-left: var(--gap-sm);
-                width: 12px;
+                margin-top: 3px;
+                width: var(--gap-md);
             }
         }
 
