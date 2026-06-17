@@ -66,6 +66,7 @@ class duechiacchiere {
 
 		add_action( 'wp_footer', function () {
 			$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
+			$js = duechiacchiere::compact_js( $js );
 			echo "<script>const duechiacchiere={'COOKIEHASH':'" . COOKIEHASH . "'};$js</script>";
 		} );
 
@@ -617,6 +618,22 @@ class duechiacchiere {
 		$html = preg_replace( "/[\r\n\t]*/", '', $html );
 
 		return $html;
+	}
+
+	public static function compact_js($js = '') {
+		// remove multiline comments /* ... */
+		$js = preg_replace('!/\*.*?\*/!s', '', $js);
+
+		// remove single-line comments // ...
+		$js = preg_replace('/^\s*\/\/.*$/m', '', $js);
+
+		// remove tabs and newlines
+		$js = preg_replace('/\s+/', ' ', $js);
+
+		// remove space around common symbols (light touch)
+		$js = preg_replace('/\s*([{};,:=+\-()<>])\s*/', '$1', $js);
+
+		return trim($js);
 	}
 
 	// Yes, this function could use some love...
