@@ -139,7 +139,7 @@ body {
 
 #header-container {
     background-color: var(--color-bg-container);
-    border-bottom: var(--border) var(--color-text);
+    border-bottom: var(--border) var(--color-border);
     padding-top: var(--gap-lg);
 
     @include mixins-variables.media-query( large ) {
