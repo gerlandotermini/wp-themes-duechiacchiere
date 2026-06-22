@@ -14,10 +14,12 @@
     }
 
     @include mixins-variables.media-query( mobile ) {
+        border-bottom: var(--border) var(--color-border);
         padding: 0;
 
         &.pagination-flex {
             flex-direction: column;
+
             li {
                 display: flex !important; // make the pagination links visible
 
@@ -27,15 +29,11 @@
                     }
                 }
                 &.next {
-                    margin-top: var(--gap-md);
+                    border-top: var(--border) var(--color-border);
+                    margin-top: 0;
 
                     a {
                         text-align: right;
-                    }
-
-                    @include mixins-variables.media-query( mobile ) {
-                        border-top: var(--border) var(--color-border);
-                        margin-top: 0;
                     }
                 }
             }
@@ -73,10 +71,6 @@
                 margin-left: var(--gap-sm);
                 margin-top: 5px;
                 width: var(--gap-md);
-            }
-
-            @include mixins-variables.media-query( mobile ) {
-                border-bottom: var(--border) var(--color-border);
             }
         }
 
