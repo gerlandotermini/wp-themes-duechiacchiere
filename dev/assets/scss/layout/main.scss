@@ -360,11 +360,12 @@ main {
                         }
                     }
                     blockquote {
+                        color: var(--color-blockquote);
                         padding-left: var(--gap-lg);
                         position: relative;
                     }
                     blockquote::before {
-                        color: var(--color-text);
+                        color: var(--color-blockquote);
                         content: '"';
                         filter: brightness(85%);
                         font-style: italic;
