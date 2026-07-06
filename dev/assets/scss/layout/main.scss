@@ -19,7 +19,6 @@ main {
 
     > article {
         padding-bottom: var(--gap-lg);
-        margin-bottom: var(--gap-lg);
 
         @include mixins-variables.media-query( mobile ) {
             border-bottom: var(--border) var(--color-border);
@@ -72,7 +71,7 @@ main {
         .entry {
             // Paragraphs
             p {
-                font-size: 1.25rem;
+                font-size: 1.3rem;
                 margin: 0 0 var(--gap-sm);
 
                 &:last-child {
@@ -277,13 +276,25 @@ main {
         }
 
         #like-section {
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: var(--gap-lg);
             overflow: hidden;
+            padding: var(--gap-lg) 0;
 
-            li {
-                display: inline-block;
+            @include mixins-variables.media-query( mobile ) {
+                border-top: 0;
+            }
 
-                a {
-                    display: block;
+            ol {
+                line-height: 0;
+
+                li {
+                    display: inline-block;
+
+                    a {
+                        display: block;
+                    }
                 }
             }
         }
