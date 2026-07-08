@@ -34,7 +34,9 @@ main {
 
             h1, h2 {
                 font-size: var(--font-size-xl);
-                margin: var(--gap-lg) 0 var(--gap-sm);
+                font-weight: 300;
+                line-height: 1.8rem;
+                margin: var(--gap-lg) 0 var(--gap-md);
             }
 
             // Post Meta

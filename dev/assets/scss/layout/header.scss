@@ -61,15 +61,10 @@ body {
         width: 90%;
     }
 
-    h1 {
-        font-weight: 300;
-        line-height: 1.8rem;
-        margin: 1em 0 .2em;
-    }
-
     @include mixins-variables.media-query( mobile ) {
         h2 {
             font-size: var(--font-size-lg);
+            line-height: 1.8rem;
         }
     }
 
