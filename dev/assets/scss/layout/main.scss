@@ -215,8 +215,15 @@ main {
             }
 
             // Photo Gallery (Splide - https://splidejs.com/)
+            .splide.is-initialized, .splide.is-rendered {
+                margin-bottom: var(--gap-lg);
+            }
+            .splide__slide {
+                padding-bottom: 0;
+            }
             .splide__pagination {
-                bottom: -1rem;
+                position: relative;
+                bottom: 0;
             }
 
             // Abbreviations
