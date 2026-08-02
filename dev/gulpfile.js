@@ -70,6 +70,18 @@ function styles() {
         .pipe(gulp.dest(paths.styles.dest));
 }
 
+function splideJS() {
+    return gulp
+        .src('node_modules/@splidejs/splide/dist/js/splide.min.js')
+        .pipe(gulp.dest('../assets/js'));
+}
+
+function splideCSS() {
+    return gulp
+        .src('node_modules/@splidejs/splide/dist/css/splide.min.css')
+        .pipe(gulp.dest('../assets/css'));
+}
+
 /**
  * Watch task
  */
@@ -84,6 +96,7 @@ function watchFiles() {
 exports.styles = styles;
 exports.scripts = scripts;
 exports.watch = watchFiles;
+exports.splide = gulp.parallel(splideJS, splideCSS);
 exports.default = gulp.series(
     gulp.parallel(styles, scripts)
 );
