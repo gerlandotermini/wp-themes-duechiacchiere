@@ -36,11 +36,12 @@ class duechiacchiere {
 				// }
 
 				wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/assets/js/script.js', array(), null, true );
-				wp_localize_script( 'duechiacchiere', 'duechiacchiere',
-					array( 
-						'COOKIEHASH' => COOKIEHASH
-					)
-				);
+				wp_localize_script( 'duechiacchiere', 'duechiacchiere', array( 'COOKIEHASH' => COOKIEHASH ) );
+			}
+
+			// Enable buttons for comments
+			if ( is_singular() && comments_open() ) {
+				wp_enqueue_script('comment-tinymce', includes_url('js/tinymce/tinymce.min.js'), array(), null, true);
 			}
 
 			// Register the photo gallery assets (Splide - https://splidejs.com/)
@@ -48,9 +49,6 @@ class duechiacchiere {
 			wp_register_script( 'splide', get_stylesheet_directory_uri() . '/assets/js/splide.min.js', [], '4.1.4', true );
 			wp_register_script( 'due-photo-gallery', get_stylesheet_directory_uri() . '/assets/js/photo-gallery.js', [ 'splide' ], filemtime( get_stylesheet_directory() . '/assets/js/photo-gallery.js' ), true );
 
-			if ( is_singular() && comments_open() ) {
-				wp_enqueue_script('comment-tinymce', includes_url('js/tinymce/tinymce.min.js'), array(), null, true);
-			}
 
 			wp_dequeue_style( 'wp-block-library' );
 			wp_dequeue_style( 'wp-block-library-theme' );
@@ -422,7 +420,7 @@ class duechiacchiere {
 
 		// Customize the TinyMCE Editor
 		add_filter( 'mce_external_plugins', function( $_plugin_array ) {
-			$_plugin_array[ 'tinymce_duechiacchiere' ] = str_replace( get_site_url(), get_home_url(), get_template_directory_uri() ) . '/assets/js/tinymce.js';
+			$_plugin_array[ 'tinymce_duechiacchiere' ] = str_replace( get_site_url(), get_home_url(), get_template_directory_uri() ) . '/assets/js/tinymce-backend.js';
 			return $_plugin_array;
 		} );
 		add_filter( 'mce_buttons', function( $_buttons ) {
