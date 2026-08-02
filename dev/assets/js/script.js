@@ -7,7 +7,7 @@
 // 5. Live Search
 // 6. Miscellaneous
 
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
   // 1. Utilities
   // ----------------------------------------------------------------

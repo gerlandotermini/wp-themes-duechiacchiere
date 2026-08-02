@@ -43,6 +43,11 @@ class duechiacchiere {
 				);
 			}
 
+			// Register the photo gallery assets (Splide - https://splidejs.com/)
+			wp_register_style( 'splide', get_stylesheet_directory_uri() . '/assets/css/splide.min.css', [], '4.1.4' );
+			wp_register_script( 'splide', get_stylesheet_directory_uri() . '/assets/js/splide.min.js', [], '4.1.4', true );
+			wp_register_script( 'due-photo-gallery', get_stylesheet_directory_uri() . '/assets/js/photo-gallery.js', [ 'splide' ], filemtime( get_stylesheet_directory() . '/assets/js/photo-gallery.js' ), true );
+
 			if ( is_singular() && comments_open() ) {
 				wp_enqueue_script('comment-tinymce', includes_url('js/tinymce/tinymce.min.js'), array(), null, true);
 			}
@@ -100,6 +105,44 @@ class duechiacchiere {
 			}
 
 			return "<figure {$id}class=\"wp-caption $align\">$image<figcaption class=\"wp-caption-text\" aria-hidden=\"true\">$caption</figcaption></figure>";
+		} );
+
+		// Add a simple photo gallery shortcode (uses Splide - https://splidejs.com/)
+		add_shortcode('slider', function( $atts ) {
+			$atts = shortcode_atts( [ 'ids' => '' ], $atts );
+			wp_enqueue_style( 'splide' );
+			wp_enqueue_script( 'due-photo-gallery' );
+
+			if ( empty( $atts[ 'ids' ] ) ) {
+				return '';
+			}
+
+			$ids = array_map( 'trim', explode( ',', $atts[ 'ids' ] ) );
+			ob_start();
+			?>
+			<div class="splide wp-photo-slider">
+				<div class="splide__track">
+					<ul class="splide__list">
+					<?php foreach ($ids as $id):
+						$thumb = wp_get_attachment_image_url( $id, 'full' );
+						$alt   = get_post_meta( $id, '_wp_attachment_image_alt', true );
+						$caption = wp_get_attachment_caption( $id ); ?>
+						<li class="splide__slide">
+							<figure class="wp-caption alignnone">
+								<img src="<?php echo esc_url($thumb); ?>" alt="<?php echo esc_attr($alt); ?>" loading="lazy">
+								<?php if ($caption) : ?>
+								<figcaption class="wp-caption-text">
+									<?php echo esc_html($caption); ?>
+								</figcaption>
+								<?php endif; ?>
+							</figure>
+						</li>
+					<?php endforeach; ?>
+					</ul>
+				</div>
+			</div>
+			<?php
+			return ob_get_clean();
 		} );
 
 		// Add appropriate classes to external links

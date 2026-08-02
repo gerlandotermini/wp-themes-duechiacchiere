@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll(".wp-photo-slider").forEach(function(e){new Splide(e,{type:"loop",perPage:1,gap:"1rem",pagination:!0,arrows:!0,lazyLoad:"nearby"}).mount()})});

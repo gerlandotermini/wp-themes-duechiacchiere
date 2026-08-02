@@ -214,6 +214,19 @@ main {
                 background: #444;
             }
 
+            // Photo Gallery (Splide - https://splidejs.com/)
+            .wp-photo-slider img {
+                width:100%;
+                display:block;
+                border-radius:8px;
+            }
+            .wp-photo-slider {
+                margin:2rem 0;
+            }
+            .splide__pagination {
+                bottom: -1rem;
+            }
+
             // Abbreviations
             abbr {
                 border-bottom: 2px dotted var(--color-abbr);
