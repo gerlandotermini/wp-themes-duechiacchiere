@@ -144,8 +144,8 @@ body {
         --body-bg-position: 0 center;
         --body-bg-color: #c0c586;
 
-        --color-link: #3c875e;
-        --color-svg: invert(43%) sepia(19%) saturate(1020%) hue-rotate(94deg) brightness(101%) contrast(92%);
+        --color-link: #357951;
+        --color-svg: filter: brightness(0) saturate(100%) invert(40%) sepia(19%) saturate(1020%) hue-rotate(92deg) brightness(95%) contrast(93%);
     }
     &.theme-sep {
         --body-bg-image: url('#{mixins-variables.$assets}/img/bg/sep.webp');
