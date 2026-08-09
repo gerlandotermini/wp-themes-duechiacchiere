@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         plugins: 'link lists',
         toolbar: 'bold link blockquote',
         link_quicklink: true,
-        language_url: '/content/themes/duechiacchiere/assets/js/tinymce-frontend-it.js',
+        language_url: '/wp-content/themes/duechiacchiere/assets/js/tinymce-frontend-it.js',
         height: 200,
         fixed_toolbar_container: '#comment-editor-toolbar',
 

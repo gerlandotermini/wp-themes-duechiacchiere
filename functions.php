@@ -161,8 +161,6 @@ class duechiacchiere {
 		} );
 
 		// Tweak style and script HTML tags
-		add_filter( 'style_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
-		add_filter( 'script_loader_src', array( __CLASS__, 'script_loader_src' ), 20, 2 );
 		add_filter( 'script_loader_tag', function( $tag, $handle ) {
 			if ( 'duechiacchiere' !== $handle ) {
 				return $tag;
@@ -521,11 +519,6 @@ class duechiacchiere {
 		return wp_kses_post($dom->saveHTML());
 	}
 
-	// This function assumes that WordPress is installed in the 'wp' subfolder
-	public static function script_loader_src( $src, $handle ) {
-		return str_replace( get_site_url(), get_home_url() . '/wp', $src );
-	}
-
 	// Used in comments.php to customize each comment's structure
 	public static function comment_callback( $comment, $args, $depth ) {
 		// Don't show pending comments
@@ -691,19 +684,19 @@ class duechiacchiere {
 	// Save a copy of a page in the cache
 	public static function add_to_cache( $html = '' ) {
 		// Please add the following lines to your .htaccess, inside a mod_rewrite block:
-		// # Homepage
-		// RewriteCond %{REQUEST_URI} ^/$
-		// RewriteCond %{QUERY_STRING} !.+
-		// RewriteCond %{DOCUMENT_ROOT}/content/cache/index.html -f
-		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC]
-		// RewriteRule .* /content/cache/index.html [L]
+			// # Cached Homepage
+			// RewriteCond %{QUERY_STRING} !.+
+			// RewriteCond %{REQUEST_URI} ^/$
+			// RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/index.html -f
+			// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in_([a-zA-Z0-9_]*) [NC]
+			// RewriteRule (.*) /wp-content/cache/index.html [PT,L]
 
-		// # All other pages
-		// RewriteCond %{QUERY_STRING} !.+
-		// RewriteCond %{DOCUMENT_ROOT}/content/cache/$1.html -f
-		// RewriteCond %{REQUEST_URI} !^/content/cache/ [NC]
-		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in [NC]
-		// RewriteRule (.*) /content/cache/$1.html [L]
+			// # All other cached pages
+			// RewriteCond %{QUERY_STRING} !.+
+			// RewriteCond %{REQUEST_METHOD} ^GET [NC]
+			// RewriteCond %{DOCUMENT_ROOT}/wp-content/cache%{REQUEST_URI}.html -f
+			// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in_([a-zA-Z0-9_]*) [NC]
+			// RewriteRule ^(.+?)/?$ /wp-content/cache/$1.html [PT,L]
 		//
 		// Then create a 'cache' folder under wp-content, writeable to the web server
 
