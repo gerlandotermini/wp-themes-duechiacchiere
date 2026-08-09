@@ -449,6 +449,10 @@ main {
             margin-right: var(--gap-sm);
         }
 
+        .comment-reply-title {
+            font-weight: 400;
+        }
+
         #comment-form {
             display: flex;
             flex-wrap: wrap;

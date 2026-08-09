@@ -394,7 +394,11 @@
 	<!-- END: Favicon -->
 
 	<!-- BEGIN: Font Preloading -->
-	<link rel="preload" href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/outfit.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" 
+      href="<?php echo get_stylesheet_directory_uri() ?>/assets/fonts/outfit.woff2" 
+      as="font" 
+      type="font/woff2" 
+      crossorigin>
 	<!-- END: Font Preloading -->
 
 	<!-- BEGIN: RSS feed -->
