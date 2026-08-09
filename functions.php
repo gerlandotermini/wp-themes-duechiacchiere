@@ -684,19 +684,19 @@ class duechiacchiere {
 	// Save a copy of a page in the cache
 	public static function add_to_cache( $html = '' ) {
 		// Please add the following lines to your .htaccess, inside a mod_rewrite block:
-			// # Cached Homepage
-			// RewriteCond %{QUERY_STRING} !.+
-			// RewriteCond %{REQUEST_URI} ^/$
-			// RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/index.html -f
-			// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in_([a-zA-Z0-9_]*) [NC]
-			// RewriteRule (.*) /wp-content/cache/index.html [PT,L]
+		// # Cached Homepage
+		// RewriteCond %{QUERY_STRING} !.+
+		// RewriteCond %{REQUEST_URI} ^/$
+		// RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/index.html -f
+		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in_([a-zA-Z0-9_]*) [NC]
+		// RewriteRule (.*) /wp-content/cache/index.html [PT,L]
 
-			// # All other cached pages
-			// RewriteCond %{QUERY_STRING} !.+
-			// RewriteCond %{REQUEST_METHOD} ^GET [NC]
-			// RewriteCond %{DOCUMENT_ROOT}/wp-content/cache%{REQUEST_URI}.html -f
-			// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in_([a-zA-Z0-9_]*) [NC]
-			// RewriteRule ^(.+?)/?$ /wp-content/cache/$1.html [PT,L]
+		// # All other cached pages
+		// RewriteCond %{QUERY_STRING} !.+
+		// RewriteCond %{REQUEST_METHOD} ^GET [NC]
+		// RewriteCond %{DOCUMENT_ROOT}/wp-content/cache%{REQUEST_URI}.html -f
+		// RewriteCond %{HTTP_COOKIE} !wordpress_logged_in_([a-zA-Z0-9_]*) [NC]
+		// RewriteRule ^(.+?)/?$ /wp-content/cache/$1.html [PT,L]
 		//
 		// Then create a 'cache' folder under wp-content, writeable to the web server
 
