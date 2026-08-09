@@ -60,7 +60,7 @@
             content: var(--icon-angle-right);
             margin-right: var(--gap-sm);
             transform: rotate(180deg);
-            width: var(--gap-md);
+            width: 12px;
         }
         &.next {
             justify-content: end;
@@ -69,7 +69,7 @@
                 content: var(--icon-angle-right);
                 margin-left: var(--gap-sm);
                 margin-top: 5px;
-                width: var(--gap-md);
+                width: 12px;
             }
         }
 
