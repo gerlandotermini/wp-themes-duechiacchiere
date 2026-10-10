@@ -77,7 +77,7 @@ $comment_count = get_comments_number();
 
             <p class="comment-form-email">
                 <label for="email">Email <span class="required">*</span></label>
-                <input id="email" name="email" type="text" value="" size="25" maxlength="100" required="required">
+                <input id="email" name="email" type="email" value="" size="25" maxlength="100" required="required">
             </p>
 
             <p class="comment-form-url">
