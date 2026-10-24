@@ -265,7 +265,13 @@ main {
 
             // Lists
             ul, ol {
+                list-style-type: disc;
+                margin: 1em 0;
+                padding-left: 1.5em;
+                overflow: visible;
+
                 li {
+                    display: list-item;
                     padding-bottom: var(--gap-sm);
                 }
             }
