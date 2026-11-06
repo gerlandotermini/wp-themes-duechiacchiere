@@ -39,6 +39,26 @@ $comment_count = get_comments_number();
         if ( !empty( $GLOBALS[ 'duechiacchiere_comment_count' ] ) ) {
             echo '<h2>Commenti</h2><ol>';
 
+            $comment_like_button = function( $comment_text, $comment ) {
+                if ( !$comment instanceof WP_Comment || 'comment' !== $comment->comment_type ) {
+                    return $comment_text;
+                }
+
+                $like_count = get_comments( [
+                    'count' => true,
+                    'parent' => $comment->comment_ID,
+                    'status' => 'approve',
+                    'type' => 'like'
+                ] );
+
+                return $comment_text . sprintf(
+                    '<div class="comment-likes"><button type="button" class="like-comment" data-comment-id="%1$d">Mi piace <span class="comment-like-count" aria-label="Numero di apprezzamenti">%2$s</span></button></div>',
+                    absint( $comment->comment_ID ),
+                    esc_html( number_format_i18n( (int) $like_count ) )
+                );
+            };
+            add_filter( 'comment_text', $comment_like_button, 20, 2 );
+
             wp_list_comments( [
                 'avatar_size' => 35,
                 'callback' => array( 'duechiacchiere', 'comment_callback' ),
@@ -48,6 +68,8 @@ $comment_count = get_comments_number();
                 'type' => 'comment'
             ] );
 
+            remove_filter( 'comment_text', $comment_like_button, 20 );
+
             echo '</ol><!-- .comment-list -->';
 
             if ( !comments_open() ) {
@@ -56,6 +78,19 @@ $comment_count = get_comments_number();
         }
         ?>
     </div>
+
+    <script>
+        document.querySelectorAll('.like-comment').forEach((button) => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                const parentField = document.getElementById('comment_parent');
+                const postLikeButton = document.getElementById('like-comment-reply');
+                if (!parentField || !postLikeButton) return;
+                parentField.value = button.dataset.commentId;
+                postLikeButton.click();
+            });
+        });
+    </script>
 
     <!-- Respond wrapper -->
     <div id="respond" class="comment-respond">
