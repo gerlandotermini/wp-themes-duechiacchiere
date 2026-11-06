@@ -528,7 +528,7 @@ class duechiacchiere {
 		?>
 
 		<li id="comment-<?php comment_ID(); ?>" <?php comment_class( $args[ 'has_children' ] ? 'parent' : '', $comment ); ?>>
-			<div id="div-comment-<?php comment_ID(); ?>" class="comment-body">
+			<div id="comment-<?php comment_ID(); ?>" class="comment-body">
 				<header class="comment-meta">
 					<div class="comment-author vcard">
 					<?php 

@@ -436,6 +436,26 @@ main {
             }
         }
 
+        .comment-likes {
+            display: inline-flex;
+            font-size: var(--font-size-sm);
+
+            svg {
+                height: 1em;
+                width: 1em;
+            }
+
+            a {
+                align-items: center;
+                background: none;
+                border: 0;
+                display: inline-flex;
+                gap: var(--gap-xs);
+                line-height: 1;
+                text-decoration: none;
+            }
+        }
+
         input, textarea, button, #comment-editor {
             background-color: var(--color-bg-field);
             border: var(--border) var(--color-border);
