@@ -52,7 +52,7 @@ $comment_count = get_comments_number();
                 ] );
 
                 return $comment_text . sprintf(
-                    '<div class="comment-likes"><button type="button" class="like-comment" data-comment-id="%1$d">Mi piace <span class="comment-like-count" aria-label="Numero di apprezzamenti">%2$s</span></button></div>',
+                    '<span class="comment-likes"><a class="like-comment" href="#comment-form" data-comment-id="%1$d" aria-label="Mi piace questo commento"><svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M2 10h4v12H2zM22 11a2 2 0 0 0-2-2h-6.3l.95-4.57.03-.32a1 1 0 0 0-.29-.7L13.24 2 6.59 8.65A2 2 0 0 0 6 10v10a2 2 0 0 0 2 2h9a2 2 0 0 0 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73z"/></svg><span class="comment-like-count" aria-label="Numero di apprezzamenti">%2$s</span></a></span>',
                     absint( $comment->comment_ID ),
                     esc_html( number_format_i18n( (int) $like_count ) )
                 );
@@ -79,14 +79,51 @@ $comment_count = get_comments_number();
         ?>
     </div>
 
+    <style>
+        #comments .comment-body .reply {
+            align-items: center;
+            display: flex;
+            gap: var(--gap-md);
+        }
+
+        #comments .comment-likes {
+            display: inline-flex;
+            font-size: var(--font-size-sm);
+        }
+
+        #comments .comment-likes a {
+            align-items: center;
+            background: none;
+            border: 0;
+            display: inline-flex;
+            gap: 4px;
+            line-height: 1;
+            text-decoration: none;
+        }
+
+        #comments .comment-likes a:hover,
+        #comments .comment-likes a:focus {
+            color: var(--color-link);
+        }
+
+        #comments .comment-likes svg {
+            fill: currentColor;
+            height: 1em;
+            width: 1em;
+        }
+    </style>
+
     <script>
-        document.querySelectorAll('.like-comment').forEach((button) => {
-            button.addEventListener('click', (event) => {
+        document.querySelectorAll('.comment-likes').forEach((likeLink) => {
+            const replyActions = likeLink.closest('li')?.querySelector('.reply');
+            if (replyActions) replyActions.appendChild(likeLink);
+
+            likeLink.querySelector('.like-comment')?.addEventListener('click', (event) => {
                 event.preventDefault();
                 const parentField = document.getElementById('comment_parent');
                 const postLikeButton = document.getElementById('like-comment-reply');
                 if (!parentField || !postLikeButton) return;
-                parentField.value = button.dataset.commentId;
+                parentField.value = event.currentTarget.dataset.commentId;
                 postLikeButton.click();
             });
         });
