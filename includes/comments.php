@@ -36,6 +36,7 @@ $comment_count = get_comments_number();
 
     <div id="comment-section">
     <?php
+    if ( !empty( $GLOBALS[ 'duechiacchiere_comment_count' ] ) ) {
         echo '<h2>Commenti</h2><ol>';
 
         wp_list_comments( [
@@ -52,6 +53,7 @@ $comment_count = get_comments_number();
         if ( !comments_open() ) {
             echo '<p>I commenti a quest\'articolo sono chiusi.</p>';
         }
+    }
     ?>
     </div>
 
