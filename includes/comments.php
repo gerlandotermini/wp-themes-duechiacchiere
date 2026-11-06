@@ -7,7 +7,7 @@ $comment_count = get_comments_number();
 ?>
 
 <section id="comments" class="comments-area default-max-width">
-    <div id="like-section">
+    <div id="post-like-section">
         <button id="like-comment-reply">Mi piace</button>
         <?php
         $post_likes = get_comments( [ 'type' => 'like', 'post_id' => $GLOBALS[ 'post' ]->ID ] );
@@ -52,7 +52,15 @@ $comment_count = get_comments_number();
                 ] );
 
                 return $comment_text . sprintf(
-                    '<span class="comment-likes"><a class="like-comment" href="#comment-form" data-comment-id="%1$d" aria-label="Mi piace questo commento"><svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M2 10h4v12H2zM22 11a2 2 0 0 0-2-2h-6.3l.95-4.57.03-.32a1 1 0 0 0-.29-.7L13.24 2 6.59 8.65A2 2 0 0 0 6 10v10a2 2 0 0 0 2 2h9a2 2 0 0 0 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73z"/></svg><span class="comment-like-count" aria-label="Numero di apprezzamenti">%2$s</span></a></span>',
+                    '<span class="comment-likes"><a class="like-comment" href="#comment-form" data-comment-id="%1$d" aria-label="Mi piace questo commento">
+                    <svg viewBox="0 0 26 26" fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                    <path d="M7 10v12H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h3Z"/>
+                    <path d="M7 10c3-2 4-5 4-8 2 0 3 1 3 3v3h5a2 2 0 0 1 2 2l-1.5 9a2 2 0 0 1-2 2H7"/>
+                    </svg> <span class="comment-like-count" aria-label="Numero di apprezzamenti">%2$s</span></a></span>',
                     absint( $comment->comment_ID ),
                     esc_html( number_format_i18n( (int) $like_count ) )
                 );
@@ -80,12 +88,7 @@ $comment_count = get_comments_number();
     </div>
 
     <style>
-        #comments .comment-body .reply {
-            align-items: center;
-            display: flex;
-            gap: var(--gap-md);
-        }
-
+        
         #comments .comment-likes {
             display: inline-flex;
             font-size: var(--font-size-sm);
@@ -96,7 +99,7 @@ $comment_count = get_comments_number();
             background: none;
             border: 0;
             display: inline-flex;
-            gap: 4px;
+            gap: var(--gap-xs);
             line-height: 1;
             text-decoration: none;
         }
@@ -107,9 +110,12 @@ $comment_count = get_comments_number();
         }
 
         #comments .comment-likes svg {
-            fill: currentColor;
             height: 1em;
             width: 1em;
+        }
+
+        #comments .comment-likes span {
+
         }
     </style>
 

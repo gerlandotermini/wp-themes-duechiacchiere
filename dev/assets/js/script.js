@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const comment_field = document.getElementById('comment-editor');
         comment_field.style.display = 'block';
 
-        document.getElementById('like-section').style.display = 'block';
+        document.getElementById('post-like-section').style.display = 'block';
         document.getElementById('comment_parent').value = 0;
 
         // Move respond wrapper back to original position at the bottom of comments
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const editor = tinymce.get('comment-editor');
         if (editor) {
           editor.setContent('');
-          editor.focus();
+          // editor.focus();
         }
       });
     }
@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!replyTitle.hasAttribute('data-original-title')) {
           replyTitle.setAttribute('data-original-title', replyTitle.textContent);
         }
-        replyTitle.textContent = "Ti è piaciuto questo post? Dimmi chi sei.";
+        replyTitle.textContent = "Dimmi chi sei";
 
         const replyButton = document.getElementById('comment-submit');
         if (!replyButton.hasAttribute('data-original-value')) {
@@ -276,8 +276,8 @@ document.addEventListener('DOMContentLoaded', () => {
         replyButton.value = 'Mi piace';
 
         document.getElementById('cancel-comment-reply').style.display = 'block';
-        document.getElementById('like-section').style.display = 'none';
-        document.getElementById('like-section').after(document.getElementById('comment-form').parentElement);
+        document.getElementById('post-like-section').style.display = 'none';
+        document.getElementById('post-like-section').after(document.getElementById('comment-form').parentElement);
         document.getElementById('author').focus();
       });
     }
