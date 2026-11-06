@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else e.target.submit();
     });
 
-    // Like button
+    // Post Like button
     const like_comment_reply = document.getElementById('like-comment-reply');
     if (like_comment_reply) {
       addMultiEventListener(like_comment_reply, (e) => {
@@ -282,6 +282,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   }
+
+  // Comment Like button
+  document.querySelectorAll('.comment-likes').forEach((likeLink) => {
+    const replyActions = likeLink.closest('li')?.querySelector('.reply');
+    if (replyActions) replyActions.appendChild(likeLink);
+
+    likeLink.querySelector('.like-comment')?.addEventListener('click', (event) => {
+      event.preventDefault();
+      const parentField = document.getElementById('comment_parent');
+      const postLikeButton = document.getElementById('like-comment-reply');
+      if (!parentField || !postLikeButton) return;
+      parentField.value = event.currentTarget.dataset.commentId;
+      postLikeButton.click();
+    });
+  });
 
   // Populate comment fields from cookies
   if (typeof(duechiacchiere.COOKIEHASH) !== 'undefined') {

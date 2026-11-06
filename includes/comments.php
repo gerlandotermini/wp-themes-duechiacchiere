@@ -35,105 +35,25 @@ $comment_count = get_comments_number();
     </div>
 
     <div id="comment-section">
-        <?php
-        if ( !empty( $GLOBALS[ 'duechiacchiere_comment_count' ] ) ) {
-            echo '<h2>Commenti</h2><ol>';
+    <?php
+        echo '<h2>Commenti</h2><ol>';
 
-            $comment_like_button = function( $comment_text, $comment ) {
-                if ( !$comment instanceof WP_Comment || 'comment' !== $comment->comment_type ) {
-                    return $comment_text;
-                }
+        wp_list_comments( [
+            'avatar_size' => 35,
+            'callback' => array( 'duechiacchiere', 'comment_callback' ),
+            'format' => 'html5',
+            'short_ping' => true,
+            'style' => 'ol',
+            'type' => 'comment'
+        ] );
 
-                $like_count = get_comments( [
-                    'count' => true,
-                    'parent' => $comment->comment_ID,
-                    'status' => 'approve',
-                    'type' => 'like'
-                ] );
+        echo '</ol><!-- .comment-list -->';
 
-                return $comment_text . sprintf(
-                    '<span class="comment-likes"><a class="like-comment" href="#comment-form" data-comment-id="%1$d" aria-label="Mi piace questo commento">
-                    <svg viewBox="0 0 26 26" fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round">
-                    <path d="M7 10v12H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h3Z"/>
-                    <path d="M7 10c3-2 4-5 4-8 2 0 3 1 3 3v3h5a2 2 0 0 1 2 2l-1.5 9a2 2 0 0 1-2 2H7"/>
-                    </svg> <span class="comment-like-count" aria-label="Numero di apprezzamenti">%2$s</span></a></span>',
-                    absint( $comment->comment_ID ),
-                    esc_html( number_format_i18n( (int) $like_count ) )
-                );
-            };
-            add_filter( 'comment_text', $comment_like_button, 20, 2 );
-
-            wp_list_comments( [
-                'avatar_size' => 35,
-                'callback' => array( 'duechiacchiere', 'comment_callback' ),
-                'format' => 'html5',
-                'short_ping' => true,
-                'style' => 'ol',
-                'type' => 'comment'
-            ] );
-
-            remove_filter( 'comment_text', $comment_like_button, 20 );
-
-            echo '</ol><!-- .comment-list -->';
-
-            if ( !comments_open() ) {
-                echo '<p>I commenti a quest\'articolo sono chiusi.</p>';
-            }
+        if ( !comments_open() ) {
+            echo '<p>I commenti a quest\'articolo sono chiusi.</p>';
         }
-        ?>
+    ?>
     </div>
-
-    <style>
-        
-        #comments .comment-likes {
-            display: inline-flex;
-            font-size: var(--font-size-sm);
-        }
-
-        #comments .comment-likes a {
-            align-items: center;
-            background: none;
-            border: 0;
-            display: inline-flex;
-            gap: var(--gap-xs);
-            line-height: 1;
-            text-decoration: none;
-        }
-
-        #comments .comment-likes a:hover,
-        #comments .comment-likes a:focus {
-            color: var(--color-link);
-        }
-
-        #comments .comment-likes svg {
-            height: 1em;
-            width: 1em;
-        }
-
-        #comments .comment-likes span {
-
-        }
-    </style>
-
-    <script>
-        document.querySelectorAll('.comment-likes').forEach((likeLink) => {
-            const replyActions = likeLink.closest('li')?.querySelector('.reply');
-            if (replyActions) replyActions.appendChild(likeLink);
-
-            likeLink.querySelector('.like-comment')?.addEventListener('click', (event) => {
-                event.preventDefault();
-                const parentField = document.getElementById('comment_parent');
-                const postLikeButton = document.getElementById('like-comment-reply');
-                if (!parentField || !postLikeButton) return;
-                parentField.value = event.currentTarget.dataset.commentId;
-                postLikeButton.click();
-            });
-        });
-    </script>
 
     <!-- Respond wrapper -->
     <div id="respond" class="comment-respond">
