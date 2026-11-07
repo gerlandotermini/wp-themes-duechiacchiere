@@ -440,11 +440,6 @@ main {
             display: inline-flex;
             font-size: var(--font-size-sm);
 
-            svg {
-                height: 1em;
-                width: 1em;
-            }
-
             a {
                 align-items: center;
                 background: none;
@@ -453,7 +448,16 @@ main {
                 gap: var(--gap-xs);
                 line-height: 1;
                 text-decoration: none;
-            }
+
+                svg {
+                    height: 1em;
+                    width: 1em;
+                }
+
+                .comment-like-count {
+                    margin-top: 3px;
+                }
+            } 
         }
 
         input, textarea, button, #comment-editor {
