@@ -616,7 +616,8 @@ class duechiacchiere {
 				$like_count = $like_counts[ (int) $comment->comment_ID ] ?? 0;
 
 				printf('<span class="comment-likes"><a class="like-comment" href="#comment-form" data-comment-id="%1$d" aria-label="Mi piace questo commento">
-					<svg viewBox="0 0 24 24"
+					<svg xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
 						width="26"
 						height="26"
 						fill="none"
