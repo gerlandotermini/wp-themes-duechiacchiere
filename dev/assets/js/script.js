@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Reply links
+    const replyTag = document.querySelector('#reply-title');
     document.querySelectorAll('.comment-reply-link').forEach(link => {
       addMultiEventListener(link, (e) => {
         e.preventDefault();
@@ -160,6 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // MOVE the entire respond wrapper after the comment
         const respondWrapper = document.getElementById('respond');
+
+        // Add this class to the H3 for styling purposes
+        if (replyTag) {
+            replyTag.classList.add('is-reply');
+        }
+
         const commentLi = link.closest('li');
         commentLi.appendChild(respondWrapper);
 
@@ -204,6 +211,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Move respond wrapper back to original position at the bottom of comments
         const commentsSection = document.getElementById('comments');
         const respondWrapper = document.getElementById('respond');
+
+        // Remove the class "is-reply" back, for styling purposes
+        if (replyTag) {
+            replyTag.classList.remove('is-reply', 'is-like');
+        }
+
         commentsSection.appendChild(respondWrapper);
 
         // Re-sync TinyMCE content
@@ -268,6 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
           replyTitle.setAttribute('data-original-title', replyTitle.textContent);
         }
         replyTitle.textContent = "Dimmi chi sei";
+        replyTitle.classList.add('is-like');
 
         const replyButton = document.getElementById('comment-submit');
         if (!replyButton.hasAttribute('data-original-value')) {

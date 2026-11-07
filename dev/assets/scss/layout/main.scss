@@ -434,6 +434,15 @@ main {
             @include mixins-variables.media-query( print ) {
                 display: none;
             }
+
+            @include mixins-variables.media-query( mobile ) {
+                #reply-title.is-reply {
+                    margin: var(--gap-lg) 0 45px;
+                }
+                #reply-title.is-like {
+                    margin: var(--gap-lg) 0 0;
+                }
+            }
         }
 
         .comment-likes {
