@@ -687,9 +687,6 @@ class duechiacchiere {
 		// No need to have type defined in the script tag anymore
 		$html = str_replace( array( " type='text/javascript'", ' type="text/javascript"' ), '', $html );
 
-		// ... or trailing slashes in tags
-		$html = preg_replace( '/ ?\/>/', '>', $html );
-
 		if ( strpos( $html, '<pre>' ) !== false ) {
 			// Find the code blocks and put them aside
 			$blocks = preg_split( '/(<\/?pre>)/', $html, null, PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY );
