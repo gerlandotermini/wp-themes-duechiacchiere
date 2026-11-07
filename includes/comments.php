@@ -36,6 +36,13 @@ $comment_count = get_comments_number();
 
     <div id="comment-section">
     <?php
+
+    class Duechiacchiere_Comment_Walker extends Walker_Comment {
+        public function end_el( &$output, $comment, $depth = 0, $args = array() ) {
+            $output .= '</li><!-- #comment-' . absint( $comment->comment_ID ) . " -->\n";
+        }
+    }
+
     if ( !empty( $GLOBALS[ 'duechiacchiere_comment_count' ] ) ) {
         echo '<h2>Commenti</h2><ol>';
 
@@ -45,7 +52,8 @@ $comment_count = get_comments_number();
             'format' => 'html5',
             'short_ping' => true,
             'style' => 'ol',
-            'type' => 'comment'
+            'type' => 'comment',
+            'walker' => new Duechiacchiere_Comment_Walker()
         ] );
 
         echo '</ol><!-- .comment-list -->';

@@ -31,9 +31,9 @@ class duechiacchiere {
 		add_filter( 'wp_should_output_buffer_template_for_enhancement', '__return_false' );
 		add_action( 'wp_enqueue_scripts', function() {
 			if ( ( !defined( 'USE_INLINE_STYLES_SCRIPTS' ) || !USE_INLINE_STYLES_SCRIPTS ) ) {
-				// if ( !self::is_naked_day() ) {
+				if ( !self::is_naked_day() ) {
 					wp_enqueue_style( 'duechiacchiere', get_template_directory_uri() . '/assets/css/style.css', array(), null, 'all' );
-				// }
+				}
 
 				wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/assets/js/script.js', array(), null, true );
 				wp_localize_script( 'duechiacchiere', 'duechiacchiere', array( 'COOKIEHASH' => COOKIEHASH ) );
@@ -67,11 +67,13 @@ class duechiacchiere {
 			} );
 		}
 
-		add_action( 'wp_footer', function () {
-			$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
-			$js = duechiacchiere::compact_js( $js );
-			echo "<script>const duechiacchiere={'COOKIEHASH':'" . COOKIEHASH . "'};$js</script>";
-		} );
+		if ( defined( 'USE_INLINE_STYLES_SCRIPTS' ) && USE_INLINE_STYLES_SCRIPTS ) {
+			add_action( 'wp_footer', function () {
+				$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
+				$js = duechiacchiere::compact_js( $js );
+				echo "<script>const duechiacchiere={'COOKIEHASH':'" . COOKIEHASH . "'};$js</script>";
+			} );
+		}
 
 		// Make the main menu more accessible
 		add_filter( 'walker_nav_menu_start_el', function ( $_item_output, $_item, $_depth, $_args ) {
@@ -312,7 +314,20 @@ class duechiacchiere {
 		add_filter( "admin_comment_types_dropdown", function( $_comment_types ) {
 			$_comment_types[ 'like' ] = 'Mi Piace';
 			return $_comment_types;
-		}, 10, 1 );		
+		}, 10, 1 );
+
+		// Redirect to the right anchor after a comment like event
+		add_filter( 'comment_post_redirect', function( $location, $comment ) {
+			if ( $comment instanceof WP_Comment && 'like' === $comment->comment_type && $comment->comment_parent ) {
+				$parent_comment = get_comment( $comment->comment_parent );
+
+				if ( $parent_comment && 'comment' === $parent_comment->comment_type ) {
+					return get_comment_link( $parent_comment );
+				}
+			}
+
+			return $location;
+		}, 10, 2 );
 
 		// Remove attribute nofollow from comment author link, if present
 		add_filter( 'get_comment_author_link', function( $link, $author, $comment_ID ) {
@@ -519,71 +534,99 @@ class duechiacchiere {
 		return wp_kses_post($dom->saveHTML());
 	}
 
+	// Get all "comment likes" at once, more efficient
+	public static function get_comment_like_counts( $post_id ) {
+		global $wpdb;
+
+		$rows = $wpdb->get_results( $wpdb->prepare(
+			"SELECT comment_parent, COUNT(*) AS like_count
+			FROM {$wpdb->comments}
+			WHERE comment_post_ID = %d
+				AND comment_type = %s
+				AND comment_approved = %s
+				AND comment_parent > 0
+			GROUP BY comment_parent",
+			absint( $post_id ),
+			'like',
+			'1'
+		) );
+
+		$counts = [];
+		foreach ( $rows as $row ) {
+			$counts[ (int) $row->comment_parent ] = (int) $row->like_count;
+		}
+
+		return $counts;
+	}
+
 	// Used in comments.php to customize each comment's structure
 	public static function comment_callback( $comment, $args, $depth ) {
+		static $like_counts = null;
+		static $like_counts_post_id = 0;
+
 		// Don't show pending comments
 		if ( '0' == $comment->comment_approved ) {
 			return '';
 		}
+
+		if ( (int) $comment->comment_post_ID !== $like_counts_post_id ) {
+			$like_counts = self::get_comment_like_counts( $comment->comment_post_ID );
+			$like_counts_post_id = (int) $comment->comment_post_ID;
+		}
 		?>
 
 		<li id="comment-<?php comment_ID(); ?>" <?php comment_class( $args[ 'has_children' ] ? 'parent' : '', $comment ); ?>>
-			<div id="comment-<?php comment_ID(); ?>" class="comment-body">
-				<header class="comment-meta">
-					<div class="comment-author vcard">
-					<?php 
-						if ( 0 != $args[ 'avatar_size' ] ) {
-							echo get_avatar( $comment, $args[ 'avatar_size' ], 'mystery', 'Avatar di ' . $comment->comment_author, array( 'extra_attr' => 'aria-hidden="true"' ) );
-						}
-						
-						echo '<p class="comment-author-name">' . get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span></p>';
-					?>
-					</div>
-
-					<p class="comment-metadata">
-						<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
-							<time datetime="<?php comment_time( 'c' ); ?>">
-								<?php printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() ); ?>
-							</time>
-						</a>
-						<?php edit_comment_link( '[M]', ' <span class="edit-link">', '</span>' ); ?>
-					</p>
-				</header>
-
-				<div class="comment-content">
-					<?php comment_text(); ?>
-				</div>
+			<header class="comment-meta">
+				<div class="comment-author vcard">
+				<?php 
+					if ( 0 != $args[ 'avatar_size' ] ) {
+						echo get_avatar( $comment, $args[ 'avatar_size' ], 'mystery', 'Avatar di ' . $comment->comment_author, array( 'extra_attr' => 'aria-hidden="true"' ) );
+					}
 					
-				<?php
-					echo get_comment_reply_link( array_merge( $args, array(
-						'add_below' => 'div-comment',
-						'depth' => $depth,
-						'max_depth' => $args[ 'max_depth' ],
-						'reply_text' => 'Rispondi',
-						'reply_to_text' => 'Rispondi a %s',
-						'before' => '<div class="reply">',
-						'after' => '</div>'
-					) ) );
-
-					$like_count = get_comments( [
-						'count' => true,
-						'parent' => $comment->comment_ID,
-						'status' => 'approve',
-						'type' => 'like'
-					] );
-
-					printf('<span class="comment-likes"><a class="like-comment" href="#comment-form" data-comment-id="%1$d" aria-label="Mi piace questo commento">
-						<svg viewBox="0 0 26 26" fill="none"
-							stroke="currentColor"
-							stroke-width="1.5"
-							stroke-linecap="round"
-							stroke-linejoin="round">
-						<path d="M7 10v12H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h3Z"/>
-						<path d="M7 10c3-2 4-5 4-8 2 0 3 1 3 3v3h5a2 2 0 0 1 2 2l-1.5 9a2 2 0 0 1-2 2H7"/>
-						</svg> <span class="comment-like-count" aria-label="Numero di apprezzamenti">%2$s</span></a></span>',
-						absint( $comment->comment_ID ),
-						esc_html( number_format_i18n( (int) $like_count ) ) );
+					echo '<p class="comment-author-name">' . get_comment_author_link( $comment ) . ' <span class="says">ha scritto:</span></p>';
 				?>
+				</div>
+
+				<p class="comment-metadata">
+					<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
+						<time datetime="<?php comment_time( 'c' ); ?>">
+							<?php printf( __( '%1$s at %2$s' ), get_comment_date( '', $comment ), get_comment_time() ); ?>
+						</time>
+					</a>
+					<?php edit_comment_link( '[M]', ' <span class="edit-link">', '</span>' ); ?>
+				</p>
+			</header>
+
+			<div class="comment-content">
+				<?php comment_text(); ?>
+			</div>
+			
+			<div class="reply">
+			<?php
+				echo get_comment_reply_link( array_merge( $args, array(
+					'add_below' => 'comment',
+					'depth' => $depth,
+					'max_depth' => $args[ 'max_depth' ],
+					'reply_text' => 'Rispondi',
+					'reply_to_text' => 'Rispondi a %s',
+					'before' => '',
+					'after' => ''
+				) ) );
+
+				$like_count = $like_counts[ (int) $comment->comment_ID ] ?? 0;
+
+				printf('<span class="comment-likes"><a class="like-comment" href="#comment-form" data-comment-id="%1$d" aria-label="Mi piace questo commento">
+					<svg viewBox="0 0 26 26" fill="none"
+						stroke="currentColor"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round">
+					<path d="M7 10v12H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h3Z"/>
+					<path d="M7 10c3-2 4-5 4-8 2 0 3 1 3 3v3h5a2 2 0 0 1 2 2l-1.5 9a2 2 0 0 1-2 2H7"/>
+					</svg> <span class="comment-like-count" aria-label="Numero di apprezzamenti">%2$s</span></a></span>',
+					absint( $comment->comment_ID ),
+					esc_html( number_format_i18n( (int) $like_count ) ) );
+			?>
 			</div>
 
 			<?php
