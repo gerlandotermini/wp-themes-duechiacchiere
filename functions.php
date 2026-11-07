@@ -616,13 +616,16 @@ class duechiacchiere {
 				$like_count = $like_counts[ (int) $comment->comment_ID ] ?? 0;
 
 				printf('<span class="comment-likes"><a class="like-comment" href="#comment-form" data-comment-id="%1$d" aria-label="Mi piace questo commento">
-					<svg viewBox="0 0 26 26" fill="none"
+					<svg viewBox="0 0 24 24"
+						width="26"
+						height="26"
+						fill="none"
 						stroke="currentColor"
 						stroke-width="1.5"
 						stroke-linecap="round"
 						stroke-linejoin="round">
-					<path d="M7 10v12H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h3Z"/>
-					<path d="M7 10c3-2 4-5 4-8 2 0 3 1 3 3v3h5a2 2 0 0 1 2 2l-1.5 9a2 2 0 0 1-2 2H7"/>
+						<path d="M7 10v12H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h3Z"/>
+						<path d="M7 10c3-2 4-5 4-8 2 0 3 1 3 3v3h5a2 2 0 0 1 2 2l-1.5 9a2 2 0 0 1-2 2H7"/>
 					</svg> <span class="comment-like-count" aria-label="Numero di apprezzamenti">%2$s</span></a></span>',
 					absint( $comment->comment_ID ),
 					esc_html( number_format_i18n( (int) $like_count ) ) );
