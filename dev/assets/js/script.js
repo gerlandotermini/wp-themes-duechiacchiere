@@ -780,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       checkStatus();
-      setInterval(checkStatus, 30000);
+      setInterval(checkStatus, 60000);
     }
   }
 
