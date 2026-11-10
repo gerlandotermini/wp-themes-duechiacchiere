@@ -140,10 +140,10 @@
 		<span class="visually-hidden">Torna in cima alla pagina</span>
 	</a>
 
-	<div class="online-ribbon" role="status" aria-live="polite">
+	<a href="/contatto" class="online-ribbon" role="status" aria-live="polite" aria-label="Contattami">
 		<span class="online-dot" aria-hidden="true"></span>
 		<span>Online</span>
-		<span class="visually-hidden">Camu &egrave; collegato al pannello di controllo.</span>
+		<span class="visually-hidden">Camu e online.</span>
 	</div>
 
 	<!-- BEGIN: WP_Footer -->

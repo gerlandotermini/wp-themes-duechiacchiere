@@ -321,7 +321,9 @@ footer {
     font-family: inherit;
     font-weight: 600;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-    pointer-events: none;
+    text-decoration: none;
+    pointer-events: auto;
+    cursor: pointer;
 
     @include mixins-variables.media-query( mobile ) {
         top: 8px;
