@@ -36,7 +36,14 @@ class duechiacchiere {
 				}
 
 				wp_enqueue_script( 'duechiacchiere', get_template_directory_uri() . '/assets/js/script.js', array(), null, true );
-				wp_localize_script( 'duechiacchiere', 'duechiacchiere', array( 'COOKIEHASH' => COOKIEHASH ) );
+				wp_localize_script( 'duechiacchiere', 'duechiacchiere', array(
+					'COOKIEHASH' => COOKIEHASH,
+					'online' => array(
+						'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
+						'canTrack' => current_user_can( 'manage_options' ),
+						'nonce'    => wp_create_nonce( 'dc_online_ping' )
+					)
+				) );
 			}
 
 			// Enable buttons for comments
@@ -65,15 +72,46 @@ class duechiacchiere {
 				$css = file_get_contents( get_template_directory() . '/assets/css/style.css' );
 				echo "<style>$css</style>";
 			} );
-		}
-
-		if ( defined( 'USE_INLINE_STYLES_SCRIPTS' ) && USE_INLINE_STYLES_SCRIPTS ) {
 			add_action( 'wp_footer', function () {
 				$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
 				$js = duechiacchiere::compact_js( $js );
-				echo "<script>const duechiacchiere={'COOKIEHASH':'" . COOKIEHASH . "'};$js</script>";
+
+				$config = array(
+					'COOKIEHASH' => COOKIEHASH,
+					'online' => array(
+						'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
+						'canTrack' => current_user_can( 'manage_options' ),
+						'nonce'    => wp_create_nonce( 'dc_online_ping' )
+					)
+				);
+
+				echo '<script>const duechiacchiere = ' . wp_json_encode( $config ) . ";$js</script>";
 			} );
 		}
+
+		// Script that tracks when I'm logged into the dashboard
+		add_action( 'admin_enqueue_scripts', function() {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+
+			wp_enqueue_script(
+				'duechiacchiere-admin-online',
+				get_template_directory_uri() . '/assets/js/admin-online.js',
+				array(),
+				wp_get_theme()->get( 'Version' ),
+				true
+			);
+
+			wp_localize_script(
+				'duechiacchiere-admin-online',
+				'dcAdminOnline',
+				array(
+					'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+					'nonce'   => wp_create_nonce( 'dc_online_ping' ),
+				)
+			);
+		} );
 
 		// Make the main menu more accessible
 		add_filter( 'walker_nav_menu_start_el', function ( $_item_output, $_item, $_depth, $_args ) {
@@ -501,6 +539,11 @@ class duechiacchiere {
 		// Disable built-in sitemap
 		add_filter( 'wp_sitemaps_enabled', '__return_false' );
 
+		// Online status indicator
+		add_action( 'wp_ajax_dc_online_status', array( __CLASS__, 'online_status' ) );
+		add_action( 'wp_ajax_nopriv_dc_online_status', array( __CLASS__, 'online_status' ) );
+		add_action( 'wp_ajax_dc_online_ping', array( __CLASS__, 'online_ping' ) );
+
 		// Miscellaneous clean up
 		self::_remove_emoji_hooks();
 		self::_remove_wp_headers();
@@ -807,6 +850,33 @@ class duechiacchiere {
 
 		return ( $now >= $start && $now <= $end );
 	}
+
+
+    // -------------------------------------------------------------------------------
+    // Online status indicator
+    // -------------------------------------------------------------------------------
+    public static function online_status() {
+        $last_activity = get_transient( 'dc_online_last_activity' );
+
+        $online = $last_activity &&
+            ( time() - (int) $last_activity <= 10 * MINUTE_IN_SECONDS );
+
+        wp_send_json_success( array(
+            'online' => (bool) $online
+        ) );
+    }
+	public static function online_ping() {
+		check_ajax_referer( 'dc_online_ping', 'nonce' );
+
+		if ( !current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => 'Unauthorized' ), 403 );
+		}
+
+		set_transient( 'dc_online_last_activity', time(), 10 * MINUTE_IN_SECONDS );
+
+		wp_send_json_success();
+	}
+
 
 	private static function _generate_sitemap() {
 		$sitemap_file = '';

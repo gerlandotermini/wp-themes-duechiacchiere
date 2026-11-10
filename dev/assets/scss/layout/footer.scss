@@ -300,3 +300,53 @@ footer {
         display: none;
     }
 }
+
+/* Online Status Ribbon
+-------------------------------------------------------------- */
+.online-ribbon {
+    position: fixed;
+    top: 15px;
+    right: -40px;
+    width: 150px;
+    padding: 5px 0;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transform: rotate(45deg);
+    background: var(--color-link);
+    color: var(--color-bg-container);
+    font-family: inherit;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+
+    @include mixins-variables.media-query( mobile ) {
+        top: 8px;
+        right: -20px;
+        width: 75px;
+        padding: 4px 0;
+        gap: 3px;
+        font-size: 9px;
+        letter-spacing: 0;
+    }
+}
+
+.online-ribbon[hidden] {
+    display: none;
+}
+
+.online-dot {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--color-white);
+    box-shadow: 0 0 5px rgba(71, 140, 83, 0.7);
+
+    @include mixins-variables.media-query( mobile ) {
+        display: none;
+    }
+}

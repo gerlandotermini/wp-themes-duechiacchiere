@@ -712,7 +712,79 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Miscellaneous
+  // 6. Online Status
+  // ----------------------------------------------------------------
+  const onlineConfig = duechiacchiere?.online;
+  const onlineRibbon = document.querySelector('.online-ribbon');
+
+  if (onlineConfig && onlineRibbon) {
+    const ajaxRequest = async (action, data = {}) => {
+      const params = new URLSearchParams({
+        action,
+        ...data
+      });
+
+      const response = await fetch(onlineConfig.ajaxUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: params
+      });
+
+      if (!response.ok) throw new Error('Online status request failed');
+
+      return response.json();
+    };
+
+    // Administrator: report activity
+    if (onlineConfig.canTrack) {
+      let lastPing = 0;
+
+      const ping = () => {
+        if (document.hidden || Date.now() - lastPing < 20000) return;
+
+        lastPing = Date.now();
+
+        ajaxRequest('dc_online_ping', {
+          nonce: onlineConfig.nonce
+        })
+          .then(result => {
+            onlineRibbon.hidden = !result.success;
+          })
+          .catch(error => {
+            onlineRibbon.hidden = true;
+            console.error(error);
+          });
+      };
+
+      ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(event => {
+        document.addEventListener(event, ping, { passive: true });
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) ping();
+      });
+
+      // Register activity on initial page load
+      ping();
+    } else {
+      // Public visitors: check administrator status
+      const checkStatus = async () => {
+        try {
+          const result = await ajaxRequest('dc_online_status');
+          onlineRibbon.hidden = !result.success || !result.data.online;
+        } catch (error) {
+          onlineRibbon.hidden = true;
+        }
+      };
+
+      checkStatus();
+      setInterval(checkStatus, 30000);
+    }
+  }
+
+  // 7. Miscellaneous
   // ----------------------------------------------------------------
   // Open external links in a new tab
   document.querySelectorAll('#main-wrapper a').forEach(link => {

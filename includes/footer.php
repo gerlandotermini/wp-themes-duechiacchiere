@@ -140,6 +140,10 @@
 		<span class="visually-hidden">Torna in cima alla pagina</span>
 	</a>
 
+	<div class="online-ribbon" hidden aria-live="polite">
+		<span class="online-dot"></span> <span>Online</span>
+	</div>
+
 	<!-- BEGIN: WP_Footer -->
 	<?php wp_footer(); ?>
 
