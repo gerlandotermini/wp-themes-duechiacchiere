@@ -716,6 +716,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // ----------------------------------------------------------------
   const onlineConfig = duechiacchiere?.online;
   const onlineRibbon = document.querySelector('.online-ribbon');
+  const screenReaderText = onlineRibbon?.querySelector('.visually-hidden');
+
+  const updateRibbon = (online) => {
+    onlineRibbon.hidden = !online;
+
+    if (screenReaderText) {
+      screenReaderText.textContent = online
+        ? 'Camu e online.'
+        : 'Camu non e attualmente online.'
+    }
+  };
 
   if (onlineConfig && onlineRibbon) {
     const ajaxRequest = async (action, data = {}) => {
@@ -750,10 +761,10 @@ document.addEventListener('DOMContentLoaded', () => {
           nonce: onlineConfig.nonce
         })
           .then(result => {
-            onlineRibbon.hidden = !result.success;
+            updateRibbon(result.success);
           })
           .catch(error => {
-            onlineRibbon.hidden = true;
+            updateRibbon(false);
             console.error(error);
           });
       };
@@ -773,9 +784,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const checkStatus = async () => {
         try {
           const result = await ajaxRequest('dc_online_status');
-          onlineRibbon.hidden = !result.success || !result.data.online;
+          updateRibbon(result.success && result.data.online);
         } catch (error) {
-          onlineRibbon.hidden = true;
+          updateRibbon(false);
         }
       };
 

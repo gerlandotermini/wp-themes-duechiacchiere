@@ -140,8 +140,10 @@
 		<span class="visually-hidden">Torna in cima alla pagina</span>
 	</a>
 
-	<div class="online-ribbon" hidden aria-live="polite">
-		<span class="online-dot"></span> <span>Online</span>
+	<div class="online-ribbon" role="status" aria-live="polite">
+		<span class="online-dot" aria-hidden="true"></span>
+		<span>Online</span>
+		<span class="visually-hidden">Camu &egrave; collegato al pannello di controllo.</span>
 	</div>
 
 	<!-- BEGIN: WP_Footer -->
