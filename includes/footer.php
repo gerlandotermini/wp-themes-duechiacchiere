@@ -140,11 +140,11 @@
 		<span class="visually-hidden">Torna in cima alla pagina</span>
 	</a>
 
-	<a href="/contatto" class="online-ribbon" role="status" aria-live="polite" aria-label="Contattami">
+	<a href="/contatto" class="online-ribbon" role="status" aria-live="polite" aria-label="Contattami" hidden>
 		<span class="online-dot" aria-hidden="true"></span>
 		<span>Online</span>
 		<span class="visually-hidden">Camu e online.</span>
-	</div>
+	</a>
 
 	<!-- BEGIN: WP_Footer -->
 	<?php wp_footer(); ?>

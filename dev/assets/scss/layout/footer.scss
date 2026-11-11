@@ -334,21 +334,22 @@ footer {
         font-size: 9px;
         letter-spacing: 0;
     }
-}
 
-.online-ribbon[hidden] {
-    display: none;
-}
-
-.online-dot {
-    width: 8px;
-    height: 8px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: var(--color-white);
-    box-shadow: 0 0 5px rgba(71, 140, 83, 0.7);
-
-    @include mixins-variables.media-query( mobile ) {
+    &[hidden]{
         display: none;
     }
+
+    .online-dot {
+        width: 8px;
+        height: 8px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: var(--color-white);
+        box-shadow: 0 0 5px rgba(71, 140, 83, 0.7);
+
+        @include mixins-variables.media-query( mobile ) {
+            display: none;
+        }
+    }
 }
+
