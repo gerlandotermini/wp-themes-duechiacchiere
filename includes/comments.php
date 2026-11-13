@@ -10,7 +10,11 @@ $comment_count = get_comments_number();
     <div id="post-like-section">
         <button id="like-comment-reply">Mi piace</button>
         <?php
-        $post_likes = get_comments( [ 'type' => 'like', 'post_id' => $GLOBALS[ 'post' ]->ID ] );
+        $post_likes = get_comments( [
+            'type'   => 'like',
+            'post_id' => $GLOBALS['post']->ID,
+            'parent' => 0,
+        ] );
         if ( !empty( $post_likes ) ) {
             echo '<h2 class="visually-hidden">Piace a</h2><ol>';
             $like_authors = [];
