@@ -74,7 +74,7 @@ class duechiacchiere {
 			} );
 			add_action( 'wp_footer', function () {
 				$js = file_get_contents( get_template_directory() . '/assets/js/script.js' );
-				$js = duechiacchiere::compact_js( $js );
+				$js = self::compact_js( $js );
 
 				$config = array(
 					'COOKIEHASH' => COOKIEHASH,
@@ -256,7 +256,7 @@ class duechiacchiere {
 				$permalink_path = '/' . $permalink[ 1 ];
 
 				// Delete this post from the cache
-				duechiacchiere::delete_from_cache( $permalink_path );
+				self::delete_from_cache( $permalink_path );
 			}
 
 			// Sitemap
@@ -275,14 +275,14 @@ class duechiacchiere {
 			// Delete cached version of this page (footer will regenerate it) and refresh homepage
 			if ( !empty( $commentdata[ 'comment_post_ID' ] ) && $comment_approved ) {
 				$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
-				duechiacchiere::delete_from_cache( $permalink_path );
+				self::delete_from_cache( $permalink_path );
 			}
 		}, 10, 3 );
 		add_action( 'edit_comment', function( $comment_id = 0, $commentdata = array() ) {
 			// Delete cached version of this page (footer will regenerate it) and refresh homepage
 			if ( !empty( $commentdata[ 'comment_post_ID' ] ) ) {
 				$permalink_path = str_replace( home_url(), '', get_permalink( $commentdata[ 'comment_post_ID' ] ) );
-				duechiacchiere::delete_from_cache( $permalink_path );
+				self::delete_from_cache( $permalink_path );
 				self::$comment_edited = true;
 			}
 		}, 10, 2 );
@@ -295,7 +295,7 @@ class duechiacchiere {
 			$permalink_path = str_replace( home_url(), '', get_permalink( $comment->comment_post_ID ) );
 
 			// Delete the old version from the cache
-			duechiacchiere::delete_from_cache( $permalink_path );
+			self::delete_from_cache( $permalink_path );
 		}, 10, 3 );
 
 		// Cache Gravatars
@@ -426,6 +426,17 @@ class duechiacchiere {
 		} );
 
 		add_action( 'wp_login', function( $_user_login, $_user ) {
+
+			self::security_send_alert(
+				'Successful WordPress login',
+				[
+					'Username' => $_user_login,
+					'User ID'  => $_user->ID,
+					'Email'    => $_user->user_email,
+					'Roles'    => implode( ', ', $_user->roles ),
+				]
+			);
+
 			// Only administrators
 			if ( !in_array( 'administrator', (array) $_user->roles ) ) {
 				return;
@@ -467,7 +478,63 @@ class duechiacchiere {
 					'post_status'   => 'future'
 				) );
 			}
+
+			
 		}, 10, 2 );
+
+		add_action( 'wp_login_failed', function( $username, $error ) {
+			$uri = $_SERVER['REQUEST_URI'] ?? '';
+
+			// Only monitor normal WordPress login and XML-RPC authentication.
+			if (
+				! preg_match( '~(?:wp-login\.php|xmlrpc\.php)~i', $uri )
+			) {
+				return;
+			}
+
+			$ip = $_SERVER['REMOTE_ADDR'] ?? 'Unknown';
+
+			// Suppress repeated failures from the same IP and username for 5 minutes.
+			$key = 'duechiac_login_fail_' . md5(
+				strtolower( $username ) . '|' . $ip
+			);
+
+			if ( get_transient( $key ) ) {
+				return;
+			}
+
+			set_transient( $key, true, 5 * MINUTE_IN_SECONDS );
+
+			$codes = is_wp_error( $error )
+				? implode( ', ', $error->get_error_codes() )
+				: 'Unknown';
+
+			$event = stripos( $uri, 'xmlrpc.php' ) !== false
+				? 'Failed XML-RPC authentication'
+				: 'Failed WordPress login';
+
+			self::security_send_alert(
+				$event,
+				[
+					'Attempted username' => sanitize_text_field( $username ),
+					'Authentication error' => $codes,
+				]
+			);
+		}, 10, 2 );
+
+        add_action( 'xmlrpc_call', function( $method, $args, $server ) {
+			$user = wp_get_current_user();
+
+			self::security_send_alert(
+				'Authenticated XML-RPC method invoked',
+				[
+					'Username' => $user->user_login,
+					'User ID'  => $user->ID,
+					'Roles'    => implode( ', ', $user->roles ),
+					'XML-RPC method' => $method,
+				]
+			);
+		}, 10, 3 );
 
 		// Customize the TinyMCE Editor
 		add_filter( 'mce_external_plugins', function( $_plugin_array ) {
@@ -817,15 +884,15 @@ class duechiacchiere {
 		// 	mkdir( dirname( $target ), 0755, true );
 		// }
 
-		file_put_contents( duechiacchiere::get_cache_path( $_SERVER[ 'REQUEST_URI' ] ), $html . '<!--' . date( DATE_RFC2822 ) . '-->' );
+		file_put_contents( self::get_cache_path( $_SERVER[ 'REQUEST_URI' ] ), $html . '<!--' . date( DATE_RFC2822 ) . '-->' );
 	}
 
 	// Delete a page from the cache and refresh the homepage
 	public static function delete_from_cache( $permalink_path = '' ) {
-		@unlink( duechiacchiere::get_cache_path( $permalink_path ) );
+		@unlink( self::get_cache_path( $permalink_path ) );
 
 		// Refresh the homepage, just in case this post is listed there as well
-		@unlink( duechiacchiere::get_cache_path( '/' ) );
+		@unlink( self::get_cache_path( '/' ) );
 	}
 
 	public static function first_post_image( $post_content ) {
@@ -852,9 +919,9 @@ class duechiacchiere {
 	}
 
 
-    // -------------------------------------------------------------------------------
-    // Online status indicator
-    // -------------------------------------------------------------------------------
+    /**
+	 * Online status indicator
+	 */
     public static function online_status() {
         $last_activity = get_transient( 'dc_online_last_activity' );
 
@@ -875,6 +942,82 @@ class duechiacchiere {
 		set_transient( 'dc_online_last_activity', time(), 10 * MINUTE_IN_SECONDS );
 
 		wp_send_json_success();
+	}
+
+	public static function security_request_info() {
+
+		$ip = $_SERVER['REMOTE_ADDR'] ?? 'Unknown';
+		$hostname = 'Unavailable';
+
+		if ( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
+
+			// Cache reverse DNS results for 24 hours.
+			$cache_key = 'duechiac_rdns_' . md5( $ip );
+			$cached = get_transient( $cache_key );
+
+			if ( false !== $cached ) {
+				$hostname = $cached;
+			} else {
+				$resolved = gethostbyaddr( $ip );
+
+				$hostname = (
+					$resolved && $resolved !== $ip
+				) ? $resolved : 'No reverse DNS record';
+
+				set_transient( $cache_key, $hostname, DAY_IN_SECONDS );
+			}
+		}
+
+		return [
+			'ip'        => $ip,
+			'hostname'  => $hostname,
+			'date'      => wp_date( 'Y-m-d H:i:s T' ),
+			'user_agent'=> sanitize_text_field(
+				$_SERVER['HTTP_USER_AGENT'] ?? 'Unknown'
+			),
+			'uri'       => sanitize_text_field(
+				$_SERVER['REQUEST_URI'] ?? 'Unknown'
+			),
+			'method'    => sanitize_text_field(
+				$_SERVER['REQUEST_METHOD'] ?? 'Unknown'
+			),
+			'referrer'  => esc_url_raw(
+				$_SERVER['HTTP_REFERER'] ?? ''
+			),
+		];
+	}
+
+
+	/**
+	 * Send a security notification email.
+	 */
+	public static function security_send_alert( $subject, $details ) {
+
+		$info = self::security_request_info();
+
+		$lines = [
+			'Website: ' . get_site_url(),
+			'Event: ' . $subject,
+			'Date: ' . $info['date'],
+			'',
+			'IP address: ' . $info['ip'],
+			'Hostname (reverse DNS): ' . $info['hostname'],
+			'Request: ' . $info['method'] . ' ' . $info['uri'],
+			'User agent: ' . $info['user_agent'],
+			'Referrer: ' . ( $info['referrer'] ?: 'None' ),
+			'',
+			'Details:',
+		];
+
+		foreach ( $details as $label => $value ) {
+			$lines[] = $label . ': ' . $value;
+		}
+
+		wp_mail(
+			get_option( 'admin_email' ),
+			'[Security Alert] ' . $subject,
+			implode( "\n", $lines )
+		);
 	}
 
 
