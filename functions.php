@@ -348,6 +348,25 @@ class duechiacchiere {
 			return $approved;	
 		} , '99', 2 );
 
+		// Disable REST API user enumeration
+		add_filter( 'rest_endpoints', function( $endpoints ) {
+			unset( $endpoints['/wp/v2/users'] );
+			unset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+
+			return $endpoints;
+		}, 99 );
+
+		// Disable user archives
+		add_action( 'template_redirect', function() {
+			if ( is_author() ) {
+				global $wp_query;
+
+				$wp_query->set_404();
+				status_header( 404 );
+				nocache_headers();
+			}
+		});
+
 		// Add support for Likes to the admin
 		add_filter( "admin_comment_types_dropdown", function( $_comment_types ) {
 			$_comment_types[ 'like' ] = 'Mi Piace';

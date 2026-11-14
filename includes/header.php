@@ -345,7 +345,6 @@
 
 	<!-- BEGIN: Editorial info -->
 	<title><?= $og_meta[ 'title' ]; ?></title>
-	<meta name="author" content="camu">
 <?php
 	if ( !empty( $og_meta[ 'description' ] ) ) {
 		echo '<meta name="description" content="' . $og_meta[ 'description' ] . '">' . "\n";
