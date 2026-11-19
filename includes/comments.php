@@ -96,7 +96,6 @@ $comment_count = get_comments_number();
                 <label for="url">Sito Web</label>
                 <input id="url" name="url" type="text" value="" size="25" maxlength="200">
             </p>
-            <?php endif; ?>
 
             <p class="comment-form-cookies-consent">
                 <input id="wp-comment-cookies-consent"
@@ -108,6 +107,9 @@ $comment_count = get_comments_number();
                     Ricorda i miei dati per la prossima volta.
                 </label>
             </p>
+            <?php endif; ?>
+
+            
             <input type="hidden" name="comment_post_ID" value="<?php the_ID(); ?>" id="comment_post_ID">
             <input type="hidden" name="comment_parent" id="comment_parent" value="0">
 
