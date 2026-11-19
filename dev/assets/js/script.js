@@ -60,10 +60,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 3. Comments
   // ----------------------------------------------------------------
+  function focusCommentEditor() {
+    if (window.location.hash !== '#comment') return;
+
+    const editor = tinymce.get('comment-editor');
+
+    if (!editor || !editor.initialized) return;
+
+    editor.getElement().scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+
+    editor.focus();
+  }
+
   if (document.body.classList.contains('single')) {
 
     if (typeof tinymce !== 'undefined') {
       const fontFamily = getComputedStyle(document.documentElement).getPropertyValue('--body-font-family').trim();
+
+      // Handle direct page loads with #comment.
+      tinymce.on('AddEditor', function(event) {
+        if (event.editor.id === 'comment-editor') {
+          event.editor.on('init', focusCommentEditor);
+        }
+      });
+
+      // Handle clicks or browser navigation that change the hash.
+      window.addEventListener('hashchange', focusCommentEditor);
+
+      // Handle clicks on links, including repeated clicks on the same hash.
+      document.querySelectorAll('a[href$="#comment"]').forEach(link => {
+        link.addEventListener('click', () => {
+          requestAnimationFrame(focusCommentEditor);
+        });
+      });
 
       tinymce.init({
         selector: '#comment-editor',

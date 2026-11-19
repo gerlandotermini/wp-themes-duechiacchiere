@@ -74,12 +74,20 @@ $comment_count = get_comments_number();
         <h2 id="reply-title" class="comment-reply-title" data-original-title="Dimmi la tua">Dimmi la tua</h2>
         <form action="<?php echo esc_url( site_url( 'wp-comments-post.php' ) ); ?>" method="post" id="comment-form" class="comment-form">
             
-            <p class="comment-form-comment">
-                <label for="comment-editor" class="visually-hidden">Commento</label>
-				<div id="comment-editor-toolbar"></div>
-                <div id="comment-editor" contenteditable="true" class="comment-editor" style="border:1px solid #000"></div>
+            <div class="comment-form-comment">
+                <span id="comment-label" class="visually-hidden">Commento</span>
+
+                <div id="comment-editor-toolbar"></div>
+
+                <div id="comment-editor"
+                    contenteditable="true"
+                    role="textbox"
+                    aria-multiline="true"
+                    aria-labelledby="comment-label"
+                    class="comment-editor"></div>
+
                 <textarea id="comment" name="comment" style="display:none;"></textarea>
-            </p>
+            </div>
 
             <?php if ( ! is_user_logged_in() ) : ?>
             <p class="comment-form-author">

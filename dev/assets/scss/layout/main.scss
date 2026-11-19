@@ -494,22 +494,30 @@ main {
             gap: 2%;
             margin-bottom: var(--gap-lg);
 
+            .comment-form-cookies-consent {
+                flex-direction: row;
+            }
+
+            .comment-form-author, .comment-form-email {
+                width: 49%;
+            }
+
+            .comment-form-comment {
+                display: flex;
+                flex-direction: column;
+                margin: 5px 0;
+                position: relative;
+                width: 100%;
+            }
+
             p {
                 display: flex;
                 flex-direction: column;
                 margin: 5px 0;
                 width: 100%;
-
-                &.comment-form-cookies-consent {
-                    flex-direction: row;
-                }
-
-                &.comment-form-author, &.comment-form-email {
-                    width: 49%;
-                }
             }
             
-            #comment-editor, .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
+            .comment-form-url, .comment-form-subscriptions, .comment-form-manage {
                 width: 100%;
             }
 
@@ -525,7 +533,7 @@ main {
             }
             #comment-editor-toolbar {
                 margin-top: -45px;
-                position: relative;
+                position: absolute;
                 width: 100%;
                 z-index: 100;
 
@@ -559,6 +567,7 @@ main {
             }
             #comment-editor {
                 min-height: 200px;
+                width: 100%;
                 border: var(--border) var(--color-border) !important;
 
                 p {
