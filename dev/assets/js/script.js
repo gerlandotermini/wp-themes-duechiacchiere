@@ -30,28 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     element.addEventListener('touchend', (e) => e.preventDefault());
   };
 
-  const getCookie = (name) => {
-    const value = '; ' + document.cookie;
-    const parts = value.split('; ' + name + '=');
-    if (parts.length === 2) return decodeURIComponent(parts.pop().split(';').shift());
-    return '';
-  };
-
-  const isVisible = (el) => {
-    if (!el) return false;
-
-    const style = getComputedStyle(el);
-    const rect = el.getBoundingClientRect();
-
-    return (
-      style.display !== 'none' &&
-      style.visibility !== 'hidden' &&
-      style.opacity !== '0' &&
-      rect.width > 0 &&
-      rect.height > 0
-    );
-  };
-
   const cssVar = (name) =>
     getComputedStyle(document.documentElement)
       .getPropertyValue(name)
@@ -102,22 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link_title: false,
         target_list: false,
         anchor_top: false,
-        anchor_bottom: false,
-
-        setup: function(editor) {
-          // --- Sync content on submit ---
-          const form = document.getElementById('comment-form');
-          form.addEventListener('submit', function(e) {
-            const content = editor.getContent({format:'text'}).trim();
-            if (!content) {
-              e.preventDefault();
-              alert('Per favore, inserisci un commento.');
-              editor.focus();
-            } else {
-              document.getElementById('comment').value = editor.getContent();
-            }
-          });
-        }
+        anchor_bottom: false
       });
     }
 
@@ -228,40 +191,58 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Sync editor content on submit
+    // Comment form
     const commentForm = document.getElementById('comment-form');
+
     if (commentForm) {
-      commentForm.addEventListener('submit', function(e) {
-        const editor = tinymce.get('comment-editor');
-        if (editor) {
-          const content = editor.getContent({format:'text'}).trim();
-          if (content) {
-            // Sync to hidden textarea
-            document.getElementById('comment').value = editor.getContent();
-          }
-        }
-      });
+
+        // Sync editor content on submit
+        commentForm.addEventListener('submit', (e) => {
+            const editor = tinymce.get('comment-editor');
+
+            if (editor) {
+                const content = editor.getContent({ format: 'text' }).trim();
+
+                if (!content) {
+                    e.preventDefault();
+                    alert('Per favore, inserisci un commento.');
+                    editor.focus();
+                    return;
+                }
+
+                document.getElementById('comment').value = editor.getContent();
+            }
+        });
+
+        // Form validation
+        commentForm.addEventListener('submit', (e) => {
+
+            if (e.defaultPrevented) return;
+
+            e.preventDefault();
+
+            const requiredFields = commentForm.querySelectorAll('[required]');
+            const emailField = commentForm.querySelector('#email');
+
+            const isValid =
+                [...requiredFields].every(field => field.value.trim() !== '') &&
+                (!emailField || emailField.checkValidity());
+
+            if (!isValid) {
+                const submitButton = document.getElementById('comment-submit');
+
+                submitButton.classList.add('shake');
+
+                setTimeout(() => {
+                    submitButton.classList.remove('shake');
+                }, 500);
+
+                return;
+            }
+
+            commentForm.submit();
+        });
     }
-
-    // Form validation
-    document.getElementById('comment-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      let submitForm = true;
-
-      e.target.querySelectorAll('[required]').forEach(node => {
-        submitForm = submitForm && (node.value.trim() != '');
-      });
-
-      const emailField = e.target.querySelector('#email');
-      if (emailField && !emailField.value.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-        submitForm = false;
-      }
-
-      if (!submitForm) {
-        document.getElementById('comment-submit').classList.add('shake');
-        setTimeout(() => document.getElementById('comment-submit').classList.remove('shake'), 500);
-      } else e.target.submit();
-    });
 
     // Post Like button
     const like_comment_reply = document.getElementById('like-comment-reply');
@@ -313,10 +294,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Populate comment fields from cookies
-  if (typeof(duechiacchiere.COOKIEHASH) !== 'undefined') {
-    if (document.getElementById('author')) document.getElementById('author').value = getCookie('comment_author_' + duechiacchiere.COOKIEHASH);
-    if (document.getElementById('email')) document.getElementById('email').value = getCookie('comment_author_email_' + duechiacchiere.COOKIEHASH);
-    if (document.getElementById('url')) document.getElementById('url').value = getCookie('comment_author_url_' + duechiacchiere.COOKIEHASH);
+  if (duechiacchiere?.COOKIEHASH) {
+      const hash = duechiacchiere.COOKIEHASH;
+
+      const fields = {
+          author: `comment_author_${hash}`,
+          email: `comment_author_email_${hash}`,
+          url: `comment_author_url_${hash}`
+      };
+
+      Object.entries(fields).forEach(([field, cookieName]) => {
+          const input = document.getElementById(field);
+          if (!input) return;
+
+          const cookie = document.cookie
+              .split(';')
+              .map(cookie => cookie.trim())
+              .find(cookie => cookie.startsWith(`${cookieName}=`));
+
+          if (cookie) {
+              input.value = decodeURIComponent(
+                  cookie.substring(cookieName.length + 1)
+              );
+          }
+      });
   }
 
   // 4. Menu (mobile-first, breakpoint-aware)

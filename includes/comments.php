@@ -98,7 +98,16 @@ $comment_count = get_comments_number();
             </p>
             <?php endif; ?>
 
-            <input type="hidden" value="1" name="wp-comment-cookies-consent">
+            <p class="comment-form-cookies-consent">
+                <input id="wp-comment-cookies-consent"
+                    name="wp-comment-cookies-consent"
+                    type="checkbox"
+                    value="yes"
+                    checked>
+                <label for="wp-comment-cookies-consent">
+                    Ricorda i miei dati per la prossima volta.
+                </label>
+            </p>
             <input type="hidden" name="comment_post_ID" value="<?php the_ID(); ?>" id="comment_post_ID">
             <input type="hidden" name="comment_parent" id="comment_parent" value="0">
 
