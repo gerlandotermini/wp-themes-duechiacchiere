@@ -225,6 +225,14 @@ main {
                 position: relative;
                 bottom: 0;
             }
+            .splide__arrow{
+                top: 45%;
+
+                @include mixins-variables.media-query( mobile ) {
+                    top: 30%;
+                }
+            }
+            
 
             // Abbreviations
             abbr {
@@ -496,6 +504,12 @@ main {
 
             .comment-form-cookies-consent {
                 flex-direction: row;
+                align-items: baseline;
+
+                label {
+                    line-height: 1.3rem;
+                    margin-top: var(--gap-sm);
+                }
             }
 
             .comment-form-author, .comment-form-email {
